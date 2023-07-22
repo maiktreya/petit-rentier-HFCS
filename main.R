@@ -13,13 +13,14 @@ dt_eff[young != 1]$young  <- 2 #set unassigned to non-worker
 setnames(
         dt_eff,
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
-        new = c("class", "class_alt", "homeowner", "mainres_val")
+        new = c("class", "worker", "homeowner", "mainres_val")
 )
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
 dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "manager", "retired", "inactive"))
-dt_eff$class_alt <- factor(dt_eff$class_alt, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
+dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
+
 ##################################### SURVEY ANALYSYS #############################################
 # AGE CLUSTER bage
 # CLASS nsitlabdom and p6_81 (class binary)
@@ -35,13 +36,13 @@ sv_eff <- svydesign(
         weights = ~ dt_eff$facine3
 )
 # MODEL REAL ASSETS VALUE
-test1 <- svyglm(actreales ~ class_alt + young + sex + renthog, design = sv_eff, family = "gaussian")
+test1 <- svyglm(actreales ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # LOGISTIC MODEL HOMEOWNERSHIP
-test2 <- svyglm(homeowner ~  class_alt + young + sex + renthog, design = sv_eff, family = "binomial")
+test2 <- svyglm(homeowner ~  worker + young + sex + renthog, design = sv_eff, family = "binomial")
 
 # QUANTITATIVE MODEL HOMEOWNERSHIP (VALUE OF MAIN RESIDENCE)
-test3 <- svyglm(mainres_val ~ class_alt + young + sex + renthog, design = sv_eff, family = "gaussian")
+test3 <- svyglm(mainres_val ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # PREVIEW PRELIMINARY RESULTS
 test1 %>%
