@@ -40,12 +40,13 @@ sv_eff <- svydesign(
 test1 <- svyglm(actreales ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # LOGISTIC MODEL HOMEOWNERSHIP
-test2 <- svyglm(homeowner ~ worker + young + sex + renthog, design = sv_eff, family = "binomial")
+test2 <- svyglm(homeowner ~ worker + young + sex + renthog, design = sv_eff, family = "quasibinomial")
 
 # QUANTITATIVE MODEL HOMEOWNERSHIP (VALUE OF MAIN RESIDENCE)
 test3 <- svyglm(mainres_val ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # PREVIEW PRELIMINARY RESULTS
+sink("output/test.txt")
 test1 %>%
         summary() %>%
         print()
@@ -55,3 +56,4 @@ test2 %>%
 test3 %>%
         summary() %>%
         print()
+sink()
