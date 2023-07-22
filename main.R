@@ -7,14 +7,16 @@ c("magrittr", "survey", "data.table") %>% sapply(library, character.only = T)
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999) # default cuts for estimated proportions
 sel_year <- 2020 # selected survey year
 dt_eff <- paste0(".datasets/", sel_year, "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
+dt_eff[is.na(p6_81)]$p6_81  <- 2 #set unassigned to non-worker
 setnames(
         dt_eff,
-        old = c("nsitlabdom", "np2_1", "np2_5"),
-        new = c("class", "homeowner", "mainres_val")
+        old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
+        new = c("class", "class_alt", "homeowner", "mainres_val")
 )
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
+dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
 dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "manager", "retired", "inactive"))
-dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"), ordered = F)
+dt_eff$class_alt <- factor(dt_eff$class_alt, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 ##################################### SURVEY ANALYSYS #############################################
 # AGE CLUSTER bage
 # CLASS nsitlabdom and p6_81 (class binary)
@@ -30,13 +32,13 @@ sv_eff <- svydesign(
         weights = ~ dt_eff$facine3
 )
 # MODEL REAL ASSETS VALUE
-test1 <- svyglm(actreales ~ 0 + bage + class + sex + renthog, design = sv_eff)
+test1 <- svyglm(actreales ~ 0 + class_alt + bage + sex + renthog, design = sv_eff)
 
 # LOGISTIC MODEL HOMEOWNERSHIP
-test2 <- svyglm(homeowner ~ bage + class + sex + renthog, design = sv_eff)
+test2 <- svyglm(homeowner ~  0 + class_alt + bage + sex + renthog, design = sv_eff)
 
 # QUANTITATIVE MODEL HOMEOWNERSHIP (VALUE OF MAIN RESIDENCE)
-test3 <- svyglm(mainres_val ~ bage + class + sex + renthog, design = sv_eff)
+test3 <- svyglm(mainres_val ~  0 + class_alt + bage + sex + renthog, design = sv_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 test1 %>%
