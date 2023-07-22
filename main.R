@@ -7,9 +7,9 @@ c("magrittr", "survey", "data.table") %>% sapply(library, character.only = T)
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999) # default cuts for estimated proportions
 sel_year <- 2020 # selected survey year
 dt_eff <- paste0(".datasets/", sel_year, "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
-dt_eff[is.na(p6_81)]$p6_81  <- 2 #set unassigned to non-worker
+dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
 dt_eff$young <- dt_eff$bage
-dt_eff[young != 1]$young  <- 2 #set unassigned to non-worker
+dt_eff[young != 1]$young <- 2 # set unassigned to non-worker
 setnames(
         dt_eff,
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
@@ -39,7 +39,7 @@ sv_eff <- svydesign(
 test1 <- svyglm(actreales ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # LOGISTIC MODEL HOMEOWNERSHIP
-test2 <- svyglm(homeowner ~  worker + young + sex + renthog, design = sv_eff, family = "binomial")
+test2 <- svyglm(homeowner ~ worker + young + sex + renthog, design = sv_eff, family = "binomial")
 
 # QUANTITATIVE MODEL HOMEOWNERSHIP (VALUE OF MAIN RESIDENCE)
 test3 <- svyglm(mainres_val ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
