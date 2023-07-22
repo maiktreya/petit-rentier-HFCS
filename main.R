@@ -9,7 +9,7 @@ sel_year <- 2020 # selected survey year
 dt_eff <- paste0(".datasets/", sel_year, "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
 dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
 dt_eff$young <- dt_eff$bage
-dt_eff[young != 1]$young <- 2 # set unassigned to non-worker
+dt_eff[young != 1]$young <- 2 # set above 35 to non-young
 setnames(
         dt_eff,
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
