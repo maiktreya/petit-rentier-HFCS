@@ -3,8 +3,8 @@ gbm(formula = homeowner ~ sex + bage + renthog + class, distribution = "bernoull
 A gradient boosted model with bernoulli loss function.
 500 iterations were performed.
 There were 4 predictors of which 4 had non-zero influence.
-            var   rel.inf
-renthog renthog 58.127547
-bage       bage 33.753424
-class     class  7.056595
-sex         sex  1.062435
+            var    rel.inf
+renthog renthog 60.7798626
+bage       bage 31.7659087
+class     class  6.8663953
+sex         sex  0.5878334

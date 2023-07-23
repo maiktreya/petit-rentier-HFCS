@@ -22,7 +22,7 @@ dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("w
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
-##################################### SURVEY ANALYSYS #############################################
+##################################### GRADIENT BOOSTING (STEP 1) #############################################
 
 # Load the gbm package
 library(gbm)
@@ -35,9 +35,28 @@ test1 <- gbm(homeowner ~ sex + bage + renthog + class,,
              data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3)
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_gradient-boost.txt")
+sink("output/gradient-boost/test_gradient-boost.txt")
 test1 %>% print()
 test1 %>%
         summary() %>%
         print()
 sink()
+
+############################# LOCAL INTERPRETABLE MODEL AGNOSTIC (STEP 2) #####################################
+# Load the necessary packages
+library(lime)
+
+# Subset the data to only include the variables used in the model
+dt_eff_subset <- dt_eff[, c("homeowner", "sex", "bage", "renthog", "class")]
+
+# Create an explainer object
+explainer <- lime(dt_eff_subset, test1, n_features = 5)
+
+# Select an observation to explain
+observation <- 1
+
+# Explain the observation
+explanation <- explain(explainer$model, dt_eff_subset[observation, ])
+
+# Print the explanation
+print(explanation)
