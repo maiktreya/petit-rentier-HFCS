@@ -28,8 +28,17 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(randomForest)
 
 # Fit a random forest
-model <- randomForest(as.factor(homeownership) ~ gender + age + income + class,
+test1 <- randomForest(homeowner ~ sex + bage + renthog + class,
                       data = dt_eff, ntree = 500, weights = dt_eff$facine3)
 
+# PREVIEW PRELIMINARY RESULTS
+
+sink("output/test_random-forest.txt")
+test1 %>%
+        summary() %>%
+        print()
+
 # Check variable importance
-importance(model)
+test1 %>% importance() %>% print()
+
+sink()

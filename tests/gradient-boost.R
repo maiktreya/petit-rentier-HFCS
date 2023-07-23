@@ -28,11 +28,15 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(gbm)
 
 # Convert homeownership to a binary 0/1 variable (required for gbm)
-dt_eff$homeownership_binary <- ifelse(dt_eff$homeownership == "Homeowner", 1, 0)
+dt_eff$homeowner<- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
 
 # Fit a boosting model
-model <- gbm(homeownership_binary ~ gender + age + income + class,
+test1 <- gbm(homeowner ~ sex + bage + renthog + class,,
              data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3)
 
-# Check variable importance
-summary(model)
+# PREVIEW PRELIMINARY RESULTS
+sink("output/test_gradient-boost.txt")
+test1 %>%
+        summary() %>%
+        print()
+sink()

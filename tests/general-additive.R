@@ -28,5 +28,12 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(mgcv)
 
 # Fit a GAM
-model <- gam(homeownership ~ gender + age + s(income) + class,
-             data = your_data, family = binomial(link = "logit"))
+test1 <- gam(homeowner ~ sex + bage + s(renthog) + class,
+             data = dt_eff, family = binomial(link = "logit"))
+
+# PREVIEW PRELIMINARY RESULTS
+sink("output/test_gam.txt")
+test1 %>%
+        summary() %>%
+        print()
+sink()

@@ -1,12 +1,18 @@
-# Install and load the package
-if(!"rif" %in% installed.packages()[,"Package"]) install.packages("rif")
-library(rif)
 
-# Convert dt_eff to a data.frame for compatibility with RIFreg
-df_eff <- as.data.frame(dt_eff)
+########################################## RIF METHOD  LIBRARY DINEQ ################################################
 
-# Replicate each row of df_eff according to its weight
-df_eff_weighted <- df_eff[rep(seq_len(nrow(df_eff)), dt_eff$facine3),]
+###  Recentered Influence Function EXAMPLE ###
+library(dineq)
 
-# Now you can use df_eff_weighted with RIFreg:
-rif_test1 <- RIFreg(actreales ~ worker + young + sex + renthog, data = df_eff_weighted, type = "q", tau = 0.5)
+# Generate income and education data
+set.seed(123)
+data <- data.frame(income = rnorm(1000, mean = 50, sd = 10), education = rnorm(1000, mean = 3, sd = 1))
+
+# Calculate the RIF for the Gini coefficient
+data$RIF_income <- rif(data$income)
+
+# Run regression analysis using the calculated RIF as the dependent variable
+model <- lm(RIF_income ~ education, data = data)
+
+# View model summary
+summary(model)

@@ -1,0 +1,23 @@
+
+Call:
+lm(formula = RIF_income ~ bage, data = dt_eff)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-37717 -35203  31751  34265  45441 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    25699       2123  12.106  < 2e-16 ***
+bage35-44       8859       2422   3.658 0.000256 ***
+bage45-54      11176       2315   4.828 1.41e-06 ***
+bage54-65      13690       2310   5.926 3.26e-09 ***
+bage65-75      12454       2344   5.313 1.11e-07 ***
+bage75          8434       2366   3.565 0.000366 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 34620 on 6307 degrees of freedom
+Multiple R-squared:  0.00736,	Adjusted R-squared:  0.006573 
+F-statistic: 9.353 on 5 and 6307 DF,  p-value: 6.848e-09
+
