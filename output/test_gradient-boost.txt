@@ -1,0 +1,10 @@
+gbm(formula = homeowner ~ sex + bage + renthog + class, distribution = "bernoulli", 
+    data = dt_eff, weights = dt_eff$facine3, n.trees = 500)
+A gradient boosted model with bernoulli loss function.
+500 iterations were performed.
+There were 4 predictors of which 4 had non-zero influence.
+            var   rel.inf
+renthog renthog 58.127547
+bage       bage 33.753424
+class     class  7.056595
+sex         sex  1.062435

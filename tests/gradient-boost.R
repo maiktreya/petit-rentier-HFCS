@@ -36,6 +36,7 @@ test1 <- gbm(homeowner ~ sex + bage + renthog + class,,
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_gradient-boost.txt")
+test1 %>% print()
 test1 %>%
         summary() %>%
         print()
