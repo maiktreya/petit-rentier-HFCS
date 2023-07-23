@@ -22,23 +22,25 @@ dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("w
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
-##################################### SURVEY ANALYSYS #############################################
 
-# Load the randomForest package
-library(randomForest)
+######################### MCA MULTIPLE CORRESPONDENCE ANALYSIS ########################################3
+# Load the packages
+library(FactoMineR)
+library(factoextra)
+# Select some numeric variables
+df <- dt_eff[, c("homeowner", "sex", "bage", "renthog", "class")]
+df <- dt_eff[, c("homeowner", "sex", "bage", "class")]
 
-# Fit a random forest
-test1 <- randomForest(homeowner ~ sex + bage + renthog + class,
-                      data = dt_eff, ntree = 500, weights = dt_eff$facine3)
+# Perform Multiple Correspondence Analysis
+test1 <- MCA(df, graph = FALSE)
 
 # PREVIEW PRELIMINARY RESULTS
-
-sink("output/test_random-forest.txt")
+sink("output/test_factor_analysis.txt")
 test1 %>%
         summary() %>%
         print()
-
-# Check variable importance
-test1 %>% importance() %>% print()
-
 sink()
+jpeg(file = "output/actor_analysis.jpeg")
+# Create a scatter plot of the first two dimensions
+fviz_mca_ind(test1, repel = TRUE)
+dev.off()

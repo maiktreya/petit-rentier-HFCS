@@ -35,7 +35,7 @@ test1 <- gbm(homeowner ~ sex + bage + renthog + class,,
              data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3)
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/gradient-boost/test_gradient-boost.txt")
+sink("output/test_gradient-boost.txt")
 test1 %>% print()
 test1 %>%
         summary() %>%
