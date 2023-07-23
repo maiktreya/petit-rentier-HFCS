@@ -42,3 +42,24 @@ test1 %>%
 test1 %>% importance() %>% print()
 
 sink()
+
+
+############################# LOCAL INTERPRETABLE MODEL AGNOSTIC (STEP 2) #####################################
+# Load the necessary packages
+library(lime)
+dt_eff[is.na(dt_eff)] <- 0
+dt_eff <- dt_eff[, c("homeowner", "sex", "bage", "renthog", "class")]
+
+# Subset the data to only include the variables used in the model
+
+# Create an explainer object
+explainer <- lime(dt_eff, test1, n_features = 5)
+
+# Select an observation to explain
+observation <- 1
+
+# Explain the observation
+explanation <- explain(explainer$model, dt_eff[observation, ])
+
+# Print the explanation
+print(explanation)

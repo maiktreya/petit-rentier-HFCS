@@ -22,18 +22,38 @@ dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("w
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
-##################################### GENERALIZED ADDITIVE MODELS #############################################
+##################################### SURVEY ANALYSYS #############################################
+# AGE CLUSTER bage
+# CLASS nsitlabdom and p6_81 (class binary)
+# GENDER sex (man=1, woman= 2)
+# HOUSEHOLD INCOME renthog
+# TENANCY np2_1
+# MAIN RES VALUE np2_5
+sv_eff <- svydesign(
+        ids = ~1,
+        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
+        data = as.data.frame(dt_eff),
+        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
+        weights = ~ dt_eff$facine3
+)
+# MODEL REAL ASSETS VALUE
+test1 <- svyglm(actreales ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
-# Load the mgcv package
-library(mgcv)
+# LOGISTIC MODEL HOMEOWNERSHIP
+test2 <- svyglm(homeowner ~ worker + young + sex + renthog, design = sv_eff, family = "quasibinomial")
 
-# Fit a GAM
-test1 <- gam(homeowner ~ sex + bage + s(renthog) + class,
-             data = dt_eff, family = binomial(link = "logit"))
+# QUANTITATIVE MODEL HOMEOWNERSHIP (VALUE OF MAIN RESIDENCE)
+test3 <- svyglm(mainres_val ~ worker + young + sex + renthog, design = sv_eff, family = "gaussian")
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_gam.txt")
+sink("output/test.txt")
 test1 %>%
+        summary() %>%
+        print()
+test2 %>%
+        summary() %>%
+        print()
+test3 %>%
         summary() %>%
         print()
 sink()
