@@ -1,23 +1,47 @@
 
 Call:
-lm(formula = RIF_income ~ bage, data = dt_eff)
+lm(formula = RIF_income ~ bage + class + sex + renthog, data = dt_eff)
 
 Residuals:
-   Min     1Q Median     3Q    Max 
--37717 -35203  31751  34265  45441 
+    Min      1Q  Median      3Q     Max 
+-630728 -209015   -9713  182090  654261 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)    25699       2123  12.106  < 2e-16 ***
-bage35-44       8859       2422   3.658 0.000256 ***
-bage45-54      11176       2315   4.828 1.41e-06 ***
-bage54-65      13690       2310   5.926 3.26e-09 ***
-bage65-75      12454       2344   5.313 1.11e-07 ***
-bage75          8434       2366   3.565 0.000366 ***
+                   Estimate Std. Error t value
+(Intercept)         -203977      16214 -12.581
+bage35-44             24947      16720   1.492
+bage45-54            111765      16012   6.980
+bage54-65            186267      16115  11.558
+bage65-75            223030      18472  12.074
+bage75               250143      18870  13.256
+classcapitalist      110998      14440   7.687
+classself-employed    71086      12863   5.526
+classmanager          20268       9611   2.109
+classretired          71739      12148   5.906
+classinactive        100945      17546   5.753
+sexWomen             -10143       6628  -1.530
+renthogMiddle        187527       7544  24.858
+renthogHigh          376835      10182  37.010
+                   Pr(>|t|)    
+(Intercept)         < 2e-16 ***
+bage35-44             0.136    
+bage45-54          3.25e-12 ***
+bage54-65           < 2e-16 ***
+bage65-75           < 2e-16 ***
+bage75              < 2e-16 ***
+classcapitalist    1.74e-14 ***
+classself-employed 3.40e-08 ***
+classmanager          0.035 *  
+classretired       3.70e-09 ***
+classinactive      9.17e-09 ***
+sexWomen              0.126    
+renthogMiddle       < 2e-16 ***
+renthogHigh         < 2e-16 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 34620 on 6307 degrees of freedom
-Multiple R-squared:  0.00736,	Adjusted R-squared:  0.006573 
-F-statistic: 9.353 on 5 and 6307 DF,  p-value: 6.848e-09
+Residual standard error: 238600 on 6299 degrees of freedom
+Multiple R-squared:  0.3342,	Adjusted R-squared:  0.3329 
+F-statistic: 243.3 on 13 and 6299 DF,  p-value: < 2.2e-16
 
