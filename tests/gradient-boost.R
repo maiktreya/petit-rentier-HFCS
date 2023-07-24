@@ -15,7 +15,8 @@ setnames(
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
         new = c("class", "worker", "homeowner", "mainres_val")
 )
-dt_eff[renthog < 20000, renthog := 1][renthog < 80000, renthog := 2][renthog > 2, renthog := 3]
+dt_eff[renthog < 20000, renthog1 := "a"][renthog < 80000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
+dt_eff[renthog == "a", renthog1 := 1][renthog1 =="b", renthog := 2][renthog1 =="c", renthog := 3]
 
 dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
