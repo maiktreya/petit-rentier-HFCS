@@ -4,7 +4,7 @@ A gradient boosted model with bernoulli loss function.
 500 iterations were performed.
 There were 4 predictors of which 4 had non-zero influence.
             var   rel.inf
-bage       bage 53.147993
-renthog renthog 26.058827
-class     class 18.063042
-sex         sex  2.730138
+bage       bage 55.456910
+renthog renthog 23.213025
+class     class 19.243482
+sex         sex  2.086583

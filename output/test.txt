@@ -13,16 +13,25 @@ sv_eff <- svydesign(
 )
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)      -4.136e+04  2.276e+04  -1.817   0.0692 .  
-workerNon-Worker  1.598e+05  3.945e+04   4.050 5.18e-05 ***
-youngNot-Young    1.104e+05  1.014e+04  10.888  < 2e-16 ***
-sexWomen         -3.153e+04  1.300e+04  -2.425   0.0153 *  
-renthog           3.028e+00  5.931e-01   5.105 3.40e-07 ***
+                 Estimate Std. Error t value
+(Intercept)        -38432      12848  -2.991
+workerNon-Worker   168545      38512   4.376
+youngNot-Young     109614      11050   9.920
+sexWomen           -23081      11481  -2.010
+renthogMiddle      109315       7664  14.264
+renthogHigh        557341      92178   6.046
+                 Pr(>|t|)    
+(Intercept)       0.00279 ** 
+workerNon-Worker 1.23e-05 ***
+youngNot-Young    < 2e-16 ***
+sexWomen          0.04443 *  
+renthogMiddle     < 2e-16 ***
+renthogHigh      1.57e-09 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 224836119656)
+(Dispersion parameter for gaussian family taken to be 227003908417)
 
 Number of Fisher Scoring iterations: 2
 
@@ -41,18 +50,27 @@ sv_eff <- svydesign(
 )
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)       9.752e-01  3.199e-01   3.048  0.00231 ** 
-workerNon-Worker -4.071e-01  1.414e-01  -2.879  0.00400 ** 
-youngNot-Young   -1.718e+00  1.822e-01  -9.430  < 2e-16 ***
-sexWomen          1.132e-01  1.187e-01   0.954  0.34010    
-renthog          -1.312e-05  7.112e-06  -1.845  0.06509 .  
+                 Estimate Std. Error t value
+(Intercept)       1.36930    0.20428   6.703
+workerNon-Worker -0.51757    0.14532  -3.562
+youngNot-Young   -1.84440    0.18582  -9.926
+sexWomen          0.04942    0.10445   0.473
+renthogMiddle    -1.04967    0.10411 -10.082
+renthogHigh      -1.34044    0.31254  -4.289
+                 Pr(>|t|)    
+(Intercept)      2.22e-11 ***
+workerNon-Worker 0.000371 ***
+youngNot-Young    < 2e-16 ***
+sexWomen         0.636134    
+renthogMiddle     < 2e-16 ***
+renthogHigh      1.82e-05 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for quasibinomial family taken to be 104.6616)
+(Dispersion parameter for quasibinomial family taken to be 1.003311)
 
-Number of Fisher Scoring iterations: 5
+Number of Fisher Scoring iterations: 4
 
 
 Call:
@@ -69,16 +87,25 @@ sv_eff <- svydesign(
 )
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)       9.460e+04  1.230e+04   7.694 1.71e-14 ***
-workerNon-Worker  2.013e+04  9.221e+03   2.183  0.02905 *  
-youngNot-Young    2.853e+04  8.905e+03   3.203  0.00137 ** 
-sexWomen         -1.716e+04  5.998e+03  -2.861  0.00424 ** 
-renthog           1.395e+00  2.091e-01   6.670 2.82e-11 ***
+                 Estimate Std. Error t value
+(Intercept)         79453      10132   7.842
+workerNon-Worker    25930       9204   2.817
+youngNot-Young      31661       8286   3.821
+sexWomen           -12588       5786  -2.176
+renthogMiddle       68808       6043  11.386
+renthogHigh        244528      18224  13.418
+                 Pr(>|t|)    
+(Intercept)      5.37e-15 ***
+workerNon-Worker 0.004863 ** 
+youngNot-Young   0.000135 ***
+sexWomen         0.029615 *  
+renthogMiddle     < 2e-16 ***
+renthogHigh       < 2e-16 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 26083076082)
+(Dispersion parameter for gaussian family taken to be 26839026759)
 
 Number of Fisher Scoring iterations: 2
 
