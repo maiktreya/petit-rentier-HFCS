@@ -15,6 +15,9 @@ setnames(
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
         new = c("class", "worker", "homeowner", "mainres_val")
 )
+dt_eff[renthog < 20000, renthog := 1][renthog < 80000, renthog := 2][renthog > 2, renthog := 3]
+
+dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
@@ -28,11 +31,12 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(gbm)
 
 # Convert homeownership to a binary 0/1 variable (required for gbm)
-dt_eff$homeowner<- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
+dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
 
 # Fit a boosting model
-test1 <- gbm(homeowner ~ sex + bage + renthog + class,,
-             data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3)
+test1 <- gbm(homeowner ~ sex + bage + renthog + class, ,
+        data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3
+)
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_gradient-boost.txt")
