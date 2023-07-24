@@ -6,27 +6,42 @@ Formula:
 homeowner ~ sex + bage + s(renthog) + class
 
 Parametric coefficients:
-                   Estimate Std. Error z value Pr(>|z|)    
-(Intercept)        -4.21317    3.63719  -1.158   0.2467    
-sexWomen            0.11734    0.07424   1.580   0.1140    
-bage35-44          -1.16218    0.15415  -7.539 4.73e-14 ***
-bage45-54          -1.72976    0.15070 -11.478  < 2e-16 ***
-bage54-65          -2.27157    0.15810 -14.368  < 2e-16 ***
-bage65-75          -2.45773    0.19631 -12.520  < 2e-16 ***
-bage75             -2.46379    0.20079 -12.271  < 2e-16 ***
-classcapitalist    -0.50634    0.20277  -2.497   0.0125 *  
-classself-employed  0.11772    0.14435   0.816   0.4148    
-classmanager       -0.22139    0.10084  -2.195   0.0281 *  
-classretired       -0.21377    0.14775  -1.447   0.1479    
-classinactive       0.03633    0.20815   0.175   0.8615    
+                   Estimate Std. Error z value
+(Intercept)        -4.21317    3.63719  -1.158
+sexWomen            0.11734    0.07424   1.580
+bage35-44          -1.16218    0.15415  -7.539
+bage45-54          -1.72976    0.15070 -11.478
+bage54-65          -2.27157    0.15810 -14.368
+bage65-75          -2.45773    0.19631 -12.520
+bage75             -2.46379    0.20079 -12.271
+classcapitalist    -0.50634    0.20277  -2.497
+classself-employed  0.11772    0.14435   0.816
+classmanager       -0.22139    0.10084  -2.195
+classretired       -0.21377    0.14775  -1.447
+classinactive       0.03633    0.20815   0.175
+                   Pr(>|z|)    
+(Intercept)          0.2467    
+sexWomen             0.1140    
+bage35-44          4.73e-14 ***
+bage45-54           < 2e-16 ***
+bage54-65           < 2e-16 ***
+bage65-75           < 2e-16 ***
+bage75              < 2e-16 ***
+classcapitalist      0.0125 *  
+classself-employed   0.4148    
+classmanager         0.0281 *  
+classretired         0.1479    
+classinactive        0.8615    
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Approximate significance of smooth terms:
             edf Ref.df Chi.sq p-value    
 s(renthog) 8.67  8.894  405.4  <2e-16 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 R-sq.(adj) =  0.167   Deviance explained = 15.5%
 UBRE = -0.15584  Scale est. = 1         n = 6313
