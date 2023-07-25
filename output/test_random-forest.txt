@@ -19,7 +19,7 @@ test                0  -none- NULL
 inbag               0  -none- NULL     
 terms               3  terms  call     
         MeanDecreaseGini
-sex             46.78495
-bage           253.91884
-renthog        804.31323
-class          123.26952
+sex             20.70188
+bage           218.37360
+renthog        131.64393
+class           79.04785

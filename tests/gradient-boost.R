@@ -34,10 +34,31 @@ library(gbm)
 # Convert homeownership to a binary 0/1 variable (required for gbm)
 dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
 
+set.seed(123)
 # Fit a boosting model
 test1 <- gbm(homeowner ~ sex + bage + renthog + class, ,
-        data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = dt_eff$facine3
+        data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = facine3
 )
+set.seed(123)
+train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff) * 0.8)
+train_set <- dt_eff[train_indices, ]
+test_set <- dt_eff[-train_indices, ]
+
+# Fit a boosting model
+gbm_model <- gbm(homeowner ~ sex + bage + renthog + class, ,
+        data = train_set, distribution = "bernoulli", n.trees = 500, weights = facine3
+)
+summary(gbm_model)
+
+# Predict on the test set
+pred <- predict(gbm_model, newdata = test_set, n.trees = 500)
+
+# Calculate mean squared error on the test set
+mse <- mean((test_set$mpg - pred)^2)
+print(paste("Test MSE: ", mse))
+
+
+
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_gradient-boost.txt")
@@ -46,3 +67,31 @@ test1 %>%
         summary() %>%
         print()
 sink()
+
+# Load necessary packages
+library(pdp)
+library(ggplot2)
+
+# Partial Dependence Plot for 'sex'
+sex.pdp <- partial(test1, pred.var = "sex", plot = FALSE, n.trees = 500)
+ggplot(sex.pdp, aes(x = sex, y = yhat)) +
+        geom_line() +
+        labs(x = "Sex", y = "Partial Dependence", title = "Partial Dependence on Sex")
+
+# Partial Dependence Plot for 'bage'
+bage.pdp <- partial(test1, pred.var = "bage", plot = FALSE, n.trees = 500)
+ggplot(bage.pdp, aes(x = bage, y = yhat)) +
+        geom_line() +
+        labs(x = "Age Group", y = "Partial Dependence", title = "Partial Dependence on Age Group")
+
+# Partial Dependence Plot for 'renthog'
+renthog.pdp <- partial(test1, pred.var = "renthog", plot = FALSE, n.trees = 500)
+ggplot(renthog.pdp, aes(x = renthog, y = yhat)) +
+        geom_line() +
+        labs(x = "Income Level", y = "Partial Dependence", title = "Partial Dependence on Income Level")
+
+# Partial Dependence Plot for 'class'
+class.pdp <- partial(test1, pred.var = "class", plot = FALSE, n.trees = 500)
+ggplot(class.pdp, aes(x = class, y = yhat)) +
+        geom_line() +
+        labs(x = "Class", y = "Partial Dependence", title = "Partial Dependence on Class")
