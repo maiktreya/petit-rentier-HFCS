@@ -54,7 +54,7 @@ summary(gbm_model)
 pred <- predict(gbm_model, newdata = test_set, n.trees = 500)
 
 # Calculate mean squared error on the test set
-mse <- mean((test_set$mpg - pred)^2)
+mse <- mean((test_set$homeowner - pred)^2)
 print(paste("Test MSE: ", mse))
 
 
@@ -68,9 +68,15 @@ test1 %>%
         print()
 sink()
 
+
+
+
+########3 PLOTTING PARTIAL DEPENDENCE
 # Load necessary packages
 library(pdp)
 library(ggplot2)
+
+
 
 # Partial Dependence Plot for 'sex'
 sex.pdp <- partial(test1, pred.var = "sex", plot = FALSE, n.trees = 500)

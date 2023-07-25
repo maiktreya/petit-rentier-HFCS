@@ -31,18 +31,34 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 # Load the randomForest package
 library(randomForest)
 
-# Fit a random forest
+
+# Randomly split the data into a training set and a testing set
+set.seed(123)
+train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff)*0.7)
+train_set <- dt_eff[train_indices, ]
+test_set  <- dt_eff[-train_indices, ]
+
+# Build a random forest model with the training set
+set.seed(123)
 test1 <- randomForest(homeowner ~ sex + bage + renthog + class,
-                      data = dt_eff, ntree = 500, weights = dt_eff$facine3)
+                      data = train_set, ntree = 500, weights = train_set$facine3)
+
+# Print a summary of the model
+print(test1)
+
+# Predict the species in the test set
+predictions <- predict(test1, test_set)
+
+# Print the confusion matrix to see how well the model did
+confusion_matrix <- table(predictions, test_set$homeowner)
+
 
 # PREVIEW PRELIMINARY RESULTS
 
 sink("output/test_random-forest.txt")
-test1 %>%
-        summary() %>%
-        print()
-
-# Check variable importance
+test1 %>%  print()
+test1 %>% summary() %>% print()
 test1 %>% importance() %>% print()
-
+predictions %>%  print()
+confusion_matrix %>%  print()
 sink()
