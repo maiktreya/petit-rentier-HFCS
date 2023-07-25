@@ -1,0 +1,72 @@
+Stochastic Gradient Boosting 
+
+6313 samples
+   4 predictor
+   2 classes: '0', '1' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold) 
+Summary of sample sizes: 5050, 5050, 5050, 5051, 5051 
+Resampling results across tuning parameters:
+
+  interaction.depth  n.trees
+  1                   50    
+  1                  100    
+  1                  150    
+  2                   50    
+  2                  100    
+  2                  150    
+  3                   50    
+  3                  100    
+  3                  150    
+  Accuracy   Kappa     
+  0.8034215  0.00000000
+  0.8073801  0.09959027
+  0.8099145  0.12065046
+  0.8075386  0.10164286
+  0.8167252  0.18392067
+  0.8179934  0.20010793
+  0.8146666  0.17740579
+  0.8167272  0.21882167
+  0.8162514  0.21820040
+
+Tuning parameter 'shrinkage'
+ parameter 'n.minobsinnode' was
+ held constant at a value of 10
+Accuracy was used to select
+ the optimal model using the
+ largest value.
+The final values used for the
+ 2, shrinkage = 0.1
+ and n.minobsinnode = 10.
+                                  var
+renthogMiddle           renthogMiddle
+renthogHigh               renthogHigh
+classretired             classretired
+bage54-65                   bage54-65
+bage35-44                   bage35-44
+bage75                         bage75
+bage65-75                   bage65-75
+bage45-54                   bage45-54
+classmanager             classmanager
+classcapitalist       classcapitalist
+sexWomen                     sexWomen
+classself-employed classself-employed
+classinactive           classinactive
+                     rel.inf
+renthogMiddle      26.487948
+renthogHigh        16.573216
+classretired       13.949175
+bage54-65          11.162244
+bage35-44           8.142993
+bage75              5.528223
+bage65-75           5.288898
+bage45-54           4.296680
+classmanager        2.247452
+classcapitalist     2.002625
+sexWomen            1.759193
+classself-employed  1.411596
+classinactive       1.149757
+[1] "Average Accuracy (Classification): 0.812290952052519"
+< table of extent 0 x 2 >
+[1] "Accuracy (Classification): NaN"

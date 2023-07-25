@@ -3,43 +3,76 @@ Call:
 lm(formula = RIF_income ~ bage + class + sex + renthog, data = dt_eff)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--630728 -209015   -9713  182090  654261 
+    Min      1Q  Median      3Q 
+-630728 -209015   -9713  182090 
+    Max 
+ 654261 
 
 Coefficients:
-                   Estimate Std. Error t value
-(Intercept)         -203977      16214 -12.581
-bage35-44             24947      16720   1.492
-bage45-54            111765      16012   6.980
-bage54-65            186267      16115  11.558
-bage65-75            223030      18472  12.074
-bage75               250143      18870  13.256
-classcapitalist      110998      14440   7.687
-classself-employed    71086      12863   5.526
-classmanager          20268       9611   2.109
-classretired          71739      12148   5.906
-classinactive        100945      17546   5.753
-sexWomen             -10143       6628  -1.530
-renthogMiddle        187527       7544  24.858
-renthogHigh          376835      10182  37.010
-                   Pr(>|t|)    
-(Intercept)         < 2e-16 ***
-bage35-44             0.136    
-bage45-54          3.25e-12 ***
-bage54-65           < 2e-16 ***
-bage65-75           < 2e-16 ***
-bage75              < 2e-16 ***
-classcapitalist    1.74e-14 ***
-classself-employed 3.40e-08 ***
-classmanager          0.035 *  
-classretired       3.70e-09 ***
-classinactive      9.17e-09 ***
-sexWomen              0.126    
-renthogMiddle       < 2e-16 ***
-renthogHigh         < 2e-16 ***
+                   Estimate
+(Intercept)         -203977
+bage35-44             24947
+bage45-54            111765
+bage54-65            186267
+bage65-75            223030
+bage75               250143
+classcapitalist      110998
+classself-employed    71086
+classmanager          20268
+classretired          71739
+classinactive        100945
+sexWomen             -10143
+renthogMiddle        187527
+renthogHigh          376835
+                   Std. Error
+(Intercept)             16214
+bage35-44               16720
+bage45-54               16012
+bage54-65               16115
+bage65-75               18472
+bage75                  18870
+classcapitalist         14440
+classself-employed      12863
+classmanager             9611
+classretired            12148
+classinactive           17546
+sexWomen                 6628
+renthogMiddle            7544
+renthogHigh             10182
+                   t value Pr(>|t|)
+(Intercept)        -12.581  < 2e-16
+bage35-44            1.492    0.136
+bage45-54            6.980 3.25e-12
+bage54-65           11.558  < 2e-16
+bage65-75           12.074  < 2e-16
+bage75              13.256  < 2e-16
+classcapitalist      7.687 1.74e-14
+classself-employed   5.526 3.40e-08
+classmanager         2.109    0.035
+classretired         5.906 3.70e-09
+classinactive        5.753 9.17e-09
+sexWomen            -1.530    0.126
+renthogMiddle       24.858  < 2e-16
+renthogHigh         37.010  < 2e-16
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+classcapitalist    ***
+classself-employed ***
+classmanager       *  
+classretired       ***
+classinactive      ***
+sexWomen              
+renthogMiddle      ***
+renthogHigh        ***
 ---
 Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 238600 on 6299 degrees of freedom
 Multiple R-squared:  0.3342,	Adjusted R-squared:  0.3329 
