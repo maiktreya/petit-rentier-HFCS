@@ -1,0 +1,17 @@
+gbm(formula = homeowner ~ sex + bage + renthog + class, distribution = "bernoulli", 
+    data = train_set, weights = facine3, n.trees = 500, interaction.depth = 4, 
+    shrinkage = 0.01)
+A gradient boosted model with bernoulli loss function.
+500 iterations were performed.
+There were 4 predictors of which 4 had non-zero influence.
+            var   rel.inf
+bage       bage 51.302758
+renthog renthog 28.975507
+class     class 15.023519
+sex         sex  4.698216
+         Actual
+Predicted   0   1
+        0  69  45
+        1 163 986
+[1] "Accuracy (Classification): 0.835312747426762"
+[1] "Accuracy (Classification): 0.835312747426762"

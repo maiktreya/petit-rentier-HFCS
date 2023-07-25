@@ -30,74 +30,62 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 
 # Load the gbm package
 library(gbm)
+library(pdp)
 
 # Convert homeownership to a binary 0/1 variable (required for gbm)
 dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
 
-set.seed(123)
-# Fit a boosting model
-test1 <- gbm(homeowner ~ sex + bage + renthog + class, ,
-        data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = facine3
-)
+
+
 set.seed(123)
 train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff) * 0.8)
 train_set <- dt_eff[train_indices, ]
 test_set <- dt_eff[-train_indices, ]
 
+set.seed(123)
 # Fit a boosting model
-gbm_model <- gbm(homeowner ~ sex + bage + renthog + class, ,
-        data = train_set, distribution = "bernoulli", n.trees = 500, weights = facine3
+gbm_model <- gbm(actreales ~ sex + bage + renthog + class, ,
+        data = train_set, distribution = "gaussian", n.trees = 500, weights = facine3
 )
-summary(gbm_model)
 
 # Predict on the test set
-pred <- predict(gbm_model, newdata = test_set, n.trees = 500)
+predictions <- predict(gbm_model, newdata = test_set, n.trees = 500)
 
 # Calculate mean squared error on the test set
-mse <- mean((test_set$homeowner - pred)^2)
+mse <- mean((test_set$actreales - predictions)^2)
 print(paste("Test MSE: ", mse))
 
 
+# Partial Dependence Plot for 'sex'
+sex.pdp <- partial(gbm_model, pred.var = "sex", plot = T, n.trees = 500)
+# Partial Dependence Plot for 'bage'
+bage.pdp <- partial(gbm_model, pred.var = "bage", plot = T, n.trees = 500)
+# Partial Dependence Plot for 'renthog'
+renthog.pdp <- partial(gbm_model, pred.var = "renthog", plot = T, n.trees = 500)
+# Partial Dependence Plot for 'class'
+class.pdp <- partial(gbm_model, pred.var = "class", plot = T, n.trees = 500)
 
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_gradient-boost.txt")
-test1 %>% print()
-test1 %>%
+sink("output/gradient-boost/reg/test_gradient-boost_reg.txt")
+gbm_model %>% print()
+gbm_model %>%
         summary() %>%
         print()
+paste("Test MSE: ", mse) %>% print()
 sink()
 
 
-
-
 ########3 PLOTTING PARTIAL DEPENDENCE
-# Load necessary packages
-library(pdp)
-library(ggplot2)
-
-
-
-# Partial Dependence Plot for 'sex'
-sex.pdp <- partial(test1, pred.var = "sex", plot = FALSE, n.trees = 500)
-ggplot(sex.pdp, aes(x = sex, y = yhat)) +
-        geom_line() +
-        labs(x = "Sex", y = "Partial Dependence", title = "Partial Dependence on Sex")
-
-# Partial Dependence Plot for 'bage'
-bage.pdp <- partial(test1, pred.var = "bage", plot = FALSE, n.trees = 500)
-ggplot(bage.pdp, aes(x = bage, y = yhat)) +
-        geom_line() +
-        labs(x = "Age Group", y = "Partial Dependence", title = "Partial Dependence on Age Group")
-
-# Partial Dependence Plot for 'renthog'
-renthog.pdp <- partial(test1, pred.var = "renthog", plot = FALSE, n.trees = 500)
-ggplot(renthog.pdp, aes(x = renthog, y = yhat)) +
-        geom_line() +
-        labs(x = "Income Level", y = "Partial Dependence", title = "Partial Dependence on Income Level")
-
-# Partial Dependence Plot for 'class'
-class.pdp <- partial(test1, pred.var = "class", plot = FALSE, n.trees = 500)
-ggplot(class.pdp, aes(x = class, y = yhat)) +
-        geom_line() +
-        labs(x = "Class", y = "Partial Dependence", title = "Partial Dependence on Class")
+jpeg(file = "output/gradient-boost/reg/sex.jpeg")
+sex.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/reg/bage.jpeg")
+bage.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/reg/renthog.jpeg")
+renthog.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/reg/class.jpeg")
+class.pdp %>% print()
+dev.off()

@@ -30,6 +30,7 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 
 # Load the gbm package
 library(gbm)
+library(pdp)
 
 # Convert homeownership to a binary 0/1 variable (required for gbm)
 dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
@@ -46,62 +47,59 @@ test_set <- dt_eff[-train_indices, ]
 
 # Fit a boosting model
 gbm_model <- gbm(homeowner ~ sex + bage + renthog + class, ,
-        data = train_set, distribution = "bernoulli", n.trees = 500, weights = facine3
+        data = train_set,
+        distribution = "bernoulli",
+        n.trees = 500,
+        interaction.depth = 4,
+        shrinkage = 0.01,
+        weights = facine3
 )
-summary(gbm_model)
 
-# Predict on the test set
-pred <- predict(gbm_model, newdata=test_set, n.trees=500, type="response")
-# Get the predicted classes
-pred_class <- colnames(pred)[apply(pred, 1, which.max)]
+# Predict probabilities on test set
+pred_prob <- predict(gbm_model, newdata = test_set, n.trees = 500, type = "response")
 
-# Calculate the confusion matrix
-confusionMatrix(pred_class, test_set$homeowner)
+# Generate class predictions using a threshold of 0.5
+predictions <- ifelse(pred_prob > 0.5, 1, 0)
 
+# Confusion matrix
+confusion_matrix <- table(Predicted = predictions, Actual = test_set$homeowner)
+print(confusion_matrix)
 
-# Calculate mean squared error on the test set
-mse <- mean((test_set$homeowner - pred)^2)
-print(paste("Test MSE: ", mse))
-
-
-# PREVIEW PRELIMINARY RESULTS
-sink("output/test_gradient-boost.txt")
-test1 %>% print()
-test1 %>%
-        summary() %>%
-        print()
-sink()
-
-
-
-
-########3 PLOTTING PARTIAL DEPENDENCE
-# Load necessary packages
-library(pdp)
-library(ggplot2)
-
+# Accuracy
+accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 
 
 # Partial Dependence Plot for 'sex'
-sex.pdp <- partial(test1, pred.var = "sex", plot = FALSE, n.trees = 500)
-ggplot(sex.pdp, aes(x = sex, y = yhat)) +
-        geom_line() +
-        labs(x = "Sex", y = "Partial Dependence", title = "Partial Dependence on Sex")
-
+sex.pdp <- partial(gbm_model, pred.var = "sex", plot = T, n.trees = 500)
 # Partial Dependence Plot for 'bage'
-bage.pdp <- partial(test1, pred.var = "bage", plot = FALSE, n.trees = 500)
-ggplot(bage.pdp, aes(x = bage, y = yhat)) +
-        geom_line() +
-        labs(x = "Age Group", y = "Partial Dependence", title = "Partial Dependence on Age Group")
-
+bage.pdp <- partial(gbm_model, pred.var = "bage", plot = T, n.trees = 500)
 # Partial Dependence Plot for 'renthog'
-renthog.pdp <- partial(test1, pred.var = "renthog", plot = FALSE, n.trees = 500)
-ggplot(renthog.pdp, aes(x = renthog, y = yhat)) +
-        geom_line() +
-        labs(x = "Income Level", y = "Partial Dependence", title = "Partial Dependence on Income Level")
-
+renthog.pdp <- partial(gbm_model, pred.var = "renthog", plot = T, n.trees = 500)
 # Partial Dependence Plot for 'class'
-class.pdp <- partial(test1, pred.var = "class", plot = FALSE, n.trees = 500)
-ggplot(class.pdp, aes(x = class, y = yhat)) +
-        geom_line() +
-        labs(x = "Class", y = "Partial Dependence", title = "Partial Dependence on Class")
+class.pdp <- partial(gbm_model, pred.var = "class", plot = T, n.trees = 500)
+
+
+# PREVIEW PRELIMINARY RESULTS
+sink("output/gradient-boost/clas/test_gradient-boost_clas.txt")
+gbm_model %>% print()
+gbm_model %>%
+        summary() %>%
+        print()
+confusion_matrix %>% print()
+print(paste("Accuracy (Classification):", accuracy)) %>% print()
+sink()
+
+
+########3 PLOTTING PARTIAL DEPENDENCE
+jpeg(file = "output/gradient-boost/clas/sex.jpeg")
+sex.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/clas/bage.jpeg")
+bage.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/clas/renthog.jpeg")
+renthog.pdp %>% print()
+dev.off()
+jpeg(file = "output/gradient-boost/clas/class.jpeg")
+class.pdp %>% print()
+dev.off()
