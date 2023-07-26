@@ -35,12 +35,15 @@ library(dineq)
 # Calculate the RIF for the Gini coefficient
 dt_eff$RIF_income <- rif(dt_eff$actreales)
 
-# Run regression analysis using the calculated RIF as the dependent variable
-test1 <- lm(RIF_income ~ bage + class + sex + renthog, data = dt_eff)
+# Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
+test1 <- lm(RIF_income ~ bage + class + sex + renthog, data = dt_eff, weights = facine3)
+
+test2 <- rifr(RIF_income ~ bage + class + sex + renthog, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
-test1 %>%
-        summary() %>%
-        print()
+print("############### FIRST TEST USING LM ###############")
+test1 %>%   print()
+print("############### SECOND TEST RIFR FROM DINEQ ###############")
+test2 %>%   print()
 sink()
