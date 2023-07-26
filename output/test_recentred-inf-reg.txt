@@ -1,7 +1,7 @@
-[1] "############### FIRST TEST ###############"
+[1] "############### FIRST TEST USING LM ###############"
 
 Call:
-lm(formula = RIF_income ~ bage + class + sex + renthog, data = dt_eff, 
+lm(formula = RIF_actreales ~ bage + class + sex + renthog, data = dt_eff, 
     weights = facine3)
 
 Coefficients:
@@ -34,7 +34,7 @@ classself-employed
        renthogHigh  
             377208  
 
-[1] "############### SECOND TEST ###############"
+[1] "############### SECOND TEST RIFR FROM DINEQ ###############"
 $Coef
                         q_0.5
 (Intercept)        314485.749
