@@ -32,12 +32,26 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(dineq)
 
 # Calculate the RIF for the Gini coefficient
-dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3)
+dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
 # Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
 test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = facine3)
 
 test2 <- rifr(riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = "facine3")
+
+
+# Copy the original data
+dt_eff_counterfactual <- dt_eff
+
+# Change the homeowner variable so that everyone is a homeowner
+dt_eff_counterfactual$homeowner <- 1
+
+# Use the model to predict the counterfactual RIF
+dt_eff_counterfactual$RIF_riquezabr_counterfactual <- predict(test1, newdata = dt_eff_counterfactual)
+
+# You can then analyze the difference between the actual RIF and the counterfactual RIF
+dt_eff$RIF_difference <- dt_eff$RIF_riquezabr - dt_eff_counterfactual$RIF_riquezabr_counterfactual
+
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
