@@ -20,9 +20,9 @@ dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 ==
 dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 3, 2), labels = c("Low", "High", "Middle"))
 
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
-dt_eff$bage <- factor(dt_eff$bage, levels = c(3, 1, 2, 4, 5, 6), labels = c( "45-54", "0-34", "35-44", "54-65", "65-75", "75"))
+dt_eff$bage <- factor(dt_eff$bage, levels = c(3, 1, 2, 4, 5, 6), labels = c("45-54", "0-34", "35-44", "54-65", "65-75", "75"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
-dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c( "worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
+dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
@@ -52,18 +52,48 @@ dt_eff_counterfactual$RIF_riquezabr_counterfactual <- predict(test1, newdata = d
 # You can then analyze the difference between the actual RIF and the counterfactual RIF
 dt_eff$RIF_difference <- dt_eff$RIF_riquezabr - dt_eff_counterfactual$RIF_riquezabr_counterfactual
 
-endo_ef <- apply(test2$Coef, 2, function(x) x[1])
-coef_ef <- apply(test2$Coef, 2, function(x) sum(x[-1]))
+
+############### oaxaca-blinder + interactions for RIF regression
+sv_eff <- svydesign(
+        ids = ~1,
+        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
+        data = as.data.frame(dt_eff),
+        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
+        weights = ~ dt_eff$facine3
+)
+sv_eff_w <- subset(sv_eff, class %in% c("worker" , "inactive"))
+sv_eff <- subset(sv_eff,class %in% c("capitalist", "manager"))
+mean_Group1 <- c(svymean(~sex, design = sv_eff)[1], svymean(~homeowner, design = sv_eff)[1])
+mean_Group1 <- c(svymean(~sex, design = sv_eff_w)[1], svymean(~homeowner, design = sv_eff_w)[1])
+median_Group1 <- svyquantile(~ as.numeric(sex), design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
+median_Group2 <- svyquantile(~ as.numeric(sex), design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
+sv_eff <- sv_eff$variables %>% data.table()
+sv_eff_w <- sv_eff_w$variables %>% data.table()
+test2_w <- rifr(riquezabr ~   class + bage + sex + renthog + homeowner, data = sv_eff_w, weights = "facine3")
+test2_all <- rifr(riquezabr ~ class + bage + sex + renthog + homeowner, data = sv_eff, weights = "facine3")
+
+
+coef_Group1 <- test2_w$Coef
+coef_Group2 <- test2_all$Coef
+
+explained <- sum((median_Group1 - median_Group2) * coef_Group2)
+unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
+interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
-test1 %>%   summary() %>%   print()
+test1 %>%
+        summary() %>%
+        print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
-test2 %>%   print()
-paste0("Endowments effect: ", endo_ef) %>%   print()
-paste0("Coefficients effect: ", coef_ef) %>%   print()
-paste0("Total effect: ", endo_ef + coef_ef) %>%   print()
+test2 %>% print()
+paste0("Endowments effect: ", unexplained) %>% print()
+paste0("Coefficients effect: ", explained) %>% print()
+paste0("Interaction effect: ", interaction) %>% print()
+paste0("Total effect: ", unexplained + explained + interaction) %>% print()
 print("############### STANDARD LM (MEAN RIF) ###############")
-test3 %>%   summary() %>%   print()
+test3 %>%
+        summary() %>%
+        print()
 sink()

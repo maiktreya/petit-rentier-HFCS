@@ -161,10 +161,10 @@ $adjusted_r2
            [,1]
 q_0.5 0.3392379
 
-[1] "Endowments effect: 116092.95572893"
-[1] "Coefficients effect: 0"
-[1] "Interaction effect: 0"
-[1] "Total effect: 116092.95572893"
+[1] "Endowments effect: -245655.904610505"
+[1] "Coefficients effect: -474311.151573632"
+[1] "Interaction effect: 245655.904610505"
+[1] "Total effect: -474311.151573632"
 [1] "############### STANDARD LM (MEAN RIF) ###############"
 
 Call:
