@@ -52,13 +52,18 @@ dt_eff_counterfactual$RIF_riquezabr_counterfactual <- predict(test1, newdata = d
 # You can then analyze the difference between the actual RIF and the counterfactual RIF
 dt_eff$RIF_difference <- dt_eff$RIF_riquezabr - dt_eff_counterfactual$RIF_riquezabr_counterfactual
 
+endo_ef <- apply(test2$Coef, 2, function(x) x[1])
+coef_ef <- apply(test2$Coef, 2, function(x) sum(x[-1]))
 
 # PREVIEW PRELIMINARY RESULTS
-sink(width= 1800, "output/test_recentred-inf-reg.txt")
+sink("output/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
 test1 %>%   summary() %>%   print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
 test2 %>%   print()
+paste0("Endowments effect: ", endo_ef) %>%   print()
+paste0("Coefficients effect: ", coef_ef) %>%   print()
+paste0("Total effect: ", endo_ef + coef_ef) %>%   print()
 print("############### STANDARD LM (MEAN RIF) ###############")
 test3 %>%   summary() %>%   print()
 sink()
