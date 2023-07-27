@@ -54,7 +54,7 @@ dt_eff$RIF_difference <- dt_eff$RIF_riquezabr - dt_eff_counterfactual$RIF_riquez
 
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_recentred-inf-reg.txt")
+sink(width= 1800, "output/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
 test1 %>%   summary() %>%   print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
