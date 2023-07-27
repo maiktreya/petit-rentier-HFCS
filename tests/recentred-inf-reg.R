@@ -32,7 +32,7 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 library(dineq)
 
 # Calculate the RIF for the Gini coefficient
-dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr)
+dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3)
 
 # Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
 test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = facine3)
