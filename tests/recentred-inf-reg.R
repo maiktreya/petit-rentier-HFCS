@@ -11,27 +11,18 @@ dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
 dt_eff$young <- dt_eff$bage
 dt_eff[young != 1]$young <- 2 # set above 35 to non-young
 setnames(
-         dt_eff,
-         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
-         new = c("class", "worker", "homeowner", "mainres_val")
+        dt_eff,
+        old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
+        new = c("class", "worker", "homeowner", "mainres_val")
 )
-
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
 dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 == "c", renthog := 3]
-dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
-# Change reference level for 'renthog'
-dt_eff$renthog <- relevel(dt_eff$renthog, ref = "Middle")
+dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 3, 2), labels = c("Low", "High", "Middle"))
 
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
-dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
-# Change reference level for 'bage'
-dt_eff$bage <- relevel(dt_eff$bage, ref = "45-54")
-
+dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 4, 5, 6, 3), labels = c("0-34", "35-44", "54-65", "65-75", "75", "45-54"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
-dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
-# Change reference level for 'class'
-dt_eff$class <- relevel(dt_eff$class, ref = "worker")
-
+dt_eff$class <- factor(dt_eff$class, levels = c(2, 3, 4, 5, 6, 1), labels = c("capitalist", "self-employed", "inactive", "retired", "manager", "worker"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
@@ -43,9 +34,11 @@ library(dineq)
 # Calculate the RIF for the Gini coefficient
 dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
-# Run regression analysis using the calculated RIF as the dependent variable
+# Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
 test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = facine3)
+
 test2 <- rifr(riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = "facine3")
+
 
 # Copy the original data
 dt_eff_counterfactual <- dt_eff
