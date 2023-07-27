@@ -35,9 +35,9 @@ library(dineq)
 dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr)
 
 # Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
-test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog, data = dt_eff, weights = facine3)
+test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = facine3)
 
-test2 <- rifr(riquezabr ~ bage + class + sex + renthog, data = dt_eff, weights = "facine3")
+test2 <- rifr(riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = "facine3")
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
