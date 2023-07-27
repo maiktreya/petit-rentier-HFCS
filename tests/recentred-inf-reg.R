@@ -31,19 +31,18 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 ###  Recentered Influence Function EXAMPLE ###
 library(dineq)
 
-
 # Calculate the RIF for the Gini coefficient
-dt_eff$RIF_actreales <- rif(dt_eff$actreales)
+dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr)
 
 # Run regression analysis using the calculated RIF as the depedata = dt_effndent variable
-test1 <- lm(RIF_actreales ~ bage + class + sex + renthog, data = dt_eff, weights = facine3)
+test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog, data = dt_eff, weights = facine3)
 
-test2 <- rifr(RIF_actreales ~ bage + class + sex + renthog, data = dt_eff)
+test2 <- rifr(riquezabr ~ bage + class + sex + renthog, data = dt_eff, weights = "facine3")
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
-test1 %>%   print()
+test1 %>%   summary() %>%   print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
 test2 %>%   print()
 sink()

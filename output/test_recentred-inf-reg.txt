@@ -1,109 +1,155 @@
 [1] "############### FIRST TEST USING LM ###############"
 
 Call:
-lm(formula = RIF_actreales ~ bage + class + sex + renthog, data = dt_eff, 
+lm(formula = RIF_riquezabr ~ bage + class + sex + renthog, data = dt_eff, 
     weights = facine3)
 
+Weighted Residuals:
+      Min        1Q    Median 
+-89051226 -11498740    -85600 
+       3Q       Max 
+  6609954 158663728 
+
 Coefficients:
-       (Intercept)  
-           -194975  
-         bage35-44  
-             18287  
-         bage45-54  
-             96979  
-         bage54-65  
-            157332  
-         bage65-75  
-            190667  
-            bage75  
-            195639  
-   classcapitalist  
-            119748  
-classself-employed  
-             40775  
-      classmanager  
-             15322  
-      classretired  
-             67831  
-     classinactive  
-             94894  
-          sexWomen  
-             -1384  
-     renthogMiddle  
-            150250  
-       renthogHigh  
-            377208  
+                   Estimate
+(Intercept)         -259203
+bage35-44             80809
+bage45-54            141083
+bage54-65            179659
+bage65-75            201788
+bage75               227980
+classcapitalist      268811
+classself-employed   109999
+classmanager           1955
+classretired         105801
+classinactive        159470
+sexWomen              -9532
+renthogMiddle        221342
+renthogHigh          608639
+                   Std. Error
+(Intercept)             18624
+bage35-44               19054
+bage45-54               18604
+bage54-65               19180
+bage65-75               23840
+bage75                  24479
+classcapitalist         24132
+classself-employed      19053
+classmanager            12500
+classretired            17672
+classinactive           27771
+sexWomen                 9035
+renthogMiddle            9628
+renthogHigh             18791
+                   t value Pr(>|t|)
+(Intercept)        -13.917  < 2e-16
+bage35-44            4.241 2.26e-05
+bage45-54            7.584 3.85e-14
+bage54-65            9.367  < 2e-16
+bage65-75            8.464  < 2e-16
+bage75               9.313  < 2e-16
+classcapitalist     11.139  < 2e-16
+classself-employed   5.773 8.15e-09
+classmanager         0.156    0.876
+classretired         5.987 2.26e-09
+classinactive        5.742 9.77e-09
+sexWomen            -1.055    0.291
+renthogMiddle       22.991  < 2e-16
+renthogHigh         32.391  < 2e-16
+                      
+(Intercept)        ***
+bage35-44          ***
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+classcapitalist    ***
+classself-employed ***
+classmanager          
+classretired       ***
+classinactive      ***
+sexWomen              
+renthogMiddle      ***
+renthogHigh        ***
+---
+Signif. codes:  
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 18410000 on 6299 degrees of freedom
+Multiple R-squared:  0.2434,	Adjusted R-squared:  0.2418 
+F-statistic: 155.9 on 13 and 6299 DF,  p-value: < 2.2e-16
 
 [1] "############### SECOND TEST RIFR FROM DINEQ ###############"
 $Coef
                         q_0.5
-(Intercept)        314485.749
-bage35-44            9779.003
-bage45-54           43811.101
-bage54-65           73015.062
-bage65-75           87425.904
-bage75              98054.250
-classcapitalist     43510.190
-classself-employed  27865.099
-classmanager         7945.098
-classretired        28121.249
-classinactive       39569.733
-sexWomen            -3975.963
-renthogMiddle       73509.248
-renthogHigh        147716.332
+(Intercept)        -94164.567
+bage35-44           67582.043
+bage45-54           96819.539
+bage54-65          127180.351
+bage65-75          142075.414
+bage75             158750.518
+classcapitalist    111398.885
+classself-employed  54518.848
+classmanager        -6488.685
+classretired        40692.702
+classinactive       79900.080
+sexWomen           -10556.292
+renthogMiddle      182645.416
+renthogHigh        324425.358
 
 $SE
-                      q_0.5
-(Intercept)        6355.603
-bage35-44          6554.018
-bage45-54          6276.378
-bage54-65          6317.106
-bage65-75          7240.877
-bage75             7396.738
-classcapitalist    5660.187
-classself-employed 5042.122
-classmanager       3767.533
-classretired       4761.818
-classinactive      6877.927
-sexWomen           2597.972
-renthogMiddle      2957.110
-renthogHigh        3991.283
+                       q_0.5
+(Intercept)        11350.095
+bage35-44          11611.725
+bage45-54          11337.477
+bage54-65          11688.827
+bage65-75          14528.598
+bage75             14918.233
+classcapitalist    14706.585
+classself-employed 11611.420
+classmanager        7617.702
+classretired       10769.734
+classinactive      16924.247
+sexWomen            5506.280
+renthogMiddle       5867.188
+renthogHigh        11451.325
 
 $t
-                       q_0.5
-(Intercept)        49.481654
-bage35-44           1.492062
-bage45-54           6.980316
-bage54-65          11.558309
-bage65-75          12.073939
-bage75             13.256418
-classcapitalist     7.687059
-classself-employed  5.526463
-classmanager        2.108833
-classretired        5.905570
-classinactive       5.753148
-sexWomen           -1.530410
-renthogMiddle      24.858479
-renthogHigh        37.009737
+                        q_0.5
+(Intercept)        -8.2963682
+bage35-44           5.8201551
+bage45-54           8.5397786
+bage54-65          10.8805060
+bage65-75           9.7790173
+bage75             10.6413755
+classcapitalist     7.5747622
+classself-employed  4.6952781
+classmanager       -0.8517903
+classretired        3.7784315
+classinactive       4.7210418
+sexWomen           -1.9171368
+renthogMiddle      31.1299774
+renthogHigh        28.3308148
 
 $p
                            q_0.5
-(Intercept)         0.000000e+00
-bage35-44           1.357329e-01
-bage45-54           3.246983e-12
-bage54-65           1.361644e-30
-bage65-75           3.366215e-33
-bage75              1.398906e-39
-classcapitalist     1.735888e-14
-classself-employed  3.398450e-08
-classmanager        3.499835e-02
-classretired        3.697518e-09
-classinactive       9.171258e-09
-sexWomen            1.259654e-01
-renthogMiddle      3.326964e-130
-renthogHigh        1.766541e-271
+(Intercept)         1.300724e-16
+bage35-44           6.168569e-09
+bage45-54           1.667671e-17
+bage54-65           2.496016e-27
+bage65-75           1.999451e-22
+bage75              3.191134e-26
+classcapitalist     4.115296e-14
+classself-employed  2.718842e-06
+classmanager        3.943628e-01
+classretired        1.592754e-04
+classinactive       2.397167e-06
+sexWomen            5.526574e-02
+renthogMiddle      5.067669e-198
+renthogHigh        2.678991e-166
 
 $adjusted_r2
            [,1]
-q_0.5 0.3328728
+q_0.5 0.2360857
 
