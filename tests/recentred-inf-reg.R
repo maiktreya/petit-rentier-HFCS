@@ -39,7 +39,7 @@ test1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_
 
 test2 <- rifr(riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = "facine3")
 
-
+test3 <- lm(riquezabr ~ bage + class + sex + renthog + homeowner, data = dt_eff, weights = facine3)
 # Copy the original data
 dt_eff_counterfactual <- dt_eff
 
@@ -59,4 +59,6 @@ print("############### FIRST TEST USING LM ###############")
 test1 %>%   summary() %>%   print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
 test2 %>%   print()
+print("############### STANDARD LM (MEAN RIF) ###############")
+test3 %>%   summary() %>%   print()
 sink()
