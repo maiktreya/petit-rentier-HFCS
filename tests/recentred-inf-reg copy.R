@@ -52,8 +52,30 @@ dt_eff_counterfactual$RIF_riquezabr_counterfactual <- predict(test1, newdata = d
 # You can then analyze the difference between the actual RIF and the counterfactual RIF
 dt_eff$RIF_difference <- dt_eff$RIF_riquezabr - dt_eff_counterfactual$RIF_riquezabr_counterfactual
 
-endo_ef <- apply(test2$Coef, 2, function(x) x[1])
-coef_ef <- apply(test2$Coef, 2, function(x) sum(x[-1]))
+
+############### oaxaca-blinder + interactions for RIF regression
+test2_w <- rifr(riquezabr ~ bage + sex + renthog + homeowner, data = dt_eff_alt, weights = "facine3")
+test2_all <- rifr(riquezabr ~ bage + sex + renthog + homeowner, data = dt_eff, weights = "facine3")
+sv_eff <- svydesign(
+        ids = ~1,
+        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
+        data = as.data.frame(dt_eff),
+        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
+        weights = ~ dt_eff$facine3
+)
+sv_eff_w <- subset(sv_eff, class== "worker")
+
+coef_Group1 <- test2_w$Coef
+coef_Group2 <- test2_all$Coef
+mean_Group1 <- c(svymean(~sex, design= sv_eff)[1],svymean(~homeowner, design= sv_eff)[1])
+mean_Group1 <- c(svymean(~sex, design= sv_eff_w)[1],svymean(~homeowner, design= sv_eff_w)[1])
+# median_Group1 <- svyquantile(~sex, design = sv_eff)
+# median_Group2 <- svyquantile(~sex, design = sv_eff)
+median_Group1 <- c(median(as.numeric(sv_eff$variables[,"sex"])),median(as.numeric(sv_eff$variables[,"homeowner"])))
+median_Group2 <- c(median(as.numeric(sv_eff_w$variables[,"sex"])),median(as.numeric(sv_eff_w$variables[,"homeowner"])))
+explained <- sum((median_Group1 - median_Group2) * coef_Group2)
+unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
+interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
@@ -61,9 +83,10 @@ print("############### FIRST TEST USING LM ###############")
 test1 %>%   summary() %>%   print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
 test2 %>%   print()
-paste0("Endowments effect: ", endo_ef) %>%   print()
-paste0("Coefficients effect: ", coef_ef) %>%   print()
-paste0("Total effect: ", endo_ef + coef_ef) %>%   print()
+paste0("Endowments effect: ", unexplained) %>%   print()
+paste0("Coefficients effect: ", explained) %>%   print()
+paste0("Interaction effect: ", interaction) %>%   print()
+paste0("Total effect: ", unexplained + explained + interaction) %>%   print()
 print("############### STANDARD LM (MEAN RIF) ###############")
 test3 %>%   summary() %>%   print()
 sink()
