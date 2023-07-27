@@ -5,28 +5,80 @@ lm(formula = RIF_riquezabr ~ bage + class + sex + renthog + homeowner,
     data = dt_eff, weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q       Max 
--66999538  -4499562    914787   6079994  64478445 
+      Min        1Q    Median 
+-66999538  -4499562    914787 
+       3Q       Max 
+  6079994  64478445 
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)           54546      11571   4.714 2.48e-06 ***
-bage35-44             17484      10917   1.602 0.109293    
-bage45-54             28083      10770   2.608 0.009138 ** 
-bage54-65             44308      11187   3.961 7.56e-05 ***
-bage65-75             53659      13803   3.888 0.000102 ***
-bage75                60556      14223   4.258 2.10e-05 ***
-classcapitalist       98084      13684   7.168 8.50e-13 ***
-classself-employed    66118      10805   6.119 9.98e-10 ***
-classmanager         -14022       7089  -1.978 0.047959 *  
-classretired          38569      10016   3.851 0.000119 ***
-classinactive         66050      15746   4.195 2.77e-05 ***
-sexWomen              -7784       5122  -1.520 0.128616    
-renthogMiddle        140217       5622  24.942  < 2e-16 ***
-renthogHigh          275082      10766  25.552  < 2e-16 ***
-homeownerNon-Owner  -185413       5910 -31.374  < 2e-16 ***
+                   Estimate
+(Intercept)           54546
+bage35-44             17484
+bage45-54             28083
+bage54-65             44308
+bage65-75             53659
+bage75                60556
+classcapitalist       98084
+classself-employed    66118
+classinactive        -14022
+classretired          38569
+classmanager          66050
+sexWomen              -7784
+renthogMiddle        140217
+renthogHigh          275082
+homeownerNon-Owner  -185413
+                   Std. Error
+(Intercept)             11571
+bage35-44               10917
+bage45-54               10770
+bage54-65               11187
+bage65-75               13803
+bage75                  14223
+classcapitalist         13684
+classself-employed      10805
+classinactive            7089
+classretired            10016
+classmanager            15746
+sexWomen                 5122
+renthogMiddle            5622
+renthogHigh             10766
+homeownerNon-Owner       5910
+                   t value Pr(>|t|)
+(Intercept)          4.714 2.48e-06
+bage35-44            1.602 0.109293
+bage45-54            2.608 0.009138
+bage54-65            3.961 7.56e-05
+bage65-75            3.888 0.000102
+bage75               4.258 2.10e-05
+classcapitalist      7.168 8.50e-13
+classself-employed   6.119 9.98e-10
+classinactive       -1.978 0.047959
+classretired         3.851 0.000119
+classmanager         4.195 2.77e-05
+sexWomen            -1.520 0.128616
+renthogMiddle       24.942  < 2e-16
+renthogHigh         25.552  < 2e-16
+homeownerNon-Owner -31.374  < 2e-16
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          ** 
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+classcapitalist    ***
+classself-employed ***
+classinactive      *  
+classretired       ***
+classmanager       ***
+sexWomen              
+renthogMiddle      ***
+renthogHigh        ***
+homeownerNon-Owner ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10440000 on 6298 degrees of freedom
 Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3392 
@@ -43,9 +95,9 @@ bage65-75            53659.194
 bage75               60556.388
 classcapitalist      98084.466
 classself-employed   66118.105
-classmanager        -14022.527
+classinactive       -14022.527
 classretired         38568.639
-classinactive        66050.159
+classmanager         66050.159
 sexWomen             -7784.026
 renthogMiddle       140216.793
 renthogHigh         275082.266
@@ -61,9 +113,9 @@ bage65-75          13802.882
 bage75             14223.131
 classcapitalist    13684.251
 classself-employed 10805.378
-classmanager        7088.813
+classinactive       7088.813
 classretired       10016.480
-classinactive      15746.366
+classmanager       15746.366
 sexWomen            5121.807
 renthogMiddle       5621.780
 renthogHigh        10765.653
@@ -79,9 +131,9 @@ bage65-75            3.887536
 bage75               4.257599
 classcapitalist      7.167690
 classself-employed   6.119000
-classmanager        -1.978120
+classinactive       -1.978120
 classretired         3.850518
-classinactive        4.194629
+classmanager         4.194629
 sexWomen            -1.519781
 renthogMiddle       24.941706
 renthogHigh         25.551841
@@ -97,9 +149,9 @@ bage65-75           1.023079e-04
 bage75              2.096372e-05
 classcapitalist     8.499267e-13
 classself-employed  9.982349e-10
-classmanager        4.795864e-02
+classinactive       4.795864e-02
 classretired        1.190364e-04
-classinactive       2.770708e-05
+classmanager        2.770708e-05
 sexWomen            1.286162e-01
 renthogMiddle      5.038538e-131
 renthogHigh        4.148146e-137

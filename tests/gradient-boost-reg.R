@@ -22,7 +22,7 @@ dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 2, 3), labels = c("Low", 
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
-dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "manager", "retired", "inactive"))
+dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
@@ -44,7 +44,7 @@ test_set <- dt_eff[-train_indices, ]
 
 set.seed(123)
 # Fit a boosting model
-gbm_model <- gbm(actreales ~ sex + bage + renthog + class, ,
+gbm_model <- gbm(riquezabr ~ sex + bage + renthog + class, ,
         data = train_set, distribution = "gaussian", n.trees = 500, weights = facine3
 )
 
@@ -52,7 +52,7 @@ gbm_model <- gbm(actreales ~ sex + bage + renthog + class, ,
 predictions <- predict(gbm_model, newdata = test_set, n.trees = 500)
 
 # Calculate mean squared error on the test set
-mse <- mean((test_set$actreales - predictions)^2)
+mse <- mean((test_set$riquezabr - predictions)^2)
 print(paste("Test MSE: ", mse))
 
 

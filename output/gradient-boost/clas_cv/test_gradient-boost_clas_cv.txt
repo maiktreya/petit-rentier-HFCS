@@ -6,19 +6,19 @@ Stochastic Gradient Boosting
 
 No pre-processing
 Resampling: Cross-Validated (5 fold) 
-Summary of sample sizes: 5051, 5050, 5051, 5050, 5050 
+Summary of sample sizes: 5050, 5051, 5051, 5050, 5050 
 Resampling results across tuning parameters:
 
   interaction.depth  n.trees  Accuracy   Kappa    
   1                   50      0.8034215  0.0000000
-  1                  100      0.8073812  0.0987616
-  1                  150      0.8086481  0.1110371
-  2                   50      0.8075397  0.1007009
-  2                  100      0.8170448  0.1867451
-  2                  150      0.8176781  0.2112317
-  3                   50      0.8168862  0.1969472
-  3                  100      0.8153027  0.2154715
-  3                  150      0.8151443  0.2156105
+  1                  100      0.8078565  0.1021492
+  1                  150      0.8092816  0.1165324
+  2                   50      0.8075397  0.1023091
+  2                  100      0.8148267  0.1712028
+  2                  150      0.8181540  0.2090181
+  3                   50      0.8151434  0.1818167
+  3                  100      0.8184710  0.2174444
+  3                  150      0.8181543  0.2194270
 
 Tuning parameter 'shrinkage' was held constant at a value
  of 0.1
@@ -27,22 +27,22 @@ Tuning parameter 'n.minobsinnode' was held constant
 Accuracy was used to select the optimal model using
  the largest value.
 The final values used for the model were n.trees =
- 150, interaction.depth = 2, shrinkage = 0.1
+ 100, interaction.depth = 3, shrinkage = 0.1
  and n.minobsinnode = 10.
                                   var   rel.inf
-renthogMiddle           renthogMiddle 26.517663
-renthogHigh               renthogHigh 16.092962
-classretired             classretired 11.648282
-bage35-44                   bage35-44 10.942297
-bage54-65                   bage54-65  9.349951
-bage75                         bage75  6.101799
-bage65-75                   bage65-75  5.684597
-bage45-54                   bage45-54  4.761307
-classmanager             classmanager  2.630690
-classcapitalist       classcapitalist  1.863552
-classself-employed classself-employed  1.690079
-sexWomen                     sexWomen  1.585209
-classinactive           classinactive  1.131614
-[1] "Average Accuracy (Classification): 0.812116286796224"
+renthogMiddle           renthogMiddle 25.383632
+renthogHigh               renthogHigh 16.622263
+classretired             classretired 11.928990
+bage54-65                   bage54-65 10.386135
+bage35-44                   bage35-44  8.009893
+bage75                         bage75  7.012070
+bage45-54                   bage45-54  6.450967
+bage65-75                   bage65-75  5.228569
+classinactive           classinactive  3.299746
+classself-employed classself-employed  1.982572
+classcapitalist       classcapitalist  1.726303
+sexWomen                     sexWomen  1.488035
+classmanager             classmanager  0.480824
+[1] "Average Accuracy (Classification): 0.812538756990688"
 < table of extent 0 x 2 >
 [1] "Accuracy (Classification): NaN"
