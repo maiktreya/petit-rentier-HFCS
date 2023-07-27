@@ -20,9 +20,9 @@ dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 ==
 dt_eff$renthog <- factor(dt_eff$renthog, levels = c(1, 3, 2), labels = c("Low", "High", "Middle"))
 
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
-dt_eff$bage <- factor(dt_eff$bage, levels = c(3, 1, 2, 4, 5, 6), labels = c( "45-54", "0-34", "35-44", "54-65", "65-75", "75"))
+dt_eff$bage <- factor(dt_eff$bage, levels = c(3, 1, 2, 4, 5, 6), labels = c("45-54", "0-34", "35-44", "54-65", "65-75", "75"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
-dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c( "worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
+dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
@@ -63,16 +63,16 @@ sv_eff <- svydesign(
         # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
         weights = ~ dt_eff$facine3
 )
-sv_eff_w <- subset(sv_eff, class== "worker")
+sv_eff_w <- subset(sv_eff, class == "worker")
 
 coef_Group1 <- test2_w$Coef
 coef_Group2 <- test2_all$Coef
-mean_Group1 <- c(svymean(~sex, design= sv_eff)[1],svymean(~homeowner, design= sv_eff)[1])
-mean_Group1 <- c(svymean(~sex, design= sv_eff_w)[1],svymean(~homeowner, design= sv_eff_w)[1])
-# median_Group1 <- svyquantile(~sex, design = sv_eff)
-# median_Group2 <- svyquantile(~sex, design = sv_eff)
-median_Group1 <- c(median(as.numeric(sv_eff$variables[,"sex"])),median(as.numeric(sv_eff$variables[,"homeowner"])))
-median_Group2 <- c(median(as.numeric(sv_eff_w$variables[,"sex"])),median(as.numeric(sv_eff_w$variables[,"homeowner"])))
+mean_Group1 <- c(svymean(~sex, design = sv_eff)[1], svymean(~homeowner, design = sv_eff)[1])
+mean_Group1 <- c(svymean(~sex, design = sv_eff_w)[1], svymean(~homeowner, design = sv_eff_w)[1])
+median_Group1 <- svyquantile(~ as.numeric(sex), design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
+median_Group2 <- svyquantile(~ as.numeric(sex), design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
+# median_Group1 <- c(median(as.numeric(sv_eff$variables[,"sex"])),median(as.numeric(sv_eff$variables[,"homeowner"])))
+# median_Group2 <- c(median(as.numeric(sv_eff_w$variables[,"sex"])),median(as.numeric(sv_eff_w$variables[,"homeowner"])))
 explained <- sum((median_Group1 - median_Group2) * coef_Group2)
 unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
@@ -80,13 +80,17 @@ interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2)
 # PREVIEW PRELIMINARY RESULTS
 sink("output/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
-test1 %>%   summary() %>%   print()
+test1 %>%
+        summary() %>%
+        print()
 print("############### SECOND TEST RIFR FROM DINEQ ###############")
-test2 %>%   print()
-paste0("Endowments effect: ", unexplained) %>%   print()
-paste0("Coefficients effect: ", explained) %>%   print()
-paste0("Interaction effect: ", interaction) %>%   print()
-paste0("Total effect: ", unexplained + explained + interaction) %>%   print()
+test2 %>% print()
+paste0("Endowments effect: ", unexplained) %>% print()
+paste0("Coefficients effect: ", explained) %>% print()
+paste0("Interaction effect: ", interaction) %>% print()
+paste0("Total effect: ", unexplained + explained + interaction) %>% print()
 print("############### STANDARD LM (MEAN RIF) ###############")
-test3 %>%   summary() %>%   print()
+test3 %>%
+        summary() %>%
+        print()
 sink()
