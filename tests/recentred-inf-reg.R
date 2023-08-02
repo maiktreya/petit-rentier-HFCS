@@ -64,12 +64,12 @@ sv_eff_w <- subset(sv_eff, worker %in% c("Worker"))
 sv_eff <- subset(sv_eff, worker %in% c("Non-Worker"))
 mean_Group1 <- c(svymean(~riquezabr, design = sv_eff)[1], svymean(~homeowner, design = sv_eff)[1])
 mean_Group2 <- c(svymean(~riquezabr, design = sv_eff_w)[1], svymean(~homeowner, design = sv_eff_w)[1])
-median_Group1 <- svyquantile(~ riquezabr, design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
-median_Group2 <- svyquantile(~ riquezabr, design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
+median_Group1 <- svyquantile(~riquezabr, design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
+median_Group2 <- svyquantile(~riquezabr, design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
 sv_eff <- sv_eff$variables %>% data.table()
 sv_eff_w <- sv_eff_w$variables %>% data.table()
-test2_w <- rifr(riquezabr ~   sex + young , data = sv_eff_w, weights = "facine3")
-test2_all <- rifr(riquezabr ~ sex + young , data = sv_eff, weights = "facine3")
+test2_w <- rifr(riquezabr ~ sex + young, data = sv_eff_w, weights = "facine3")
+test2_all <- rifr(riquezabr ~ sex + young, data = sv_eff, weights = "facine3")
 
 
 coef_Group1 <- test2_w$Coef
@@ -85,8 +85,8 @@ print("############### FIRST TEST USING LM ###############")
 test1 %>%
         summary() %>%
         print()
-print("############### SECOND TEST RIFR FROM DINEQ ###############")
-test2 %>% print()
+# print("############### SECOND TEST RIFR FROM DINEQ ###############")
+# test2 %>% print()
 paste0("Endowments effect: ", unexplained) %>% print()
 paste0("Coefficients effect: ", explained) %>% print()
 paste0("Interaction effect: ", interaction) %>% print()
