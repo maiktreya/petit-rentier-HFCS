@@ -1,0 +1,17 @@
+[1] "############### FIRST TEST USING LM ###############"
+            Length Class  Mode   
+Coef        5      -none- numeric
+SE          5      -none- numeric
+t           5      -none- numeric
+p           5      -none- numeric
+adjusted_r2 1      -none- numeric
+            Length Class  Mode   
+Coef        5      -none- numeric
+SE          5      -none- numeric
+t           5      -none- numeric
+p           5      -none- numeric
+adjusted_r2 1      -none- numeric
+[1] "Endowments effect: -109031911.156403"
+[1] "Coefficients effect: -2953113091.9403"
+[1] "Interaction effect: 353945768.733574"
+[1] "Total effect: -2708199234.36313"

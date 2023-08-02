@@ -18,9 +18,9 @@ setnames(
 )
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
 dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 == "c", renthog := 3]
-
+dt_eff$renthog1 <- dt_eff$renthog
 # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
-dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 3, 2), labels = c("Low", "High", "Middle"))
+dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
@@ -36,22 +36,22 @@ sv_eff <- svydesign(
         # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
         weights = ~ dt_eff$facine3
 )
-sv_eff_w <- subset(sv_eff, renthog1 %in% c(1, 2)) # GROUP 1: LOW-MID INCOME
-sv_eff <- subset(sv_eff, renthog1 %in% c(3)) # GROUP 2: HIGH
+sv_eff_w <- subset(sv_eff, renthog1 %in%  c("Low", "Middle")) # GROUP 1: LOW-MID INCOME
+sv_eff_h <- subset(sv_eff, renthog1 %in%  c("High")) # GROUP 2: HIGH
 
 # MEDIANS
-median_Group1 <- svyquantile(~riquezabr, design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
-median_Group2 <- svyquantile(~riquezabr, design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
+median_Group1 <- svyquantile(~riquezabr, design = sv_eff_w, quantiles = .5, na.rm = F)[[1]][1]
+median_Group2 <- svyquantile(~riquezabr, design = sv_eff_h, quantiles = .5, na.rm = T)[[1]][1]
 
 # RIF REGRESSIONS
 sv_eff_w <- sv_eff_w$variables %>% data.table()
-sv_eff <- sv_eff$variables %>% data.table()
+sv_eff_h <- sv_eff$variables %>% data.table()
 test2_w <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_w, weights = "facine3")
-test2_all <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff, weights = "facine3")
+test2_h <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h, weights = "facine3")
 
 # COEFFICIENTS FROM RIF REGRESSION
 coef_Group1 <- test2_w$Coef
-coef_Group2 <- test2_all$Coef
+coef_Group2 <- test2_h$Coef
 
 # INEQUALITY DECOMPOSITION
 explained <- sum((median_Group1 - median_Group2) * coef_Group2)
@@ -59,11 +59,11 @@ unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_recentred-inf-deco.txt")
+sink("output/rif/test_recentred-inf-deco.txt")
 
 print("############### FIRST TEST USING LM ###############")
 test2_w %>% summary() %>% print()
-test2_all %>% summary() %>% print()
+test2_h %>% summary() %>% print()
 
 # CALCULATE AND PRINT DECOMPOSITION
 paste0("Endowments effect: ", unexplained) %>% print()

@@ -6,31 +6,30 @@ lm(formula = RIF_riquezabr ~ bage + class + sex + renthog + homeowner,
 
 Weighted Residuals:
       Min        1Q    Median        3Q       Max 
--66999538  -4499562    914787   6079994  64478445 
+-66836670  -4529929    916071   6121814  64340324 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)           82629       7606  10.863  < 2e-16 ***
-bage0-34             -28083      10770  -2.608 0.009138 ** 
-bage35-44            -10599       7376  -1.437 0.150805    
-bage54-65             16225       7350   2.208 0.027315 *  
-bage65-75             25576      10810   2.366 0.018017 *  
-bage75                32473      11286   2.877 0.004024 ** 
-classcapitalist       98084      13684   7.168 8.50e-13 ***
-classself-employed    66118      10805   6.119 9.98e-10 ***
-classinactive        -14022       7089  -1.978 0.047959 *  
-classretired          38569      10016   3.851 0.000119 ***
-classmanager          66050      15746   4.195 2.77e-05 ***
-sexWomen              -7784       5122  -1.520 0.128616    
-renthogHigh          275082      10766  25.552  < 2e-16 ***
-renthogMiddle        140217       5622  24.942  < 2e-16 ***
-homeownerNon-Owner  -185413       5910 -31.374  < 2e-16 ***
+(Intercept)          -55271      10636  -5.197 2.09e-07 ***
+bage0-34             -27841      10755  -2.589 0.009655 ** 
+bage35-44            -10482       7371  -1.422 0.155069    
+bage54-65             16081       7342   2.190 0.028547 *  
+bage65-75             25548      10809   2.363 0.018136 *  
+bage75                32190      11267   2.857 0.004290 ** 
+classcapitalist       97860      13674   7.157 9.20e-13 ***
+classself-employed    65883      10792   6.105 1.09e-09 ***
+classinactive        -14122       7085  -1.993 0.046277 *  
+classretired          38532      10016   3.847 0.000121 ***
+classmanager          65130      15607   4.173 3.04e-05 ***
+sexWomen              -7818       5121  -1.527 0.126906    
+renthog              138783       4588  30.246  < 2e-16 ***
+homeownerNon-Owner  -185657       5884 -31.555  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 10440000 on 6298 degrees of freedom
-Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3392 
-F-statistic: 232.5 on 14 and 6298 DF,  p-value: < 2.2e-16
+Residual standard error: 10440000 on 6299 degrees of freedom
+Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3393 
+F-statistic: 250.4 on 13 and 6299 DF,  p-value: < 2.2e-16
 
 [1] "Endowments effect: -3222831063.77626"
 [1] "Coefficients effect: 13691887829.4662"
@@ -44,29 +43,28 @@ lm(formula = riquezabr ~ bage + class + sex + renthog + homeowner,
 
 Weighted Residuals:
        Min         1Q     Median         3Q        Max 
--132202447   -6079815     644525    7649639 6272168751 
+-120260983   -9012509     -66059    9773493 6275931594 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          123196      87063   1.415   0.1571    
-bage0-34             -46996     123271  -0.381   0.7030    
-bage35-44            -65970      84432  -0.781   0.4346    
-bage54-65             -3597      84130  -0.043   0.9659    
-bage65-75            115245     123738   0.931   0.3517    
-bage75               185066     129182   1.433   0.1520    
-classcapitalist      900192     156634   5.747  9.5e-09 ***
-classself-employed   167921     123682   1.358   0.1746    
-classinactive         34964      81141   0.431   0.6666    
-classretired          46438     114652   0.405   0.6855    
-classmanager          76162     180238   0.423   0.6726    
-sexWomen             -56066      58626  -0.956   0.3389    
-renthogHigh         1178826     123227   9.566  < 2e-16 ***
-renthogMiddle        143978      64349   2.237   0.0253 *  
-homeownerNon-Owner  -173243      67644  -2.561   0.0105 *  
+(Intercept)         -406461     122140  -3.328  0.00088 ***
+bage0-34             -87275     123503  -0.707  0.47980    
+bage35-44            -85438      84647  -1.009  0.31285    
+bage54-65             20398      84315   0.242  0.80885    
+bage65-75            119971     124130   0.966  0.33384    
+bage75               232149     129385   1.794  0.07282 .  
+classcapitalist      937599     157025   5.971 2.49e-09 ***
+classself-employed   207002     123926   1.670  0.09490 .  
+classinactive         51485      81358   0.633  0.52688    
+classretired          52608     115013   0.457  0.64739    
+classmanager         229328     179221   1.280  0.20074    
+sexWomen             -50463      58806  -0.858  0.39085    
+renthog              382636      52692   7.262 4.28e-13 ***
+homeownerNon-Owner  -132692      67564  -1.964  0.04958 *  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 119500000 on 6298 degrees of freedom
-Multiple R-squared:  0.02736,	Adjusted R-squared:  0.0252 
-F-statistic: 12.66 on 14 and 6298 DF,  p-value: < 2.2e-16
+Residual standard error: 119800000 on 6299 degrees of freedom
+Multiple R-squared:  0.021,	Adjusted R-squared:  0.01898 
+F-statistic: 10.39 on 13 and 6299 DF,  p-value: < 2.2e-16
 
