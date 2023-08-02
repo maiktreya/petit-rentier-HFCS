@@ -30,7 +30,6 @@ dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeo
 
 ###  Recentered Influence Function EXAMPLE ###
 library(dineq)
-dt_eff_alt <- dt_eff[class == "worker"]
 # Calculate the RIF for the Gini coefficient
 dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
@@ -61,16 +60,16 @@ sv_eff <- svydesign(
         # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
         weights = ~ dt_eff$facine3
 )
-sv_eff_w <- subset(sv_eff, class %in% c("worker" , "inactive"))
-sv_eff <- subset(sv_eff,class %in% c("capitalist", "manager"))
-mean_Group1 <- c(svymean(~sex, design = sv_eff)[1], svymean(~homeowner, design = sv_eff)[1])
-mean_Group1 <- c(svymean(~sex, design = sv_eff_w)[1], svymean(~homeowner, design = sv_eff_w)[1])
-median_Group1 <- svyquantile(~ as.numeric(sex), design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
-median_Group2 <- svyquantile(~ as.numeric(sex), design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
+sv_eff_w <- subset(sv_eff, worker %in% c("Worker"))
+sv_eff <- subset(sv_eff, worker %in% c("Non-Worker"))
+mean_Group1 <- c(svymean(~riquezabr, design = sv_eff)[1], svymean(~homeowner, design = sv_eff)[1])
+mean_Group2 <- c(svymean(~riquezabr, design = sv_eff_w)[1], svymean(~homeowner, design = sv_eff_w)[1])
+median_Group1 <- svyquantile(~ riquezabr, design = sv_eff, quantiles = .5, na.rm = T)[[1]][1]
+median_Group2 <- svyquantile(~ riquezabr, design = sv_eff_w, quantiles = .5, na.rm = T)[[1]][1]
 sv_eff <- sv_eff$variables %>% data.table()
 sv_eff_w <- sv_eff_w$variables %>% data.table()
-test2_w <- rifr(riquezabr ~   class + bage + sex + renthog + homeowner, data = sv_eff_w, weights = "facine3")
-test2_all <- rifr(riquezabr ~ class + bage + sex + renthog + homeowner, data = sv_eff, weights = "facine3")
+test2_w <- rifr(riquezabr ~   sex + young , data = sv_eff_w, weights = "facine3")
+test2_all <- rifr(riquezabr ~ sex + young , data = sv_eff, weights = "facine3")
 
 
 coef_Group1 <- test2_w$Coef
