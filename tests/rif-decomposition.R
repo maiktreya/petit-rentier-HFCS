@@ -62,8 +62,8 @@ interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2)
 sink("output/rif/test_recentred-inf-deco.txt")
 
 print("############### FIRST TEST USING LM ###############")
-test2_w %>% summary() %>% print()
-test2_h %>% summary() %>% print()
+test2_w  %>% print()
+test2_h  %>% print()
 
 # CALCULATE AND PRINT DECOMPOSITION
 paste0("Endowments effect: ", unexplained) %>% print()
