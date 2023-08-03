@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
-rm(list = ls())
-`%>%` <- magrittr::`%>%` # nolint
-c("magrittr", "survey", "dineq", "data.table") %>% sapply(library, character.only = T)
+rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
+`%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
+c("magrittr", "survey", "dineq", "data.table") %>% sapply(library, character.only = T) # LOAD NEEDED LIBRARIES
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- 2020 # selected survey year
