@@ -1,31 +1,31 @@
 [1] "############### FIRST TEST USING LM ###############"
 $Coef
-                        q_0.5
-(Intercept)         194633.12
-workerNon-Worker     38295.89
-sexWomen            -36464.66
-youngNot-Young       22487.14
-homeownerNon-Owner -213504.79
+                       q_0.5
+(Intercept)        -18871.67
+workerNon-Worker    38295.89
+sexWomen           -36464.66
+youngNot-Young      22487.14
+homeownerNon-Owner 213504.79
 
 $SE
-                       q_0.5
-(Intercept)        10259.239
-workerNon-Worker    6744.790
-sexWomen            4938.738
-youngNot-Young      9934.423
-homeownerNon-Owner  5713.669
+                      q_0.5
+(Intercept)        9830.935
+workerNon-Worker   6744.790
+sexWomen           4938.738
+youngNot-Young     9934.423
+homeownerNon-Owner 5713.669
 
 $t
-                        q_0.5
-(Intercept)         18.971496
-workerNon-Worker     5.677848
-sexWomen            -7.383396
-youngNot-Young       2.263557
-homeownerNon-Owner -37.367372
+                       q_0.5
+(Intercept)        -1.919621
+workerNon-Worker    5.677848
+sexWomen           -7.383396
+youngNot-Young      2.263557
+homeownerNon-Owner 37.367372
 
 $p
                            q_0.5
-(Intercept)         1.168506e-77
+(Intercept)         5.496048e-02
 workerNon-Worker    1.437958e-08
 sexWomen            1.787418e-13
 youngNot-Young      2.364238e-02
@@ -36,32 +36,32 @@ $adjusted_r2
 q_0.5 0.240799
 
 $Coef
-                        q_0.5
-(Intercept)         199858.81
-workerNon-Worker     47064.81
-sexWomen            -42244.45
-youngNot-Young       32342.51
-homeownerNon-Owner -230833.26
+                       q_0.5
+(Intercept)        -30974.46
+workerNon-Worker    47064.81
+sexWomen           -42244.45
+youngNot-Young      32342.51
+homeownerNon-Owner 230833.26
 
 $SE
                        q_0.5
-(Intercept)        11120.614
+(Intercept)        10681.530
 workerNon-Worker    7142.535
 sexWomen            5269.183
 youngNot-Young     10802.265
 homeownerNon-Owner  6155.705
 
 $t
-                        q_0.5
-(Intercept)         17.971922
-workerNon-Worker     6.589370
-sexWomen            -8.017266
-youngNot-Young       2.994049
-homeownerNon-Owner -37.499081
+                       q_0.5
+(Intercept)        -2.899815
+workerNon-Worker    6.589370
+sexWomen           -8.017266
+youngNot-Young      2.994049
+homeownerNon-Owner 37.499081
 
 $p
                            q_0.5
-(Intercept)         1.807285e-70
+(Intercept)         3.746726e-03
 workerNon-Worker    4.774194e-11
 sexWomen            1.278621e-15
 youngNot-Young      2.763696e-03
@@ -71,7 +71,7 @@ $adjusted_r2
            [,1]
 q_0.5 0.2145909
 
-[1] "Endowments effect: -109031911.156403"
-[1] "Coefficients effect: -2953113091.9403"
-[1] "Interaction effect: 353945768.733574"
-[1] "Total effect: -2708199234.36313"
+[1] "Endowments effect: -2656317718.64174"
+[1] "Coefficients effect: -113106745119.191"
+[1] "Interaction effect: 8623093981.87647"
+[1] "Total effect: -107139968855.956"

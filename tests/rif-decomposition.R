@@ -9,26 +9,23 @@ dt_eff <- paste0(".datasets/", sel_year, "-EFF.microdat.csv") %>% fread() # Data
 
 # VARIABLE HACKING AND BRUTE MANIPULATION
 dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
-dt_eff$young <- dt_eff$bage
+dt_eff$young <- dt_eff$bage # create a variable for binary age
 dt_eff[young != 1]$young <- 2 # set above 35 to non-young
-setnames(
-        dt_eff,
+setnames(dt_eff,
         old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
-        new = c("class", "worker", "homeowner", "mainres_val")
-)
+        new = c("class", "worker", "homeowner", "mainres_val"))
+# create a categorical income variable
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
-dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 == "c", renthog := 3]
-dt_eff$renthog1 <- dt_eff$renthog
+dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
 
 # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
 dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
-dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
+dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Homeowner", "Non-Owner"))
 
-# oaxaca-blinder + interactions for  Recentered Influence Function (RIF) regression
-# SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION
+# SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION AND CUSTOM SUBGROUPS
 sv_eff <- svydesign(
         ids = ~1,
         # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
@@ -51,7 +48,7 @@ test2_h <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt
 coef_Group1 <- test2_w$Coef
 coef_Group2 <- test2_h$Coef
 
-# INEQUALITY DECOMPOSITION
+# INEQUALITY DECOMPOSITION oaxaca-blinder + interactions for  Recentered Influence Function (RIF) regression
 explained <- sum((median_Group1 - median_Group2) * coef_Group2)
 unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
