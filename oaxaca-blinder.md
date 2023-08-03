@@ -42,3 +42,40 @@ Here's how we'd update the Oaxaca-Blinder decomposition:
 In this case, the interaction effect is negative. This suggests that the interaction of being white and male doesn't contribute to the wage differential as much as the individual characteristics of being white and male. This could be due to a number of reasons, such as a smaller than expected number of white males in the homeowners group or a larger number of white males in the non-homeowners group.
 
 Keep in mind, this example is still a simplification. Real world applications would require running a regression to estimate the wage contributions rather than assuming them.
+
+## We need two elements per characteristic: CONTRIBUTION AND PROPORTION
+
+### CONTRIBUTION IS TAKEN AS THE REGRESSION COEFFICIENT
+### PROPORTION: reflects the share of people meeting the feature between the groups.
+
+# HOMEOWNERSHIP
+r$> svytable(~homeowner, sv_eff) %>% prop.table
+homeowner
+Homeowner Non-Owner
+0.2606545 0.7393455
+
+r$> svytable(~homeowner, sv_eff_w) %>% prop.table
+homeowner
+Homeowner Non-Owner
+0.2693581 0.7306419
+
+r$> svytable(~homeowner, sv_eff_h) %>% prop.table
+homeowner
+Homeowner Non-Owner
+0.1413172 0.8586828
+
+# SEX
+r$> svytable(~sex, sv_eff) %>% prop.table
+sex
+      Man     Women
+0.5415986 0.4584014
+
+r$> svytable(~sex, sv_eff_w) %>% prop.table
+sex
+      Man     Women
+0.5304086 0.4695914
+
+r$> svytable(~sex, sv_eff_h) %>% prop.table
+sex
+      Man     Women
+0.6950266 0.3049734
