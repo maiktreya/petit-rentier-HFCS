@@ -19,6 +19,7 @@ setnames(
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
 dt_eff[renthog1 == "a", renthog := 1][renthog1 == "b", renthog := 2][renthog1 == "c", renthog := 3]
 dt_eff$renthog1 <- dt_eff$renthog
+
 # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
 dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
@@ -27,7 +28,6 @@ dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "N
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 
 # oaxaca-blinder + interactions for  Recentered Influence Function (RIF) regression
-
 # SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION
 sv_eff <- svydesign(
         ids = ~1,
@@ -38,18 +38,16 @@ sv_eff <- svydesign(
 )
 sv_eff_w <- subset(sv_eff, renthog1 %in%  c("Low", "Middle")) # GROUP 1: LOW-MID INCOME
 sv_eff_h <- subset(sv_eff, renthog1 %in%  c("High")) # GROUP 2: HIGH
+sv_eff_w_dt <- sv_eff_w$variables %>% data.table() # FORMATED AS DT
+sv_eff_h_dt <- sv_eff$variables %>% data.table() # FORMATED AS DT
 
 # MEDIANS
 median_Group1 <- svyquantile(~riquezabr, design = sv_eff_w, quantiles = .5, na.rm = F)[[1]][1]
 median_Group2 <- svyquantile(~riquezabr, design = sv_eff_h, quantiles = .5, na.rm = T)[[1]][1]
 
-# RIF REGRESSIONS
-sv_eff_w <- sv_eff_w$variables %>% data.table()
-sv_eff_h <- sv_eff$variables %>% data.table()
-test2_w <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_w, weights = "facine3")
-test2_h <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h, weights = "facine3")
-
-# COEFFICIENTS FROM RIF REGRESSION
+# RIF REGRESSIONS & COEFFICIENTS
+test2_w <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_w_dt, weights = "facine3")
+test2_h <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt, weights = "facine3")
 coef_Group1 <- test2_w$Coef
 coef_Group2 <- test2_h$Coef
 
@@ -64,8 +62,6 @@ sink("output/rif/test_recentred-inf-deco.txt")
 print("############### FIRST TEST USING LM ###############")
 test2_w  %>% print()
 test2_h  %>% print()
-
-# CALCULATE AND PRINT DECOMPOSITION
 paste0("Endowments effect: ", unexplained) %>% print()
 paste0("Coefficients effect: ", explained) %>% print()
 paste0("Interaction effect: ", interaction) %>% print()
