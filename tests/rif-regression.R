@@ -81,13 +81,11 @@ unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/test_recentred-inf-reg.txt")
+sink("output/rif/test_recentred-inf-reg.txt")
 print("############### FIRST TEST USING LM ###############")
 test1 %>%
         summary() %>%
         print()
-# print("############### SECOND TEST RIFR FROM DINEQ ###############")
-# test2 %>% print()
 paste0("Endowments effect: ", unexplained) %>% print()
 paste0("Coefficients effect: ", explained) %>% print()
 paste0("Interaction effect: ", interaction) %>% print()
