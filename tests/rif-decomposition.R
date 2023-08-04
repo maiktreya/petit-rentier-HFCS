@@ -47,6 +47,7 @@ median_Group2 <- svyquantile(~riquezabr, design = sv_eff_h, quantiles = .5, na.r
 # RIF REGRESSIONS & COEFFICIENTS
 test2_w <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_w_dt, weights = "facine3")
 test2_h <- rifr(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt, weights = "facine3")
+oaxaca_results_dineq <- dineq_rb(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt, weights = "facine3")
 coef_Group1 <- test2_w$Coef
 coef_Group2 <- test2_h$Coef
 
@@ -54,7 +55,6 @@ coef_Group2 <- test2_h$Coef
 explained <- sum((median_Group1 - median_Group2) * coef_Group2)
 unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
-
 # OAXACA BLINDER METHOD
 oaxaca_results <- oaxaca(riquezabr ~  sex + young + homeowner + renthog + homeowner | worker1, data = dt_eff)
 
@@ -68,6 +68,8 @@ paste0("Endowments effect: ", unexplained) %>% print()
 paste0("Coefficients effect: ", explained) %>% print()
 paste0("Interaction effect: ", interaction) %>% print()
 paste0("Total effect: ", unexplained + explained + interaction) %>% print()
-"############### METHOD 1: OAXACA DECOMPOSITION ###############" %>% print()
+"############### METHOD 2.A: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
+"############### METHOD 2.B: OAXACA DECOMPOSITION dineq R ###############" %>% print()
+oaxaca_results_dineq  %>% print()
 sink()
