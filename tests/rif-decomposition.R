@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
 `%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
-c("magrittr", "survey", "dineq", "data.table") %>% sapply(library, character.only = T) # LOAD NEEDED LIBRARIES
+c("magrittr", "survey", "dineq", "data.table", "oaxaca") %>% sapply(library, character.only = T)
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- 2020 # selected survey year
@@ -17,6 +17,7 @@ setnames(dt_eff,
 # create a categorical income variable
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
 dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
+dt_eff[, worker1 := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
 
 # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
 dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
@@ -24,6 +25,7 @@ dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
+
 
 # SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION AND CUSTOM SUBGROUPS
 sv_eff <- svydesign(
@@ -53,13 +55,17 @@ explained <- sum((median_Group1 - median_Group2) * coef_Group2)
 unexplained <- sum(median_Group1 * (coef_Group1 - coef_Group2))
 interaction <- sum((median_Group1 - median_Group2) * (coef_Group1 - coef_Group2))
 
+# OAXACA BLINDER METHOD
+oaxaca_results <- oaxaca(riquezabr ~  sex + young + homeowner + renthog + homeowner | worker1, data = dt_eff)
+
 # PREVIEW PRELIMINARY RESULTS
-sink("output/rif/test_recentred-inf-deco.txt")
-print("############### FIRST TEST USING LM ###############")
+"output/rif/test_recentred-inf-deco.txt" %>% sink()
+"############### FIRST TEST USING LM ###############" %>% print()
 test2_w  %>% print()
 test2_h  %>% print()
 paste0("Endowments effect: ", unexplained) %>% print()
 paste0("Coefficients effect: ", explained) %>% print()
 paste0("Interaction effect: ", interaction) %>% print()
 paste0("Total effect: ", unexplained + explained + interaction) %>% print()
+oaxaca_results %>% print()
 sink()
