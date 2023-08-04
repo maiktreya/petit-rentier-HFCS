@@ -1,0 +1,338 @@
+[1] "############### METHOD: RIF REGRESSION dineq R ###############"
+$Coef
+                         q_0.5
+(Intercept)          35932.212
+bage                 14642.612
+class                 5165.008
+sexWomen            -16533.074
+renthog1Middle      148860.520
+renthog1High        298926.515
+homeownerNon-Owner -185128.200
+
+$SE
+                       q_0.5
+(Intercept)         9429.891
+bage                2144.771
+class               1705.180
+sexWomen            4941.423
+renthog1Middle      5584.520
+renthog1High       10489.914
+homeownerNon-Owner  5897.263
+
+$t
+                        q_0.5
+(Intercept)          3.810459
+bage                 6.827120
+class                3.029011
+sexWomen            -3.345813
+renthog1Middle      26.655921
+renthog1High        28.496565
+homeownerNon-Owner -31.392224
+
+$p
+                           q_0.5
+(Intercept)         1.400289e-04
+bage                9.473353e-12
+class               2.463492e-03
+sexWomen            8.252124e-04
+renthog1Middle     1.983774e-148
+renthog1High       3.999502e-168
+homeownerNon-Owner 4.019174e-201
+
+$adjusted_r2
+           [,1]
+q_0.5 0.3278238
+
+[1] "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############"
+$beta
+$beta$beta.A
+       (Intercept)               bage              class           sexWomen 
+        191632.975          14076.088           6374.175         -38380.811 
+homeownerNon-Owner 
+       -243985.973 
+
+$beta$beta.B
+       (Intercept)               bage              class           sexWomen 
+       363599.6587          7585.9886         -1566.2034           487.9426 
+homeownerNon-Owner 
+       -52345.0276 
+
+$beta$beta.diff
+       (Intercept)               bage              class           sexWomen 
+       -171966.684           6490.100           7940.378         -38868.753 
+homeownerNon-Owner 
+       -191640.945 
+
+$beta$beta.R
+                (Intercept)      bage     class    sexWomen homeownerNon-Owner
+[1,]  0.0000000    363599.7  7585.989 -1566.203    487.9426          -52345.03
+[2,]  1.0000000    191633.0 14076.088  6374.175 -38380.8106         -243985.97
+[3,]  0.5000000    277616.3 10831.038  2403.986 -18946.4340         -148165.50
+[4,]  0.8246476    221787.8 12938.033  4981.810 -31565.0796         -210381.26
+[5,] -1.0000000    217338.9 14350.679  6877.374 -47524.2682         -244466.14
+[6,] -2.0000000    191857.9 13708.079  4754.379 -31675.6878         -229083.88
+
+
+$call
+oaxaca(formula = RIF_riquezabr ~ bage + class + sex + homeowner | 
+    renthog1, data = dt_eff)
+
+$n
+$n$n.A
+[1] 5206
+
+$n$n.B
+[1] 1107
+
+$n$n.pooled
+[1] 6313
+
+
+$R
+[1] 100
+
+$reg
+$reg$reg.A
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)                bage               class            sexWomen  
+            191633               14076                6374              -38381  
+homeownerNon-Owner  
+           -243986  
+
+
+$reg$reg.B
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)                bage               class            sexWomen  
+          363599.7              7586.0             -1566.2               487.9  
+homeownerNon-Owner  
+          -52345.0  
+
+
+$reg$reg.pooled.1
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)                bage               class            sexWomen  
+            217339               14351                6877              -47524  
+homeownerNon-Owner  
+           -244466  
+
+
+$reg$reg.pooled.2
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)                bage               class            sexWomen  
+            191858               13708                4754              -31676  
+homeownerNon-Owner            renthog1  
+           -229084              144726  
+
+
+
+$threefold
+$threefold$overall
+  coef(endowments)     se(endowments) coef(coefficients)   se(coefficients) 
+         -9377.342           2503.170        -140329.115           3533.506 
+ coef(interaction)    se(interaction) 
+        -41423.562           3670.531 
+
+$threefold$variables
+                   coef(endowments) se(endowments) coef(coefficients)
+(Intercept)                 0.00000         0.0000        -171966.684
+bage                    -2740.99528       855.3153          27320.564
+class                     754.66295       731.6870          28612.618
+sexWomen                   98.33491       872.5000          -9234.401
+homeownerNon-Owner      -7489.34444      2153.1961         -15061.212
+                   se(coefficients) coef(interaction) se(interaction)
+(Intercept)               13301.291             0.000           0.000
+bage                      14123.769         -2345.025        1239.605
+class                      8437.442         -3826.010        1182.806
+sexWomen                   1999.721         -7833.207        1623.994
+homeownerNon-Owner         1771.276        -27419.320        3044.545
+
+
+$twofold
+$twofold$overall
+     group.weight coef(explained) se(explained) coef(unexplained) se(unexplained)
+[1,]    0.0000000       -9377.342      2503.170         -181752.7        5151.626
+[2,]    1.0000000      -50800.903      2673.647         -140329.1        3533.506
+[3,]    0.5000000      -30089.123      1827.272         -161040.9        4017.992
+[4,]    0.8246476      -43537.180      2114.803         -147592.8        4703.903
+[5,]   -1.0000000      -53053.960      2920.045         -138076.1        3517.148
+[6,]   -2.0000000      -46404.026      2576.186         -144726.0        3576.207
+     coef(unexplained A) se(unexplained A) coef(unexplained B) se(unexplained B)
+[1,]       -1.817527e+05      5.151626e+03                0.00            0.0000
+[2,]        0.000000e+00      0.000000e+00          -140329.12         3533.5056
+[3,]       -9.087634e+04      2.575813e+03           -70164.56         1766.7528
+[4,]       -3.187078e+04      4.248276e+03          -115722.06          619.6089
+[5,]       -2.421197e+04      8.954540e+02          -113864.08         2997.7386
+[6,]       -1.608487e-08      1.170844e-08          -144725.99         3576.2072
+
+$twofold$variables
+$twofold$variables[[1]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)                   0         0.00000        0.0000        -171966.68
+bage                          0     -2740.99528      855.3153          24975.54
+class                         0       754.66295      731.6870          24786.61
+sexWomen                      0        98.33491      872.5000         -17067.61
+homeownerNon-Owner            0     -7489.34444     2153.1961         -42480.53
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291          -171966.68         13301.291
+bage                     12913.444            24975.54         12913.444
+class                     7314.717            24786.61          7314.717
+sexWomen                  3518.725           -17067.61          3518.725
+homeownerNon-Owner        3651.370           -42480.53          3651.370
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                          0                 0
+bage                                 0                 0
+class                                0                 0
+sexWomen                             0                 0
+homeownerNon-Owner                   0                 0
+
+$twofold$variables[[2]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)                   1           0.000        0.0000       -171966.684
+bage                          1       -5086.020     1080.7712         27320.564
+class                         1       -3071.347      945.5711         28612.618
+sexWomen                      1       -7734.872     1305.1098         -9234.401
+homeownerNon-Owner            1      -34908.664     2427.7765        -15061.212
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291                   0                 0
+bage                     14123.769                   0                 0
+class                     8437.442                   0                 0
+sexWomen                  1999.721                   0                 0
+homeownerNon-Owner        1771.276                   0                 0
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                -171966.684         13301.291
+bage                         27320.564         14123.769
+class                        28612.618          8437.442
+sexWomen                     -9234.401          1999.721
+homeownerNon-Owner          -15061.212          1771.276
+
+$twofold$variables[[3]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)                 0.5           0.000        0.0000        -171966.68
+bage                        0.5       -3913.508      752.1037          26148.05
+class                       0.5       -1158.342      604.1337          26699.61
+sexWomen                    0.5       -3818.269      756.9314         -13151.00
+homeownerNon-Owner          0.5      -21199.004     1716.9340         -28770.87
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291          -85983.342          6650.645
+bage                     13517.943           12487.770          6456.722
+class                     7873.880           12393.304          3657.358
+sexWomen                  2744.233           -8533.804          1759.362
+homeownerNon-Owner        2432.621          -21240.266          1825.685
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                 -85983.342         6650.6454
+bage                         13660.282         7061.8847
+class                        14306.309         4218.7208
+sexWomen                     -4617.201          999.8605
+homeownerNon-Owner           -7530.606          885.6381
+
+$twofold$variables[[4]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)           0.8246476           0.000        0.0000        -171966.68
+bage                  0.8246476       -4674.814      765.4439          26909.36
+class                 0.8246476       -2400.446      629.2585          27941.72
+sexWomen              0.8246476       -6361.300      738.2926         -10607.97
+homeownerNon-Owner    0.8246476      -30100.619     1875.2196         -19869.26
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291          -30154.779         10968.877
+bage                     13125.282            4379.522         10649.040
+class                     7510.256            4346.393          6032.063
+sexWomen                  3245.020           -2992.847          2901.708
+homeownerNon-Owner        3194.432           -7449.065          3011.093
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                -141811.905         2332.4139
+bage                         22529.836         2476.6375
+class                        23595.326         1479.5260
+sexWomen                     -7615.126          350.6560
+homeownerNon-Owner          -12420.192          310.5976
+
+$twofold$variables[[5]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)                  -1           0.000        0.0000       -171966.684
+bage                         -1       -5185.236     1057.9868         27419.780
+class                        -1       -3313.809      910.2445         28855.081
+sexWomen                     -1       -9577.550     1339.3595         -7391.723
+homeownerNon-Owner           -1      -34977.365     2716.4097        -14992.512
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291          -25705.909         2941.6410
+bage                     13928.284           -1056.693         3164.4456
+class                     8262.977           -1570.781         2012.6732
+sexWomen                  2378.806            4014.972          886.1531
+homeownerNon-Owner        2126.324             106.437          607.1725
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                 -146260.78         11470.765
+bage                          28476.47         12077.867
+class                         30425.86          7322.121
+sexWomen                     -11406.70          1722.541
+homeownerNon-Owner           -15098.95          1586.870
+
+$twofold$variables[[6]]
+                   group.weight coef(explained) se(explained) coef(unexplained)
+(Intercept)                  -2           0.000        0.0000        -171966.68
+bage                         -2       -4953.050      954.7517          27187.59
+class                        -2       -2290.861      779.8419          27832.13
+sexWomen                     -2       -6383.591     1154.2944         -10585.68
+homeownerNon-Owner           -2      -32776.524     2423.0593         -17193.35
+                   se(unexplained) coef(unexplained A) se(unexplained A)
+(Intercept)              13301.291           -224.9442         2029.0543
+bage                     13911.958           1416.1919         2665.1917
+class                     8204.604           5056.3374         1727.3112
+sexWomen                  2194.014          -2944.2779          537.6485
+homeownerNon-Owner        1928.720          -3303.3072          387.4084
+                   coef(unexplained B) se(unexplained B)
+(Intercept)                -171741.740         11653.211
+bage                         25771.402         11712.202
+class                        22775.795          6754.884
+sexWomen                     -7641.404          1730.877
+homeownerNon-Owner          -13890.045          1561.462
+
+
+
+$x
+$x$x.mean.A
+       (Intercept)               bage              class           sexWomen 
+         1.0000000          3.8482520          3.1215905          0.4391087 
+homeownerNon-Owner 
+         0.2216673 
+
+$x$x.mean.B
+       (Intercept)               bage              class           sexWomen 
+        1.00000000         4.20957543         3.60343270         0.23757904 
+homeownerNon-Owner 
+        0.07859079 
+
+$x$x.mean.diff
+       (Intercept)               bage              class           sexWomen 
+         0.0000000         -0.3613234         -0.4818422          0.2015297 
+homeownerNon-Owner 
+         0.1430765 
+
+
+$y
+$y$y.A
+[1] 194761.8
+
+$y$y.B
+[1] 385891.8
+
+$y$y.diff
+[1] -191130
+
+
+attr(,"class")
+[1] "oaxaca"

@@ -5,31 +5,23 @@ lm(formula = RIF_riquezabr ~ bage + class + sex + renthog + homeowner,
     data = dt_eff, weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q       Max 
--66836670  -4529929    916071   6121814  64340324 
+       Min         1Q     Median         3Q        Max 
+-110805580   -3632692     930270    7538393   68490202 
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          -55271      10636  -5.197 2.09e-07 ***
-bage0-34             -27841      10755  -2.589 0.009655 ** 
-bage35-44            -10482       7371  -1.422 0.155069    
-bage54-65             16081       7342   2.190 0.028547 *  
-bage65-75             25548      10809   2.363 0.018136 *  
-bage75                32190      11267   2.857 0.004290 ** 
-classcapitalist       97860      13674   7.157 9.20e-13 ***
-classself-employed    65883      10792   6.105 1.09e-09 ***
-classinactive        -14122       7085  -1.993 0.046277 *  
-classretired          38532      10016   3.847 0.000121 ***
-classmanager          65130      15607   4.173 3.04e-05 ***
-sexWomen              -7818       5121  -1.527 0.126906    
-renthog              138783       4588  30.246  < 2e-16 ***
-homeownerNon-Owner  -185657       5884 -31.555  < 2e-16 ***
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         1.485e+05  8.110e+03  18.315  < 2e-16 ***
+bage                5.861e+03  2.198e+03   2.667  0.00768 ** 
+class               4.137e+03  1.770e+03   2.337  0.01945 *  
+sexWomen           -3.179e+04  5.092e+03  -6.244 4.54e-10 ***
+renthog             1.298e+00  5.522e-02  23.509  < 2e-16 ***
+homeownerNon-Owner -2.181e+05  5.954e+03 -36.629  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 10440000 on 6299 degrees of freedom
-Multiple R-squared:  0.3407,	Adjusted R-squared:  0.3393 
-F-statistic: 250.4 on 13 and 6299 DF,  p-value: < 2.2e-16
+Residual standard error: 10940000 on 6307 degrees of freedom
+Multiple R-squared:  0.2742,	Adjusted R-squared:  0.2736 
+F-statistic: 476.6 on 5 and 6307 DF,  p-value: < 2.2e-16
 
 [1] "Endowments effect: -3222831063.77626"
 [1] "Coefficients effect: 13691887829.4662"
@@ -43,28 +35,20 @@ lm(formula = riquezabr ~ bage + class + sex + renthog + homeowner,
 
 Weighted Residuals:
        Min         1Q     Median         3Q        Max 
--120260983   -9012509     -66059    9773493 6275931594 
+-1.174e+09 -8.403e+06  2.718e+06  1.297e+07  5.698e+09 
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)    
-(Intercept)         -406461     122140  -3.328  0.00088 ***
-bage0-34             -87275     123503  -0.707  0.47980    
-bage35-44            -85438      84647  -1.009  0.31285    
-bage54-65             20398      84315   0.242  0.80885    
-bage65-75            119971     124130   0.966  0.33384    
-bage75               232149     129385   1.794  0.07282 .  
-classcapitalist      937599     157025   5.971 2.49e-09 ***
-classself-employed   207002     123926   1.670  0.09490 .  
-classinactive         51485      81358   0.633  0.52688    
-classretired          52608     115013   0.457  0.64739    
-classmanager         229328     179221   1.280  0.20074    
-sexWomen             -50463      58806  -0.858  0.39085    
-renthog              382636      52692   7.262 4.28e-13 ***
-homeownerNon-Owner  -132692      67564  -1.964  0.04958 *  
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)        -7.576e+05  8.076e+04  -9.381  < 2e-16 ***
+bage                7.407e+04  2.189e+04   3.384 0.000719 ***
+class               4.821e+03  1.763e+04   0.273 0.784486    
+sexWomen            5.708e+04  5.070e+04   1.126 0.260348    
+renthog             2.085e+01  5.499e-01  37.910  < 2e-16 ***
+homeownerNon-Owner -3.207e+04  5.929e+04  -0.541 0.588646    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 119800000 on 6299 degrees of freedom
-Multiple R-squared:  0.021,	Adjusted R-squared:  0.01898 
-F-statistic: 10.39 on 13 and 6299 DF,  p-value: < 2.2e-16
+Residual standard error: 1.09e+08 on 6307 degrees of freedom
+Multiple R-squared:  0.1895,	Adjusted R-squared:  0.1889 
+F-statistic:   295 on 5 and 6307 DF,  p-value: < 2.2e-16
 

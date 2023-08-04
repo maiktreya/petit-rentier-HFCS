@@ -27,30 +27,18 @@ dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "N
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
 dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
-# SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION AND CUSTOM SUBGROUPS
-sv_eff <- svydesign(
-        ids = ~1,
-        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
-        data = as.data.frame(dt_eff),
-        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
-        weights = ~ dt_eff$facine3
-)
-sv_eff_w <- subset(sv_eff, renthog1 %in%  c("Low", "Middle")) # GROUP 1: LOW-MID INCOME
-sv_eff_h <- subset(sv_eff, renthog1 %in%  c("High")) # GROUP 2: HIGH
-sv_eff_w_dt <- sv_eff_w$variables %>% data.table() # FORMATED AS DT
-sv_eff_h_dt <- sv_eff$variables %>% data.table() # FORMATED AS DT
-
-
-# RIF REGRESSIONS & COEFFICIENTS
-oaxaca_results_dineq <- dineq_rb(RIF_riquezabr ~ worker + sex + young + homeowner, data = dt_eff, weights = "facine3")
+# RIF REGRESSION
+rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
 
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~  sex + young + homeowner + renthog + homeowner | worker1, data = dt_eff)
+# modify the grouping variable to be binary 0,1
+dt_eff[renthog1 %in%  c("Low", "Middle"), renthog1 := 1][renthog1 %in%  c("High"), renthog1 := 2][, renthog1 := as.numeric(renthog1) - 1]
+oaxaca_results <- oaxaca(RIF_riquezabr ~  bage + class + sex  + homeowner | renthog1, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
-"output/rif/oaxaca-blinder.txt" %>% sink()
-"############### METHOD 2.A: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
+"output/rif/rif-oaxaca-new.txt" %>% sink()
+"############### METHOD: RIF REGRESSION dineq R ###############" %>% print()
+rif_results %>% print()
+"############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
-"############### METHOD 2.B: OAXACA DECOMPOSITION dineq R ###############" %>% print()
-oaxaca_results_dineq  %>% print()
 sink()
