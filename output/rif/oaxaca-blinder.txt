@@ -1,0 +1,718 @@
+[1] "############### METHOD 2.A: OAXACA DECOMPOSITION oaxaca R ###############"
+$beta
+$beta$beta.A
+       (Intercept) 
+      2.999684e+05 
+          sexWomen 
+     -4.444037e+05 
+    youngNot-Young 
+      3.838552e+05 
+homeownerNon-Owner 
+     -4.242351e+05 
+           renthog 
+      9.257008e+00 
+
+$beta$beta.B
+       (Intercept) 
+     -3.250144e+06 
+          sexWomen 
+     -8.769570e+05 
+    youngNot-Young 
+      1.417734e+06 
+homeownerNon-Owner 
+      2.386596e+06 
+           renthog 
+      6.692287e+01 
+
+$beta$beta.diff
+       (Intercept) 
+      3.550112e+06 
+          sexWomen 
+      4.325533e+05 
+    youngNot-Young 
+     -1.033879e+06 
+homeownerNon-Owner 
+     -2.810831e+06 
+           renthog 
+     -5.766587e+01 
+
+$beta$beta.R
+                (Intercept)
+[1,]  0.0000000  -3250143.6
+[2,]  1.0000000    299968.4
+[3,]  0.5000000  -1475087.6
+[4,]  0.7801362   -480572.6
+[5,] -1.0000000   -937519.0
+[6,] -2.0000000  -1254364.8
+      sexWomen youngNot-Young
+[1,] -876957.0      1417734.5
+[2,] -444403.7       383855.2
+[3,] -660680.3       900794.8
+[4,] -539506.5       611167.8
+[5,] -373579.9       531211.3
+[6,] -283379.5       350181.1
+     homeownerNon-Owner   renthog
+[1,]          2386596.3 66.922875
+[2,]          -424235.1  9.257008
+[3,]           981180.6 38.089941
+[4,]           193764.9 21.935643
+[5,]           176834.6 33.950727
+[6,]           296528.2 33.704546
+
+
+$call
+oaxaca(formula = riquezabr ~ sex + young + homeowner + renthog + 
+    homeowner | worker1, data = dt_eff)
+
+$n
+$n$n.A
+[1] 4925
+
+$n$n.B
+[1] 1388
+
+$n$n.pooled
+[1] 6313
+
+
+$R
+[1] 100
+
+$reg
+$reg$reg.A
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)  
+         3.000e+05  
+          sexWomen  
+        -4.444e+05  
+    youngNot-Young  
+         3.839e+05  
+homeownerNon-Owner  
+        -4.242e+05  
+           renthog  
+         9.257e+00  
+
+
+$reg$reg.B
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)  
+        -3.250e+06  
+          sexWomen  
+        -8.770e+05  
+    youngNot-Young  
+         1.418e+06  
+homeownerNon-Owner  
+         2.387e+06  
+           renthog  
+         6.692e+01  
+
+
+$reg$reg.pooled.1
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)  
+        -937519.03  
+          sexWomen  
+        -373579.90  
+    youngNot-Young  
+         531211.31  
+homeownerNon-Owner  
+         176834.60  
+           renthog  
+             33.95  
+
+
+$reg$reg.pooled.2
+
+Call:
+NULL
+
+Coefficients:
+       (Intercept)  
+        -1254364.8  
+          sexWomen  
+         -283379.5  
+    youngNot-Young  
+          350181.1  
+homeownerNon-Owner  
+          296528.2  
+           renthog  
+              33.7  
+           worker1  
+         2027308.7  
+
+
+
+$threefold
+$threefold$overall
+  coef(endowments) 
+        -2014630.2 
+    se(endowments) 
+         1054424.9 
+coef(coefficients) 
+        -2721894.2 
+  se(coefficients) 
+          807837.5 
+ coef(interaction) 
+         1651967.1 
+   se(interaction) 
+          996503.5 
+
+$threefold$variables
+                   coef(endowments)
+(Intercept)                    0.00
+sexWomen                  -65950.41
+youngNot-Young            -41221.30
+homeownerNon-Owner        171586.43
+renthog                 -2079044.93
+                   se(endowments)
+(Intercept)                   0.0
+sexWomen                 126937.4
+youngNot-Young            38946.6
+homeownerNon-Owner       170521.6
+renthog                 1163143.4
+                   coef(coefficients)
+(Intercept)                 3550111.9
+sexWomen                     149274.5
+youngNot-Young             -1013767.8
+homeownerNon-Owner          -394893.5
+renthog                    -5012619.4
+                   se(coefficients)
+(Intercept)               2739067.0
+sexWomen                   567779.2
+youngNot-Young            1309031.5
+homeownerNon-Owner         318020.6
+renthog                   2966438.8
+                   coef(interaction)
+(Intercept)                     0.00
+sexWomen                    32529.61
+youngNot-Young              30060.53
+homeownerNon-Owner        -202087.18
+renthog                   1791464.11
+                   se(interaction)
+(Intercept)                   0.00
+sexWomen                 126820.52
+youngNot-Young            38850.02
+homeownerNon-Owner       172866.97
+renthog                 1128046.00
+
+
+$twofold
+$twofold$overall
+     group.weight coef(explained)
+[1,]    0.0000000      -2014630.2
+[2,]    1.0000000       -362663.1
+[3,]    0.5000000      -1188646.7
+[4,]    0.7801362       -725870.9
+[5,]   -1.0000000      -1085549.0
+[6,]   -2.0000000      -1057248.7
+     se(explained) coef(unexplained)
+[1,]     1054424.9          -1069927
+[2,]      293951.5          -2721894
+[3,]      592330.1          -1895911
+[4,]      846189.3          -2358686
+[5,]      763959.8          -1999008
+[6,]      762434.0          -2027309
+     se(unexplained)
+[1,]        587354.0
+[2,]        807837.5
+[3,]        500538.0
+[4,]        492231.9
+[5,]        577582.2
+[6,]        585227.4
+     coef(unexplained A)
+[1,]       -1.069927e+06
+[2,]        0.000000e+00
+[3,]       -5.349636e+05
+[4,]       -2.352382e+05
+[5,]       -4.395095e+05
+[6,]       -1.024455e-08
+     se(unexplained A)
+[1,]      5.873540e+05
+[2,]      0.000000e+00
+[3,]      2.936770e+05
+[4,]      4.582162e+05
+[5,]      1.276444e+05
+[6,]      3.057771e-08
+     coef(unexplained B)
+[1,]                   0
+[2,]            -2721894
+[3,]            -1360947
+[4,]            -2123448
+[5,]            -1559499
+[6,]            -2027309
+     se(unexplained B)
+[1,]               0.0
+[2,]          807837.5
+[3,]          403918.7
+[4,]          177614.2
+[5,]          450405.8
+[6,]          585227.4
+
+$twofold$variables
+$twofold$variables[[1]]
+                   group.weight
+(Intercept)                   0
+sexWomen                      0
+youngNot-Young                0
+homeownerNon-Owner            0
+renthog                       0
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -65950.41
+youngNot-Young           -41221.30
+homeownerNon-Owner       171586.43
+renthog                -2079044.93
+                   se(explained)
+(Intercept)                  0.0
+sexWomen                126937.4
+youngNot-Young           38946.6
+homeownerNon-Owner      170521.6
+renthog                1163143.4
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    181804.1
+youngNot-Young             -983707.3
+homeownerNon-Owner         -596980.6
+renthog                   -3221155.3
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  692338.4
+youngNot-Young           1270810.5
+homeownerNon-Owner        484860.1
+renthog                  1933893.0
+                   coef(unexplained A)
+(Intercept)                  3550111.9
+sexWomen                      181804.1
+youngNot-Young               -983707.3
+homeownerNon-Owner           -596980.6
+renthog                     -3221155.3
+                   se(unexplained A)
+(Intercept)                2739067.0
+sexWomen                    692338.4
+youngNot-Young             1270810.5
+homeownerNon-Owner          484860.1
+renthog                    1933893.0
+                   coef(unexplained B)
+(Intercept)                          0
+sexWomen                             0
+youngNot-Young                       0
+homeownerNon-Owner                   0
+renthog                              0
+                   se(unexplained B)
+(Intercept)                        0
+sexWomen                           0
+youngNot-Young                     0
+homeownerNon-Owner                 0
+renthog                            0
+
+$twofold$variables[[2]]
+                   group.weight
+(Intercept)                   1
+sexWomen                      1
+youngNot-Young                1
+homeownerNon-Owner            1
+renthog                       1
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -33420.80
+youngNot-Young           -11160.77
+homeownerNon-Owner       -30500.75
+renthog                 -287580.82
+                   se(explained)
+(Intercept)                0.000
+sexWomen               11890.969
+youngNot-Young          3411.644
+homeownerNon-Owner     13702.045
+renthog               305888.220
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    149274.5
+youngNot-Young            -1013767.8
+homeownerNon-Owner         -394893.5
+renthog                   -5012619.4
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  567779.2
+youngNot-Young           1309031.5
+homeownerNon-Owner        318020.6
+renthog                  2966438.8
+                   coef(unexplained A)
+(Intercept)                          0
+sexWomen                             0
+youngNot-Young                       0
+homeownerNon-Owner                   0
+renthog                              0
+                   se(unexplained A)
+(Intercept)                        0
+sexWomen                           0
+youngNot-Young                     0
+homeownerNon-Owner                 0
+renthog                            0
+                   coef(unexplained B)
+(Intercept)                  3550111.9
+sexWomen                      149274.5
+youngNot-Young              -1013767.8
+homeownerNon-Owner           -394893.5
+renthog                     -5012619.4
+                   se(unexplained B)
+(Intercept)                2739067.0
+sexWomen                    567779.2
+youngNot-Young             1309031.5
+homeownerNon-Owner          318020.6
+renthog                    2966438.8
+
+$twofold$variables[[3]]
+                   group.weight
+(Intercept)                 0.5
+sexWomen                    0.5
+youngNot-Young              0.5
+homeownerNon-Owner          0.5
+renthog                     0.5
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -49685.61
+youngNot-Young           -26191.03
+homeownerNon-Owner        70542.84
+renthog                -1183312.87
+                   se(explained)
+(Intercept)                 0.00
+sexWomen                64081.11
+youngNot-Young          19669.97
+homeownerNon-Owner      84628.25
+renthog                636484.95
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    165539.3
+youngNot-Young             -998737.5
+homeownerNon-Owner         -495937.1
+renthog                   -4116887.3
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  629946.0
+youngNot-Young           1289916.3
+homeownerNon-Owner        400802.3
+renthog                  2439616.5
+                   coef(unexplained A)
+(Intercept)                 1775055.97
+sexWomen                      90902.07
+youngNot-Young              -491853.64
+homeownerNon-Owner          -298490.32
+renthog                    -1610577.64
+                   se(unexplained A)
+(Intercept)                1369533.5
+sexWomen                    346169.2
+youngNot-Young              635405.2
+homeownerNon-Owner          242430.0
+renthog                     966946.5
+                   coef(unexplained B)
+(Intercept)                 1775055.97
+sexWomen                      74637.26
+youngNot-Young              -506883.90
+homeownerNon-Owner          -197446.73
+renthog                    -2506309.69
+                   se(unexplained B)
+(Intercept)                1369533.5
+sexWomen                    283889.6
+youngNot-Young              654515.8
+homeownerNon-Owner          159010.3
+renthog                    1483219.4
+
+$twofold$variables[[4]]
+                   group.weight
+(Intercept)           0.7801362
+sexWomen              0.7801362
+youngNot-Young        0.7801362
+homeownerNon-Owner    0.7801362
+renthog               0.7801362
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -40572.89
+youngNot-Young           -17769.99
+homeownerNon-Owner        13930.90
+renthog                 -681458.88
+                   se(explained)
+(Intercept)                 0.00
+sexWomen                99210.94
+youngNot-Young          30446.91
+homeownerNon-Owner     132665.55
+renthog                926152.55
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    156426.6
+youngNot-Young            -1007158.6
+homeownerNon-Owner         -439325.1
+renthog                   -4618741.3
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  664879.0
+youngNot-Young           1279210.6
+homeownerNon-Owner        447786.1
+renthog                  2152707.8
+                   coef(unexplained A)
+(Intercept)                  780541.01
+sexWomen                      39972.14
+youngNot-Young              -216281.59
+homeownerNon-Owner          -131254.42
+renthog                     -708215.35
+                   se(unexplained A)
+(Intercept)                2136845.4
+sexWomen                    540118.2
+youngNot-Young              991405.3
+homeownerNon-Owner          378256.9
+renthog                    1508700.0
+                   coef(unexplained B)
+(Intercept)                  2769570.9
+sexWomen                      116454.5
+youngNot-Young               -790877.0
+homeownerNon-Owner           -308070.7
+renthog                     -3910526.0
+                   se(unexplained B)
+(Intercept)                602221.60
+sexWomen                   124834.07
+youngNot-Young             287808.61
+homeownerNon-Owner          69921.22
+renthog                    652212.44
+
+$twofold$variables[[5]]
+                   group.weight
+(Intercept)                  -1
+sexWomen                     -1
+youngNot-Young               -1
+homeownerNon-Owner           -1
+renthog                      -1
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -28094.59
+youngNot-Young           -15445.22
+homeownerNon-Owner        12713.68
+renthog                -1054722.88
+                   se(explained)
+(Intercept)                0.000
+sexWomen               29369.927
+youngNot-Young          9306.991
+homeownerNon-Owner     35979.219
+renthog               810080.162
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    143948.3
+youngNot-Young            -1009483.4
+homeownerNon-Owner         -438107.9
+renthog                   -4245477.3
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  577038.2
+youngNot-Young           1303133.9
+homeownerNon-Owner        344132.9
+renthog                  2698702.1
+                   coef(unexplained A)
+(Intercept)                 1237487.39
+sexWomen                     -29767.56
+youngNot-Young              -140205.23
+homeownerNon-Owner          -127658.66
+renthog                    -1379365.45
+                   se(unexplained A)
+(Intercept)                841115.32
+sexWomen                   138634.33
+youngNot-Young             273866.15
+homeownerNon-Owner          95443.88
+renthog                    818961.06
+                   coef(unexplained B)
+(Intercept)                  2312624.6
+sexWomen                      173715.9
+youngNot-Young               -869278.1
+homeownerNon-Owner           -310449.2
+renthog                     -2866111.9
+                   se(unexplained B)
+(Intercept)                2438355.9
+sexWomen                    543653.3
+youngNot-Young             1124266.2
+homeownerNon-Owner          270664.6
+renthog                    2389264.7
+
+$twofold$variables[[6]]
+                   group.weight
+(Intercept)                  -2
+sexWomen                     -2
+youngNot-Young               -2
+homeownerNon-Owner           -2
+renthog                      -2
+                   coef(explained)
+(Intercept)                   0.00
+sexWomen                 -21311.19
+youngNot-Young           -10181.68
+homeownerNon-Owner        21319.15
+renthog                -1047074.95
+                   se(explained)
+(Intercept)                 0.00
+sexWomen                27681.18
+youngNot-Young           8303.95
+homeownerNon-Owner      36251.36
+renthog                807646.89
+                   coef(unexplained)
+(Intercept)                3550111.9
+sexWomen                    137164.9
+youngNot-Young            -1014746.9
+homeownerNon-Owner         -446713.4
+renthog                   -4253125.3
+                   se(unexplained)
+(Intercept)              2739067.0
+sexWomen                  576340.5
+youngNot-Young           1303525.9
+homeownerNon-Owner        344904.9
+renthog                  2699163.3
+                   coef(unexplained A)
+(Intercept)                 1554333.13
+sexWomen                     -67679.21
+youngNot-Young                32039.99
+homeownerNon-Owner          -153079.88
+renthog                    -1365614.03
+                   se(unexplained A)
+(Intercept)                838188.33
+sexWomen                   133183.80
+youngNot-Young             258127.57
+homeownerNon-Owner          96690.67
+renthog                    817409.64
+                   coef(unexplained B)
+(Intercept)                  1995778.8
+sexWomen                      204844.1
+youngNot-Young              -1046786.9
+homeownerNon-Owner           -293633.5
+renthog                     -2887511.2
+                   se(unexplained B)
+(Intercept)                2401225.2
+sexWomen                    545171.2
+youngNot-Young             1136243.1
+homeownerNon-Owner          268842.1
+renthog                    2389844.3
+
+
+
+$x
+$x$x.mean.A
+       (Intercept) 
+      1.000000e+00 
+          sexWomen 
+      4.203046e-01 
+    youngNot-Young 
+      9.514721e-01 
+homeownerNon-Owner 
+      2.123858e-01 
+           renthog 
+      5.585896e+04 
+
+$x$x.mean.B
+       (Intercept) 
+      1.000000e+00 
+          sexWomen 
+      3.451009e-01 
+    youngNot-Young 
+      9.805476e-01 
+homeownerNon-Owner 
+      1.404899e-01 
+           renthog 
+      8.692524e+04 
+
+$x$x.mean.diff
+       (Intercept) 
+      0.000000e+00 
+          sexWomen 
+      7.520370e-02 
+    youngNot-Young 
+     -2.907547e-02 
+homeownerNon-Owner 
+      7.189587e-02 
+           renthog 
+     -3.106628e+04 
+
+
+$y
+$y$y.A
+[1] 905396.3
+
+$y$y.B
+[1] 3989954
+
+$y$y.diff
+[1] -3084557
+
+
+attr(,"class")
+[1] "oaxaca"
+[1] "############### METHOD 2.B: OAXACA DECOMPOSITION dineq R ###############"
+$inequality_measures
+              gini 
+          0.630951 
+               mld 
+          1.227177 
+             theil 
+          1.048633 
+variance_logincome 
+          5.065866 
+
+$decomposition_inequality
+     worker         sex       young 
+0.011661280 0.005480691 0.001940860 
+  homeowner    residual 
+0.446036138 0.534881032 
+
+$regression_results
+
+Call:
+stats::lm(formula = formula, data = df, weights = weights)
+
+Weighted Residuals:
+      Min        1Q    Median 
+-0.277884 -0.004180  0.002696 
+       3Q       Max 
+ 0.007926  0.231274 
+
+Coefficients:
+                   Estimate
+(Intercept)        12.22907
+workerNon-Worker    0.54541
+sexWomen           -0.28960
+youngNot-Young      0.10246
+homeownerNon-Owner -3.45763
+                   Std. Error
+(Intercept)           0.08894
+workerNon-Worker      0.05650
+sexWomen              0.04187
+youngNot-Young        0.08654
+homeownerNon-Owner    0.04975
+                   t value Pr(>|t|)
+(Intercept)        137.491  < 2e-16
+workerNon-Worker     9.654  < 2e-16
+sexWomen            -6.917 5.07e-12
+youngNot-Young       1.184    0.236
+homeownerNon-Owner -69.501  < 2e-16
+                      
+(Intercept)        ***
+workerNon-Worker   ***
+sexWomen           ***
+youngNot-Young        
+homeownerNon-Owner ***
+---
+Signif. codes:  
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.02084 on 6242 degrees of freedom
+Multiple R-squared:  0.4651,	Adjusted R-squared:  0.4648 
+F-statistic:  1357 on 4 and 6242 DF,  p-value: < 2.2e-16
+
+
+$note
+[1] "66 negative or zero x's deleted (unweighted)"
+
