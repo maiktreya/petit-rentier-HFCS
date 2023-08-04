@@ -25,6 +25,7 @@ dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
 dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
 dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(1, 0), labels = c("Homeowner", "Non-Owner"))
+dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
 # SURVEY OBJECT TAKING WEIGHTS INTO CONSIDERATION AND CUSTOM SUBGROUPS
 sv_eff <- svydesign(
@@ -39,11 +40,12 @@ sv_eff_h <- subset(sv_eff, renthog1 %in%  c("High")) # GROUP 2: HIGH
 sv_eff_w_dt <- sv_eff_w$variables %>% data.table() # FORMATED AS DT
 sv_eff_h_dt <- sv_eff$variables %>% data.table() # FORMATED AS DT
 
+
 # RIF REGRESSIONS & COEFFICIENTS
-oaxaca_results_dineq <- dineq_rb(riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt, weights = "facine3")
+oaxaca_results_dineq <- dineq_rb(RIF_riquezabr ~ worker + sex + young + homeowner, data = sv_eff_h_dt, weights = "facine3")
 
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(riquezabr ~  sex + young + homeowner + renthog + homeowner | worker1, data = dt_eff)
+oaxaca_results <- oaxaca(RIF_riquezabr ~  sex + young + homeowner + renthog + homeowner | worker1, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/oaxaca-blinder.txt" %>% sink()
