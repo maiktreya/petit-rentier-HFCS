@@ -31,7 +31,6 @@ dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method =
 
 # RIF REGRESSION
 rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
-test1 <-         lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = facine3)
 # OAXACA BLINDER METHOD
 # modify the grouping variable to be binary 0,1
 dt_eff[renthog1 %in%  c("Low", "Middle"), renthog1 := 1][renthog1 %in%  c("High"), renthog1 := 2][, renthog1 := as.numeric(renthog1) - 1]
@@ -44,3 +43,7 @@ rif_results %>% print()
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
 sink()
+jpeg(file = "output/rif/oaxaca.jpeg")
+# Create a scatter plot of the first two dimensions
+plot.oaxaca(oaxaca_results) %>% print()
+dev.off()
