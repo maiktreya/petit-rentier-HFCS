@@ -39,19 +39,23 @@ dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner"
 dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 1]
 dt_eff <- rbind(dt_effA, dt_effB)
 
-
-# RESAMPLING WITH WHEIGTS
-dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
-dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
-
 # RIF REGRESSION
 rif_results1 <-    lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
 rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
-rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0), weights = facine3)
-rif_results4 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
 
+
+dt_eff_sv <- svydesign(
+        ids = ~1,
+        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
+        data = as.data.frame(dt_eff, R),
+        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
+        weights = ~ dt_eff$facine3
+)
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
+dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
+dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
+
+oaxaca_results1 <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
 
 
 # PREVIEW PRELIMINARY RESULTS
@@ -60,9 +64,10 @@ oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + rentho
 rif_results1 %>% summary() %>% print()
 rif_results2 %>% summary() %>% print()
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
-oaxaca_results %>% print()
+oaxaca_results1 %>% print()
+oaxaca_results2 %>% print()
 sink()
 jpeg(file = "output/rif/oaxaca.jpeg")
 # Create a scatter plot of the first two dimensions
-plot.oaxaca(oaxaca_results) %>% print()
+plot.oaxaca(oaxaca_results1) %>% print()
 dev.off()
