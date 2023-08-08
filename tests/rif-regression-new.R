@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
 `%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
-c("magrittr", "survey", "dineq", "data.table", "oaxaca") %>% sapply(library, character.only = T)
+c("magrittr", "survey", "dineq", "data.table", "oaxaca", "decr") %>% sapply(library, character.only = T)
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2020) # selected survey year
@@ -44,7 +44,11 @@ rif_results1 <-    lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner,
 rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
 
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff)
+oaxaca_results1 <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff)
+oaxaca_results2 <- reweight_strata_all2(data = dt_eff, treatment = "identif",
+  variables = c("bage", "class", "sex", "homeowner", "renthog1"),
+  y = "RIF_riquezabr",
+  weights = "facine3")
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/rif-oaxaca-new.txt" %>% sink()
@@ -52,9 +56,10 @@ oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + rentho
 rif_results1 %>% summary() %>% print()
 rif_results2 %>% summary() %>% print()
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
-oaxaca_results %>% print()
+oaxaca_results1 %>% print()
+oaxaca_results2 %>% print()
 sink()
 jpeg(file = "output/rif/oaxaca.jpeg")
 # Create a scatter plot of the first two dimensions
-plot.oaxaca(oaxaca_results) %>% print()
+plot.oaxaca(oaxaca_results1) %>% print()
 dev.off()
