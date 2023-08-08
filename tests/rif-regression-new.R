@@ -4,10 +4,12 @@ rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
 c("magrittr", "survey", "dineq", "data.table", "oaxaca") %>% sapply(library, character.only = T)
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
-sel_year <- 2020 # selected survey year
-dt_eff <- paste0(".datasets/", sel_year, "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
+sel_year <- c(2002, 2020) # selected survey year
 
+dtlist <- list()
+for (i in seq_along(sel_year)) {
 # VARIABLE HACKING AND BRUTE MANIPULATION
+dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
 dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
 dt_eff$young <- dt_eff$bage # create a variable for binary age
 dt_eff[young != 1]$young <- 2 # set above 35 to non-young
@@ -29,12 +31,18 @@ dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "N
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
 dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
+dtlist[[i]] <- dt_eff
+}
+dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 0]
+dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 1]
+dt_eff <- rbind(dt_effA, dt_effB)
+
 # RIF REGRESSION
 rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
 # OAXACA BLINDER METHOD
 # modify the grouping variable to be binary 0,1
 dt_eff[renthog1 %in%  c("Low", "Middle"), renthog1 := 1][renthog1 %in%  c("High"), renthog1 := 2][, renthog1 := as.numeric(renthog1) - 1]
-oaxaca_results <- oaxaca(RIF_riquezabr ~  bage + class + sex  + homeowner | renthog1, data = dt_eff)
+oaxaca_results <- oaxaca(RIF_riquezabr ~  bage + class + sex  + homeowner + renthog1 | identif, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/rif-oaxaca-new.txt" %>% sink()
