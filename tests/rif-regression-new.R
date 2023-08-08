@@ -7,8 +7,8 @@ c("magrittr", "survey", "dineq", "data.table", "oaxaca") %>% sapply(library, cha
 sel_year <- c(2002, 2020) # selected survey year
 dtlist <- list()
 
+        # DATA LOADING AND VARIABLE MANIPULATION
 for (i in seq_along(sel_year)) {
-        # VARIABLE HACKING AND BRUTE MANIPULATION
         dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
         dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
         dt_eff$young <- dt_eff$bage # create a variable for binary age
