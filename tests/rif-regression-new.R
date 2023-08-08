@@ -40,8 +40,6 @@ dt_eff <- rbind(dt_effA, dt_effB)
 # RIF REGRESSION
 rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
 # OAXACA BLINDER METHOD
-# modify the grouping variable to be binary 0,1
-dt_eff[renthog1 %in%  c("Low", "Middle"), renthog1 := 1][renthog1 %in%  c("High"), renthog1 := 2][, renthog1 := as.numeric(renthog1) - 1]
 oaxaca_results <- oaxaca(RIF_riquezabr ~  bage + class + sex  + homeowner + renthog1 | identif, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
