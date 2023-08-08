@@ -30,13 +30,13 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-        dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
+        dt_eff$RIF_actreales <- rif(dt_eff$actreales, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
         dtlist[[i]] <- dt_eff # assign to list a given year survey
 }
 # SELECT NEEDED VARIABLES AND MERGE THE TWO SURVEYS FOR OAXACA PACKAGE
-dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 0]
-dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 1]
+dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 0]
+dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 1]
 dt_eff <- rbind(dt_effA, dt_effB)
 
 
@@ -50,17 +50,17 @@ dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace 
 
 
 # RIF REGRESSION
-rif_results1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
-rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
-rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
-rif_results4 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
+rif_results1 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
+rif_results2 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
+rif_results3 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+rif_results4 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
 
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
+oaxaca_results <- oaxaca(RIF_actreales ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
 oaxaca_results_decr <- reweight_strata_all2(data = dt_eff,
   treatment = "identif",
   variables = c("bage", "class", "sex", "homeowner", "renthog1"),
-  y = "RIF_riquezabr",
+  y = "RIF_actreales",
   weights = "facine3")
 d01 <- dec_quantile(oaxaca_results_decr, probs = 0.5)
 d01_p50_AB <- dec_(d01, counterfactual = "AB")
