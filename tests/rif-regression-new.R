@@ -41,35 +41,27 @@ dt_eff <- rbind(dt_effA, dt_effB)
 
 
 # RESAMPLING WITH WHEIGTS
+set.seed(123) # For reproducibility
 dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
 dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
 
-dt_eff_sv <- svydesign(
-        ids = ~1,
-        # survey does not support "data.table" and unfortunately we have to rely in more basic "data.frame"
-        data = as.data.frame(dt_eff, R),
-        # facine3 is defined as direct weights necessary to estimate correct population values due distinct prob() for distinct regions
-        weights = ~ dt_eff$facine3
-)
 
-# Extract the weights
-weights <- weights(dt_eff_sv)
-
-# Perform resampling based on the weights
-set.seed(123) # For reproducibility
-resampled_indices <- sample(seq_along(weights), size = length(weights), replace = TRUE, prob = weights)
-resampled_data <- dt_eff[resampled_indices, ]
 
 
 
 # RIF REGRESSION
-rif_results1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
-rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
-rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(resampled_data, identif == 1))
+rif_results1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
+rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
+rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+rif_results4 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
 
 # OAXACA BLINDER METHOD
 oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
-
+oaxaca_results_decr <- reweight_strata_all2(data = dt_eff,
+  treatment = "identif",
+  variables = c("bage", "class", "sex", "homeowner", "renthog1"),
+  y = "RIF_riquezabr",
+  weights = "facine3")
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/rif-oaxaca-new.txt" %>% sink()
@@ -77,8 +69,12 @@ oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + rentho
 rif_results1 %>% summary() %>% print()
 rif_results2 %>% summary() %>% print()
 rif_results3 %>% summary() %>% print()
+rif_results4 %>% summary() %>% print()
+
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
+"############### METHOD: OAXACA DECOMPOSITION decr R ###############" %>% print()
+oaxaca_results_decr %>% print()
 sink()
 jpeg(file = "output/rif/oaxaca.jpeg")
 # Create a scatter plot of the first two dimensions

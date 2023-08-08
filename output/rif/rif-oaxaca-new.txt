@@ -2,6 +2,178 @@
 
 Call:
 lm(formula = RIF_riquezabr ~ bage + class + sex + renthog1 + 
+    homeowner, data = dt_effA, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median 
+-21940959  -1851674    892597 
+       3Q       Max 
+  3799385  24395140 
+
+Coefficients:
+                   Estimate
+(Intercept)          -38238
+bage35-44              7469
+bage45-54             19272
+bage54-65             13706
+bage65-75              4440
+bage75                -4830
+classcapitalist       64096
+classself-employed    60917
+classinactive         -7628
+classretired          10497
+classmanager          43868
+sexWomen              -4314
+renthog1Middle        63825
+renthog1High         119188
+homeownerHomeowner   118234
+                   Std. Error
+(Intercept)              5146
+bage35-44                5108
+bage45-54                5296
+bage54-65                5830
+bage65-75                7313
+bage75                   7776
+classcapitalist          9232
+classself-employed       5760
+classinactive            5334
+classretired             6192
+classmanager             9702
+sexWomen                 3732
+renthog1Middle           3312
+renthog1High             8597
+homeownerHomeowner       3922
+                   t value Pr(>|t|)
+(Intercept)         -7.430 1.26e-13
+bage35-44            1.462 0.143741
+bage45-54            3.639 0.000277
+bage54-65            2.351 0.018765
+bage65-75            0.607 0.543771
+bage75              -0.621 0.534513
+classcapitalist      6.943 4.32e-12
+classself-employed  10.577  < 2e-16
+classinactive       -1.430 0.152730
+classretired         1.695 0.090106
+classmanager         4.521 6.28e-06
+sexWomen            -1.156 0.247722
+renthog1Middle      19.272  < 2e-16
+renthog1High        13.864  < 2e-16
+homeownerHomeowner  30.143  < 2e-16
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          ***
+bage54-65          *  
+bage65-75             
+bage75                
+classcapitalist    ***
+classself-employed ***
+classinactive         
+classretired       .  
+classmanager       ***
+sexWomen              
+renthog1Middle     ***
+renthog1High       ***
+homeownerHomeowner ***
+---
+Signif. codes:  
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5755000 on 5119 degrees of freedom
+  (9 observations deleted due to missingness)
+Multiple R-squared:  0.304,	Adjusted R-squared:  0.3021 
+F-statistic: 159.7 on 14 and 5119 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = RIF_riquezabr ~ bage + class + sex + renthog1 + 
+    homeowner, data = subset(dt_eff_rew, identif == 0))
+
+Residuals:
+    Min      1Q  Median      3Q 
+-259289 -100846   19400   84894 
+    Max 
+ 287562 
+
+Coefficients:
+                   Estimate
+(Intercept)          -42611
+bage35-44              9129
+bage45-54             21015
+bage54-65             17851
+bage65-75             -1632
+bage75               -10803
+classcapitalist       77779
+classself-employed    59224
+classinactive         -9997
+classretired          13644
+classmanager          47452
+sexWomen               4161
+renthog1Middle        63809
+renthog1High         115999
+homeownerHomeowner   119378
+                   Std. Error
+(Intercept)              5263
+bage35-44                5220
+bage45-54                5433
+bage54-65                5864
+bage65-75                7258
+bage75                   7780
+classcapitalist          9213
+classself-employed       5764
+classinactive            5312
+classretired             6086
+classmanager             9672
+sexWomen                 3770
+renthog1Middle           3350
+renthog1High             8384
+homeownerHomeowner       4047
+                   t value Pr(>|t|)
+(Intercept)         -8.097 7.04e-16
+bage35-44            1.749 0.080397
+bage45-54            3.868 0.000111
+bage54-65            3.044 0.002347
+bage65-75           -0.225 0.822118
+bage75              -1.389 0.165030
+classcapitalist      8.442  < 2e-16
+classself-employed  10.275  < 2e-16
+classinactive       -1.882 0.059884
+classretired         2.242 0.025005
+classmanager         4.906 9.60e-07
+sexWomen             1.104 0.269726
+renthog1Middle      19.050  < 2e-16
+renthog1High        13.835  < 2e-16
+homeownerHomeowner  29.496  < 2e-16
+                      
+(Intercept)        ***
+bage35-44          .  
+bage45-54          ***
+bage54-65          ** 
+bage65-75             
+bage75                
+classcapitalist    ***
+classself-employed ***
+classinactive      .  
+classretired       *  
+classmanager       ***
+sexWomen              
+renthog1Middle     ***
+renthog1High       ***
+homeownerHomeowner ***
+---
+Signif. codes:  
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 107200 on 4992 degrees of freedom
+  (11 observations deleted due to missingness)
+Multiple R-squared:  0.3084,	Adjusted R-squared:  0.3064 
+F-statistic:   159 on 14 and 4992 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = RIF_riquezabr ~ bage + class + sex + renthog1 + 
     homeowner, data = dt_effB, weights = facine3)
 
 Weighted Residuals:
@@ -91,91 +263,6 @@ lm(formula = RIF_riquezabr ~ bage + class + sex + renthog1 +
 
 Residuals:
     Min      1Q  Median      3Q 
--518258 -152117   37829  163682 
-    Max 
- 536727 
-
-Coefficients:
-                   Estimate
-(Intercept)         -131014
-bage35-44             18486
-bage45-54             30071
-bage54-65             42819
-bage65-75             49842
-bage75                62487
-classcapitalist       97393
-classself-employed    80553
-classinactive        -12600
-classretired          44787
-classmanager          46926
-sexWomen             -11531
-renthog1Middle       148852
-renthog1High         275921
-homeownerHomeowner   180306
-                   Std. Error
-(Intercept)             10332
-bage35-44               10560
-bage45-54               10418
-bage54-65               10850
-bage65-75               13632
-bage75                  14060
-classcapitalist         13672
-classself-employed      10848
-classinactive            7053
-classretired            10229
-classmanager            15354
-sexWomen                 5109
-renthog1Middle           5640
-renthog1High            11084
-homeownerHomeowner       5861
-                   t value Pr(>|t|)
-(Intercept)        -12.680  < 2e-16
-bage35-44            1.751 0.080046
-bage45-54            2.886 0.003911
-bage54-65            3.947 8.01e-05
-bage65-75            3.656 0.000258
-bage75               4.444 8.97e-06
-classcapitalist      7.124 1.17e-12
-classself-employed   7.426 1.27e-13
-classinactive       -1.787 0.074063
-classretired         4.378 1.21e-05
-classmanager         3.056 0.002251
-sexWomen            -2.257 0.024029
-renthog1Middle      26.393  < 2e-16
-renthog1High        24.893  < 2e-16
-homeownerHomeowner  30.762  < 2e-16
-                      
-(Intercept)        ***
-bage35-44          .  
-bage45-54          ** 
-bage54-65          ***
-bage65-75          ***
-bage75             ***
-classcapitalist    ***
-classself-employed ***
-classinactive      .  
-classretired       ***
-classmanager       ** 
-sexWomen           *  
-renthog1Middle     ***
-renthog1High       ***
-homeownerHomeowner ***
----
-Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
-  ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 190600 on 6344 degrees of freedom
-Multiple R-squared:  0.3443,	Adjusted R-squared:  0.3429 
-F-statistic:   238 on 14 and 6344 DF,  p-value: < 2.2e-16
-
-
-Call:
-lm(formula = RIF_riquezabr ~ bage + class + sex + renthog1 + 
-    homeowner, data = subset(resampled_data, identif == 1))
-
-Residuals:
-    Min      1Q  Median      3Q 
 -507615 -157411   37728  159196 
     Max 
  535870 
@@ -258,164 +345,164 @@ F-statistic: 240.8 on 14 and 6423 DF,  p-value: < 2.2e-16
 $beta
 $beta$beta.A
        (Intercept) 
-        -43833.258 
+        -42611.306 
          bage35-44 
-         12513.470 
+          9128.902 
          bage45-54 
-         23397.760 
+         21015.271 
          bage54-65 
-         22618.794 
+         17850.786 
          bage65-75 
-         13875.329 
+         -1631.776 
             bage75 
-         -5042.887 
+        -10803.253 
    classcapitalist 
-         70277.928 
+         77779.300 
 classself-employed 
-         66701.413 
+         59224.291 
      classinactive 
-         -6208.619 
+         -9997.396 
       classretired 
-          7734.680 
+         13643.960 
       classmanager 
-         54519.205 
+         47451.935 
           sexWomen 
-         -4325.745 
+          4161.229 
 homeownerHomeowner 
-        120820.168 
+        119378.110 
     renthog1Middle 
-         59741.126 
+         63809.385 
       renthog1High 
-        108074.724 
+        115998.967 
 
 $beta$beta.B
        (Intercept) 
-        -131014.21 
+       -126920.291 
          bage35-44 
-          18486.46 
+         17615.623 
          bage45-54 
-          30070.65 
+         16530.960 
          bage54-65 
-          42819.09 
+         41132.398 
          bage65-75 
-          49842.45 
+         47710.602 
             bage75 
-          62486.67 
+         60548.031 
    classcapitalist 
-          97393.02 
+         88030.068 
 classself-employed 
-          80552.77 
+         69811.900 
      classinactive 
-         -12599.60 
+         -5345.572 
       classretired 
-          44786.81 
+         31099.390 
       classmanager 
-          46925.86 
+         65257.644 
           sexWomen 
-         -11531.34 
+        -10491.111 
 homeownerHomeowner 
-         180306.22 
+        189603.037 
     renthog1Middle 
-         148851.73 
+        139359.955 
       renthog1High 
-         275920.87 
+        276171.706 
 
 $beta$beta.diff
        (Intercept) 
-         87180.951 
+         84308.986 
          bage35-44 
-         -5972.994 
+         -8486.722 
          bage45-54 
-         -6672.893 
+          4484.311 
          bage54-65 
-        -20200.298 
+        -23281.612 
          bage65-75 
-        -35967.126 
+        -49342.377 
             bage75 
-        -67529.555 
+        -71351.284 
    classcapitalist 
-        -27115.095 
+        -10250.768 
 classself-employed 
-        -13851.356 
+        -10587.610 
      classinactive 
-          6390.977 
+         -4651.824 
       classretired 
-        -37052.126 
+        -17455.429 
       classmanager 
-          7593.350 
+        -17805.709 
           sexWomen 
-          7205.590 
+         14652.340 
 homeownerHomeowner 
-        -59486.050 
+        -70224.928 
     renthog1Middle 
-        -89110.605 
+        -75550.571 
       renthog1High 
-       -167846.141 
+       -160172.739 
 
 $beta$beta.R
                 (Intercept)
-[1,]  0.0000000  -131014.21
-[2,]  1.0000000   -43833.26
-[3,]  0.5000000   -87423.73
-[4,]  0.4442405   -92284.90
-[5,] -1.0000000  -102896.23
-[6,] -2.0000000  -116460.26
+[1,]  0.0000000  -126920.29
+[2,]  1.0000000   -42611.31
+[3,]  0.5000000   -84765.80
+[4,]  0.4374836   -90036.49
+[5,] -1.0000000   -97784.45
+[6,] -2.0000000  -112810.04
      bage35-44 bage45-54 bage54-65
-[1,]  18486.46  30070.65  42819.09
-[2,]  12513.47  23397.76  22618.79
-[3,]  15499.97  26734.21  32718.94
-[4,]  15833.02  27106.28  33845.30
-[5,]  20127.79  30603.97  40699.98
-[6,]  12130.86  18356.80  27875.64
+[1,] 17615.623 16530.960  41132.40
+[2,]  9128.902 21015.271  17850.79
+[3,] 13372.262 18773.115  29491.59
+[4,] 13902.821 18492.772  30947.07
+[5,] 13658.761 18179.588  33676.59
+[6,]  6609.181  6671.665  22744.06
      bage65-75    bage75
-[1,]  49842.45 62486.668
-[2,]  13875.33 -5042.887
-[3,]  31858.89 28721.890
-[4,]  33864.40 32487.303
-[5,]  42741.13 49391.058
-[6,]  35320.98 37619.145
+[1,] 47710.602  60548.03
+[2,] -1631.776 -10803.25
+[3,] 23039.413  24872.39
+[4,] 26124.120  29333.01
+[5,] 28484.957  38574.45
+[6,] 21010.332  27653.99
      classcapitalist
-[1,]        97393.02
-[2,]        70277.93
-[3,]        83835.48
-[4,]        85347.40
-[5,]        82473.86
-[6,]        84103.33
+[1,]        88030.07
+[2,]        77779.30
+[3,]        82904.68
+[4,]        83545.52
+[5,]        83724.89
+[6,]        82581.47
      classself-employed
-[1,]           80552.77
-[2,]           66701.41
-[3,]           73627.09
-[4,]           74399.44
-[5,]           71054.68
-[6,]           73990.81
+[1,]           69811.90
+[2,]           59224.29
+[3,]           64518.10
+[4,]           65179.99
+[5,]           58745.64
+[6,]           63266.39
      classinactive classretired
-[1,]    -12599.596     44786.81
-[2,]     -6208.619      7734.68
-[3,]     -9404.107     26260.74
-[4,]     -9760.465     28326.75
-[5,]    -12182.960     30269.50
-[6,]    -12076.507     26167.37
+[1,]     -5345.572     31099.39
+[2,]     -9997.396     13643.96
+[3,]     -7671.484     22371.68
+[4,]     -7380.669     23462.93
+[5,]    -10204.248     29297.75
+[6,]     -9880.214     25020.60
      classmanager   sexWomen
-[1,]     46925.86 -11531.336
-[2,]     54519.21  -4325.745
-[3,]     50722.53  -7928.540
-[4,]     50299.13  -8330.320
-[5,]     45578.61  -4428.382
-[6,]     46697.02 -10121.038
+[1,]     65257.64 -10491.111
+[2,]     47451.93   4161.229
+[3,]     56354.79  -3164.941
+[4,]     57467.94  -4080.953
+[5,]     54402.03  -1000.260
+[6,]     56813.74  -5919.195
      homeownerHomeowner
-[1,]           180306.2
-[2,]           120820.2
-[3,]           150563.2
-[4,]           153880.1
-[5,]           153693.7
-[6,]           162210.3
+[1,]           189603.0
+[2,]           119378.1
+[3,]           154490.6
+[4,]           158880.8
+[5,]           159214.9
+[6,]           167557.6
      renthog1Middle renthog1High
-[1,]      148851.73     275920.9
-[2,]       59741.13     108074.7
-[3,]      104296.43     191997.8
-[4,]      109265.19     201356.8
-[5,]      117644.57     229658.5
-[6,]      108845.83     216541.4
+[1,]      139359.96     276171.7
+[2,]       63809.38     115999.0
+[3,]      101584.67     196085.3
+[4,]      106307.82     206098.8
+[5,]      113820.93     234800.8
+[6,]      106064.66     222170.0
 
 
 $call
@@ -424,13 +511,13 @@ oaxaca(formula = RIF_riquezabr ~ bage + class + sex + homeowner +
 
 $n
 $n$n.A
-[1] 5083
+[1] 5007
 
 $n$n.B
-[1] 6359
+[1] 6438
 
 $n$n.pooled
-[1] 11442
+[1] 11445
 
 
 $R
@@ -444,35 +531,35 @@ NULL
 
 Coefficients:
        (Intercept)  
-            -43833  
+            -42611  
          bage35-44  
-             12513  
+              9129  
          bage45-54  
-             23398  
+             21015  
          bage54-65  
-             22619  
+             17851  
          bage65-75  
-             13875  
+             -1632  
             bage75  
-             -5043  
+            -10803  
    classcapitalist  
-             70278  
+             77779  
 classself-employed  
-             66701  
+             59224  
      classinactive  
-             -6209  
+             -9997  
       classretired  
-              7735  
+             13644  
       classmanager  
-             54519  
+             47452  
           sexWomen  
-             -4326  
+              4161  
 homeownerHomeowner  
-            120820  
+            119378  
     renthog1Middle  
-             59741  
+             63809  
       renthog1High  
-            108075  
+            115999  
 
 
 $reg$reg.B
@@ -482,35 +569,35 @@ NULL
 
 Coefficients:
        (Intercept)  
-           -131014  
+           -126920  
          bage35-44  
-             18486  
+             17616  
          bage45-54  
-             30071  
+             16531  
          bage54-65  
-             42819  
+             41132  
          bage65-75  
-             49842  
+             47711  
             bage75  
-             62487  
+             60548  
    classcapitalist  
-             97393  
+             88030  
 classself-employed  
-             80553  
+             69812  
      classinactive  
-            -12600  
+             -5346  
       classretired  
-             44787  
+             31099  
       classmanager  
-             46926  
+             65258  
           sexWomen  
-            -11531  
+            -10491  
 homeownerHomeowner  
-            180306  
+            189603  
     renthog1Middle  
-            148852  
+            139360  
       renthog1High  
-            275921  
+            276172  
 
 
 $reg$reg.pooled.1
@@ -520,35 +607,35 @@ NULL
 
 Coefficients:
        (Intercept)  
-           -102896  
+            -97784  
          bage35-44  
-             20128  
+             13659  
          bage45-54  
-             30604  
+             18180  
          bage54-65  
-             40700  
+             33677  
          bage65-75  
-             42741  
+             28485  
             bage75  
-             49391  
+             38574  
    classcapitalist  
-             82474  
+             83725  
 classself-employed  
-             71055  
+             58746  
      classinactive  
-            -12183  
+            -10204  
       classretired  
-             30270  
+             29298  
       classmanager  
-             45579  
+             54402  
           sexWomen  
-             -4428  
+             -1000  
 homeownerHomeowner  
-            153694  
+            159215  
     renthog1Middle  
-            117645  
+            113821  
       renthog1High  
-            229659  
+            234801  
 
 
 $reg$reg.pooled.2
@@ -558,205 +645,205 @@ NULL
 
 Coefficients:
        (Intercept)  
-           -116460  
+           -112810  
          bage35-44  
-             12131  
+              6609  
          bage45-54  
-             18357  
+              6672  
          bage54-65  
-             27876  
+             22744  
          bage65-75  
-             35321  
+             21010  
             bage75  
-             37619  
+             27654  
    classcapitalist  
-             84103  
+             82581  
 classself-employed  
-             73991  
+             63266  
      classinactive  
-            -12077  
+             -9880  
       classretired  
-             26167  
+             25021  
       classmanager  
-             46697  
+             56814  
           sexWomen  
-            -10121  
+             -5919  
 homeownerHomeowner  
-            162210  
+            167558  
     renthog1Middle  
-            108846  
+            106065  
       renthog1High  
-            216541  
+            222170  
            identif  
-             44989  
+             44392  
 
 
 
 $threefold
 $threefold$overall
   coef(endowments) 
-        -12644.807 
+         -9027.263 
     se(endowments) 
-          2908.259 
+          2583.379 
 coef(coefficients) 
-        -50790.255 
+        -48135.821 
   se(coefficients) 
-          2988.888 
+          2845.485 
  coef(interaction) 
-         12341.490 
+          8111.806 
    se(interaction) 
-          2097.497 
+          2151.075 
 
 $threefold$variables
                    coef(endowments)
 (Intercept)                 0.00000
-bage35-44                 455.42829
-bage45-54               -1450.50715
-bage54-65               -2146.11997
-bage65-75                 749.67853
-bage75                  -1635.34067
-classcapitalist           117.68410
-classself-employed       1094.06464
-classinactive              76.27124
-classretired            -1607.89982
-classmanager              -52.50247
-sexWomen                 1134.11574
-homeownerHomeowner      14447.61520
-renthog1Middle         -15883.98826
-renthog1High            -7943.30651
+bage35-44                 599.48572
+bage45-54                -778.17352
+bage54-65               -1455.31829
+bage65-75                  92.63253
+bage75                  -1580.90050
+classcapitalist          -642.48300
+classself-employed       1970.84860
+classinactive             -19.99971
+classretired            -1666.77917
+classmanager              111.61494
+sexWomen                  866.67433
+homeownerHomeowner      15534.99467
+renthog1Middle         -12488.37736
+renthog1High            -9571.48257
                    se(endowments)
-(Intercept)                0.0000
-bage35-44                271.2800
-bage45-54                526.3128
-bage54-65                554.7582
-bage65-75                355.1367
-bage75                   503.5779
-classcapitalist          359.6163
-classself-employed       408.5723
-classinactive            131.0261
-classretired             511.4202
-classmanager             162.5833
-sexWomen                 459.7329
-homeownerHomeowner      1526.9021
-renthog1Middle          1521.5758
-renthog1High            1314.6989
+(Intercept)               0.00000
+bage35-44               370.78129
+bage45-54               536.38574
+bage54-65               400.15986
+bage65-75               329.74391
+bage75                  559.80188
+classcapitalist         330.72913
+classself-employed      445.61067
+classinactive            78.76712
+classretired            529.75106
+classmanager            175.62594
+sexWomen                435.99462
+homeownerHomeowner     1469.05862
+renthog1Middle         1300.48143
+renthog1High           1154.12774
                    coef(coefficients)
-(Intercept)                87180.9505
-bage35-44                  -1171.3042
-bage45-54                  -1609.7214
-bage54-65                  -4024.8117
-bage65-75                  -5593.8807
-bage75                     -9207.1276
-classcapitalist             -916.7708
-classself-employed          -781.9841
-classinactive               1263.3210
-classretired               -9829.6802
-classmanager                 204.1929
-sexWomen                    3230.5611
-homeownerHomeowner        -43788.9919
-renthog1Middle            -55002.2214
-renthog1High              -10742.7865
+(Intercept)                84308.9856
+bage35-44                  -1585.8226
+bage45-54                   1072.6684
+bage54-65                  -4748.1758
+bage65-75                  -8093.4375
+bage75                     -9786.1423
+classcapitalist             -375.7660
+classself-employed          -587.1042
+classinactive               -925.5959
+classretired               -4874.9398
+classmanager                -442.5153
+sexWomen                    6495.4609
+homeownerHomeowner        -51637.9011
+renthog1Middle            -45262.2788
+renthog1High              -11693.2568
                    se(coefficients)
-(Intercept)               9366.1424
-bage35-44                 2176.3366
-bage45-54                 2551.0672
-bage54-65                 2294.7059
-bage65-75                 2303.5264
-bage75                    2120.3948
-classcapitalist            436.7233
-classself-employed         735.8014
-classinactive             1796.1666
-classretired              2911.9052
-classmanager               418.3102
-sexWomen                  2963.1259
-homeownerHomeowner        4414.4914
-renthog1Middle            4021.1363
-renthog1High               921.1079
+(Intercept)              11564.3628
+bage35-44                 2179.6486
+bage45-54                 3112.2634
+bage54-65                 2375.8362
+bage65-75                 2731.1394
+bage75                    2152.9851
+classcapitalist            400.2618
+classself-employed         641.8104
+classinactive             1713.9702
+classretired              3061.0782
+classmanager               357.0984
+sexWomen                  2965.3336
+homeownerHomeowner        4950.4140
+renthog1Middle            3759.3281
+renthog1High               807.3313
                    coef(interaction)
-(Intercept)                 0.000000
-bage35-44                -147.149307
-bage45-54                 321.877932
-bage54-65                1012.451701
-bage65-75                -540.980214
-bage75                   1767.318252
-classcapitalist           -32.764314
-classself-employed       -188.128587
-classinactive             -38.687571
-classretired             1330.215557
-classmanager               -8.495734
-sexWomen                 -708.675369
-homeownerHomeowner      -4766.510945
-renthog1Middle           9509.004643
-renthog1High             4832.013501
+(Intercept)                  0.00000
+bage35-44                 -288.81569
+bage45-54                 -211.09314
+bage54-65                  823.73402
+bage65-75                  -95.80070
+bage75                    1862.97190
+classcapitalist             74.81471
+classself-employed        -298.89712
+classinactive              -17.40415
+classretired               935.52788
+classmanager               -30.45441
+sexWomen                 -1210.43486
+homeownerHomeowner       -5753.83123
+renthog1Middle            6770.26649
+renthog1High              5551.22246
                    se(interaction)
 (Intercept)                0.00000
-bage35-44                298.97375
-bage45-54                524.43640
-bage54-65                611.25683
-bage65-75                330.03826
-bage75                   587.77667
-classcapitalist          109.42796
-classself-employed       204.22806
-classinactive            111.89984
-classretired             492.79797
-classmanager              57.79737
-sexWomen                 652.87842
-homeownerHomeowner       707.85309
-renthog1Middle          1023.90345
-renthog1High             862.48067
+bage35-44                393.20511
+bage45-54                626.24913
+bage54-65                425.05477
+bage65-75                335.00092
+bage75                   638.16182
+classcapitalist           95.08007
+classself-employed       319.19413
+classinactive             93.06556
+classretired             593.91625
+classmanager              61.63983
+sexWomen                 566.08942
+homeownerHomeowner       768.70635
+renthog1Middle           885.08341
+renthog1High             743.41258
 
 
 $twofold
 $twofold$overall
      group.weight coef(explained)
-[1,]    0.0000000     -12644.8071
-[2,]    1.0000000       -303.3176
-[3,]    0.5000000      -6474.0623
-[4,]    0.4442405      -7162.2174
-[5,]   -1.0000000     -10083.8854
-[6,]   -2.0000000      -6104.8350
+[1,]    0.0000000      -9027.2633
+[2,]    1.0000000       -915.4572
+[3,]    0.5000000      -4971.3603
+[4,]    0.4374836      -5478.4810
+[5,]   -1.0000000      -8211.9469
+[6,]   -2.0000000      -4659.4406
      se(explained) coef(unexplained)
-[1,]      2908.259         -38448.77
-[2,]      1818.560         -50790.26
-[3,]      2186.937         -44619.51
-[4,]      2123.479         -43931.36
-[5,]      2309.096         -41009.69
-[6,]      2324.787         -44988.74
+[1,]      2583.379         -40024.01
+[2,]      1321.321         -48135.82
+[3,]      1747.308         -44079.92
+[4,]      1662.255         -43572.80
+[5,]      1890.868         -40839.33
+[6,]      1895.336         -44391.84
      se(unexplained)
-[1,]        3263.404
-[2,]        2988.888
-[3,]        2948.178
-[4,]        2934.234
-[5,]        2758.790
-[6,]        3021.360
+[1,]        3574.432
+[2,]        2845.485
+[3,]        3046.292
+[4,]        3000.903
+[5,]        2809.629
+[6,]        3029.201
      coef(unexplained A)
-[1,]       -3.844877e+04
+[1,]       -4.002401e+04
 [2,]        0.000000e+00
-[3,]       -1.922438e+04
-[4,]       -2.136827e+04
-[5,]       -2.279152e+04
-[6,]       -1.153558e-08
+[3,]       -2.001201e+04
+[4,]       -2.251416e+04
+[5,]       -2.297279e+04
+[6,]       -1.073886e-08
      se(unexplained A)
-[1,]      3.263404e+03
+[1,]      3.574432e+03
 [2,]      0.000000e+00
-[3,]      1.631702e+03
-[4,]      1.449736e+03
-[5,]      1.521466e+03
-[6,]      2.363628e-08
+[3,]      1.787216e+03
+[4,]      1.563756e+03
+[5,]      1.611191e+03
+[6,]      2.450253e-08
      coef(unexplained B)
 [1,]                0.00
-[2,]           -50790.26
-[3,]           -25395.13
-[4,]           -22563.09
-[5,]           -18218.16
-[6,]           -44988.74
+[2,]           -48135.82
+[3,]           -24067.91
+[4,]           -21058.63
+[5,]           -17866.54
+[6,]           -44391.84
      se(unexplained B)
 [1,]             0.000
-[2,]          2988.888
-[3,]          1494.444
-[4,]          1661.103
-[5,]          1261.250
-[6,]          3021.360
+[2,]          2845.485
+[3,]          1422.743
+[4,]          1600.632
+[5,]          1225.382
+[6,]          3029.201
 
 $twofold$variables
 $twofold$variables[[1]]
@@ -778,100 +865,100 @@ renthog1Middle                0
 renthog1High                  0
                    coef(explained)
 (Intercept)                0.00000
-bage35-44                455.42829
-bage45-54              -1450.50715
-bage54-65              -2146.11997
-bage65-75                749.67853
-bage75                 -1635.34067
-classcapitalist          117.68410
-classself-employed      1094.06464
-classinactive             76.27124
-classretired           -1607.89982
-classmanager             -52.50247
-sexWomen                1134.11574
-homeownerHomeowner     14447.61520
-renthog1Middle        -15883.98826
-renthog1High           -7943.30651
+bage35-44                599.48572
+bage45-54               -778.17352
+bage54-65              -1455.31829
+bage65-75                 92.63253
+bage75                 -1580.90050
+classcapitalist         -642.48300
+classself-employed      1970.84860
+classinactive            -19.99971
+classretired           -1666.77917
+classmanager             111.61494
+sexWomen                 866.67433
+homeownerHomeowner     15534.99467
+renthog1Middle        -12488.37736
+renthog1High           -9571.48257
                    se(explained)
-(Intercept)               0.0000
-bage35-44               271.2800
-bage45-54               526.3128
-bage54-65               554.7582
-bage65-75               355.1367
-bage75                  503.5779
-classcapitalist         359.6163
-classself-employed      408.5723
-classinactive           131.0261
-classretired            511.4202
-classmanager            162.5833
-sexWomen                459.7329
-homeownerHomeowner     1526.9021
-renthog1Middle         1521.5758
-renthog1High           1314.6989
+(Intercept)              0.00000
+bage35-44              370.78129
+bage45-54              536.38574
+bage54-65              400.15986
+bage65-75              329.74391
+bage75                 559.80188
+classcapitalist        330.72913
+classself-employed     445.61067
+classinactive           78.76712
+classretired           529.75106
+classmanager           175.62594
+sexWomen               435.99462
+homeownerHomeowner    1469.05862
+renthog1Middle        1300.48143
+renthog1High          1154.12774
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1318.4535
-bage45-54                 -1287.8435
-bage54-65                 -3012.3600
-bage65-75                 -6134.8609
-bage75                    -7439.8094
-classcapitalist            -949.5351
-classself-employed         -970.1127
-classinactive              1224.6334
-classretired              -8499.4647
-classmanager                195.6972
-sexWomen                   2521.8858
-homeownerHomeowner       -48555.5029
-renthog1Middle           -45493.2168
-renthog1High              -5910.7730
+(Intercept)               84308.9856
+bage35-44                 -1874.6383
+bage45-54                   861.5752
+bage54-65                 -3924.4418
+bage65-75                 -8189.2382
+bage75                    -7923.1704
+classcapitalist            -300.9513
+classself-employed         -886.0013
+classinactive              -943.0000
+classretired              -3939.4119
+classmanager               -472.9697
+sexWomen                   5285.0260
+homeownerHomeowner       -57391.7324
+renthog1Middle           -38492.0124
+renthog1High              -6142.0343
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2458.1511
-bage45-54                2035.5499
-bage54-65                1699.4331
-bage65-75                2531.4097
-bage75                   1677.9339
-classcapitalist           456.0913
-classself-employed        926.4191
-classinactive            1736.4033
-classretired             2515.9658
-classmanager              412.6775
-sexWomen                 2316.9025
-homeownerHomeowner       4941.3598
-renthog1Middle           3519.1503
-renthog1High              572.0064
+(Intercept)             11564.3628
+bage35-44                2561.1856
+bage45-54                2497.0551
+bage54-65                1985.8561
+bage65-75                2804.4734
+bage75                   1729.8093
+classcapitalist           325.9805
+classself-employed        947.3834
+classinactive            1734.4798
+classretired             2489.5878
+classmanager              380.8061
+sexWomen                 2424.0923
+homeownerHomeowner       5512.3181
+renthog1Middle           3252.1387
+renthog1High              486.0355
                    coef(unexplained A)
-(Intercept)                 87180.9505
-bage35-44                   -1318.4535
-bage45-54                   -1287.8435
-bage54-65                   -3012.3600
-bage65-75                   -6134.8609
-bage75                      -7439.8094
-classcapitalist              -949.5351
-classself-employed           -970.1127
-classinactive                1224.6334
-classretired                -8499.4647
-classmanager                  195.6972
-sexWomen                     2521.8858
-homeownerHomeowner         -48555.5029
-renthog1Middle             -45493.2168
-renthog1High                -5910.7730
+(Intercept)                 84308.9856
+bage35-44                   -1874.6383
+bage45-54                     861.5752
+bage54-65                   -3924.4418
+bage65-75                   -8189.2382
+bage75                      -7923.1704
+classcapitalist              -300.9513
+classself-employed           -886.0013
+classinactive                -943.0000
+classretired                -3939.4119
+classmanager                 -472.9697
+sexWomen                     5285.0260
+homeownerHomeowner         -57391.7324
+renthog1Middle             -38492.0124
+renthog1High                -6142.0343
                    se(unexplained A)
-(Intercept)                9366.1424
-bage35-44                  2458.1511
-bage45-54                  2035.5499
-bage54-65                  1699.4331
-bage65-75                  2531.4097
-bage75                     1677.9339
-classcapitalist             456.0913
-classself-employed          926.4191
-classinactive              1736.4033
-classretired               2515.9658
-classmanager                412.6775
-sexWomen                   2316.9025
-homeownerHomeowner         4941.3598
-renthog1Middle             3519.1503
-renthog1High                572.0064
+(Intercept)               11564.3628
+bage35-44                  2561.1856
+bage45-54                  2497.0551
+bage54-65                  1985.8561
+bage65-75                  2804.4734
+bage75                     1729.8093
+classcapitalist             325.9805
+classself-employed          947.3834
+classinactive              1734.4798
+classretired               2489.5878
+classmanager                380.8061
+sexWomen                   2424.0923
+homeownerHomeowner         5512.3181
+renthog1Middle             3252.1387
+renthog1High                486.0355
                    coef(unexplained B)
 (Intercept)                          0
 bage35-44                            0
@@ -923,69 +1010,69 @@ homeownerHomeowner            1
 renthog1Middle                1
 renthog1High                  1
                    coef(explained)
-(Intercept)                0.00000
-bage35-44                308.27898
-bage45-54              -1128.62921
-bage54-65              -1133.66827
-bage65-75                208.69831
-bage75                   131.97758
-classcapitalist           84.91979
-classself-employed       905.93605
-classinactive             37.58367
-classretired            -277.68426
-classmanager             -60.99820
-sexWomen                 425.44037
-homeownerHomeowner      9681.10426
-renthog1Middle         -6374.98362
-renthog1High           -3111.29301
+(Intercept)               0.000000
+bage35-44               310.670028
+bage45-54              -989.266662
+bage54-65              -631.584276
+bage65-75                -3.168174
+bage75                  282.071400
+classcapitalist        -567.668287
+classself-employed     1671.951489
+classinactive           -37.403861
+classretired           -731.251288
+classmanager             81.160528
+sexWomen               -343.760534
+homeownerHomeowner     9781.163437
+renthog1Middle        -5718.110870
+renthog1High          -4020.260107
                    se(explained)
 (Intercept)              0.00000
-bage35-44              174.81896
-bage45-54              271.20212
-bage54-65              328.87895
-bage65-75              136.31812
-bage75                 228.38747
-classcapitalist        261.13986
-classself-employed     295.10708
-classinactive           75.28447
-classretired           240.94673
-classmanager           186.55804
-sexWomen               395.20165
-homeownerHomeowner     987.55182
-renthog1Middle         720.21732
-renthog1High           505.04393
+bage35-44              176.08991
+bage45-54              308.11566
+bage54-65              184.49664
+bage65-75               46.77679
+bage75                 203.22792
+classcapitalist        276.62965
+classself-employed     323.83785
+classinactive          114.49731
+classretired           287.72564
+classmanager           126.85461
+sexWomen               325.28127
+homeownerHomeowner     892.53331
+renthog1Middle         625.15092
+renthog1High           465.71099
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1171.3042
-bage45-54                 -1609.7214
-bage54-65                 -4024.8117
-bage65-75                 -5593.8807
-bage75                    -9207.1276
-classcapitalist            -916.7708
-classself-employed         -781.9841
-classinactive              1263.3210
-classretired              -9829.6802
-classmanager                204.1929
-sexWomen                   3230.5611
-homeownerHomeowner       -43788.9919
-renthog1Middle           -55002.2214
-renthog1High             -10742.7865
+(Intercept)               84308.9856
+bage35-44                 -1585.8226
+bage45-54                  1072.6684
+bage54-65                 -4748.1758
+bage65-75                 -8093.4375
+bage75                    -9786.1423
+classcapitalist            -375.7660
+classself-employed         -587.1042
+classinactive              -925.5959
+classretired              -4874.9398
+classmanager               -442.5153
+sexWomen                   6495.4609
+homeownerHomeowner       -51637.9011
+renthog1Middle           -45262.2788
+renthog1High             -11693.2568
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2176.3366
-bage45-54                2551.0672
-bage54-65                2294.7059
-bage65-75                2303.5264
-bage75                   2120.3948
-classcapitalist           436.7233
-classself-employed        735.8014
-classinactive            1796.1666
-classretired             2911.9052
-classmanager              418.3102
-sexWomen                 2963.1259
-homeownerHomeowner       4414.4914
-renthog1Middle           4021.1363
-renthog1High              921.1079
+(Intercept)             11564.3628
+bage35-44                2179.6486
+bage45-54                3112.2634
+bage54-65                2375.8362
+bage65-75                2731.1394
+bage75                   2152.9851
+classcapitalist           400.2618
+classself-employed        641.8104
+classinactive            1713.9702
+classretired             3061.0782
+classmanager              357.0984
+sexWomen                 2965.3336
+homeownerHomeowner       4950.4140
+renthog1Middle           3759.3281
+renthog1High              807.3313
                    coef(unexplained A)
 (Intercept)                          0
 bage35-44                            0
@@ -1019,37 +1106,37 @@ homeownerHomeowner                 0
 renthog1Middle                     0
 renthog1High                       0
                    coef(unexplained B)
-(Intercept)                 87180.9505
-bage35-44                   -1171.3042
-bage45-54                   -1609.7214
-bage54-65                   -4024.8117
-bage65-75                   -5593.8807
-bage75                      -9207.1276
-classcapitalist              -916.7708
-classself-employed           -781.9841
-classinactive                1263.3210
-classretired                -9829.6802
-classmanager                  204.1929
-sexWomen                     3230.5611
-homeownerHomeowner         -43788.9919
-renthog1Middle             -55002.2214
-renthog1High               -10742.7865
+(Intercept)                 84308.9856
+bage35-44                   -1585.8226
+bage45-54                    1072.6684
+bage54-65                   -4748.1758
+bage65-75                   -8093.4375
+bage75                      -9786.1423
+classcapitalist              -375.7660
+classself-employed           -587.1042
+classinactive                -925.5959
+classretired                -4874.9398
+classmanager                 -442.5153
+sexWomen                     6495.4609
+homeownerHomeowner         -51637.9011
+renthog1Middle             -45262.2788
+renthog1High               -11693.2568
                    se(unexplained B)
-(Intercept)                9366.1424
-bage35-44                  2176.3366
-bage45-54                  2551.0672
-bage54-65                  2294.7059
-bage65-75                  2303.5264
-bage75                     2120.3948
-classcapitalist             436.7233
-classself-employed          735.8014
-classinactive              1796.1666
-classretired               2911.9052
-classmanager                418.3102
-sexWomen                   2963.1259
-homeownerHomeowner         4414.4914
-renthog1Middle             4021.1363
-renthog1High                921.1079
+(Intercept)               11564.3628
+bage35-44                  2179.6486
+bage45-54                  3112.2634
+bage54-65                  2375.8362
+bage65-75                  2731.1394
+bage75                     2152.9851
+classcapitalist             400.2618
+classself-employed          641.8104
+classinactive              1713.9702
+classretired               3061.0782
+classmanager                357.0984
+sexWomen                   2965.3336
+homeownerHomeowner         4950.4140
+renthog1Middle             3759.3281
+renthog1High                807.3313
 
 $twofold$variables[[3]]
                    group.weight
@@ -1070,278 +1157,278 @@ renthog1Middle              0.5
 renthog1High                0.5
                    coef(explained)
 (Intercept)                0.00000
-bage35-44                381.85363
-bage45-54              -1289.56818
-bage54-65              -1639.89412
-bage65-75                479.18842
-bage75                  -751.68155
-classcapitalist          101.30194
-classself-employed      1000.00035
-classinactive             56.92746
-classretired            -942.79204
-classmanager             -56.75034
-sexWomen                 779.77805
-homeownerHomeowner     12064.35973
-renthog1Middle        -11129.48594
-renthog1High           -5527.29976
+bage35-44                455.07788
+bage45-54               -883.72009
+bage54-65              -1043.45128
+bage65-75                 44.73218
+bage75                  -649.41455
+classcapitalist         -605.07564
+classself-employed      1821.40005
+classinactive            -28.70179
+classretired           -1199.01523
+classmanager              96.38773
+sexWomen                 261.45690
+homeownerHomeowner     12658.07905
+renthog1Middle         -9103.24411
+renthog1High           -6795.87134
                    se(explained)
-(Intercept)              0.00000
-bage35-44              172.42658
-bage45-54              326.37321
-bage54-65              338.45277
-bage65-75              212.41716
-bage75                 257.88644
-classcapitalist        309.45976
-classself-employed     341.44179
-classinactive           91.03519
-classretired           314.78645
-classmanager           172.57890
-sexWomen               277.86108
-homeownerHomeowner    1236.15543
-renthog1Middle        1074.64335
-renthog1High           897.65419
+(Intercept)               0.0000
+bage35-44               213.5197
+bage45-54               305.4103
+bage54-65               227.8499
+bage65-75               165.5390
+bage75                  274.8222
+classcapitalist         301.1525
+classself-employed      355.3149
+classinactive            86.5543
+classretired            305.8218
+classmanager            150.0614
+sexWomen                260.4521
+homeownerHomeowner     1153.1032
+renthog1Middle          919.3420
+renthog1High            797.6736
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1244.8789
-bage45-54                 -1448.7825
-bage54-65                 -3518.5859
-bage65-75                 -5864.3708
-bage75                    -8323.4685
-classcapitalist            -933.1530
-classself-employed         -876.0484
-classinactive              1243.9772
-classretired              -9164.5724
-classmanager                199.9451
-sexWomen                   2876.2234
-homeownerHomeowner       -46172.2474
-renthog1Middle           -50247.7191
-renthog1High              -8326.7798
+(Intercept)               84308.9856
+bage35-44                 -1730.2305
+bage45-54                   967.1218
+bage54-65                 -4336.3088
+bage65-75                 -8141.3378
+bage75                    -8854.6563
+classcapitalist            -338.3586
+classself-employed         -736.5527
+classinactive              -934.2980
+classretired              -4407.1758
+classmanager               -457.7425
+sexWomen                   5890.2435
+homeownerHomeowner       -54514.8168
+renthog1Middle           -41877.1456
+renthog1High              -8917.6455
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2316.7062
-bage45-54                2292.8029
-bage54-65                1995.8621
-bage65-75                2414.5192
-bage75                   1889.2850
-classcapitalist           443.1474
-classself-employed        830.3016
-classinactive            1765.6515
-classretired             2709.9678
-classmanager              414.4972
-sexWomen                 2639.6048
-homeownerHomeowner       4671.9505
-renthog1Middle           3743.6457
-renthog1High              633.9143
+(Intercept)             11564.3628
+bage35-44                2369.9403
+bage45-54                2804.0483
+bage54-65                2179.2070
+bage65-75                2762.9767
+bage75                   1926.6499
+classcapitalist           361.9065
+classself-employed        793.2571
+classinactive            1723.6275
+classretired             2774.1556
+classmanager              367.8538
+sexWomen                 2693.4363
+homeownerHomeowner       5224.7868
+renthog1Middle           3486.9233
+renthog1High              553.0295
                    coef(unexplained A)
-(Intercept)                 43590.4753
-bage35-44                    -659.2268
-bage45-54                    -643.9217
-bage54-65                   -1506.1800
-bage65-75                   -3067.4305
-bage75                      -3719.9047
-classcapitalist              -474.7676
-classself-employed           -485.0563
-classinactive                 612.3167
-classretired                -4249.7323
-classmanager                   97.8486
-sexWomen                     1260.9429
-homeownerHomeowner         -24277.7514
-renthog1Middle             -22746.6084
-renthog1High                -2955.3865
+(Intercept)                 42154.4928
+bage35-44                    -937.3192
+bage45-54                     430.7876
+bage54-65                   -1962.2209
+bage65-75                   -4094.6191
+bage75                      -3961.5852
+classcapitalist              -150.4756
+classself-employed           -443.0006
+classinactive                -471.5000
+classretired                -1969.7059
+classmanager                 -236.4849
+sexWomen                     2642.5130
+homeownerHomeowner         -28695.8662
+renthog1Middle             -19246.0062
+renthog1High                -3071.0172
                    se(unexplained A)
-(Intercept)                4683.0712
-bage35-44                  1229.0756
-bage45-54                  1017.7749
-bage54-65                   849.7166
-bage65-75                  1265.7048
-bage75                      838.9669
-classcapitalist             228.0457
-classself-employed          463.2095
-classinactive               868.2017
-classretired               1257.9829
-classmanager                206.3387
-sexWomen                   1158.4512
-homeownerHomeowner         2470.6799
-renthog1Middle             1759.5752
-renthog1High                286.0032
+(Intercept)                5782.1814
+bage35-44                  1280.5928
+bage45-54                  1248.5275
+bage54-65                   992.9281
+bage65-75                  1402.2367
+bage75                      864.9046
+classcapitalist             162.9902
+classself-employed          473.6917
+classinactive               867.2399
+classretired               1244.7939
+classmanager                190.4031
+sexWomen                   1212.0462
+homeownerHomeowner         2756.1590
+renthog1Middle             1626.0694
+renthog1High                243.0177
                    coef(unexplained B)
-(Intercept)                 43590.4753
-bage35-44                    -585.6521
-bage45-54                    -804.8607
-bage54-65                   -2012.4059
-bage65-75                   -2796.9403
-bage75                      -4603.5638
-classcapitalist              -458.3854
-classself-employed           -390.9920
-classinactive                 631.6605
-classretired                -4914.8401
-classmanager                  102.0965
-sexWomen                     1615.2806
-homeownerHomeowner         -21894.4960
-renthog1Middle             -27501.1107
-renthog1High                -5371.3933
+(Intercept)                 42154.4928
+bage35-44                    -792.9113
+bage45-54                     536.3342
+bage54-65                   -2374.0879
+bage65-75                   -4046.7187
+bage75                      -4893.0711
+classcapitalist              -187.8830
+classself-employed           -293.5521
+classinactive                -462.7979
+classretired                -2437.4699
+classmanager                 -221.2576
+sexWomen                     3247.7304
+homeownerHomeowner         -25818.9506
+renthog1Middle             -22631.1394
+renthog1High                -5846.6284
                    se(unexplained B)
-(Intercept)                4683.0712
-bage35-44                  1088.1683
-bage45-54                  1275.5336
-bage54-65                  1147.3529
-bage65-75                  1151.7632
-bage75                     1060.1974
-classcapitalist             218.3617
-classself-employed          367.9007
-classinactive               898.0833
-classretired               1455.9526
-classmanager                209.1551
-sexWomen                   1481.5630
-homeownerHomeowner         2207.2457
-renthog1Middle             2010.5681
-renthog1High                460.5539
+(Intercept)                5782.1814
+bage35-44                  1089.8243
+bage45-54                  1556.1317
+bage54-65                  1187.9181
+bage65-75                  1365.5697
+bage75                     1076.4925
+classcapitalist             200.1309
+classself-employed          320.9052
+classinactive               856.9851
+classretired               1530.5391
+classmanager                178.5492
+sexWomen                   1482.6668
+homeownerHomeowner         2475.2070
+renthog1Middle             1879.6641
+renthog1High                403.6657
 
 $twofold$variables[[4]]
                    group.weight
-(Intercept)           0.4442405
-bage35-44             0.4442405
-bage45-54             0.4442405
-bage54-65             0.4442405
-bage65-75             0.4442405
-bage75                0.4442405
-classcapitalist       0.4442405
-classself-employed    0.4442405
-classinactive         0.4442405
-classretired          0.4442405
-classmanager          0.4442405
-sexWomen              0.4442405
-homeownerHomeowner    0.4442405
-renthog1Middle        0.4442405
-renthog1High          0.4442405
+(Intercept)           0.4374836
+bage35-44             0.4374836
+bage45-54             0.4374836
+bage54-65             0.4374836
+bage65-75             0.4374836
+bage75                0.4374836
+classcapitalist       0.4374836
+classself-employed    0.4374836
+classinactive         0.4374836
+classretired          0.4374836
+classmanager          0.4374836
+sexWomen              0.4374836
+homeownerHomeowner    0.4374836
+renthog1Middle        0.4374836
+renthog1High          0.4374836
                    coef(explained)
 (Intercept)                0.00000
-bage35-44                390.05860
-bage45-54              -1307.51593
-bage54-65              -1696.34790
-bage65-75                509.35320
-bage75                  -850.22630
-classcapitalist          103.12886
-classself-employed      1010.49030
-classinactive             59.08465
-classretired           -1016.96417
-classmanager             -56.27662
-sexWomen                 819.29342
-homeownerHomeowner     12330.13792
-renthog1Middle        -11659.70312
-renthog1High           -5796.73033
+bage35-44                473.13359
+bage45-54               -870.52331
+bage54-65              -1094.94816
+bage65-75                 50.72129
+bage75                  -765.88082
+classcapitalist         -609.75279
+classself-employed      1840.08601
+classinactive            -27.61374
+classretired           -1257.50105
+classmanager              98.29163
+sexWomen                 337.12891
+homeownerHomeowner     13017.78777
+renthog1Middle         -9526.49669
+renthog1High           -7142.91369
                    se(explained)
 (Intercept)              0.00000
-bage35-44              166.16089
-bage45-54              309.88718
-bage54-65              323.39237
-bage65-75              198.65389
-bage75                 237.37720
-classcapitalist        303.96382
-classself-employed     335.05248
-classinactive           87.66469
-classretired           297.48742
-classmanager           173.95575
-sexWomen               274.69217
-homeownerHomeowner    1205.82697
-renthog1Middle        1028.56555
-renthog1High           852.02220
+bage35-44              198.84346
+bage45-54              287.67464
+bage54-65              211.51612
+bage65-75              145.53722
+bage75                 245.17271
+classcapitalist        297.78178
+classself-employed     347.54745
+classinactive           89.20312
+classretired           287.29203
+classmanager           147.00680
+sexWomen               252.62353
+homeownerHomeowner    1116.61963
+renthog1Middle         875.75831
+renthog1High           754.14167
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1253.0838
-bage45-54                 -1430.8347
-bage54-65                 -3462.1321
-bage65-75                 -5894.5356
-bage75                    -8224.9238
-classcapitalist            -934.9799
-classself-employed         -886.5383
-classinactive              1241.8200
-classretired              -9090.4003
-classmanager                199.4713
-sexWomen                   2836.7081
-homeownerHomeowner       -46438.0256
-renthog1Middle           -49717.5019
-renthog1High              -8057.3492
+(Intercept)               84308.9856
+bage35-44                 -1748.2862
+bage45-54                   953.9250
+bage54-65                 -4284.8120
+bage65-75                 -8147.3269
+bage75                    -8738.1900
+classcapitalist            -333.6815
+classself-employed         -755.2387
+classinactive              -935.3860
+classretired              -4348.6900
+classmanager               -459.6464
+sexWomen                   5814.5715
+homeownerHomeowner       -54874.5255
+renthog1Middle           -41453.8930
+renthog1High              -8570.6032
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2300.9955
-bage45-54                2321.5604
-bage54-65                2029.0887
-bage65-75                2401.8339
-bage75                   1914.2053
-classcapitalist           442.1003
-classself-employed        819.6725
-classinactive            1768.9929
-classretired             2732.1262
-classmanager              414.8244
-sexWomen                 2675.6485
-homeownerHomeowner       4642.6096
-renthog1Middle           3772.1611
-renthog1High              658.1980
+(Intercept)             11564.3628
+bage35-44                2346.0907
+bage45-54                2842.5266
+bage54-65                2203.6306
+bage65-75                2758.4598
+bage75                   1953.5333
+classcapitalist           366.5845
+classself-employed        774.1422
+classinactive            1722.3542
+classretired             2809.9163
+classmanager              366.3845
+sexWomen                 2727.3083
+homeownerHomeowner       5189.7177
+renthog1Middle           3519.0926
+renthog1High              577.9105
                    coef(unexplained A)
-(Intercept)                 48451.6400
-bage35-44                    -732.7430
-bage45-54                    -715.7312
-bage54-65                   -1674.1476
-bage65-75                   -3409.5071
-bage75                      -4134.7446
-classcapitalist              -527.7131
-classself-employed           -539.1493
-classinactive                 680.6016
-classretired                -4723.6581
-classmanager                  108.7606
-sexWomen                     1401.5619
-homeownerHomeowner         -26985.1811
-renthog1Middle             -25283.2866
-renthog1High                -3284.9682
+(Intercept)                 47425.1856
+bage35-44                   -1054.5148
+bage45-54                     484.6502
+bage54-65                   -2207.5628
+bage65-75                   -4606.5806
+bage75                      -4456.9131
+classcapitalist              -169.2900
+classself-employed           -498.3902
+classinactive                -530.4530
+classretired                -2215.9837
+classmanager                 -266.0532
+sexWomen                     2972.9137
+homeownerHomeowner         -32283.7897
+renthog1Middle             -21652.3876
+renthog1High                -3454.9949
                    se(unexplained A)
-(Intercept)                4160.8199
-bage35-44                  1092.0103
-bage45-54                   904.2737
-bage54-65                   754.9571
-bage65-75                  1124.5547
-bage75                      745.4062
-classcapitalist             202.6142
-classself-employed          411.5529
-classinactive               771.3807
-classretired               1117.6940
-classmanager                183.3280
-sexWomen                   1029.2620
-homeownerHomeowner         2195.1522
-renthog1Middle             1563.3492
-renthog1High                254.1084
+(Intercept)                5059.2192
+bage35-44                  1120.4767
+bage45-54                  1092.4207
+bage54-65                   868.7795
+bage65-75                  1226.9112
+bage75                      756.7632
+classcapitalist             142.6111
+classself-employed          414.4647
+classinactive               758.8065
+classretired               1089.1539
+classmanager                166.5964
+sexWomen                   1060.5007
+homeownerHomeowner         2411.5489
+renthog1Middle             1422.7574
+renthog1High                212.6326
                    coef(unexplained B)
-(Intercept)                38729.31058
-bage35-44                   -520.34079
-bage45-54                   -715.10348
-bage54-65                  -1787.98444
-bage65-75                  -2485.02845
-bage75                     -4090.17914
-classcapitalist             -407.26674
-classself-employed          -347.38901
-classinactive                561.21836
-classretired               -4366.74223
-classmanager                  90.71077
-sexWomen                    1435.14615
-homeownerHomeowner        -19452.84442
-renthog1Middle            -24434.21531
-renthog1High               -4772.38105
+(Intercept)                 36883.8000
+bage35-44                    -693.7714
+bage45-54                     469.2748
+bage54-65                   -2077.2491
+bage65-75                   -3540.7463
+bage75                      -4281.2769
+classcapitalist              -164.3915
+classself-employed           -256.8485
+classinactive                -404.9330
+classretired                -2132.7063
+classmanager                 -193.5932
+sexWomen                     2841.6577
+homeownerHomeowner         -22590.7358
+renthog1Middle             -19801.5055
+renthog1High                -5115.6083
                    se(unexplained B)
-(Intercept)                5205.3225
-bage35-44                  1209.5197
-bage45-54                  1417.7798
-bage54-65                  1275.3046
-bage65-75                  1280.2067
-bage75                     1178.4295
-classcapitalist             242.7131
-classself-employed          408.9286
-classinactive               998.2366
-classretired               1618.3189
-classmanager                232.4799
-sexWomen                   1646.7853
-homeownerHomeowner         2453.3954
-renthog1Middle             2234.7846
-renthog1High                511.9144
+(Intercept)                6505.1435
+bage35-44                  1226.0881
+bage45-54                  1750.6991
+bage54-65                  1336.4468
+bage65-75                  1536.3106
+bage75                     1211.0894
+classcapitalist             225.1538
+classself-employed          361.0289
+classinactive               964.1363
+classretired               1721.9066
+classmanager                200.8737
+sexWomen                   1668.0487
+homeownerHomeowner         2784.6890
+renthog1Middle             2114.6837
+renthog1High                454.1371
 
 $twofold$variables[[5]]
                    group.weight
@@ -1362,132 +1449,132 @@ renthog1Middle               -1
 renthog1High                 -1
                    coef(explained)
 (Intercept)                0.00000
-bage35-44                495.86353
-bage45-54              -1476.23279
-bage54-65              -2039.90873
-bage65-75                642.86774
-bage75                 -1292.61504
-classcapitalist           99.65665
-classself-employed       965.06193
-classinactive             73.74915
-classretired           -1086.71126
-classmanager             -50.99512
-sexWomen                 435.53483
-homeownerHomeowner     12315.20185
-renthog1Middle        -12553.86746
-renthog1High           -6611.49064
+bage35-44                464.82784
+bage45-54               -855.78058
+bage54-65              -1191.52188
+bage65-75                 55.30498
+bage75                 -1007.17354
+classcapitalist         -611.06185
+classself-employed      1658.43870
+classinactive            -38.17777
+classretired           -1570.21984
+classmanager              93.04778
+sexWomen                  82.63179
+homeownerHomeowner     13045.16487
+renthog1Middle        -10199.76469
+renthog1High           -8137.66270
                    se(explained)
 (Intercept)               0.0000
-bage35-44               194.2233
-bage45-54               363.0971
-bage54-65               385.1883
-bage65-75               265.0699
-bage75                  355.1861
-classcapitalist         299.9049
-classself-employed      321.5885
-classinactive           108.1067
-classretired            364.9716
-classmanager            158.7676
-sexWomen                301.3803
-homeownerHomeowner     1260.2147
-renthog1Middle         1225.7876
-renthog1High           1161.8853
+bage35-44               200.6029
+bage45-54               286.9594
+bage54-65               257.9532
+bage65-75               204.2288
+bage75                  372.7051
+classcapitalist         319.6936
+classself-employed      305.8444
+classinactive           108.8480
+classretired            367.0511
+classmanager            144.6560
+sexWomen                294.3455
+homeownerHomeowner     1212.1146
+renthog1Middle         1042.3462
+renthog1High           1037.9672
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1358.8888
-bage45-54                 -1262.1178
-bage54-65                 -3118.5713
-bage65-75                 -6028.0501
-bage75                    -7782.5350
-classcapitalist            -931.5077
-classself-employed         -841.1099
-classinactive              1227.1555
-classretired              -9020.6532
-classmanager                194.1898
-sexWomen                   3220.4667
-homeownerHomeowner       -46423.0895
-renthog1Middle           -48823.3376
-renthog1High              -7242.5889
+(Intercept)               84308.9856
+bage35-44                 -1739.9804
+bage45-54                   939.1823
+bage54-65                 -4188.2382
+bage65-75                 -8151.9106
+bage75                    -8496.8973
+classcapitalist            -332.3724
+classself-employed         -573.5914
+classinactive              -924.8220
+classretired              -4035.9712
+classmanager               -454.4025
+sexWomen                   6069.0686
+homeownerHomeowner       -54901.9026
+renthog1Middle           -40780.6250
+renthog1High              -7575.8542
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2293.2112
-bage45-54                2320.9703
-bage54-65                2023.0877
-bage65-75                2405.0843
-bage75                   1899.5200
-classcapitalist           444.5956
-classself-employed        825.8599
-classinactive            1759.1160
-classretired             2699.5588
-classmanager              412.0616
-sexWomen                 2550.3354
-homeownerHomeowner       4689.8645
-renthog1Middle           3767.3882
-renthog1High              626.9267
+(Intercept)             11564.3628
+bage35-44                2338.1491
+bage45-54                2839.3140
+bage54-65                2202.8723
+bage65-75                2764.3440
+bage75                   1932.6201
+classcapitalist           352.1211
+classself-employed        790.2122
+classinactive            1728.8226
+classretired             2750.7576
+classmanager              368.1757
+sexWomen                 2623.0246
+homeownerHomeowner       5262.1809
+renthog1Middle           3504.3720
+renthog1High              567.2620
                    coef(unexplained A)
-(Intercept)                59062.97353
-bage35-44                  -1680.75211
-bage45-54                  -1390.77258
-bage54-65                  -2696.34842
-bage65-75                  -4923.59789
-bage75                     -5997.05088
-classcapitalist             -427.08565
-classself-employed          -304.89128
-classinactive               1144.79798
-classretired               -5169.30984
-classmanager                 230.41864
-sexWomen                      35.92207
-homeownerHomeowner        -26833.03038
-renthog1Middle            -29561.16997
-renthog1High               -4281.62582
+(Intercept)                55173.14352
+bage35-44                  -1000.60399
+bage45-54                    544.82257
+bage54-65                  -2667.66033
+bage65-75                  -4998.40325
+bage75                     -5483.12470
+classcapitalist             -174.55585
+classself-employed            40.05507
+classinactive                 41.93219
+classretired               -3532.81047
+classmanager                -184.61405
+sexWomen                    1861.72307
+homeownerHomeowner        -32556.86331
+renthog1Middle            -25480.21922
+renthog1High               -4555.61423
                    se(unexplained A)
-(Intercept)                4169.8209
-bage35-44                  1085.5760
-bage45-54                   957.5742
-bage54-65                   845.7838
-bage65-75                  1173.2953
-bage75                      860.3565
-classcapitalist             259.6104
-classself-employed          463.9279
-classinactive              1139.7205
-classretired               1387.6867
-classmanager                237.0460
-sexWomen                   1519.8593
-homeownerHomeowner         2701.6999
-renthog1Middle             1883.6296
-renthog1High                330.9819
+(Intercept)                5160.0835
+bage35-44                  1103.3348
+bage45-54                  1144.7999
+bage54-65                   956.3821
+bage65-75                  1395.3755
+bage75                      876.6879
+classcapitalist             204.2633
+classself-employed          478.9297
+classinactive              1172.5512
+classretired               1411.4860
+classmanager                219.9650
+sexWomen                   1550.8803
+homeownerHomeowner         3213.9071
+renthog1Middle             1675.0808
+renthog1High                270.4360
                    coef(unexplained B)
-(Intercept)                28117.97701
-bage35-44                    321.86336
-bage45-54                    128.65473
-bage54-65                   -422.22284
-bage65-75                  -1104.45223
-bage75                     -1785.48414
-classcapitalist             -504.42201
-classself-employed          -536.21867
-classinactive                 82.35751
-classretired               -3851.34339
-classmanager                 -36.22880
-sexWomen                    3184.54460
-homeownerHomeowner        -19590.05912
-renthog1Middle            -19262.16762
-renthog1High               -2960.96308
+(Intercept)                 29135.8421
+bage35-44                    -739.3764
+bage45-54                     394.3597
+bage54-65                   -1520.5779
+bage65-75                   -3153.5074
+bage75                      -3013.7726
+classcapitalist              -157.8166
+classself-employed           -613.6464
+classinactive                -966.7542
+classretired                 -503.1607
+classmanager                 -269.7885
+sexWomen                     4207.3455
+homeownerHomeowner         -22345.0393
+renthog1Middle             -15300.4058
+renthog1High                -3020.2399
                    se(unexplained B)
-(Intercept)                5870.7899
-bage35-44                  1302.5439
-bage45-54                  1505.9971
-bage54-65                  1312.6291
-bage65-75                  1341.6552
-bage75                     1161.9863
-classcapitalist             205.3562
-classself-employed          383.3261
-classinactive               674.8439
-classretired               1450.1957
-classmanager                197.9165
-sexWomen                   1118.8446
-homeownerHomeowner         2156.2571
-renthog1Middle             2049.5269
-renthog1High                323.2952
+(Intercept)                6940.4768
+bage35-44                  1314.7465
+bage45-54                  1781.1034
+bage54-65                  1371.0860
+bage65-75                  1462.6300
+bage75                     1147.7071
+classcapitalist             175.5713
+classself-employed          340.4985
+classinactive               620.7206
+classretired               1472.3403
+classmanager                170.2996
+sexWomen                   1149.5737
+homeownerHomeowner         2282.2975
+renthog1Middle             1981.0077
+renthog1High                332.4316
 
 $twofold$variables[[6]]
                    group.weight
@@ -1508,132 +1595,132 @@ renthog1Middle               -2
 renthog1High                 -2
                    coef(explained)
 (Intercept)                0.00000
-bage35-44                298.85312
-bage45-54               -885.47032
-bage54-65              -1397.14474
-bage65-75                531.26157
-bage75                  -984.53189
-classcapitalist          101.62560
-classself-employed      1004.94033
-classinactive             73.10474
-classretired            -939.43999
-classmanager             -52.24644
-sexWomen                 995.41186
-homeownerHomeowner     12997.62498
-renthog1Middle        -11614.95325
-renthog1High           -6233.87058
+bage35-44                224.92021
+bage45-54               -314.06000
+bage54-65               -804.71465
+bage65-75                 40.79261
+bage75                  -722.04179
+classcapitalist         -602.71668
+classself-employed      1786.06344
+classinactive            -36.96544
+classretired           -1340.98480
+classmanager              97.17272
+sexWomen                 488.98674
+homeownerHomeowner     13728.72088
+renthog1Middle         -9504.70675
+renthog1High           -7699.90712
                    se(explained)
 (Intercept)               0.0000
-bage35-44               158.2816
-bage45-54               281.0701
-bage54-65               336.3981
-bage65-75               230.0275
-bage75                  300.1941
-classcapitalist         307.7458
-classself-employed      341.3098
-classinactive           111.8132
-classretired            325.5975
-classmanager            160.5351
-sexWomen                318.3989
-homeownerHomeowner     1371.2090
-renthog1Middle         1097.5223
-renthog1High           1080.6501
+bage35-44               183.6750
+bage45-54               267.8796
+bage54-65               215.1242
+bage65-75               153.5909
+bage75                  301.3427
+classcapitalist         308.7539
+classself-employed      343.2856
+classinactive           103.6070
+classretired            338.5592
+classmanager            151.9072
+sexWomen                293.7369
+homeownerHomeowner     1301.5510
+renthog1Middle          947.2918
+renthog1High            968.8471
                    coef(unexplained)
-(Intercept)               87180.9505
-bage35-44                 -1161.8783
-bage45-54                 -1852.8803
-bage54-65                 -3761.3353
-bage65-75                 -5916.4439
-bage75                    -8090.6182
-classcapitalist            -933.4766
-classself-employed         -880.9884
-classinactive              1227.7999
-classretired              -9167.9245
-classmanager                195.4412
-sexWomen                   2660.5896
-homeownerHomeowner       -47105.5126
-renthog1Middle           -49762.2518
-renthog1High              -7620.2090
+(Intercept)               84308.9856
+bage35-44                 -1500.0728
+bage45-54                   397.4617
+bage54-65                 -4575.0455
+bage65-75                 -8137.3982
+bage75                    -8782.0291
+classcapitalist            -340.7176
+classself-employed         -701.2161
+classinactive              -926.0343
+classretired              -4265.2063
+classmanager               -458.5275
+sexWomen                   5662.7136
+homeownerHomeowner       -55585.4586
+renthog1Middle           -41475.6830
+renthog1High              -8013.6098
                    se(unexplained)
-(Intercept)              9366.1424
-bage35-44                2292.5039
-bage45-54                2342.9883
-bage54-65                2017.5016
-bage65-75                2402.3848
-bage75                   1896.7395
-classcapitalist           444.1393
-classself-employed        829.1781
-classinactive            1758.2294
-classretired             2701.3056
-classmanager              411.9612
-sexWomen                 2551.8622
-homeownerHomeowner       4720.9276
-renthog1Middle           3745.0630
-renthog1High              609.1442
+(Intercept)             11564.3628
+bage35-44                2334.3207
+bage45-54                2844.9811
+bage54-65                2186.6385
+bage65-75                2760.0429
+bage75                   1928.9565
+classcapitalist           353.5101
+classself-employed        788.0819
+classinactive            1728.5658
+classretired             2749.8277
+classmanager              368.5645
+sexWomen                 2620.2571
+homeownerHomeowner       5285.2150
+renthog1Middle           3478.0528
+renthog1High              535.8176
                    coef(unexplained A)
-(Intercept)                72626.99858
-bage35-44                     84.45547
-bage45-54                    972.88620
-bage54-65                   -783.92479
-bage65-75                  -3657.95401
-bage75                     -4700.12551
-classcapitalist             -484.14737
-classself-employed          -510.53010
-classinactive               1124.39971
-classretired               -4228.31431
-classmanager                 201.59468
-sexWomen                    2028.29540
-homeownerHomeowner        -33784.73963
-renthog1Middle            -25069.19321
-renthog1High               -3819.70111
+(Intercept)                70198.73772
+bage35-44                    556.58298
+bage45-54                   2755.85150
+bage54-65                   -824.82944
+bage65-75                  -3757.85727
+bage75                     -4270.46689
+classcapitalist             -140.98642
+classself-employed          -338.25465
+classinactive                -23.75457
+classretired               -2567.52526
+classmanager                -248.67594
+sexWomen                    3635.95857
+homeownerHomeowner        -39375.00969
+renthog1Middle            -21528.50195
+renthog1High               -4071.26869
                    se(unexplained A)
-(Intercept)                4412.5464
-bage35-44                  1063.4480
-bage45-54                   937.3313
-bage54-65                   840.9054
-bage65-75                  1178.2979
-bage75                      853.7418
-classcapitalist             251.2449
-classself-employed          469.3292
-classinactive              1143.8983
-classretired               1360.1281
-classmanager                233.7483
-sexWomen                   1500.3906
-homeownerHomeowner         2983.7356
-renthog1Middle             1870.6073
-renthog1High                319.4828
+(Intercept)                5070.4482
+bage35-44                  1134.0333
+bage45-54                  1157.6626
+bage54-65                   984.9512
+bage65-75                  1382.5999
+bage75                      889.0555
+classcapitalist             195.1883
+classself-employed          467.5467
+classinactive              1153.0929
+classretired               1384.1265
+classmanager                219.0080
+sexWomen                   1556.5270
+homeownerHomeowner         3414.6567
+renthog1Middle             1755.0695
+renthog1High                273.8467
                    coef(unexplained B)
-(Intercept)               14553.951963
-bage35-44                 -1246.333812
-bage45-54                 -2825.766513
-bage54-65                 -2977.410462
-bage65-75                 -2258.489938
-bage75                    -3390.492655
-classcapitalist            -449.329242
-classself-employed         -370.458249
-classinactive               103.400188
-classretired              -4939.610184
-classmanager                 -6.153518
-sexWomen                    632.294230
-homeownerHomeowner       -13320.772998
-renthog1Middle           -24693.058595
-renthog1High              -3800.507845
+(Intercept)                 14110.2479
+bage35-44                   -2056.6558
+bage45-54                   -2358.3898
+bage54-65                   -3750.2160
+bage65-75                   -4379.5410
+bage75                      -4511.5622
+classcapitalist              -199.7312
+classself-employed           -362.9615
+classinactive                -902.2797
+classretired                -1697.6810
+classmanager                 -209.8515
+sexWomen                     2026.7551
+homeownerHomeowner         -16210.4489
+renthog1Middle             -19947.1810
+renthog1High                -3942.3411
                    se(unexplained B)
-(Intercept)                6253.5499
-bage35-44                  1303.7204
-bage45-54                  1509.9448
-bage54-65                  1283.8694
-bage65-75                  1327.3590
-bage75                     1153.9048
-classcapitalist             202.8785
-classself-employed          377.4359
-classinactive               675.2533
-classretired               1457.7865
-classmanager                189.1565
-sexWomen                   1129.7842
-homeownerHomeowner         1995.4197
-renthog1Middle             2035.0274
-renthog1High                326.7661
+(Intercept)                7586.0982
+bage35-44                  1293.6787
+bage45-54                  1763.4897
+bage54-65                  1311.5842
+bage65-75                  1462.9251
+bage75                     1132.5384
+classcapitalist             171.4082
+classself-employed          338.1404
+classinactive               636.7180
+classretired               1442.6775
+classmanager                163.8067
+sexWomen                   1119.6166
+homeownerHomeowner         2103.3206
+renthog1Middle             1851.3844
+renthog1High                299.9020
 
 
 
@@ -1642,109 +1729,131 @@ $x$x.mean.A
        (Intercept) 
         1.00000000 
          bage35-44 
-        0.22073579 
+        0.22089075 
          bage45-54 
-        0.19299626 
+        0.19213102 
          bage54-65 
-        0.14912453 
+        0.16856401 
          bage65-75 
-        0.17056856 
+        0.16596765 
             bage75 
-        0.11017116 
+        0.11104454 
    classcapitalist 
-        0.03501869 
+        0.02935890 
 classself-employed 
-        0.07003738 
+        0.08368284 
      classinactive 
-        0.19161912 
+        0.20271620 
       classretired 
-        0.22939209 
+        0.22568404 
       classmanager 
-        0.02577218 
+        0.02656281 
           sexWomen 
-        0.34999016 
+        0.36069503 
 homeownerHomeowner 
-        0.81625025 
+        0.81725584 
     renthog1Middle 
-        0.51052528 
+        0.50948672 
       renthog1High 
-        0.03521542 
+        0.03834632 
 
 $x$x.mean.B
        (Intercept) 
         1.00000000 
          bage35-44 
-        0.19610002 
+        0.18685927 
          bage45-54 
-        0.24123290 
+        0.23920472 
          bage54-65 
-        0.19924516 
+        0.20394532 
          bage65-75 
-        0.15552760 
+        0.16402610 
             bage75 
-        0.13634219 
+        0.13715440 
    classcapitalist 
-        0.03381035 
+        0.03665735 
 classself-employed 
-        0.05645542 
+        0.05545200 
      classinactive 
-        0.19767259 
+        0.19897484 
       classretired 
-        0.26529329 
+        0.27927928 
       classmanager 
-        0.02689102 
+        0.02485244 
           sexWomen 
-        0.44834093 
+        0.44330537 
 homeownerHomeowner 
-        0.73612203 
+        0.73532153 
     renthog1Middle 
-        0.61723541 
+        0.59909910 
       renthog1High 
-        0.06400377 
+        0.07300404 
 
 $x$x.mean.diff
        (Intercept) 
        0.000000000 
          bage35-44 
-       0.024635770 
+       0.034031480 
          bage45-54 
-      -0.048236636 
+      -0.047073705 
          bage54-65 
-      -0.050120632 
+      -0.035381314 
          bage65-75 
-       0.015040963 
+       0.001941550 
             bage75 
-      -0.026171033 
+      -0.026109858 
    classcapitalist 
-       0.001208342 
+      -0.007298449 
 classself-employed 
-       0.013581962 
+       0.028230840 
      classinactive 
-      -0.006053467 
+       0.003741360 
       classretired 
-      -0.035901194 
+      -0.053595237 
       classmanager 
-      -0.001118839 
+       0.001710373 
           sexWomen 
-      -0.098350771 
+      -0.082610347 
 homeownerHomeowner 
-       0.080128214 
+       0.081934313 
     renthog1Middle 
-      -0.106710134 
+      -0.089612381 
       renthog1High 
-      -0.028788350 
+      -0.034657723 
 
 
 $y
 $y$y.A
-[1] 109161.8
+[1] 110555.6
 
 $y$y.B
-[1] 160255.4
+[1] 159606.9
 
 $y$y.diff
-[1] -51093.57
+[1] -49051.28
 
 
 attr(,"class")
 [1] "oaxaca"
+[1] "############### METHOD: OAXACA DECOMPOSITION decr R ###############"
+# A tibble: 11,456 × 19
+   identif bage  class    sex  
+ *   <dbl> <fct> <fct>    <fct>
+ 1       0 45-54 worker   Man  
+ 2       0 35-44 inactive Women
+ 3       0 75    retired  Man  
+ 4       0 65-75 retired  Man  
+ 5       0 45-54 inactive Women
+ 6       0 0-34  worker   Man  
+ 7       0 54-65 retired  Man  
+ 8       0 75    retired  Man  
+ 9       0 65-75 retired  Man  
+10       0 0-34  worker   Man  
+# ℹ 11,446 more rows
+# ℹ 15 more variables:
+#   homeowner <fct>, renthog1 <fct>,
+#   RIF_riquezabr <dbl>,
+#   facine3 <dbl>, strata <chr>,
+#   `0` <int>, `1` <int>,
+#   n_diff <int>, …
+# ℹ Use `print(n = ...)` to see more rows
