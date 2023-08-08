@@ -1,88 +1,82 @@
 [1] "############### FIRST TEST USING LM ###############"
 
 Call:
-lm(formula = RIF_actreales ~ bage + class + sex + renthog1 + 
-    homeowner, data = subset(dt_eff_rew, identif == 0))
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_effA, weights = facine3)
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--202951  -97784   21787   75043  219644 
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-20106882  -1225942    965015   3930820  22754846 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          -53286       4492 -11.863  < 2e-16 ***
-bage35-44             17957       4456   4.030 5.65e-05 ***
-bage45-54             43024       4637   9.279  < 2e-16 ***
-bage54-65             43041       5005   8.599  < 2e-16 ***
-bage65-75             31872       6194   5.145 2.77e-07 ***
-bage75                18824       6640   2.835  0.00461 ** 
-classcapitalist       37934       7863   4.824 1.45e-06 ***
-classself-employed    24911       4919   5.064 4.26e-07 ***
-classinactive         -6594       4534  -1.454  0.14588    
-classretired           9401       5194   1.810  0.07035 .  
-classmanager          48134       8255   5.831 5.87e-09 ***
-sexWomen               2423       3218   0.753  0.45145    
-renthog1Middle        38919       2859  13.613  < 2e-16 ***
-renthog1High          82712       7156  11.558  < 2e-16 ***
-homeownerHomeowner   102891       3454  29.786  < 2e-16 ***
+(Intercept)          -33935       4258  -7.970 1.95e-15 ***
+bage35-44             19990       4459   4.483 7.51e-06 ***
+bage45-54             50830       4603  11.042  < 2e-16 ***
+bage54-65             44338       5070   8.744  < 2e-16 ***
+bage65-75             28449       6357   4.475 7.79e-06 ***
+bage75                11478       6691   1.715  0.08635 .  
+classcapitalist       34937       8019   4.357 1.35e-05 ***
+classself-employed    24844       5017   4.952 7.59e-07 ***
+classinactive        -13235       4629  -2.859  0.00427 ** 
+classretired           2958       5400   0.548  0.58390    
+classmanager          56740       8361   6.786 1.28e-11 ***
+sexWomen              -2872       3258  -0.881  0.37809    
+homeownerHomeowner   110994       3383  32.809  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 91480 on 4992 degrees of freedom
-  (11 observations deleted due to missingness)
-Multiple R-squared:  0.2744,	Adjusted R-squared:  0.2724 
-F-statistic: 134.8 on 14 and 4992 DF,  p-value: < 2.2e-16
+Residual standard error: 5028000 on 5129 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.2351,	Adjusted R-squared:  0.2333 
+F-statistic: 131.4 on 12 and 5129 DF,  p-value: < 2.2e-16
 
 
 Call:
-lm(formula = RIF_actreales ~ bage + class + sex + renthog1 + 
-    homeowner, data = subset(dt_eff_rew, identif == 1))
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_effB, weights = facine3)
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--382271 -115631   25487  109562  386816 
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-47857891  -1972521    880868   5099817  62835138 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)         -122520       7560 -16.206  < 2e-16 ***
-bage35-44             12239       7786   1.572  0.11599    
-bage45-54             34069       7647   4.455 8.52e-06 ***
-bage54-65             60639       7940   7.637 2.55e-14 ***
-bage65-75             85270       9717   8.775  < 2e-16 ***
-bage75                82743      10053   8.231 2.23e-16 ***
-classcapitalist       16800       9484   1.771  0.07653 .  
-classself-employed    25819       7866   3.282  0.00104 ** 
-classinactive         12941       5109   2.533  0.01133 *  
-classretired          16738       7000   2.391  0.01682 *  
-classmanager           5729      11392   0.503  0.61506    
-sexWomen              -5363       3701  -1.449  0.14735    
-renthog1Middle        74868       4043  18.517  < 2e-16 ***
-renthog1High         179399       7457  24.058  < 2e-16 ***
-homeownerHomeowner   154738       4211  36.746  < 2e-16 ***
+(Intercept)          -82381       7541 -10.924  < 2e-16 ***
+bage35-44             12741       8273   1.540 0.123595    
+bage45-54             42048       8150   5.159 2.55e-07 ***
+bage54-65             67939       8452   8.038 1.08e-15 ***
+bage65-75             73760      10422   7.077 1.63e-12 ***
+bage75                54844      10635   5.157 2.59e-07 ***
+classcapitalist       53309      10330   5.161 2.54e-07 ***
+classself-employed    42480       8154   5.210 1.95e-07 ***
+classinactive         -8150       5341  -1.526 0.127055    
+classretired          28415       7589   3.744 0.000183 ***
+classmanager          56247      11756   4.785 1.75e-06 ***
+sexWomen              -6882       3862  -1.782 0.074800 .  
+homeownerHomeowner   173869       4341  40.049  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 138200 on 6423 degrees of freedom
-Multiple R-squared:  0.3496,	Adjusted R-squared:  0.3482 
-F-statistic: 246.6 on 14 and 6423 DF,  p-value: < 2.2e-16
+Residual standard error: 7912000 on 6300 degrees of freedom
+Multiple R-squared:  0.2849,	Adjusted R-squared:  0.2836 
+F-statistic: 209.2 on 12 and 6300 DF,  p-value: < 2.2e-16
 
-[1] "############### AGGREGATE RESULTS ###############"
+[1] "############### WEIGHTED AGGREGATE RESULTS ###############"
   endowment coefficient interaction
-1 -5365.446    -16096.5    3854.861
+1  5507.009   -30677.44   -3257.898
 [1] "############### BY COVARIATE RESULTS ###############"
-                      endowment coefficient interaction
-(Intercept)            0.000000  69233.7495     0.00000
-bage35-44            416.519486   1068.4941   194.59797
-bage45-54          -1603.734413   2142.1561  -421.56034
-bage54-65          -2145.497710  -3589.1314   622.65799
-bage65-75            165.556938  -8758.7291  -103.67565
-bage75             -2160.419632  -8766.8932  1668.93912
-classcapitalist     -122.613232    774.7203  -154.24621
-classself-employed   728.887987    -50.3666   -25.64184
-classinactive         48.418394  -3887.0634   -73.08917
-classretired        -897.061992  -2048.9053   393.19625
-classmanager           9.798666   1053.8756    72.52893
-sexWomen             443.023874   3451.4952  -643.18917
-renthog1Middle     -6709.117710 -21536.9293  3221.46287
-renthog1High       -6217.551782  -7058.5452  3350.95305
-homeownerHomeowner 12678.345234 -38124.4318 -4248.07247
+                     endowment  coefficient  interaction
+(Intercept)            0.00000  48446.11287     0.000000
+bage35-44            187.79009   1013.86172   106.836980
+bage45-54          -1831.85015   1957.31976  -382.603467
+bage54-65          -2142.45131  -5398.33376   744.249832
+bage65-75           3127.11564  -8706.21744 -1921.004083
+bage75             -1204.81959  -7556.21993   952.671247
+classcapitalist     -546.10160   -977.82326   188.205193
+classself-employed  1038.95157  -1201.23586  -431.329221
+classinactive       -178.75132   -867.41339  -111.511409
+classretired        -473.11760  -8508.69729   423.874228
+classmanager         -51.15021     16.57445    -0.448836
+sexWomen             385.67630   1619.05206  -224.732854
+homeownerHomeowner  7195.71749 -50514.42328 -2602.105754

@@ -45,21 +45,17 @@ dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
 set.seed(123) # For reproducibility
 dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
 
-
-
-
-
 # RIF REGRESSION
-rif_results1 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
-rif_results2 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
-rif_results3 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
-rif_results4 <- lm(RIF_actreales ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
+rif_results1 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effA, weights = facine3)
+rif_results2 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = subset(dt_eff_rew, identif == 0))
+rif_results3 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effB, weights = facine3)
+rif_results4 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = subset(dt_eff_rew, identif == 1))
 
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_actreales ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
+oaxaca_results <- oaxaca(RIF_actreales ~ bage + class + sex + homeowner | identif, data = dt_eff_rew)
 oaxaca_results_decr <- reweight_strata_all2(data = dt_eff,
   treatment = "identif",
-  variables = c("bage", "class", "sex", "homeowner", "renthog1"),
+  variables = c("bage", "class", "sex", "homeowner"),
   y = "RIF_actreales",
   weights = "facine3")
 d01 <- dec_quantile(oaxaca_results_decr, probs = 0.5)
