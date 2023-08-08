@@ -46,7 +46,7 @@ dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace 
 
 # RIF REGRESSION
 rif_results1 <-    lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
-rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA)
 rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0), weights = facine3)
 rif_results4 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
 
