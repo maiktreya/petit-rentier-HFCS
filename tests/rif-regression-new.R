@@ -40,14 +40,17 @@ dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner"
 dt_eff <- rbind(dt_effA, dt_effB)
 
 # RIF REGRESSION
-rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
+rif_results1 <-    lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
+rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+
 # OAXACA BLINDER METHOD
 oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/rif-oaxaca-new.txt" %>% sink()
 "############### METHOD: RIF REGRESSION dineq R ###############" %>% print()
-rif_results %>% print()
+rif_results1 %>% summary() %>% print()
+rif_results2 %>% summary() %>% print()
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
 sink()
