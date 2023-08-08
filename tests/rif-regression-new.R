@@ -59,6 +59,8 @@ oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + rentho
 "############### METHOD: RIF REGRESSION dineq R ###############" %>% print()
 rif_results1 %>% summary() %>% print()
 rif_results2 %>% summary() %>% print()
+rif_results3 %>% summary() %>% print()
+rif_results4 %>% summary() %>% print()
 "############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
 oaxaca_results %>% print()
 sink()
