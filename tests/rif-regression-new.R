@@ -5,34 +5,36 @@ c("magrittr", "survey", "dineq", "data.table", "oaxaca") %>% sapply(library, cha
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2020) # selected survey year
-
 dtlist <- list()
+
 for (i in seq_along(sel_year)) {
-# VARIABLE HACKING AND BRUTE MANIPULATION
-dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
-dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
-dt_eff$young <- dt_eff$bage # create a variable for binary age
-dt_eff[young != 1]$young <- 2 # set above 35 to non-young
-setnames(dt_eff,
-        old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
-        new = c("class", "worker", "homeowner", "mainres_val"))
-# create a categorical income variable
-dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
-dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
-dt_eff[, worker1 := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
+        # VARIABLE HACKING AND BRUTE MANIPULATION
+        dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
+        dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
+        dt_eff$young <- dt_eff$bage # create a variable for binary age
+        dt_eff[young != 1]$young <- 2 # set above 35 to non-young
+        setnames(dt_eff,
+                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
+                new = c("class", "worker", "homeowner", "mainres_val")
+        )
+        # create a categorical income variable
+        dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
+        dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
+        dt_eff[, worker1 := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
 
-# DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
-dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
-dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
-dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
-dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
-dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
-dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
-dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
+        # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
+        dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
+        dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
+        dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
+        dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
+        dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
+        dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
+        dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
+        dt_eff$RIF_riquezabr <- rif(dt_eff$riquezabr, weights = dt_eff$facine3, method = "quantile", quantile = 0.5)
 
-dtlist[[i]] <- dt_eff
+        dtlist[[i]] <- dt_eff # assign to list a given year survey
 }
+# SELECT NEEDED VARIABLES AND MERGE THE TWO SURVEYS FOR OAXACA PACKAGE
 dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 0]
 dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezabr", "RIF_riquezabr")][, identif := 1]
 dt_eff <- rbind(dt_effA, dt_effB)
@@ -40,7 +42,7 @@ dt_eff <- rbind(dt_effA, dt_effB)
 # RIF REGRESSION
 rif_results <- rifr(riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_eff, weights = "facine3")
 # OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~  bage + class + sex  + homeowner + renthog1 | identif, data = dt_eff)
+oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff)
 
 # PREVIEW PRELIMINARY RESULTS
 "output/rif/rif-oaxaca-new.txt" %>% sink()
