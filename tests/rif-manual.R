@@ -41,12 +41,16 @@ dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner"
 dt_eff <- rbind(dt_effA, dt_effB)
 
 
-weights1 <- dt_effA$facine3
-weights2 <- dt_effB$facine3
+# RESAMPLING WITH WHEIGTS
+dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
+set.seed(123) # For reproducibility
+dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
 
 # Fit weighted linear models for each group
-model1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
-model2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+# model1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
+model1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
+# model2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
+model2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
 
 
 # Extract coefficients
@@ -58,12 +62,11 @@ mean_diff <- colMeans(model.matrix(model1)) - colMeans(model.matrix(model2))
 
 # Decompose effects by regressor
 endowment_effect <- mean_diff * coef1
-coefficient_effect <- (coef2 - coef1) * colMeans(model.matrix(model1))
-interaction_effect <- (coef2 - coef1) * mean_diff
+coefficient_effect <- (coef1 - coef2) * colMeans(model.matrix(model1))
+interaction_effect <- (coef1 - coef2) * mean_diff
 
 # Print results
 results <- data.frame(
-  variable = names(coef1),
   endowment = endowment_effect,
   coefficient = coefficient_effect,
   interaction = interaction_effect
@@ -78,6 +81,8 @@ sink("output/rif/rif_manual.txt")
 print("############### FIRST TEST USING LM ###############")
 model1 %>% summary() %>% print()
 model2 %>% summary() %>% print()
-results %>% summary() %>% print()
-results_tot %>% summary() %>% print()
+print("############### AGGREGATE RESULTS ###############")
+results_tot %>% print()
+print("############### BY COVARIATE RESULTS ###############")
+results %>% print()
 sink()
