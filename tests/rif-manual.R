@@ -1,3 +1,4 @@
+# Define your weights
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
 `%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
@@ -40,47 +41,43 @@ dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner"
 dt_eff <- rbind(dt_effA, dt_effB)
 
 
-# RESAMPLING WITH WHEIGTS
-dt_eff$facine31 <- dt_eff$facine3 / sum(dt_eff$facine3)
-set.seed(123) # For reproducibility
-dt_eff_rew <- dt_eff[sample(seq_len(nrow(dt_eff)), size = nrow(dt_eff), replace = TRUE, prob = dt_eff$facine31), ]
+weights1 <- dt_effA$facine3
+weights2 <- dt_effB$facine3
+
+# Fit weighted linear models for each group
+model1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
+model2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
 
 
+# Extract coefficients
+coef1 <- coef(model1)
+coef2 <- coef(model2)
 
+# Calculate mean differences in predictors
+mean_diff <- colMeans(model.matrix(model1)) - colMeans(model.matrix(model2))
 
+# Decompose effects by regressor
+endowment_effect <- mean_diff * coef1
+coefficient_effect <- (coef2 - coef1) * colMeans(model.matrix(model1))
+interaction_effect <- (coef2 - coef1) * mean_diff
 
-# RIF REGRESSION
-rif_results1 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effA, weights = facine3)
-rif_results2 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 0))
-rif_results3 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = dt_effB, weights = facine3)
-rif_results4 <- lm(RIF_riquezabr ~ bage + class + sex + renthog1 + homeowner, data = subset(dt_eff_rew, identif == 1))
+# Print results
+results <- data.frame(
+  variable = names(coef1),
+  endowment = endowment_effect,
+  coefficient = coefficient_effect,
+  interaction = interaction_effect
+)
+results_tot <- data.frame(
+  endowment = sum(endowment_effect),
+  coefficient = sum(coefficient_effect),
+  interaction = sum(interaction_effect)
+)
 
-# OAXACA BLINDER METHOD
-oaxaca_results <- oaxaca(RIF_riquezabr ~ bage + class + sex + homeowner + renthog1 | identif, data = dt_eff_rew)
-oaxaca_results_decr <- reweight_strata_all2(data = dt_eff,
-  treatment = "identif",
-  variables = c("bage", "class", "sex", "homeowner", "renthog1"),
-  y = "RIF_riquezabr",
-  weights = "facine3")
-d01 <- dec_quantile(oaxaca_results_decr, probs = 0.5)
-d01_p50_AB <- dec_(d01, counterfactual = "AB")
-
-# PREVIEW PRELIMINARY RESULTS
-"output/rif/rif-oaxaca-new.txt" %>% sink()
-"############### METHOD: RIF REGRESSION dineq R ###############" %>% print()
-rif_results1 %>% summary() %>% print()
-rif_results2 %>% summary() %>% print()
-rif_results3 %>% summary() %>% print()
-rif_results4 %>% summary() %>% print()
-
-"############### METHOD: OAXACA DECOMPOSITION oaxaca R ###############" %>% print()
-oaxaca_results %>% print()
-"############### METHOD: OAXACA DECOMPOSITION decr R ###############" %>% print()
-oaxaca_results_decr %>% print()
-d01 %>% print()
-d01_p50_AB %>% print()
+sink("output/rif/rif_manual.txt")
+print("############### FIRST TEST USING LM ###############")
+model1 %>% summary() %>% print()
+model2 %>% summary() %>% print()
+results %>% summary() %>% print()
+results_tot %>% summary() %>% print()
 sink()
-jpeg(file = "output/rif/oaxaca.jpeg")
-# Create a scatter plot of the first two dimensions
-plot.oaxaca(oaxaca_results) %>% print()
-dev.off()
