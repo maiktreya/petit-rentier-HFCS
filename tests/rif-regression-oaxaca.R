@@ -76,7 +76,7 @@ oaxaca_results_decr %>% print()
 d01 %>% print()
 d01_p50_AB %>% print()
 sink()
-jpeg(file = "output/rif/oaxaca.jpeg")
+jpeg(file = "output/rif/img/oaxaca.jpeg")
 # Create a scatter plot of the first two dimensions
 plot.oaxaca(oaxaca_results) %>% print()
 dev.off()

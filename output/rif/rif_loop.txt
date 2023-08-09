@@ -1,0 +1,250 @@
+[1] "############### 1. EXTRACTED COEFS FROM DISTINCT RIF YEARS ###############"
+  categories             2002             2005        
+ Length:13          Min.   :-64199   Min.   :-112055  
+ Class :character   1st Qu.: 13931   1st Qu.:  27092  
+ Mode  :character   Median : 45864   Median :  54222  
+                    Mean   : 37648   Mean   :  65394  
+                    3rd Qu.: 70909   3rd Qu.: 139003  
+                    Max.   : 97178   Max.   : 184360  
+      2008             2011              2014        
+ Min.   :-87356   Min.   :-183138   Min.   :-168067  
+ 1st Qu.: 12275   1st Qu.:  34233   1st Qu.:  12133  
+ Median : 63580   Median :  77072   Median :  88875  
+ Mean   : 58490   Mean   :  74508   Mean   :  68014  
+ 3rd Qu.:104485   3rd Qu.: 157979   3rd Qu.: 132884  
+ Max.   :175896   Max.   : 210893   Max.   : 213114  
+      2017              2020        
+ Min.   :-181244   Min.   :-144969  
+ 1st Qu.:   1593   1st Qu.: -12484  
+ Median :  92862   Median :  76931  
+ Mean   :  62255   Mean   :  56691  
+ 3rd Qu.: 123512   3rd Qu.:  89052  
+ Max.   : 192225   Max.   : 191841  
+[1] "############### 1. MEDIAN RIF 2002###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-20704404  -5655777    904311   3698664  32203615 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -64199       6184 -10.381  < 2e-16 ***
+bage35-44             25684       6476   3.966 7.40e-05 ***
+bage45-54             70909       6686  10.606  < 2e-16 ***
+bage54-65             67604       7364   9.180  < 2e-16 ***
+bage65-75             45864       9232   4.968 6.99e-07 ***
+bage75                21664       9718   2.229   0.0258 *  
+classcapitalist       77867      11647   6.686 2.55e-11 ***
+classself-employed    58456       7287   8.022 1.28e-15 ***
+classinactive         -9028       6723  -1.343   0.1794    
+classretired          13931       7842   1.776   0.0757 .  
+classmanager          86245      12143   7.102 1.40e-12 ***
+sexWomen              -2756       4731  -0.583   0.5603    
+homeownerHomeowner    97178       4913  19.778  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 7303000 on 5129 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1451,	Adjusted R-squared:  0.1431 
+F-statistic: 72.53 on 12 and 5129 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2005###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-48295421  -9043648   1289723   5908104  60905822 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         -112055      10241 -10.942  < 2e-16 ***
+bage35-44             54222      10684   5.075 3.99e-07 ***
+bage45-54            120843      10970  11.016  < 2e-16 ***
+bage54-65            139003      12102  11.486  < 2e-16 ***
+bage65-75             63732      14698   4.336 1.47e-05 ***
+bage75                29908      15653   1.911   0.0561 .  
+classcapitalist      154363      16018   9.637  < 2e-16 ***
+classself-employed    53281      13683   3.894 9.97e-05 ***
+classinactive         -2154      10205  -0.211   0.8328    
+classretired          27092      12683   2.136   0.0327 *  
+classmanager         145894      24124   6.048 1.56e-09 ***
+sexWomen              -8369       7213  -1.160   0.2460    
+homeownerHomeowner   184360       8175  22.552  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 12620000 on 5948 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1578,	Adjusted R-squared:  0.1561 
+F-statistic: 92.88 on 12 and 5948 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2008###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-59462186  -9699845   1534453   7095776  93687338 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -87356      12121  -7.207 6.41e-13 ***
+bage35-44             12275      12095   1.015 0.310187    
+bage45-54             75347      12500   6.028 1.76e-09 ***
+bage54-65            175896      13628  12.907  < 2e-16 ***
+bage65-75            104485      16690   6.260 4.10e-10 ***
+bage75                51864      16947   3.060 0.002220 ** 
+classcapitalist      141794      17831   7.952 2.16e-15 ***
+classself-employed    63580      15450   4.115 3.92e-05 ***
+classinactive        -27487      11247  -2.444 0.014555 *  
+classretired          21516      14016   1.535 0.124802    
+classmanager          80320      23042   3.486 0.000494 ***
+sexWomen             -26119       7854  -3.326 0.000887 ***
+homeownerHomeowner   174249       9153  19.038  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 14290000 on 6183 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.135,	Adjusted R-squared:  0.1334 
+F-statistic: 80.45 on 12 and 6183 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2011###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-67236331  -9363752   1547081   7340210 103214253 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         -183138      14260 -12.843  < 2e-16 ***
+bage35-44             34233      13949   2.454  0.01415 *  
+bage45-54             96495      14113   6.837 8.85e-12 ***
+bage54-65            210893      15030  14.031  < 2e-16 ***
+bage65-75            157979      18466   8.555  < 2e-16 ***
+bage75                74910      18301   4.093 4.31e-05 ***
+classcapitalist      196179      22584   8.687  < 2e-16 ***
+classself-employed    77072      16280   4.734 2.25e-06 ***
+classinactive         -9734      10850  -0.897  0.36967    
+classretired          75130      14337   5.240 1.66e-07 ***
+classmanager         101992      24846   4.105 4.10e-05 ***
+sexWomen             -23850       8216  -2.903  0.00371 ** 
+homeownerHomeowner   160437       9944  16.134  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 15770000 on 6093 degrees of freedom
+Multiple R-squared:  0.1403,	Adjusted R-squared:  0.1387 
+F-statistic:  82.9 on 12 and 6093 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2014###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-57077468  -8781330   1503301   5776442 104057597 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         -168067      12273 -13.694  < 2e-16 ***
+bage35-44             -3118      13054  -0.239   0.8112    
+bage45-54             71060      13141   5.408 6.63e-08 ***
+bage54-65            132884      13985   9.502  < 2e-16 ***
+bage65-75            130100      16880   7.707 1.49e-14 ***
+bage75                31249      16971   1.841   0.0656 .  
+classcapitalist      143753      18827   7.635 2.60e-14 ***
+classself-employed   101384      14236   7.122 1.19e-12 ***
+classinactive         12133       9666   1.255   0.2095    
+classretired          88875      12877   6.902 5.66e-12 ***
+classmanager         213114      23605   9.028  < 2e-16 ***
+sexWomen             -17442       7179  -2.430   0.0151 *  
+homeownerHomeowner   148257       8446  17.554  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 13760000 on 6107 degrees of freedom
+Multiple R-squared:  0.1672,	Adjusted R-squared:  0.1656 
+F-statistic: 102.2 on 12 and 6107 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2017###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-66391332  -9388444   1627518   7565654 120113740 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         -181244      13363 -13.563  < 2e-16 ***
+bage35-44              1593      14642   0.109 0.913353    
+bage45-54             54621      14533   3.758 0.000172 ***
+bage54-65            124384      15138   8.217 2.50e-16 ***
+bage65-75            108909      18551   5.871 4.56e-09 ***
+bage75                40200      18451   2.179 0.029387 *  
+classcapitalist      192225      18859  10.193  < 2e-16 ***
+classself-employed   106914      14382   7.434 1.19e-13 ***
+classinactive        -15528      10154  -1.529 0.126257    
+classretired          92862      13897   6.682 2.56e-11 ***
+classmanager         123512      24246   5.094 3.60e-07 ***
+sexWomen             -11310       7389  -1.531 0.125901    
+homeownerHomeowner   172177       8270  20.820  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 14610000 on 6399 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.1629,	Adjusted R-squared:  0.1613 
+F-statistic: 103.8 on 12 and 6399 DF,  p-value: < 2.2e-16
+
+[1] "############### 1. MEDIAN RIF 2020###############"
+
+Call:
+lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
+    data = dt_eff, weights = facine3)
+
+Weighted Residuals:
+      Min        1Q    Median        3Q       Max 
+-59602038  -9041503   1511566   9174320  77002160 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)         -144969      12756 -11.364  < 2e-16 ***
+bage35-44            -19636      13995  -1.403 0.160642    
+bage45-54             34381      13786   2.494 0.012663 *  
+bage54-65             86362      14297   6.041 1.62e-09 ***
+bage65-75             89052      17630   5.051 4.52e-07 ***
+bage75                61242      17991   3.404 0.000668 ***
+classcapitalist      149113      17474   8.533  < 2e-16 ***
+classself-employed    83015      13792   6.019 1.85e-09 ***
+classinactive        -12484       9035  -1.382 0.167068    
+classretired          76931      12838   5.993 2.18e-09 ***
+classmanager         157025      19886   7.896 3.36e-15 ***
+sexWomen             -14895       6532  -2.280 0.022633 *  
+homeownerHomeowner   191841       7344  26.123  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 13380000 on 6300 degrees of freedom
+Multiple R-squared:  0.1998,	Adjusted R-squared:  0.1983 
+F-statistic: 131.1 on 12 and 6300 DF,  p-value: < 2.2e-16
+
