@@ -1,4 +1,4 @@
-[1] "############### FIRST TEST USING LM ###############"
+[1] "############### 1. RIF 2002 ###############"
 
 Call:
 lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
@@ -6,31 +6,32 @@ lm(formula = RIF_actreales ~ bage + class + sex + homeowner,
 
 Weighted Residuals:
       Min        1Q    Median        3Q       Max 
--20106882  -1225942    965015   3930820  22754846 
+-20704404  -5655777    904311   3698664  32203615 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          -33935       4258  -7.970 1.95e-15 ***
-bage35-44             19990       4459   4.483 7.51e-06 ***
-bage45-54             50830       4603  11.042  < 2e-16 ***
-bage54-65             44338       5070   8.744  < 2e-16 ***
-bage65-75             28449       6357   4.475 7.79e-06 ***
-bage75                11478       6691   1.715  0.08635 .  
-classcapitalist       34937       8019   4.357 1.35e-05 ***
-classself-employed    24844       5017   4.952 7.59e-07 ***
-classinactive        -13235       4629  -2.859  0.00427 ** 
-classretired           2958       5400   0.548  0.58390    
-classmanager          56740       8361   6.786 1.28e-11 ***
-sexWomen              -2872       3258  -0.881  0.37809    
-homeownerHomeowner   110994       3383  32.809  < 2e-16 ***
+(Intercept)          -64199       6184 -10.381  < 2e-16 ***
+bage35-44             25684       6476   3.966 7.40e-05 ***
+bage45-54             70909       6686  10.606  < 2e-16 ***
+bage54-65             67604       7364   9.180  < 2e-16 ***
+bage65-75             45864       9232   4.968 6.99e-07 ***
+bage75                21664       9718   2.229   0.0258 *  
+classcapitalist       77867      11647   6.686 2.55e-11 ***
+classself-employed    58456       7287   8.022 1.28e-15 ***
+classinactive         -9028       6723  -1.343   0.1794    
+classretired          13931       7842   1.776   0.0757 .  
+classmanager          86245      12143   7.102 1.40e-12 ***
+sexWomen              -2756       4731  -0.583   0.5603    
+homeownerHomeowner    97178       4913  19.778  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 5028000 on 5129 degrees of freedom
+Residual standard error: 7303000 on 5129 degrees of freedom
   (1 observation deleted due to missingness)
-Multiple R-squared:  0.2351,	Adjusted R-squared:  0.2333 
-F-statistic: 131.4 on 12 and 5129 DF,  p-value: < 2.2e-16
+Multiple R-squared:  0.1451,	Adjusted R-squared:  0.1431 
+F-statistic: 72.53 on 12 and 5129 DF,  p-value: < 2.2e-16
 
+[1] "############### 2. RIF 2022 ###############"
 
 Call:
 lm(formula = RIF_actreales ~ bage + class + sex + homeowner, 
@@ -38,45 +39,45 @@ lm(formula = RIF_actreales ~ bage + class + sex + homeowner,
 
 Weighted Residuals:
       Min        1Q    Median        3Q       Max 
--47857891  -1972521    880868   5099817  62835138 
+-59602038  -9041503   1511566   9174320  77002160 
 
 Coefficients:
                    Estimate Std. Error t value Pr(>|t|)    
-(Intercept)          -82381       7541 -10.924  < 2e-16 ***
-bage35-44             12741       8273   1.540 0.123595    
-bage45-54             42048       8150   5.159 2.55e-07 ***
-bage54-65             67939       8452   8.038 1.08e-15 ***
-bage65-75             73760      10422   7.077 1.63e-12 ***
-bage75                54844      10635   5.157 2.59e-07 ***
-classcapitalist       53309      10330   5.161 2.54e-07 ***
-classself-employed    42480       8154   5.210 1.95e-07 ***
-classinactive         -8150       5341  -1.526 0.127055    
-classretired          28415       7589   3.744 0.000183 ***
-classmanager          56247      11756   4.785 1.75e-06 ***
-sexWomen              -6882       3862  -1.782 0.074800 .  
-homeownerHomeowner   173869       4341  40.049  < 2e-16 ***
+(Intercept)         -144969      12756 -11.364  < 2e-16 ***
+bage35-44            -19636      13995  -1.403 0.160642    
+bage45-54             34381      13786   2.494 0.012663 *  
+bage54-65             86362      14297   6.041 1.62e-09 ***
+bage65-75             89052      17630   5.051 4.52e-07 ***
+bage75                61242      17991   3.404 0.000668 ***
+classcapitalist      149113      17474   8.533  < 2e-16 ***
+classself-employed    83015      13792   6.019 1.85e-09 ***
+classinactive        -12484       9035  -1.382 0.167068    
+classretired          76931      12838   5.993 2.18e-09 ***
+classmanager         157025      19886   7.896 3.36e-15 ***
+sexWomen             -14895       6532  -2.280 0.022633 *  
+homeownerHomeowner   191841       7344  26.123  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 7912000 on 6300 degrees of freedom
-Multiple R-squared:  0.2849,	Adjusted R-squared:  0.2836 
-F-statistic: 209.2 on 12 and 6300 DF,  p-value: < 2.2e-16
+Residual standard error: 13380000 on 6300 degrees of freedom
+Multiple R-squared:  0.1998,	Adjusted R-squared:  0.1983 
+F-statistic: 131.1 on 12 and 6300 DF,  p-value: < 2.2e-16
 
-[1] "############### WEIGHTED AGGREGATE RESULTS ###############"
+[1] "############### 3. WEIGHTED OAXACA DECOMPOSITION (TOTAL) ###############"
   endowment coefficient interaction
-1  5507.009   -30677.44   -3257.898
-[1] "############### BY COVARIATE RESULTS ###############"
-                     endowment  coefficient  interaction
-(Intercept)            0.00000  48446.11287     0.000000
-bage35-44            187.79009   1013.86172   106.836980
-bage45-54          -1831.85015   1957.31976  -382.603467
-bage54-65          -2142.45131  -5398.33376   744.249832
-bage65-75           3127.11564  -8706.21744 -1921.004083
-bage75             -1204.81959  -7556.21993   952.671247
-classcapitalist     -546.10160   -977.82326   188.205193
-classself-employed  1038.95157  -1201.23586  -431.329221
-classinactive       -178.75132   -867.41339  -111.511409
-classretired        -473.11760  -8508.69729   423.874228
-classmanager         -51.15021     16.57445    -0.448836
-sexWomen             385.67630   1619.05206  -224.732854
-homeownerHomeowner  7195.71749 -50514.42328 -2602.105754
+1  5498.992   -23696.51    -4573.09
+[1] "############### 4. WEIGHTED OAXACA DECOMPOSITION (COVARIATES) ###############"
+                    endowment coefficient interaction
+(Intercept)            0.0000  80770.5876     0.00000
+bage35-44           -289.4077   6338.8804   667.96765
+bage45-54          -1497.8260   8141.0819 -1591.36296
+bage54-65          -2723.4211  -4290.6680   591.53973
+bage65-75           3775.4214  -8298.2291 -1830.98252
+bage75             -1345.3837  -6896.3155   869.47198
+classcapitalist    -1527.5330  -3791.9772   729.85562
+classself-employed  2030.3353  -1672.7813  -600.64761
+classinactive       -273.8059    589.5991    75.79664
+classretired       -1280.9163 -21056.4617  1048.96098
+classmanager        -142.7965  -2376.8978    64.36636
+sexWomen             834.7836   4901.2674  -680.32143
+homeownerHomeowner  7939.5417 -76054.5910 -3917.73430

@@ -31,18 +31,17 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-        dt_eff$RIF_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
 
         dtlist[[i]] <- dt_eff # assign to list a given year survey
 }
 # SELECT NEEDED VARIABLES AND MERGE THE TWO SURVEYS FOR OAXACA PACKAGE
-dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 0]
-dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 1]
+dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "actreales")][, identif := 0]
+dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "actreales")][, identif := 1]
 dt_eff <- rbind(dt_effA, dt_effB)
 
 # Fit weighted linear models for each group
-model1 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effA, weights = facine3)
-model2 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effB, weights = facine3)
+model1 <- lm(actreales ~ bage + class + sex + homeowner, data = dt_effA, weights = facine3)
+model2 <- lm(actreales ~ bage + class + sex + homeowner, data = dt_effB, weights = facine3)
 
 # Extract coefficients
 coef1 <- coef(model1)
@@ -68,7 +67,7 @@ results_tot <- data.frame(
   interaction = sum(interaction_effect)
 )
 
-sink("output/rif/rif_manual.txt")
+sink("output/rif/rif_manual_mean.txt")
 print("############### 1. RIF 2002 ###############")
 model1 %>% summary() %>% print()
 print("############### 2. RIF 2022 ###############")
@@ -77,4 +76,8 @@ print("############### 3. WEIGHTED OAXACA DECOMPOSITION (TOTAL) ###############"
 results_tot %>% print()
 print("############### 4. WEIGHTED OAXACA DECOMPOSITION (COVARIATES) ###############")
 results %>% print()
+sink()
+
+sink("output/rif/test_kable.html")
+knitr::kable(results, "html") %>% print
 sink()
