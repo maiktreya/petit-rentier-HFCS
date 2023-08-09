@@ -47,9 +47,7 @@ for (i in seq_along(models)) final_dt[, as.character(sel_year[i]) := unname(mode
 ## GENERATE OUTPUT AND EXPORT IT
 sink("output/rif/rif_loop.txt")
 print("############### 1. EXTRACTED COEFS FROM DISTINCT RIF YEARS ###############")
-final_dt %>%
-        summary() %>%
-        print()
+final_dt %>% print()
 for (i in seq_along(models)) {
         print(paste0("############### 1. MEDIAN RIF ", sel_year[i], "###############"))
         models[[i]] %>%
