@@ -40,12 +40,13 @@ for (i in seq_along(sel_year)) {
         dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezanet", "RIF_riquezanet")]
         if (sel_year[i] == 2020) dt_eff[, riquezanet := riquezanet * cpi]
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
-        upper_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.8))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
-        lower_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.2))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.8))[1]$riquezanet[, "quantile"]
+         # set the bound to avoid extreme ocurrences or not greater than 0
+        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.2))[1]$riquezanet[, "quantile"]
 
         # get empirical distribution functions
-        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < upper_bound & worker %in% "Non-Worker" & riquezanet > lower_bound), na.rm = T)[[1]]
-        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < upper_bound & worker %in% "Worker" & riquezanet > lower_bound), na.rm = T)[[1]]
+        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & worker %in% "Non-Worker" & riquezanet > lo_bound), na.rm = T)[[1]]
+        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & worker %in% "Worker" & riquezanet > lo_bound), na.rm = T)[[1]]
 
         # pipe edf into existing data.table columns identifying by year
         dt <- dt[,as.character(paste0("cap_s_y", sel_year[i])) := cap_s$y][,
@@ -59,15 +60,15 @@ jpeg(file = "output/rif/img/gini_lorentz.jpeg")
 svylorenz(~riquezanet, convey_prep(sv_eff), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/cdf.jpeg")
-cap_s <- svycdf(~riquezanet, subset(sv_eff, riquezanet < upper_bound & riquezanet > 0), na.rm = T)
+cap_s <- svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > 0), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/histogram.jpeg")
-svyhist(~riquezanet, subset(sv_eff, riquezanet < upper_bound & riquezanet > 0), na.rm = T)
+svyhist(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > 0), na.rm = T)
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
-dt_x <- dt[,colnames(dt) %like% "x", with = F]
-dt_y <- dt[,colnames(dt) %like% "y", with = F]
+dt_x <- dt[, colnames(dt) %like% "x", with = F]
+dt_y <- dt[, colnames(dt) %like% "y", with = F]
 x_range <- dt_x %>% unlist() %>% as.numeric() %>% range()
 y_range <- dt_y %>% unlist() %>% as.numeric() %>% range()
 
