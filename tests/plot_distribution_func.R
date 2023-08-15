@@ -2,13 +2,14 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls()) # ENSURE ENVIROMENT IS CLEAN
 `%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
-c("magrittr", "survey", "dineq", "data.table", "oaxaca", "gtsummary", "xtable") %>% sapply(library, character.only = T)
+c("magrittr", "survey", "dineq", "data.table", "oaxaca", "gtsummary", "xtable", "convey") %>%
+        sapply(library, character.only = T)
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2020) # selected survey year
 dtlist <- list()
 
-        # DATA LOADING AND VARIABLE MANIPULATION
+# DATA LOADING AND VARIABLE MANIPULATION
 for (i in seq_along(sel_year)) {
         dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
         dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
@@ -35,46 +36,24 @@ for (i in seq_along(sel_year)) {
 
         dtlist[[i]] <- dt_eff # assign to list a given year survey
 }
+
 # SELECT NEEDED VARIABLES AND MERGE THE TWO SURVEYS FOR OAXACA PACKAGE
 dt_effA <- dtlist[[1]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 0]
 dt_effB <- dtlist[[2]][, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")][, identif := 1]
 dt_eff <- rbind(dt_effA, dt_effB)
+sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
+upper_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.99))[1]$actreales[, "quantile"]
 
-# Fit weighted linear models for each group
-model1 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effA, weights = facine3)
-model2 <- lm(RIF_actreales ~ bage + class + sex + homeowner, data = dt_effB, weights = facine3)
-
-# Extract coefficients
-coef1 <- coef(model1)
-coef2 <- coef(model2)
-
-# Calculate mean differences in predictors
-mean_diff <- colMeans(model.matrix(model1)) - colMeans(model.matrix(model2))
-
-# Decompose effects by regressor
-interaction_effect <- (coef1 - coef2) * mean_diff
-endowment_effect <- mean_diff * coef1 - interaction_effect
-coefficient_effect <- (coef1 - coef2) * colMeans(model.matrix(model1)) - interaction_effect
-
-# Print results
-results <- data.frame(
-  endowment = endowment_effect,
-  coefficient = coefficient_effect,
-  interaction = interaction_effect
-)
-results_tot <- data.frame(
-  endowment = sum(endowment_effect),
-  coefficient = sum(coefficient_effect),
-  interaction = sum(interaction_effect)
-)
-
-sink("output/rif/rif_manual.txt")
-print("############### 1. RIF 2002 ###############")
-model1 %>% summary() %>% print()
-print("############### 2. RIF 2022 ###############")
-model2 %>% summary() %>% print()
-print("############### 3. WEIGHTED OAXACA DECOMPOSITION (TOTAL) ###############")
-results_tot %>% print()
-print("############### 4. WEIGHTED OAXACA DECOMPOSITION (COVARIATES) ###############")
-results %>% print()
-sink()
+######## 3 PLOTTING EMPIRICAL DISTRIBUTIONS
+jpeg(file = "output/rif/img/gini_lorentz.jpeg")
+svylorenz(~actreales, convey_prep(sv_eff), na.rm = T)
+dev.off()
+jpeg(file = "output/rif/img/cdf.jpeg")
+svycdf(~actreales, subset(sv_eff, actreales < upper_bound), na.rm = T) %>% plot()
+dev.off()
+jpeg(file = "output/rif/img/histogram.jpeg")
+svyhist(~actreales, subset(sv_eff, actreales < upper_bound), na.rm = T)
+dev.off()
+jpeg(file = "output/rif/img/emp_histogram.jpeg")
+svysmooth(~actreales, subset(sv_eff, actreales < upper_bound & actreales > 0), na.rm = T) %>% plot()
+dev.off()
