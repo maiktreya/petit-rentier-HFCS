@@ -40,8 +40,8 @@ for (i in seq_along(sel_year)) {
         dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezanet", "RIF_riquezanet")]
         if (sel_year[i] == 2020) dt_eff[, riquezanet := riquezanet * cpi]
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
-        upper_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.9))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
-        lower_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.1))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+        upper_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.8))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+        lower_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.2))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
 
         # get empirical distribution functions
         cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < upper_bound & worker %in% "Non-Worker" & riquezanet > lower_bound), na.rm = T)[[1]]
