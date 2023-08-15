@@ -36,14 +36,17 @@ for (i in seq_along(sel_year)) {
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
         dt_eff$RIF_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
 
+        # subset needed variables and create survey object
         dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")]
         if (sel_year[i] == 2020) dt_eff[, actreales := actreales * cpi]
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
-        # set the bound to avoid extreme ocurrences or not greater than 0
-        upper_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.99))[1]$actreales[, "quantile"]
+        upper_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.99))[1]$actreales[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+
+        # get empirical distribution functions
         cap_s <- svysmooth(~actreales, subset(sv_eff, actreales < upper_bound & worker %in% "Non-Worker" & actreales > 0), na.rm = T)[[1]]
         wor_s <- svysmooth(~actreales, subset(sv_eff, actreales < upper_bound & worker %in% "Worker" & actreales > 0), na.rm = T)[[1]]
 
+        # pipe edf into existing data.table columns identifying by year
         dt <- dt[,as.character(paste0("cap_s_y", sel_year[i])) := cap_s$y][,
                   as.character(paste0("wor_s_y", sel_year[i])) := wor_s$y][,
                   as.character(paste0("cap_s_x", sel_year[i])) := cap_s$x][,
@@ -62,15 +65,24 @@ svyhist(~actreales, subset(sv_eff, actreales < upper_bound & actreales > 0), na.
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
-jpeg(file = "output/rif/img/emp_histogram.jpeg")
 dt_x <- dt[,colnames(dt) %like% "x", with = F]
 dt_y <- dt[,colnames(dt) %like% "y", with = F]
 x_range <- dt_x %>% unlist() %>% as.numeric() %>% range()
 y_range <- dt_y %>% unlist() %>% as.numeric() %>% range()
+
+# plot the comparison of empirical distributions
+jpeg(file = "output/rif/img/emp_histogram.jpeg")
+par(mfrow = c(2, 1))
+
+# capitalists
 plot(dt$cap_s_x2002, dt$cap_s_y2002,
         type = "l", col = "cyan", xlim = x_range, ylim = y_range, main = "Empirical Distribution Functions", xlab = "Total Wealth", ylab = "Relative Frequency")
 lines(dt$cap_s_x2020, dt$cap_s_y2020, col = "blue")
-lines(dt$wor_s_x2002, dt$wor_s_y2002, col = "green")
+legend("topright", legend = c("Employers02", "Employers20"), col = c("cyan", "blue"), lty = 1)
+
+# workers
+plot(dt$wor_s_x2002, dt$wor_s_y2002,
+        type = "l", col = "green", xlim = x_range, ylim = y_range, main = "Empirical Distribution Functions", xlab = "Total Wealth", ylab = "Relative Frequency")
 lines(dt$wor_s_x2020, dt$wor_s_y2020, col = "#010f03")
-legend("topright", legend = c("Employers02", "Employers20", "Workers02",  "Workers20"), col = c("cyan", "blue", "green", "#010f03"), lty = 1)
+legend("topright", legend = c("Workers02", "Workers20"), col = c("green", "#010f03"), lty = 1)
 dev.off()
