@@ -60,10 +60,10 @@ jpeg(file = "output/rif/img/gini_lorentz.jpeg")
 svylorenz(~riquezanet, convey_prep(sv_eff), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/cdf.jpeg")
-svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > 0), na.rm = T) %>% plot()
+svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T) %>% plot()
 dev.off()
 jpeg(file = "output/rif/img/histogram.jpeg")
-svyhist(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > 0), na.rm = T)
+svyhist(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T)
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
