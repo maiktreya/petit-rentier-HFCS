@@ -9,7 +9,8 @@ sel_year <- c(2002, 2020) # selected survey year
 cpi <- 0.7331
 dt <- data.table()
 gini_w <- gini_c <- data.table()
-# DATA LOADING AND VARIABLE MANIPULATION
+
+# loop over needed survey annual issues
 for (i in seq_along(sel_year)) {
         dt_eff <- paste0(".datasets/", sel_year[i], "-EFF.microdat.csv") %>% fread() # Data table con microdatos anuales
         dt_eff[is.na(p6_81)]$p6_81 <- 2 # set unassigned to non-worker
@@ -19,6 +20,7 @@ for (i in seq_along(sel_year)) {
                 old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
                 new = c("class", "worker", "homeowner", "mainres_val")
         )
+
         # create a categorical income variable
         dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
         dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
@@ -56,6 +58,7 @@ for (i in seq_along(sel_year)) {
                    as.character(paste0("wor_s_x", sel_year[i])) := wor_s$x]
 }
 names(gini_c) <- names(gini_w) <- sapply(sel_year, as.character)
+
 ######## plot
 jpeg(file = "output/rif/img/gini_lorentz.jpeg")
 svylorenz(~actreales, convey_prep(sv_eff), na.rm = T)
