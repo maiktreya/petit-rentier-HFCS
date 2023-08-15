@@ -40,14 +40,14 @@ for (i in seq_along(sel_year)) {
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
 
         # set the bound to avoid extreme ocurrences or not greater than 0
-        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.8))[1]$riquezanet[, "quantile"]
-        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.2))[1]$riquezanet[, "quantile"]
+        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.90))[1]$riquezanet[, "quantile"]
+        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.10))[1]$riquezanet[, "quantile"]
 
         # get empirical distribution functions
-        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & worker %in% "Non-Worker" & riquezanet > lo_bound), na.rm = T)[[1]]
-        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & worker %in% "Worker" & riquezanet > lo_bound), na.rm = T)[[1]]
-        pre_gini_w <- c(sel_year[i], svygini(~riquezanet, convey_prep(sv_eff), na.rm = T))
-        pre_gini_c <- c(sel_year[i], svygini(~riquezanet, convey_prep(sv_eff), na.rm = T))
+        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & class %in% "capitalist" & riquezanet > lo_bound), na.rm = T)[[1]]
+        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & class %in% "worker" & riquezanet > lo_bound), na.rm = T)[[1]]
+        pre_gini_w <- c(sel_year[i], svygini(~riquezanet, convey_prep(subset(sv_eff, class %in% "worker")), na.rm = T))
+        pre_gini_c <- c(sel_year[i], svygini(~riquezanet, convey_prep(subset(sv_eff, class %in% "capitalist")), na.rm = T))
         gini_w <- cbind(gini_w, pre_gini_w)
         gini_c <- cbind(gini_c, pre_gini_c)
         # pipe edf into existing data.table columns identifying by year
