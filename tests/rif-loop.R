@@ -55,3 +55,7 @@ for (i in seq_along(models)) {
                 print()
 }
 sink()
+
+sink("output/rif/looped_rif.html")
+knitr::kable(final_dt, "html") %>% print()
+sink()
