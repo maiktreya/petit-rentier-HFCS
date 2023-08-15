@@ -34,17 +34,18 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-        dt_eff$RIF_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
+        dt_eff$RIF_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 
         # subset needed variables and create survey object
-        dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")]
-        if (sel_year[i] == 2020) dt_eff[, actreales := actreales * cpi]
+        dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezanet", "RIF_riquezanet")]
+        if (sel_year[i] == 2020) dt_eff[, riquezanet := riquezanet * cpi]
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
-        upper_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.99))[1]$actreales[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+        upper_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.9))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
+        lower_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.1))[1]$riquezanet[, "quantile"] # set the bound to avoid extreme ocurrences or not greater than 0
 
         # get empirical distribution functions
-        cap_s <- svysmooth(~actreales, subset(sv_eff, actreales < upper_bound & worker %in% "Non-Worker" & actreales > 0), na.rm = T)[[1]]
-        wor_s <- svysmooth(~actreales, subset(sv_eff, actreales < upper_bound & worker %in% "Worker" & actreales > 0), na.rm = T)[[1]]
+        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < upper_bound & worker %in% "Non-Worker" & riquezanet > lower_bound), na.rm = T)[[1]]
+        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < upper_bound & worker %in% "Worker" & riquezanet > lower_bound), na.rm = T)[[1]]
 
         # pipe edf into existing data.table columns identifying by year
         dt <- dt[,as.character(paste0("cap_s_y", sel_year[i])) := cap_s$y][,
@@ -55,13 +56,13 @@ for (i in seq_along(sel_year)) {
 
 ######## 3 PLOTTING EMPIRICAL DISTRIBUTIONS
 jpeg(file = "output/rif/img/gini_lorentz.jpeg")
-svylorenz(~actreales, convey_prep(sv_eff), na.rm = T)
+svylorenz(~riquezanet, convey_prep(sv_eff), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/cdf.jpeg")
-cap_s <- svycdf(~actreales, subset(sv_eff, actreales < upper_bound & actreales > 0), na.rm = T)
+cap_s <- svycdf(~riquezanet, subset(sv_eff, riquezanet < upper_bound & riquezanet > 0), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/histogram.jpeg")
-svyhist(~actreales, subset(sv_eff, actreales < upper_bound & actreales > 0), na.rm = T)
+svyhist(~riquezanet, subset(sv_eff, riquezanet < upper_bound & riquezanet > 0), na.rm = T)
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
@@ -71,7 +72,7 @@ x_range <- dt_x %>% unlist() %>% as.numeric() %>% range()
 y_range <- dt_y %>% unlist() %>% as.numeric() %>% range()
 
 # plot the comparison of empirical distributions
-jpeg(file = "output/rif/img/emp_histogram.jpeg")
+jpeg(file = "output/rif/img/emp_histogram_wealth.jpeg")
 par(mfrow = c(2, 1))
 
 # capitalists
