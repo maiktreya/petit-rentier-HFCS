@@ -46,10 +46,9 @@ for (i in seq_along(sel_year)) {
         # get empirical distribution functions
         cap_s <- svysmooth(~actreales, subset(sv_eff, actreales < up_bound & class %in% "capitalist" & actreales > lo_bound), na.rm = T)[[1]]
         wor_s <- svysmooth(~actreales, subset(sv_eff, actreales < up_bound & class %in% "worker" & actreales > lo_bound), na.rm = T)[[1]]
-        pre_gini_w <- c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "worker")), na.rm = T))
-        pre_gini_c <- c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "capitalist")), na.rm = T))
-        gini_w <- cbind(gini_w, pre_gini_w)
-        gini_c <- cbind(gini_c, pre_gini_c)
+        gini_w <- cbind(gini_w, c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "worker")), na.rm = T)))
+        gini_c <- cbind(gini_c, c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "capitalist")), na.rm = T)))
+
         # pipe edf into existing data.table columns identifying by year
         dt <- dt[, as.character(paste0("cap_s_y", sel_year[i])) := cap_s$y][,
                    as.character(paste0("wor_s_y", sel_year[i])) := wor_s$y][,
