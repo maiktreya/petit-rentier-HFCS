@@ -34,22 +34,22 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-        dt_eff$RIF_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
+        dt_eff$RIF_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 
         # subset needed variables and create survey object
-        dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")]
-        if (sel_year[i] == 2020) dt_eff[, actreales := actreales * cpi]
+        dt_eff <- dt_eff [, c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "riquezanet", "RIF_riquezanet")]
+        if (sel_year[i] == 2020) dt_eff[, riquezanet := riquezanet * cpi]
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
 
         # set the bound to avoid extreme ocurrences or not greater than 0
-        up_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.90))[1]$actreales[, "quantile"]
-        lo_bound <- svyquantile(~actreales, sv_eff, quantiles = c(0.10))[1]$actreales[, "quantile"]
+        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.99))[1]$riquezanet[, "quantile"]
+        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.01))[1]$riquezanet[, "quantile"]
 
         # get empirical distribution functions
-        cap_s <- svysmooth(~actreales, subset(sv_eff, actreales < up_bound & class %in% "capitalist" & actreales > lo_bound), na.rm = T)[[1]]
-        wor_s <- svysmooth(~actreales, subset(sv_eff, actreales < up_bound & class %in% "worker" & actreales > lo_bound), na.rm = T)[[1]]
-        gini_w <- cbind(gini_w, c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "worker")), na.rm = T)))
-        gini_c <- cbind(gini_c, c(sel_year[i], svygini(~actreales, convey_prep(subset(sv_eff, class %in% "capitalist")), na.rm = T)))
+        cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & class %in% "capitalist" & riquezanet > lo_bound), na.rm = T)[[1]]
+        wor_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & class %in% "worker" & riquezanet > lo_bound), na.rm = T)[[1]]
+        gini_w <- cbind(gini_w, c(sel_year[i], svygini(~riquezanet, convey_prep(subset(sv_eff, class %in% "worker")), na.rm = T)))
+        gini_c <- cbind(gini_c, c(sel_year[i], svygini(~riquezanet, convey_prep(subset(sv_eff, class %in% "capitalist")), na.rm = T)))
 
         # pipe edf into existing data.table columns identifying by year
         dt <- dt[, as.character(paste0("cap_s_y", sel_year[i])) := cap_s$y][,
@@ -61,13 +61,13 @@ names(gini_c) <- names(gini_w) <- sapply(sel_year, as.character)
 
 ######## plot
 jpeg(file = "output/rif/img/gini_lorentz.jpeg")
-svylorenz(~actreales, convey_prep(sv_eff), na.rm = T)
+svylorenz(~riquezanet, convey_prep(sv_eff), na.rm = T)
 dev.off()
 jpeg(file = "output/rif/img/cdf.jpeg")
-svycdf(~actreales, subset(sv_eff, actreales < up_bound & actreales > lo_bound), na.rm = T) %>% plot()
+svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T) %>% plot()
 dev.off()
 jpeg(file = "output/rif/img/histogram.jpeg")
-svyhist(~actreales, subset(sv_eff, actreales < up_bound & actreales > lo_bound), na.rm = T)
+svyhist(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T)
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
@@ -79,7 +79,7 @@ bottom_tit_c <- c(paste0("Employers02-GINI: ", round(gini_c[, "2002"][2], digits
 bottom_tit_w <- c(paste0("Workers02-GINI: ", round(gini_w[, "2002"][2], digits = 3), " - Workers20-GINI: ", round(gini_w[, "2020"][2], digits = 3)))
 
 # plot the comparison of empirical distributions
-jpeg(file = "output/rif/img/emp_histogram_restate.jpeg")
+jpeg(file = "output/rif/img/emp_histogram_wealth.jpeg")
 par(mfrow = c(2, 1))
 
 # capitalists

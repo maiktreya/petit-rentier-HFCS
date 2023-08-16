@@ -45,7 +45,7 @@ final_dt[, categories := models[[1]]$coefficients %>% names()]
 for (i in seq_along(models)) final_dt[, as.character(sel_year[i]) := unname(models[[i]]$coefficients)]
 
 ## GENERATE OUTPUT AND EXPORT IT
-sink("output/rif/rif_loop.txt")
+sink("output/rif/tables/rif_loop.csv")
 print("############### 1. EXTRACTED COEFS FROM DISTINCT RIF YEARS ###############")
 final_dt %>% print()
 for (i in seq_along(models)) {
@@ -56,6 +56,4 @@ for (i in seq_along(models)) {
 }
 sink()
 
-sink("output/rif/looped_rif.html")
-knitr::kable(final_dt, "html") %>% print()
-sink()
+final_dt %>% fwrite(file = "output/rif/tables/rif_loop.csv")
