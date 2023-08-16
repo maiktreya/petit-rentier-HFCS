@@ -79,7 +79,7 @@ sex.pdp <- partial(final_gbm_model, pred.var = "sex", plot = TRUE, n.trees = 500
 # Partial Dependence Plot for 'bage'
 bage.pdp <- partial(final_gbm_model, pred.var = "bage", plot = TRUE, n.trees = 500)
 # Partial Dependence Plot for 'renthog'
-renthog.pdp <- partial(final_gbm_model, pred.var = "renthog", plot = TRUE, n.trees = 500)
+renthog.pdp <- partial(final_gbm_model, pred.var = "renthog1", plot = TRUE, n.trees = 500)
 # Partial Dependence Plot for 'class'
 class.pdp <- partial(final_gbm_model, pred.var = "class", plot = TRUE, n.trees = 500)
 

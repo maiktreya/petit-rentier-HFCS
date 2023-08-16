@@ -501,27 +501,31 @@ No. of variables tried at each split: 1
 
           Mean of squared residuals: 246086731572162
                     % Var explained: -0.07
-     1        1        1      1      1      1      1
+[1] "Test MSE:  154666053674932"
+[1] "Test MSE:  154666053674932"
          Actual
-Predicted 130200 130500 130776 131813.7 132000 132052 132500
-        1      1      1      1        1      1      1      1
-         Actual
-Predicted 133000 133273 133968.01 134815 135500 135700
-        1      1      1         1      1      1      1
-         Actual
-Predicted 135900 136500 136695.4 136858 137821 138010
-        1      1      1        1      1      1      1
-         Actual
-Predicted 138183.8 138283.4 139872.2 140000 140152 140209.4
-        1        1        1        1      1      1        1
-         Actual
-Predicted 140500 140750 141000 141500 142175 142500 142657.6
-        1      1      1      1      1      1      1        1
-         Actual
-Predicted 142951 143000 143020.8 143100 143262.6 144000
-        1      1      1        1      1        1      1
-         Actual
-Predicted 144101.4 144209.4 144900 145000 145400 147000
+Predicted    0    1
+        1  232 1031
+[1] "Test MSE:  154666053674932"
+
+Call:
+ randomForest(formula = riquezanet ~ sex + bage + renthog1 + class,      data = train_set, ntree = 500, weights = train_set$facine3) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 1
+
+          Mean of squared residuals: 246086731572162
+                    % Var explained: -0.07
+
+Call:
+ randomForest(formula = riquezanet ~ sex + bage + renthog1 + class,      data = train_set, ntree = 500, weights = train_set$facine3) 
+               Type of random forest: regression
+                     Number of trees: 500
+No. of variables tried at each split: 1
+
+          Mean of squared residuals: 246086731572162
+                    % Var explained: -0.07
+ 145000 145400 147000
         1        1        1      1      1      1      1
          Actual
 Predicted 147700 147792.2 149000 149819.4 149850.2 150000

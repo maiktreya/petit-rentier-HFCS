@@ -36,7 +36,7 @@ library(randomForest)
 
 # Randomly split the data into a training set and a testing set
 set.seed(123)
-train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff)*0.7)
+train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff) * 0.7)
 train_set <- dt_eff[train_indices, ]
 test_set  <- dt_eff[-train_indices, ]
 
