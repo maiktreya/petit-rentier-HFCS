@@ -42,8 +42,8 @@ for (i in seq_along(sel_year)) {
         sv_eff <- svydesign(ids = ~1, data = as.data.frame(dt_eff), weights = ~ dt_eff$facine3)
 
         # set the bound to avoid extreme ocurrences or not greater than 0
-        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.99))[1]$riquezanet[, "quantile"]
-        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.01))[1]$riquezanet[, "quantile"]
+        up_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.95))[1]$riquezanet[, "quantile"]
+        lo_bound <- svyquantile(~riquezanet, sv_eff, quantiles = c(0.05))[1]$riquezanet[, "quantile"]
 
         # get empirical distribution functions
         cap_s <- svysmooth(~riquezanet, subset(sv_eff, riquezanet < up_bound & class %in% "capitalist" & riquezanet > lo_bound), na.rm = T)[[1]]
