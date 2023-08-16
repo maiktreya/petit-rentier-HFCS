@@ -63,18 +63,24 @@ names(gini_c) <- names(gini_w) <- sapply(sel_year, as.character)
 jpeg(file = "output/rif/img/gini_lorentz.jpeg")
 svylorenz(~riquezanet, convey_prep(sv_eff), na.rm = T)
 dev.off()
+
 jpeg(file = "output/rif/img/cdf.jpeg")
-svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T) %>% plot()
+svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound & class == "capitalist"), na.rm = T)[[1]] %>%
+        plot(col = "cyan", main = "Group comparison of wealth quantiles 2020")
+svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound & class == "worker"), na.rm = T)[[1]] %>%
+        lines(col = "blue")
+svycdf(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T)[[1]]  %>%
+        lines(col = "red")
+legend("bottomright", legend = c("Employers", "Workforce", "Total Pop."), col = c("cyan", "blue", "red"), lty = 1)
 dev.off()
+
 jpeg(file = "output/rif/img/histogram.jpeg")
 svyhist(~riquezanet, subset(sv_eff, riquezanet < up_bound & riquezanet > lo_bound), na.rm = T)
 dev.off()
 
 # empirical distributions for workers and capitalist in 2002 and 2020
-dt_x <- dt[, colnames(dt) %like% "x", with = F]
-dt_y <- dt[, colnames(dt) %like% "y", with = F]
-x_ran <- dt_x %>% unlist() %>% as.numeric() %>% range()
-y_ran <- dt_y %>% unlist() %>% as.numeric() %>% range()
+x_ran <- dt[, colnames(dt) %like% "x", with = F] %>% unlist() %>% as.numeric() %>% range()
+y_ran <- dt[, colnames(dt) %like% "y", with = F] %>% unlist() %>% as.numeric() %>% range()
 bottom_tit_c <- c(paste0("Employers02-GINI: ", round(gini_c[, "2002"][2], digits = 3), " - Employers20-GINI: ", round(gini_c[, "2020"][2], digits = 3)))
 bottom_tit_w <- c(paste0("Workers02-GINI: ", round(gini_w[, "2002"][2], digits = 3), " - Workers20-GINI: ", round(gini_w[, "2020"][2], digits = 3)))
 
