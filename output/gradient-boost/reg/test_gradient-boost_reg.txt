@@ -1,11 +1,11 @@
-gbm(formula = riquezabr ~ sex + bage + renthog + class, distribution = "gaussian", 
+gbm(formula = riquezanet ~ sex + bage + renthog + class, distribution = "gaussian", 
     data = train_set, weights = facine3, n.trees = 500)
 A gradient boosted model with gaussian loss function.
 500 iterations were performed.
 There were 4 predictors of which 4 had non-zero influence.
             var    rel.inf
-class     class 68.9209570
-renthog renthog 28.3904864
-bage       bage  2.4788667
-sex         sex  0.2096898
-[1] "Test MSE:  155183556724375"
+class     class 70.3206210
+renthog renthog 26.6405669
+bage       bage  2.7808449
+sex         sex  0.2579672
+[1] "Test MSE:  154666053674932"

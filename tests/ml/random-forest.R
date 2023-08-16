@@ -40,7 +40,7 @@ test_set  <- dt_eff[-train_indices, ]
 
 # Build a random forest model with the training set
 set.seed(123)
-test1 <- randomForest(homeowner ~ sex + bage + renthog + class,
+test1 <- randomForest(riquezanet ~ sex + bage + renthog + class,
                       data = train_set, ntree = 500, weights = train_set$facine3)
 
 # Print a summary of the model

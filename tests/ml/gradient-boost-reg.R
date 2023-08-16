@@ -44,7 +44,7 @@ test_set <- dt_eff[-train_indices, ]
 
 set.seed(123)
 # Fit a boosting model
-gbm_model <- gbm(riquezabr ~ sex + bage + renthog + class, ,
+gbm_model <- gbm(riquezanet ~ sex + bage + renthog + class,
         data = train_set, distribution = "gaussian", n.trees = 500, weights = facine3
 )
 
@@ -52,7 +52,7 @@ gbm_model <- gbm(riquezabr ~ sex + bage + renthog + class, ,
 predictions <- predict(gbm_model, newdata = test_set, n.trees = 500)
 
 # Calculate mean squared error on the test set
-mse <- mean((test_set$riquezabr - predictions)^2)
+mse <- mean((test_set$riquezanet - predictions)^2)
 print(paste("Test MSE: ", mse))
 
 

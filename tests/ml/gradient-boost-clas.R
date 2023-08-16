@@ -37,7 +37,7 @@ dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
 
 set.seed(123)
 # Fit a boosting model
-test1 <- gbm(homeowner ~ sex + bage + renthog + class, ,
+test1 <- gbm(riquezanet ~ sex + bage + renthog + class,
         data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = facine3
 )
 set.seed(123)
@@ -46,7 +46,7 @@ train_set <- dt_eff[train_indices, ]
 test_set <- dt_eff[-train_indices, ]
 
 # Fit a boosting model
-gbm_model <- gbm(homeowner ~ sex + bage + renthog + class, ,
+gbm_model <- gbm(riquezanet ~ sex + bage + renthog + class,
         data = train_set,
         distribution = "bernoulli",
         n.trees = 500,
@@ -82,9 +82,6 @@ class.pdp <- partial(gbm_model, pred.var = "class", plot = T, n.trees = 500)
 # PREVIEW PRELIMINARY RESULTS
 sink("output/gradient-boost/clas/test_gradient-boost_clas.txt")
 gbm_model %>% print()
-gbm_model %>%
-        summary() %>%
-        print()
 confusion_matrix %>% print()
 print(paste("Accuracy (Classification):", accuracy)) %>% print()
 sink()

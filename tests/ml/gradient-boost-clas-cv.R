@@ -38,7 +38,7 @@ cv <- trainControl(method = "cv", number = 5)
 
 # Fit the gradient boosting model with cross-validation
 gbm_model_cv <- train(
-  homeowner ~ sex + bage + renthog + class,
+  riquezanet ~ sex + bage + renthog + class,
   data = dt_eff,
   method = "gbm",
   trControl = cv,
@@ -57,7 +57,7 @@ test_set <- dt_eff[-train_indices, ]
 
 # Fit the final gradient boosting model on the training set
 final_gbm_model <- gbm(
-  homeowner ~ sex + bage + renthog + class,
+  riquezanet ~ sex + bage + renthog + class,
   data = train_set,
   distribution = "bernoulli",
   n.trees = 500,

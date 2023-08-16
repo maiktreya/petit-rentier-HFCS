@@ -2,47 +2,69 @@ Stochastic Gradient Boosting
 
 6313 samples
    4 predictor
-   2 classes: '0', '1' 
 
 No pre-processing
 Resampling: Cross-Validated (5 fold) 
-Summary of sample sizes: 5050, 5051, 5051, 5050, 5050 
+Summary of sample sizes: 5050, 5052, 5051, 5050, 5049 
 Resampling results across tuning parameters:
 
-  interaction.depth  n.trees  Accuracy   Kappa    
-  1                   50      0.8034215  0.0000000
-  1                  100      0.8078565  0.1021492
-  1                  150      0.8092816  0.1165324
-  2                   50      0.8075397  0.1023091
-  2                  100      0.8148267  0.1712028
-  2                  150      0.8181540  0.2090181
-  3                   50      0.8151434  0.1818167
-  3                  100      0.8184710  0.2174444
-  3                  150      0.8181543  0.2194270
+  interaction.depth  n.trees  RMSE    
+  1                   50      12645516
+  1                  100      12660638
+  1                  150      12655932
+  2                   50      12584659
+  2                  100      12651034
+  2                  150      12648109
+  3                   50      12697451
+  3                  100      12771551
+  3                  150      12712440
+  Rsquared    MAE    
+  0.05509812  1880498
+  0.05547598  2004732
+  0.05597875  2030507
+  0.06970451  1750765
+  0.06790663  1801041
+  0.06998643  1814008
+  0.06080233  1761962
+  0.06192749  1779995
+  0.06459990  1775045
 
-Tuning parameter 'shrinkage' was held constant at a value
- of 0.1
-Tuning parameter 'n.minobsinnode' was held constant
- at a value of 10
-Accuracy was used to select the optimal model using
- the largest value.
-The final values used for the model were n.trees =
- 100, interaction.depth = 3, shrinkage = 0.1
- and n.minobsinnode = 10.
-                                  var   rel.inf
-renthogMiddle           renthogMiddle 25.383632
-renthogHigh               renthogHigh 16.622263
-classretired             classretired 11.928990
-bage54-65                   bage54-65 10.386135
-bage35-44                   bage35-44  8.009893
-bage75                         bage75  7.012070
-bage45-54                   bage45-54  6.450967
-bage65-75                   bage65-75  5.228569
-classinactive           classinactive  3.299746
-classself-employed classself-employed  1.982572
-classcapitalist       classcapitalist  1.726303
-sexWomen                     sexWomen  1.488035
-classmanager             classmanager  0.480824
-[1] "Average Accuracy (Classification): 0.812538756990688"
+Tuning parameter 'shrinkage' was held
+ parameter 'n.minobsinnode' was held
+ constant at a value of 10
+RMSE was used to select the optimal
+ model using the smallest value.
+The final values used for the model
+ were n.trees = 50, interaction.depth =
+ 2, shrinkage = 0.1 and n.minobsinnode = 10.
+                                  var
+renthogHigh               renthogHigh
+classcapitalist       classcapitalist
+bage54-65                   bage54-65
+sexWomen                     sexWomen
+bage75                         bage75
+classretired             classretired
+classself-employed classself-employed
+bage45-54                   bage45-54
+bage35-44                   bage35-44
+bage65-75                   bage65-75
+renthogMiddle           renthogMiddle
+classinactive           classinactive
+classmanager             classmanager
+                      rel.inf
+renthogHigh        47.5300683
+classcapitalist    32.8656486
+bage54-65           6.7767759
+sexWomen            6.6240700
+bage75              3.1262211
+classretired        2.2343785
+classself-employed  0.5159962
+bage45-54           0.3268415
+bage35-44           0.0000000
+bage65-75           0.0000000
+renthogMiddle       0.0000000
+classinactive       0.0000000
+classmanager        0.0000000
+[1] "Average Accuracy (Classification): NA"
 < table of extent 0 x 2 >
 [1] "Accuracy (Classification): NaN"
