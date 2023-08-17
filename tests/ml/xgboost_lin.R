@@ -18,6 +18,8 @@ setnames(dt_eff,
 dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
 dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
 dt_eff[, worker1 := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
+dt_eff[, employer := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
+
 # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
 dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
 dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
@@ -33,7 +35,7 @@ dt_eff$employer <- factor(dt_eff$employer, levels = c(1, 2), labels = c("Employe
 dt_eff$manager <- factor(dt_eff$manager, levels = c(1, 2), labels = c("Manager", "Non-Manager"))
 
 ##################################### GRADIENT BOOSTING (STEP 1) #############################################
-factor_cols <-  c("sex", "bage", "renthog1", "worker", "employer", "manager", "homeowner", "class")
+factor_cols <-  c("sex", "bage", "renthog1", "worker", "employer", "manager", "homeowner")
 dt_eff[, (factor_cols) := lapply(.SD, function(x) as.numeric(x)), .SDcols = factor_cols]
 
 set.seed(123)
@@ -42,17 +44,16 @@ train_set <- dt_eff[train_indices, ]
 test_set <- dt_eff[-train_indices, ]
 
 # Create data matrices for xgboost
-dtrain <- xgb.DMatrix(data = as.matrix(train_set[,c("sex", "bage", "renthog1", "class")]), label = train_set$riquezanet, weight = train_set$facine3)
-dtest <- xgb.DMatrix(data = as.matrix(test_set[,c("sex", "bage", "renthog1", "class")]), label = test_set$riquezanet)
+dtrain <- xgb.DMatrix(data = as.matrix(train_set[, c("sex", "bage", "renthog1", "worker", "employer", "manager", "homeowner")]), label = train_set$riquezanet, weight = train_set$facine3)
+dtest <- xgb.DMatrix(data = as.matrix(test_set[, c("sex", "bage", "renthog1", "worker", "employer", "manager", "homeowner")]), label = test_set$riquezanet)
 
 # Set parameters
 params <- list(
-  booster = "gbtree",
+  booster = "gblinear",
   objective = "reg:squarederror",
   eval_metric = "rmse",
-  eta = 0.1,
-  max_depth = 6
-)
+  eta = 0.1
+  )
 
 # Train the model with set.seed to allow replication
 xgb_model <- xgb.train(params = params, data = dtrain, nrounds = 500) # trained model
@@ -65,7 +66,7 @@ accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 mse <- mean((test_set$riquezanet - predictions)^2)
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/gradient-boost/xgboost/xgboost.txt")
+sink("output/gradient-boost/xgboost/xgboost_linear.txt")
 xgb_model %>% print()
 "IMPORTANCE MATRIX:" %>% print()
 importance_matrix %>% print()
@@ -74,6 +75,6 @@ paste("Test MSE: ", mse) %>% print()
 sink()
 
 ########3 PLOTTING PARTIAL DEPENDENCE
-jpeg(file = "output/gradient-boost/xgboost/xgboost.jpeg")
+jpeg(file = "output/gradient-boost/xgboost/xgboost_linear.jpeg")
 xgb.plot.importance(importance_matrix)
 dev.off()
