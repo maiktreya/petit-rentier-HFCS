@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls())
 `%>%` <- magrittr::`%>%` # nolint
-c("magrittr", "survey", "data.table", "dineq") %>% sapply(library, character.only = T)
+c("survey", "data.table", "dineq", "pdp", "gbm") %>% sapply(library, character.only = T)
 
 ### PARAMETERS AND VARIABLES TO INITIALIZE
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999) # default cuts for estimated proportions
@@ -28,21 +28,8 @@ dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "N
 dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
 dt_eff$RIF_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 
-
 ##################################### GRADIENT BOOSTING (STEP 1) #############################################
 
-# Load the gbm package
-library(gbm)
-library(pdp)
-
-# Convert homeownership to a binary 0/1 variable (required for gbm)
-dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
-
-set.seed(123)
-# Fit a boosting model
-test1 <- gbm(riquezanet ~ sex + bage + renthog1 + class,
-        data = dt_eff, distribution = "bernoulli", n.trees = 500, weights = facine3
-)
 set.seed(123)
 train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff) * 0.8)
 train_set <- dt_eff[train_indices, ]
@@ -59,50 +46,35 @@ gbm_model <- gbm(riquezanet ~ sex + bage + renthog1 + class,
 )
 
 # Predict probabilities on test set
+set.seed(123)
 pred_prob <- predict(gbm_model, newdata = test_set, n.trees = 500, type = "response")
+set.seed(123)
+predictions <- ifelse(pred_prob > 0.5, 1, 0)# Generate class predictions using a threshold of 0.5
 
-# Generate class predictions using a threshold of 0.5
-predictions <- ifelse(pred_prob > 0.5, 1, 0)
-
-# Confusion matrix
-confusion_matrix <- table(Predicted = predictions, Actual = test_set$homeowner)
-print(confusion_matrix)
-
-# Accuracy
+# Confusion matrix, Accuracy and Mean Sq. Error
+confusion_matrix <- table(Predicted = predictions, Actual = test_set$riquezanet)
 accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
-
-
-# Partial Dependence Plot for 'sex'
-sex.pdp <- partial(gbm_model, pred.var = "sex", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'bage'
-bage.pdp <- partial(gbm_model, pred.var = "bage", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'renthog'
-renthog.pdp <- partial(gbm_model, pred.var = "renthog1", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'class'
-class.pdp <- partial(gbm_model, pred.var = "class", plot = T, n.trees = 500)
-
+mse <- mean((test_set$riquezanet - predictions)^2)
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/gradient-boost/clas/test_gradient-boost_clas.txt")
 gbm_model %>% print()
-gbm_model %>%
-        summary() %>%
-        print()
+gbm_model %>% summary() %>%  print()
 confusion_matrix %>% print()
-print(paste("Accuracy (Classification):", accuracy)) %>% print()
+paste("Accuracy (Classification):", accuracy) %>% print()
+paste("Test MSE: ", mse) %>% print()
 sink()
-
 
 ########3 PLOTTING PARTIAL DEPENDENCE
 jpeg(file = "output/gradient-boost/clas/sex.jpeg")
-sex.pdp %>% print()
+partial(gbm_model, pred.var = "sex", plot = T, n.trees = 500) %>% print()
 dev.off()
 jpeg(file = "output/gradient-boost/clas/bage.jpeg")
-bage.pdp %>% print()
+partial(gbm_model, pred.var = "bage", plot = T, n.trees = 500) %>% print()
 dev.off()
 jpeg(file = "output/gradient-boost/clas/renthog.jpeg")
-renthog.pdp %>% print()
+partial(gbm_model, pred.var = "renthog1", plot = T, n.trees = 500) %>% print()
 dev.off()
 jpeg(file = "output/gradient-boost/clas/class.jpeg")
-class.pdp %>% print()
+partial(gbm_model, pred.var = "class", plot = T, n.trees = 500) %>% print()
 dev.off()

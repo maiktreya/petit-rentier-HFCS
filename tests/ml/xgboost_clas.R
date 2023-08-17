@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 rm(list = ls())
 `%>%` <- magrittr::`%>%` # nolint
-c("magrittr", "survey", "data.table", "dineq") %>% sapply(library, character.only = T)
+c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 
 ### PARAMETERS AND VARIABLES TO INITIALIZE
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999) # default cuts for estimated proportions
@@ -30,64 +30,56 @@ dt_eff$RIF_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 
 
 ##################################### GRADIENT BOOSTING (STEP 1) #############################################
 
-# Load the gbm package
-library(gbm)
-library(pdp)
-
-# Convert homeownership to a binary 0/1 variable (required for gbm)
-dt_eff$homeowner <- ifelse(dt_eff$homeowner == "Homeowner", 1, 0)
-
-
-
 set.seed(123)
 train_indices <- sample(1:nrow(dt_eff), nrow(dt_eff) * 0.8)
 train_set <- dt_eff[train_indices, ]
 test_set <- dt_eff[-train_indices, ]
 
-set.seed(123)
-# Fit a boosting model
-gbm_model <- gbm(riquezanet ~ sex + bage + renthog1 + class,
-        data = train_set, distribution = "gaussian", n.trees = 500, weights = facine3
+# Convert factors to numeric variables
+train_set$sex <- as.numeric(train_set$sex)
+test_set$sex <- as.numeric(test_set$sex)
+train_set$bage <- as.numeric(train_set$bage)
+test_set$bage <- as.numeric(test_set$bage)
+train_set$renthog1 <- as.numeric(train_set$renthog1)
+test_set$renthog1 <- as.numeric(test_set$renthog1)
+train_set$class <- as.numeric(train_set$class)
+test_set$class <- as.numeric(test_set$class)
+
+# Create data matrices for xgboost
+dtrain <- xgb.DMatrix(data = as.matrix(train_set[,c("sex", "bage", "renthog1", "class")]), label = train_set$riquezanet, weight = train_set$facine3)
+dtest <- xgb.DMatrix(data = as.matrix(test_set[,c("sex", "bage", "renthog1", "class")]), label = test_set$riquezanet)
+
+# Set parameters
+params <- list(
+  booster = "gbtree",
+  objective = "reg:squarederror",
+  eval_metric = "rmse",
+  eta = 0.1,
+  max_depth = 6
 )
 
-# Predict on the test set
-predictions <- predict(gbm_model, newdata = test_set, n.trees = 500)
+# Train the model with set.seed to allow replication
+set.seed(123)
+xgb_model <- xgb.train(params = params, data = dtrain, nrounds = 500) # trained model
+set.seed(123)
+predictions <- predict(xgb_model, newdata = dtest) # Predict on the test set
 
-# Calculate mean squared error on the test set
+# Feature importance, Confusion matrix, Accuracy and Mean Sq. Error
+importance_matrix <- xgb.importance(model = xgb_model)
+confusion_matrix <- table(Predicted = predictions, Actual = test_set$riquezanet)
+accuracy <- sum(diag(confusion_matrix)) / sum(confusion_matrix)
 mse <- mean((test_set$riquezanet - predictions)^2)
-print(paste("Test MSE: ", mse))
-
-
-# Partial Dependence Plot for 'sex'
-sex.pdp <- partial(gbm_model, pred.var = "sex", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'bage'
-bage.pdp <- partial(gbm_model, pred.var = "bage", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'renthog'
-renthog.pdp <- partial(gbm_model, pred.var = "renthog1", plot = T, n.trees = 500)
-# Partial Dependence Plot for 'class'
-class.pdp <- partial(gbm_model, pred.var = "class", plot = T, n.trees = 500)
-
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/gradient-boost/reg/test_gradient-boost_reg.txt")
-gbm_model %>% print()
-gbm_model %>%
-        summary() %>%
-        print()
+sink("output/gradient-boost/xgboost/xgboost.txt")
+xgb_model %>% print()
+"IMPORTANCE MATRIX:" %>% print()
+importance_matrix %>% print()
+paste("Accuracy (Classification):", accuracy) %>% print()
 paste("Test MSE: ", mse) %>% print()
 sink()
 
-
 ########3 PLOTTING PARTIAL DEPENDENCE
-jpeg(file = "output/gradient-boost/reg/sex.jpeg")
-sex.pdp %>% print()
-dev.off()
-jpeg(file = "output/gradient-boost/reg/bage.jpeg")
-bage.pdp %>% print()
-dev.off()
-jpeg(file = "output/gradient-boost/reg/renthog.jpeg")
-renthog.pdp %>% print()
-dev.off()
-jpeg(file = "output/gradient-boost/reg/class.jpeg")
-class.pdp %>% print()
+jpeg(file = "output/gradient-boost/xgboost/xgboost.jpeg")
+xgb.plot.importance(importance_matrix)
 dev.off()

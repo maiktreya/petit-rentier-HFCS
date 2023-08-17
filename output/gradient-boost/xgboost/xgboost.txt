@@ -1,0 +1,21 @@
+##### xgb.Booster
+raw: 2 Mb 
+call:
+  xgb.train(params = params, data = dtrain, nrounds = 500)
+params (as set within xgb.train):
+  booster = "gbtree", objective = "reg:squarederror", eval_metric = "rmse", eta = "0.1", max_depth = "6", validate_parameters = "TRUE"
+xgb.attributes:
+  niter
+callbacks:
+  cb.print.evaluation(period = print_every_n)
+# of features: 4 
+niter: 500
+nfeatures : 4 
+[1] "IMPORTANCE MATRIX:"
+    Feature      Gain     Cover Frequency
+1:    class 0.3634497 0.3708404 0.2969999
+2: renthog1 0.2921379 0.2143168 0.1630625
+3:     bage 0.2059493 0.3132449 0.3558974
+4:      sex 0.1384631 0.1015979 0.1840402
+[1] "Accuracy (Classification): 0.000791765637371338"
+[1] "Test MSE:  150946971839600"
