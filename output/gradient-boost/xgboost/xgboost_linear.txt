@@ -13,12 +13,12 @@ niter: 500
 nfeatures : 7 
 [1] "IMPORTANCE MATRIX:"
      Feature     Weight
-1:   manager  464998.81
-2:  renthog1  302562.81
-3:  employer  232499.41
-4:    worker  152248.05
-5:       sex -110952.66
-6:      bage   64621.95
-7: homeowner   34356.36
+1:   manager  464988.50
+2:  renthog1  302569.41
+3:  employer  232493.83
+4:    worker  152276.30
+5:       sex -110955.12
+6:      bage   64601.84
+7: homeowner   34363.94
 [1] "Accuracy (Classification): 0"
-[1] "Test MSE:  155709688554391"
+[1] "Test MSE:  155709788558161"
