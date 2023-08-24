@@ -56,14 +56,14 @@ joint_importance_named <- setNames(joint_importance, factor_cols)
 
 
 # PREVIEW PRELIMINARY RESULTS
-sink("output/gradient-boost/xgboost/xgboost_linear.txt")
+sink("output/gradient-boost/xgboost/xgboost_linear_loop.txt")
 bst_model %>% print()
 "IMPORTANCE MATRIX:" %>% print()
 importance_matrix %>% print()
 sink()
 
 ########3 PLOTTING PARTIAL DEPENDENCE
-jpeg(file = "output/gradient-boost/xgboost/xgboost_linear.jpeg")
+jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop.jpeg")
 barplot(joint_importance_named,
   main = "Joint Importance of Categorical Variables",
   ylab = "Importance", xlab = "Variable", las = 2, cex.names = 0.8, col = "skyblue"
