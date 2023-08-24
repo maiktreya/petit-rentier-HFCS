@@ -100,7 +100,7 @@ CONSIDERATIONS:
 
 ---
 
- 1. FIRST STEPS: DEFINE CLASSES FOR ANALYSIS
+### 1. FIRST STEPS: DEFINE CLASSES FOR ANALYSIS
 
 - Original definitions:
     1. TRABAJADOR: trabajador + desempleado
@@ -119,7 +119,22 @@ CONSIDERATIONS:
   - Our sample would not loose a lot of observations but would avoid the important bias introduced by retired population of all social classes (which cannot be clearly assignated to a given class)
   - We would have concentrated a proper class analysis into just to main gropus (Employers, Workforce) which is suitable for OB decompositions.
 
+- An alternative approach would imply using the variable p6_81 instead of nsitlabdom:
+  - With this change we instead disolve group 3.retired based on past working positions.
+  - There is a problem for delimitation of autonomous workers previous 2017
+
+> NUEVA OPCIÓN DE RESPUESTA
+> P.6.81. ¿DURANTE LA MAYOR PARTE DE SU VIDA LABORAL, CUÁL HA SIDO SU SITUACIÓN?
+>
+>- Empleado por cuenta ajena.
+>
+>- Trabajador por cuenta propia con empleados.
+>
+>- Trabajador por cuenta propia sin empleados (nueva 2017).
+
 ---
+
+### 2. OTHER TASKS
 
 - Get the remaining variables needed to include:
   - Multiprop
