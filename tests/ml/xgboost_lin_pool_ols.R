@@ -18,9 +18,7 @@ factor_cols <- colnames(dt_eff)[2:length(colnames(dt_eff))]
 bst_model <- lm(rif_riquezanet ~ ., data = dt_eff)
 
 # Feature Importance
-importance_matrix <- bst_model$coefficients[-1] %>%
-  abs() %>%
-  sort(decreasing = TRUE)
+importance_matrix <- bst_model$coefficients[-1] # %>% abs() %>% sort(decreasing = TRUE)
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/gradient-boost/xgboost/xgboost_linear_ols.txt")

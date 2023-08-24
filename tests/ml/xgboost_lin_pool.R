@@ -39,7 +39,7 @@ bst_model <- xgb.train(
 
 # Feature Importance
 importance_matrix <- xgb.importance(feature_names = colnames(X), model = bst_model)
-importance_matrix_plot <- importance_matrix$Weight  %>% abs() %>% sort(decreasing = T)
+importance_matrix_plot <- importance_matrix$Weight #  %>% abs() %>% sort(decreasing = T)
 names(importance_matrix_plot) <- importance_matrix$Feature
 # Coefficients (Note that in gblinear, raw dump includes coefficients)
 coefs <- xgb.dump(bst_model, with_stats = TRUE, dump_format = "text")
@@ -63,7 +63,7 @@ bst_model %>% print()
 importance_matrix %>% print()
 sink()
 
-########3 PLOTTING PARTIAL DEPENDENCE
+######## 3 PLOTTING PARTIAL DEPENDENCE
 jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop_joint.jpeg")
 barplot(joint_importance_named,
   main = "Joint Importance of Categorical Variables",

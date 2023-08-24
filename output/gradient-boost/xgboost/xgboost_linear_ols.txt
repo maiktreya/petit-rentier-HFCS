@@ -27,21 +27,23 @@ homeownerHomeowner  homeownerNon-Owner
                 NA  
 
 [1] "IMPORTANCE MATRIX:"
-      renthog1High     riquezafinTRUE 
-        335191.456         242192.686 
-            worker homeownerNon-Owner 
-        199364.421         179479.202 
-    renthog1Middle           inactive 
-        164606.582         158060.066 
-           `35-44`             `0-34` 
-        139437.854         133506.735 
-           retired            manager 
-        127817.374         102903.462 
-           `45-54`    `self-employed` 
-         60319.067          47727.154 
+    riquezafinTRUE           sexWomen 
+        242192.686          -7172.411 
+      renthog1High        renthog1Low 
+        335191.456         -18248.281 
+    renthog1Middle homeownerHomeowner 
+        164606.582          -6326.171 
+homeownerNon-Owner            sv_year 
+       -179479.202          -1558.308 
+            worker           inactive 
+       -199364.421        -158060.066 
+           retired    `self-employed` 
+       -127817.374         -47727.154 
+           manager         capitalist 
+       -102903.462                 NA 
+           `45-54`            `35-44` 
+        -60319.067        -139437.854 
               `75`            `65-75` 
          43667.073          26516.901 
-       renthog1Low           sexWomen 
-         18248.281           7172.411 
-homeownerHomeowner            sv_year 
-          6326.171           1558.308 
+            `0-34`            `54-65` 
+       -133506.735                 NA 
