@@ -1,31 +1,49 @@
 ##### xgb.Booster
-raw: 157.1 Kb 
+raw: 2.1 Kb 
 call:
   xgb.train(params = params, data = dtrain, nrounds = nrounds, 
     watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
     early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
     save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
-    callbacks = callbacks)
+    callbacks = callbacks, objective = "reg:squarederror", booster = "gblinear")
 params (as set within xgb.train):
-  booster = "gbtree", objective = "reg:squarederror", eta = "0.1", gamma = "1", max_depth = "6", min_child_weight = "1", subsample = "0.5", colsample_bytree = "1", validate_parameters = "TRUE"
+  objective = "reg:squarederror", booster = "gblinear", validate_parameters = "TRUE"
 xgb.attributes:
   niter
 callbacks:
   cb.print.evaluation(period = print_every_n)
   cb.evaluation.log()
-# of features: 6 
+# of features: 21 
 niter: 100
-nfeatures : 6 
+nfeatures : 21 
 evaluation_log:
     iter train_rmse
-       1    1404448
-       2    1401138
+       1   323685.4
+       2   311465.9
 ---                
-      99    1386469
-     100    1386469
+      99   306291.9
+     100   306291.9
 [1] "IMPORTANCE MATRIX:"
-   Feature      Gain     Cover Frequency
-1: sv_year 0.7878094 0.7650431 0.7436096
-2:    bage 0.2121906 0.2349569 0.2563904
-[1] "Accuracy (Classification): 0"
-[1] "Test MSE:  59400684818647.8"
+               Feature        Weight
+ 1:     riquezafinTRUE  242545.46875
+ 2:       renthog1High  192737.40625
+ 3:        renthog1Low -156690.60938
+ 4:         capitalist  127259.85938
+ 5:            `35-44` -105318.78125
+ 6: homeownerNon-Owner  -99921.07812
+ 7:             `0-34`  -96902.46875
+ 8:    `self-employed`   80050.00000
+ 9:               `75`   76608.59375
+10: homeownerHomeowner   75253.19531
+11:             worker  -72819.83594
+12:            `65-75`   60569.11719
+13:        (Intercept)   51018.92578
+14:            `54-65`   33264.22266
+15:           inactive  -31141.54102
+16:            `45-54`  -27110.48438
+17:            manager   24824.47852
+18:     renthog1Middle   23625.06445
+19:           sexWomen   -7834.33105
+20:            retired   -1696.61084
+21:            sv_year     -11.96023
+               Feature        Weight
