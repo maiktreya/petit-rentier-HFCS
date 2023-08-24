@@ -12,17 +12,21 @@ callbacks:
 niter: 500
 nfeatures : 21 
 [1] "IMPORTANCE MATRIX:"
-       (Intercept)     riquezafinTRUE           sexWomen 
-       3362408.988         242192.686          -7172.411 
-      renthog1High        renthog1Low     renthog1Middle 
-        335191.456         -18248.281         164606.582 
-homeownerHomeowner homeownerNon-Owner            sv_year 
-         -6326.171        -179479.202          -1558.308 
-            worker           inactive            retired 
-       -199364.421        -158060.066        -127817.374 
-   `self-employed`            manager         capitalist 
-        -47727.154        -102903.462                 NA 
-           `45-54`            `35-44`               `75` 
-        -60319.067        -139437.854          43667.073 
-           `65-75`             `0-34`            `54-65` 
-         26516.901        -133506.735                 NA 
+      renthog1High     riquezafinTRUE 
+        335191.456         242192.686 
+            worker homeownerNon-Owner 
+        199364.421         179479.202 
+    renthog1Middle           inactive 
+        164606.582         158060.066 
+           `35-44`             `0-34` 
+        139437.854         133506.735 
+           retired            manager 
+        127817.374         102903.462 
+           `45-54`    `self-employed` 
+         60319.067          47727.154 
+              `75`            `65-75` 
+         43667.073          26516.901 
+       renthog1Low           sexWomen 
+         18248.281           7172.411 
+homeownerHomeowner            sv_year 
+          6326.171           1558.308 

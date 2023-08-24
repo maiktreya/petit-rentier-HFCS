@@ -19,7 +19,7 @@ X <- lm(rif_riquezanet ~ ., data = dt_eff)
 y <- dt_eff$rif_riquezanet
 
 # Feature Importance
-importance_matrix <- X$coefficients
+importance_matrix <- X$coefficients[-1]  %>% abs() %>% sort(decreasing = T)
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/gradient-boost/xgboost/xgboost_linear_ols.txt")
@@ -30,7 +30,7 @@ sink()
 
 ######## 3 PLOTTING PARTIAL DEPENDENCE
 jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_ols.jpeg")
-barplot(importance_matrix[-1],
+barplot(importance_matrix,
   main = "Joint Importance of Categorical Variables",
   ylab = "Importance", xlab = "Variable", las = 2, cex.names = 0.8, col = "skyblue"
 )

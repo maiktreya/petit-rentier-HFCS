@@ -39,7 +39,7 @@ bst_model <- xgb.train(
 
 # Feature Importance
 importance_matrix <- xgb.importance(feature_names = colnames(X), model = bst_model)
-importance_matrix_plot <- abs(importance_matrix$Weight)
+importance_matrix_plot <- importance_matrix$Weight  %>% abs() %>% sort(decreasing = T)
 names(importance_matrix_plot) <- importance_matrix$Feature
 # Coefficients (Note that in gblinear, raw dump includes coefficients)
 coefs <- xgb.dump(bst_model, with_stats = TRUE, dump_format = "text")
@@ -67,10 +67,12 @@ sink()
 jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop_joint.jpeg")
 barplot(joint_importance_named,
   main = "Joint Importance of Categorical Variables",
-  ylab = "Importance", xlab = "Variable", las = 2, cex.names = 0.8, col = "skyblue"
+  ylab = "Importance", las = 2, cex.names = 0.8, col = "skyblue"
 )
 dev.off()
 jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop.jpeg")
 barplot(importance_matrix_plot,
+  main = "Joint Importance of Categorical Variables",
+  ylab = "Importance", las = 2, cex.names = 0.8, col = "skyblue"
 )
 dev.off()
