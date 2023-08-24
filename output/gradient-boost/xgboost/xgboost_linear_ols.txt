@@ -1,16 +1,31 @@
-##### xgb.Booster
-raw: 2.1 Kb 
-call:
-  xgb.train(params = params, data = dtrain, nrounds = 500)
-params (as set within xgb.train):
-  objective = "reg:squarederror", booster = "gblinear", eta = "0.3", alpha = "0", lambda = "0", validate_parameters = "TRUE"
-xgb.attributes:
-  niter
-callbacks:
-  cb.print.evaluation(period = print_every_n)
-# of features: 21 
-niter: 500
-nfeatures : 21 
+
+Call:
+lm(formula = rif_riquezanet ~ ., data = dt_eff)
+
+Coefficients:
+       (Intercept)      riquezafinTRUE  
+           3362409              242193  
+          sexWomen        renthog1High  
+             -7172              335191  
+       renthog1Low      renthog1Middle  
+            -18248              164607  
+homeownerHomeowner  homeownerNon-Owner  
+             -6326             -179479  
+           sv_year              worker  
+             -1558             -199364  
+          inactive             retired  
+           -158060             -127817  
+   `self-employed`             manager  
+            -47727             -102903  
+        capitalist             `45-54`  
+                NA              -60319  
+           `35-44`                `75`  
+           -139438               43667  
+           `65-75`              `0-34`  
+             26517             -133507  
+           `54-65`  
+                NA  
+
 [1] "IMPORTANCE MATRIX:"
       renthog1High     riquezafinTRUE 
         335191.456         242192.686 
