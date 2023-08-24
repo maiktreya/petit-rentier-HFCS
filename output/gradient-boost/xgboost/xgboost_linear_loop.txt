@@ -13,25 +13,25 @@ niter: 500
 nfeatures : 21 
 [1] "IMPORTANCE MATRIX:"
                Feature         Weight
- 1:     riquezafinTRUE  242546.328125
- 2:       renthog1High  210636.109375
- 3:         capitalist  142821.468750
- 4:        renthog1Low -138783.687500
- 5: homeownerNon-Owner -107616.632812
- 6:    `self-employed`   95617.476562
- 7:            `35-44`  -93696.367188
- 8:               `75`   88224.695312
- 9:             `0-34`  -85280.734375
-10:            `65-75`   72188.109375
-11: homeownerHomeowner   67554.734375
-12:             worker  -57252.312500
-13:            `54-65`   44883.472656
-14:        (Intercept)   42786.031250
-15:     renthog1Middle   41523.890625
-16:            manager   40386.972656
-17:           inactive  -15575.894531
-18:            `45-54`  -15491.897461
-19:            retired   13858.343750
-20:           sexWomen   -7837.675293
-21:            sv_year      -7.042042
+ 1:     riquezafinTRUE  242547.421875
+ 2:       renthog1High  209331.187500
+ 3:         capitalist  144498.906250
+ 4:        renthog1Low -140082.546875
+ 5: homeownerNon-Owner -108874.593750
+ 6:    `self-employed`   97295.500000
+ 7:            `35-44`  -94643.468750
+ 8:               `75`   87276.945312
+ 9:             `0-34`  -86222.492188
+10:            `65-75`   71242.054688
+11: homeownerHomeowner   66300.468750
+12:             worker  -55576.003906
+13:            `54-65`   43935.457031
+14:            manager   42065.328125
+15:        (Intercept)   41486.722656
+16:     renthog1Middle   40221.230469
+17:            `45-54`  -16439.503906
+18:            retired   15532.791016
+19:           inactive  -13899.428711
+20:           sexWomen   -7838.120117
+21:            sv_year      -4.564422
                Feature         Weight
