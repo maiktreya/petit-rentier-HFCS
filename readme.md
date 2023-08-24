@@ -113,3 +113,9 @@ CONSIDERATIONS:
   - Inheritance
   - Rental income
   - Education
+
+- Construct new classes?? and plot associated empirical distributions.
+  - Multi-employers (+3) + Managers (Employers)
+  - Workers + self_employed  (Workforce)
+
+- Check how the growing inequality in real state wealth -less homeownership, growing multiproperty (Boertien & López-Gay, 2023)- has been distributed among social classes.

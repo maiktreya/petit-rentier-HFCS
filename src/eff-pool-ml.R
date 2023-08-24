@@ -1,7 +1,6 @@
 ## CREATE A JOIN DATATABLE FOR A SELECTION OF VARIABLES OF ALL PUBLISHED EFF SURVEYS
 `%>%` <- magrittr::`%>%` # nolint # ALLOW PIPE  MULTI-LOADING WITHOUT MAGRITTR
 c("magrittr", "data.table", "dineq") %>% sapply(library, character.only = T)
-
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
 selected_variables <- c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "riquezanet", "riquezafin", "rif_actreales")
@@ -21,7 +20,6 @@ for (i in seq_along(sel_year)) {
         dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
         dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
         dt_eff[, worker1 := as.numeric(worker) - 1] # create a 0,1 numeric variable for Oaxaca package
-
         # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
         dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
         dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
@@ -31,8 +29,6 @@ for (i in seq_along(sel_year)) {
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
         dt_eff$rif_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
-
-
         dt_eff <- dt_eff[, ..selected_variables][, sv_year := sel_year[i]]
         final_dt <- rbind(final_dt, dt_eff)
 }
