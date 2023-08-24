@@ -3,7 +3,7 @@
 options(scipen = 999)
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
-dt_eff <- dt_eff[, c("rif_riquezanet", "riquezafin", "sex", "bage", "class", "renthog1", "homeowner", "sv_year")]
+dt_eff <- dt_eff[, c("rif_actreales", "riquezafin", "sex", "bage", "class", "renthog1", "homeowner", "sv_year")]
 # Convert 'class' and 'bage' to dummy variables
 
 dt_eff[, riquezafin := as.logical(riquezafin)]
@@ -15,8 +15,8 @@ dt_eff[, class := NULL][, bage := NULL]
 factor_cols <- colnames(dt_eff)[2:length(colnames(dt_eff))]
 
 # Creating the model matrix
-X <- model.matrix(rif_riquezanet ~ ., data = dt_eff)
-y <- dt_eff$rif_riquezanet
+X <- model.matrix(rif_actreales ~ ., data = dt_eff)
+y <- dt_eff$rif_actreales
 
 # Create DMatrix
 dtrain <- xgb.DMatrix(data = X, label = y)

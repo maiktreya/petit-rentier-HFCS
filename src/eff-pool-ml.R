@@ -4,7 +4,7 @@ c("magrittr", "data.table", "dineq") %>% sapply(library, character.only = T)
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
-selected_variables <- c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "riquezanet", "riquezafin", "rif_riquezanet")
+selected_variables <- c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "riquezanet", "riquezafin", "rif_actreales")
 final_dt <- data.table()
 
 # LOOP OVER ALL SURVEYS TO CREATED SUBSET OF NEEDED VARIABLES FOR EACH YEAR AND RUN MODELS
@@ -30,7 +30,7 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
-        dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
+        dt_eff$rif_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
 
 
         dt_eff <- dt_eff[, ..selected_variables][, sv_year := sel_year[i]]
@@ -39,4 +39,8 @@ for (i in seq_along(sel_year)) {
 final_dt %>% fwrite(file = "saves/eff-pool-2002-2020.csv")
 
 
-for (i in sel_year) final_dt[class == "capitalist" & sv_year == i] %>% nrow() %>% print()
+for (i in sel_year) {
+        final_dt[class == "capitalist" & sv_year == i] %>%
+                nrow() %>%
+                print()
+}
