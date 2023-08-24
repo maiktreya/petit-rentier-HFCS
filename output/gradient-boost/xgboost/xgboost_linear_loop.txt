@@ -1,0 +1,37 @@
+##### xgb.Booster
+raw: 2.1 Kb 
+call:
+  xgb.train(params = params, data = dtrain, nrounds = 500)
+params (as set within xgb.train):
+  objective = "reg:squarederror", booster = "gblinear", eta = "0.3", alpha = "0", lambda = "0", validate_parameters = "TRUE"
+xgb.attributes:
+  niter
+callbacks:
+  cb.print.evaluation(period = print_every_n)
+# of features: 21 
+niter: 500
+nfeatures : 21 
+[1] "IMPORTANCE MATRIX:"
+               Feature         Weight
+ 1:     riquezafinTRUE  242546.328125
+ 2:       renthog1High  210636.109375
+ 3:         capitalist  142821.468750
+ 4:        renthog1Low -138783.687500
+ 5: homeownerNon-Owner -107616.632812
+ 6:    `self-employed`   95617.476562
+ 7:            `35-44`  -93696.367188
+ 8:               `75`   88224.695312
+ 9:             `0-34`  -85280.734375
+10:            `65-75`   72188.109375
+11: homeownerHomeowner   67554.734375
+12:             worker  -57252.312500
+13:            `54-65`   44883.472656
+14:        (Intercept)   42786.031250
+15:     renthog1Middle   41523.890625
+16:            manager   40386.972656
+17:           inactive  -15575.894531
+18:            `45-54`  -15491.897461
+19:            retired   13858.343750
+20:           sexWomen   -7837.675293
+21:            sv_year      -7.042042
+               Feature         Weight
