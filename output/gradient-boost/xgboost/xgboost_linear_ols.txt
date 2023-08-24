@@ -1,0 +1,40 @@
+##### xgb.Booster
+raw: 2.1 Kb 
+call:
+  xgb.train(params = params, data = dtrain, nrounds = nrounds, 
+    watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
+    early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
+    save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
+    callbacks = callbacks, objective = "reg:squarederror", booster = "gblinear")
+params (as set within xgb.train):
+  objective = "reg:squarederror", booster = "gblinear", validate_parameters = "TRUE"
+xgb.attributes:
+  niter
+callbacks:
+  cb.print.evaluation(period = print_every_n)
+  cb.evaluation.log()
+# of features: 21 
+niter: 100
+nfeatures : 21 
+evaluation_log:
+    iter train_rmse
+       1    8772573
+       2    8739684
+---                
+      99    8727435
+     100    8727435
+[1] "IMPORTANCE MATRIX:"
+       (Intercept)       renthog1High     riquezafinTRUE 
+       3362408.988         335191.456         242192.686 
+    renthog1Middle               `75`            `65-75` 
+        164606.582          43667.073          26516.901 
+           sv_year homeownerHomeowner           sexWomen 
+         -1558.308          -6326.171          -7172.411 
+       renthog1Low    `self-employed`            `45-54` 
+        -18248.281         -47727.154         -60319.067 
+           manager            retired             `0-34` 
+       -102903.462        -127817.374        -133506.735 
+           `35-44`           inactive homeownerNon-Owner 
+       -139437.854        -158060.066        -179479.202 
+            worker 
+       -199364.421 

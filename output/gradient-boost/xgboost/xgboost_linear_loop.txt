@@ -1,20 +1,31 @@
 ##### xgb.Booster
-raw: 1.1 Mb 
+raw: 157.1 Kb 
 call:
-  xgb.train(params = params_clas, data = dtrain, nrounds = 500)
+  xgb.train(params = params, data = dtrain, nrounds = nrounds, 
+    watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
+    early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
+    save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
+    callbacks = callbacks)
 params (as set within xgb.train):
-  booster = "gbtree", objective = "reg:squarederror", eval_metric = "rmse", eta = "0.1", max_depth = "6", validate_parameters = "TRUE"
+  booster = "gbtree", objective = "reg:squarederror", eta = "0.1", gamma = "1", max_depth = "6", min_child_weight = "1", subsample = "0.5", colsample_bytree = "1", validate_parameters = "TRUE"
 xgb.attributes:
   niter
 callbacks:
   cb.print.evaluation(period = print_every_n)
-# of features: 8 
-niter: 500
-nfeatures : 8 
+  cb.evaluation.log()
+# of features: 6 
+niter: 100
+nfeatures : 6 
+evaluation_log:
+    iter train_rmse
+       1    1404448
+       2    1401138
+---                
+      99    1386469
+     100    1386469
 [1] "IMPORTANCE MATRIX:"
-    Feature      Gain     Cover  Frequency
-1: employer 0.6600930 0.2007673 0.04169794
-2:  sv_year 0.2232993 0.5984658 0.86281378
-3:     bage 0.1166078 0.2007669 0.09548828
-[1] "Accuracy (Classification): 0.00011832919181162"
-[1] "Test MSE:  57969063510836"
+   Feature      Gain     Cover Frequency
+1: sv_year 0.7878094 0.7650431 0.7436096
+2:    bage 0.2121906 0.2349569 0.2563904
+[1] "Accuracy (Classification): 0"
+[1] "Test MSE:  59400684818647.8"
