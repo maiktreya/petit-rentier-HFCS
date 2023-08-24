@@ -1,5 +1,7 @@
 #
 
+REAL ESTATE WEALTH INEQUALITY AND SOCIAL CLASS
+
 ## WORKING HYPOTHESIS
 
 - Previous literature almost exclusively focusses on "wealth inequality" rather than more general an informative "wealth distribution".
@@ -10,7 +12,7 @@
 
 - Class (as it expected to become growingly less significant).
 
-- Age (because even considering the natural positive correlation between wealth and age, there is a generalised trend in the last decades, especially among western European countries, towards a growing gap between the wealth of young and other age groups. The preliminary interpretation suggests a growing importance of age clusters for wealth distribution and increasing negative effect on wealth associated to young citizens as compared to the gaps and influence of previous decades.
+- Age because (even considering the natural positive correlation between wealth and age), there is a generalised trend in the last decades, especially among western European countries, towards a growing gap between the wealth of young and other age groups. The preliminary interpretation suggests a growing importance of age clusters for wealth distribution and increasing negative effect on wealth associated to young citizens as compared to the gaps and influence of previous decades.
 
 - In the empirical part, we build our Methodology I'm another important hypothesis: Standard OLS does not correctly grasp  the highly un linear nature of wealth empirical Distributions and RIF regressions on quantiles and Gini should be more robust. for completeness, we report regressions for these 3 main statistics in order to understand the nature of the highly skewed nature of wealth distributions. A nature which we would analyse to finalize our work through the reconstruction of empirical distribution functions through smoothing algorithms.
 
@@ -45,8 +47,10 @@ Structural economic factors:
 - Class
 - Income level
 - Homeownership
+- Multiproperty
 - Financial Portfolio
 - Inheritance
+- Rental income
 
 ---
 CONSIDERATIONS:
@@ -56,3 +60,35 @@ CONSIDERATIONS:
 > - Perform RIF regression for GINI and median including the identified influential factors for all the annual issues 2002-2020.
 >
 > - Oaxaca-Blinder decomposition of GINI for workers, young people and both. Compare 2002 to 2020.
+
+## MAIN BIBLIOGRAPHY
+
+### HOUSING WEALTH
+
+- (Wind,2016): The distribution of housing wealth in 16 EU countries: accounting for institutional differences.
+- (Kaas et al., 2019): Homeownership and wealth inequality in Europe.
+- (Boertien & López-Gay, 2023): The polarization of real estate ownership and increasing wealth inequality in Spain. ✅
+
+### TOTAL WEALTH
+
+- (Cowell et al.,2017): Wealth top incomes and inequality.
+- (Azpirate, 2010): The Household Wealth Distribution in Spain: The Role of Housing and Financial Wealth.  ✅
+
+#### CLASS
+
+- (Duvoux, 2022): Class and relative wealth accumulation in 5 EU countries from HCFS.
+- (Westhoff, 2021): Social class and earnings trajectori4es for 14 EU countries.
+
+#### AGE
+
+- (Hwang et al., 2021): Population aging and income inequality.
+- (Ihle† & Siebert-Meyerhoff, 2017): The richer the older?  Adecomposition of wealth inequality by age sub-groups.
+
+### WAGE INEQUALITY AND CLASS / TYPE
+
+- (Giangregorio & Manta, 2021): The structure of the labour market and wage inequalitu using RIF-OLS: the italian case.
+- (Gradin, 2021): Inequality by population groups and sources of income. Accounting for inequality changes in Spain during the recession.
+
+### ML APPROACHES
+
+- (Salas-Rojo & Rodríguez, 2022): Inheritances and wealth inequality: a machine learning approach. ✅
