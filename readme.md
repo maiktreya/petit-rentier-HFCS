@@ -98,24 +98,33 @@ CONSIDERATIONS:
 
 ## DRAFT NOTES
 
-  -> FIRST STEPS:
+---
 
-- Check how the distinct social clasess are constructed
-  - Worker
-  - Capitalist
-  - Slf-Employed
-  - Retired
-  - Inactive
-  - Manager
+ 1. FIRST STEPS: DEFINE CLASSES FOR ANALYSIS
+
+- Original definitions:
+    1. TRABAJADOR: trabajador + desempleado
+    2. CAPITALISTA self-employed + employes
+    3. JUBILADO retired
+    4. INACTIVO inactivo (disabled, student, unactive)
+    5. AUTÓNOMO liberal professional + self.employed
+    6. DIRECTIVO worker within so called managerial positions
+
+- Construct new classes?? and plot associated empirical distributions.
+  1. Multi-employers (+3) + Managers (Employers)
+  2. Workers + self_employed  (Workforce)
+  3. Retired + inactive (Unactive population)
+
+- If we constrain our sample to potentially active population:
+  - Our sample would not loose a lot of observations but would avoid the important bias introduced by retired population of all social classes (which cannot be clearly assignated to a given class)
+  - We would have concentrated a proper class analysis into just to main gropus (Employers, Workforce) which is suitable for OB decompositions.
+
+---
 
 - Get the remaining variables needed to include:
   - Multiprop
   - Inheritance
   - Rental income
   - Education
-
-- Construct new classes?? and plot associated empirical distributions.
-  - Multi-employers (+3) + Managers (Employers)
-  - Workers + self_employed  (Workforce)
 
 - Check how the growing inequality in real state wealth -less homeownership, growing multiproperty (Boertien & López-Gay, 2023)- has been distributed among social classes.
