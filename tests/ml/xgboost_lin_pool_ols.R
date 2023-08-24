@@ -15,16 +15,11 @@ dt_eff[, class := NULL][, bage := NULL]
 factor_cols <- colnames(dt_eff)[2:length(colnames(dt_eff))]
 
 # Creating the model matrix
-X <- lm(rif_riquezanet ~ . , data = dt_eff)
+X <- lm(rif_riquezanet ~ ., data = dt_eff)
 y <- dt_eff$rif_riquezanet
 
-
-
 # Feature Importance
-importance_matrix <- sort(X$coefficients, decreasing = T)
-
-
-
+importance_matrix <- X$coefficients
 
 # PREVIEW PRELIMINARY RESULTS
 sink("output/gradient-boost/xgboost/xgboost_linear_ols.txt")
@@ -33,9 +28,9 @@ bst_model %>% print()
 importance_matrix %>% print()
 sink()
 
-########3 PLOTTING PARTIAL DEPENDENCE
+######## 3 PLOTTING PARTIAL DEPENDENCE
 jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_ols.jpeg")
-barplot(importance_matrix,
+barplot(importance_matrix[-1],
   main = "Joint Importance of Categorical Variables",
   ylab = "Importance", xlab = "Variable", las = 2, cex.names = 0.8, col = "skyblue"
 )

@@ -1,40 +1,28 @@
 ##### xgb.Booster
 raw: 2.1 Kb 
 call:
-  xgb.train(params = params, data = dtrain, nrounds = nrounds, 
-    watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
-    early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
-    save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
-    callbacks = callbacks, objective = "reg:squarederror", booster = "gblinear")
+  xgb.train(params = params, data = dtrain, nrounds = 500)
 params (as set within xgb.train):
-  objective = "reg:squarederror", booster = "gblinear", validate_parameters = "TRUE"
+  objective = "reg:squarederror", booster = "gblinear", eta = "0.3", alpha = "0", lambda = "0", validate_parameters = "TRUE"
 xgb.attributes:
   niter
 callbacks:
   cb.print.evaluation(period = print_every_n)
-  cb.evaluation.log()
 # of features: 21 
-niter: 100
+niter: 500
 nfeatures : 21 
-evaluation_log:
-    iter train_rmse
-       1   323062.7
-       2   311555.3
----                
-      99   306292.5
-     100   306292.5
 [1] "IMPORTANCE MATRIX:"
-       (Intercept)       renthog1High     riquezafinTRUE 
-       3362408.988         335191.456         242192.686 
-    renthog1Middle               `75`            `65-75` 
-        164606.582          43667.073          26516.901 
-           sv_year homeownerHomeowner           sexWomen 
-         -1558.308          -6326.171          -7172.411 
-       renthog1Low    `self-employed`            `45-54` 
-        -18248.281         -47727.154         -60319.067 
-           manager            retired             `0-34` 
-       -102903.462        -127817.374        -133506.735 
-           `35-44`           inactive homeownerNon-Owner 
-       -139437.854        -158060.066        -179479.202 
-            worker 
-       -199364.421 
+       (Intercept)     riquezafinTRUE           sexWomen 
+       3362408.988         242192.686          -7172.411 
+      renthog1High        renthog1Low     renthog1Middle 
+        335191.456         -18248.281         164606.582 
+homeownerHomeowner homeownerNon-Owner            sv_year 
+         -6326.171        -179479.202          -1558.308 
+            worker           inactive            retired 
+       -199364.421        -158060.066        -127817.374 
+   `self-employed`            manager         capitalist 
+        -47727.154        -102903.462                 NA 
+           `45-54`            `35-44`               `75` 
+        -60319.067        -139437.854          43667.073 
+           `65-75`             `0-34`            `54-65` 
+         26516.901        -133506.735                 NA 
