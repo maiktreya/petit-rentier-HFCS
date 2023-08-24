@@ -35,7 +35,7 @@ bst_model <- xgb.train(
   dtrain,
   nrounds = 500
 )
-bst_model <- xgboost(data = X, label = y, nrounds = 100, objective = "reg:squarederror", booster = "gblinear")
+# bst_model <- xgboost(data = X, label = y, nrounds = 100, objective = "reg:squarederror", booster = "gblinear")
 
 # Feature Importance
 importance_matrix <- xgb.importance(feature_names = colnames(X), model = bst_model)

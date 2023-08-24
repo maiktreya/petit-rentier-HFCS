@@ -1,49 +1,37 @@
 ##### xgb.Booster
 raw: 2.1 Kb 
 call:
-  xgb.train(params = params, data = dtrain, nrounds = nrounds, 
-    watchlist = watchlist, verbose = verbose, print_every_n = print_every_n, 
-    early_stopping_rounds = early_stopping_rounds, maximize = maximize, 
-    save_period = save_period, save_name = save_name, xgb_model = xgb_model, 
-    callbacks = callbacks, objective = "reg:squarederror", booster = "gblinear")
+  xgb.train(params = params, data = dtrain, nrounds = 500)
 params (as set within xgb.train):
-  objective = "reg:squarederror", booster = "gblinear", validate_parameters = "TRUE"
+  objective = "reg:squarederror", booster = "gblinear", eta = "0.3", alpha = "0", lambda = "0", validate_parameters = "TRUE"
 xgb.attributes:
   niter
 callbacks:
   cb.print.evaluation(period = print_every_n)
-  cb.evaluation.log()
 # of features: 21 
-niter: 100
+niter: 500
 nfeatures : 21 
-evaluation_log:
-    iter train_rmse
-       1   323546.6
-       2   311517.5
----                
-      99   306291.6
-     100   306291.6
 [1] "IMPORTANCE MATRIX:"
-               Feature        Weight
- 1:     riquezafinTRUE  242541.85938
- 2:       renthog1High  196769.59375
- 3:        renthog1Low -152660.48438
- 4:         capitalist  124908.30469
- 5:            `35-44` -107799.42969
- 6: homeownerNon-Owner -100043.59375
- 7:             `0-34`  -99386.25000
- 8:    `self-employed`   77700.19531
- 9:             worker  -75169.61719
-10: homeownerHomeowner   75126.42188
-11:               `75`   74131.21875
-12:            `65-75`   58090.51562
-13:        (Intercept)   51423.13281
-14:           inactive  -33490.34375
-15:            `54-65`   30783.01172
-16:            `45-54`  -29592.06250
-17:     renthog1Middle   27657.18750
-18:            manager   22471.30273
-19:           sexWomen   -7838.47705
-20:            retired   -4057.81226
-21:            sv_year     -11.81624
-               Feature        Weight
+               Feature         Weight
+ 1:     riquezafinTRUE  242546.171875
+ 2:       renthog1High  209522.140625
+ 3:         capitalist  144471.250000
+ 4:        renthog1Low -139893.546875
+ 5: homeownerNon-Owner -108636.000000
+ 6:    `self-employed`   97266.054688
+ 7:            `35-44`  -94432.265625
+ 8:               `75`   87483.882812
+ 9:             `0-34`  -86012.562500
+10:            `65-75`   71448.898438
+11: homeownerHomeowner   66537.718750
+12:             worker  -55605.917969
+13:            `54-65`   44146.039062
+14:            manager   42036.335938
+15:        (Intercept)   41736.949219
+16:     renthog1Middle   40412.222656
+17:            `45-54`  -16228.273438
+18:            retired   15510.122070
+19:           inactive  -13928.441406
+20:           sexWomen   -7836.098633
+21:            sv_year      -5.170165
+               Feature         Weight

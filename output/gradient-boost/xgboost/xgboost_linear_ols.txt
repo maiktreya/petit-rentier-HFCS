@@ -18,11 +18,11 @@ niter: 100
 nfeatures : 21 
 evaluation_log:
     iter train_rmse
-       1    8772573
-       2    8739684
+       1   323062.7
+       2   311555.3
 ---                
-      99    8727435
-     100    8727435
+      99   306292.5
+     100   306292.5
 [1] "IMPORTANCE MATRIX:"
        (Intercept)       renthog1High     riquezafinTRUE 
        3362408.988         335191.456         242192.686 
