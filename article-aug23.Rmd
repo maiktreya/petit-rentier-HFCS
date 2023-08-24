@@ -1,83 +1,110 @@
 ---
+title: "Working Paper Title"
+author: "Author Name"
+date: "`r Sys.Date()`"
 output:
-  reprex::reprex_document:
-    venue: "gh"
-    advertise: FALSE
-    session_info: TRUE
-    style: TRUE
-    comment: "#;-)"
-    tidyverse_quiet: FALSE
-    std_out_err: TRUE
-knit: reprex::reprex_render
+  pdf_document: default
+  html_document: default
 ---
 
+# Abstract
 
+Here, write a brief summary of the paper, outlining the main questions, methodology, and key findings.
 
-## Code style
+# Introduction
 
-Since `style` is `TRUE`, this difficult-to-read code (look at the `.Rmd` source file) will be restyled according to the Tidyverse style guide when it's rendered. Whitespace rationing is not in effect!
+In this section, introduce the subject of the paper, why it's significant, and what you hope to achieve or demonstrate.
 
-```{r}
-x=1;y=2;z=x+y;z
-```
+# Literature Review
 
-## Quiet tidyverse
+Review relevant work in the field and provide a summary of existing research, methodologies, and findings. Highlight any gaps or unresolved questions that your paper will address.
 
-The tidyverse meta-package is quite chatty at startup, which can be very useful in exploratory, interactive work. It is often less useful in a reprex, so by default, we suppress this.
+# Methods
 
-However, when `tidyverse_quiet` is `FALSE`, the rendered result will include a tidyverse startup message about package versions and function masking.
+## Data Collection
 
-```{r, eval = requireNamespace("tidyverse", quietly = TRUE)}
-library(tidyverse)
-```
+Explain how the data was collected, including the sources, sampling methods, and any preprocessing steps.
 
-## Chunks in languages other than R
+## Model/Analysis
 
-Remember: knitr supports many other languages than R, so you can reprex bits of code in Python, Ruby, Julia, C++, SQL, and more. Note that, in many cases, this still requires that you have the relevant external interpreter installed.
-
-Let's try Python!
-
-```{python, eval = Sys.which("python") != "", python.reticulate = requireNamespace("reticulate", quietly = TRUE)}
-x = 'hello, python world!'
-print(x.split(' '))
-```
-
-And bash!
-
-```{bash, eval = Sys.which("bash") != ""}
-echo "Hello Bash!";
-pwd;
-ls | head;
-```
-
-Write a function in C++, use Rcpp to wrap it and ...
-
-```{Rcpp, eval = requireNamespace("Rcpp", quietly = TRUE)}
-#include <Rcpp.h>
-using namespace Rcpp;
-
-// [[Rcpp::export]]
-NumericVector timesTwo(NumericVector x) {
-  return x * 2;
-}
-```
-
-then immediately call your C++ function from R!
-
-```{r, eval = requireNamespace("Rcpp", quietly = TRUE)}
-timesTwo(1:4)
-```
-
-## Standard output and error
-
-Some output that you see in an interactive session is not actually captured by rmarkdown, when that same code is executed in the context of an `.Rmd` document. When `std_out_err` is `TRUE`, `reprex::reprex_render()` uses a feature of `callr:r()` to capture such output and then injects it into the rendered result.
-
-Look for this output in a special section of the rendered document (and notice that it does not appear right here).
+Outline the statistical models or analytical techniques used in the paper. Include code if necessary.
 
 ```{r}
-system2("echo", args = "Output that would normally be lost")
-```
+# Example of a code block in R
+`%>%` <- magrittr::`%>%` # nolint
+options(scipen = 999)
+c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
+dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
+dt_eff <- dt_eff[, c("rif_riquezanet", "riquezafin", "sex", "bage", "class", "renthog1", "homeowner", "sv_year")]
+# Convert 'class' and 'bage' to dummy variables
 
-## Session info
+dt_eff[, riquezafin := as.logical(riquezafin)]
+for (level in unique(dt_eff$class)) dt_eff[, paste0(level) := as.integer(class == level)]
+for (level in unique(dt_eff$bage)) dt_eff[, paste0(level) := as.integer(bage == level)]
+# Remove the original 'class' variable
+dt_eff[, class := NULL][, bage := NULL]
 
-Because `session_info` is `TRUE`, the rendered result includes session info, even though no such code is included here in the source document.
+factor_cols <- colnames(dt_eff)[2:length(colnames(dt_eff))]
+
+# Creating the model matrix
+X <- model.matrix(rif_riquezanet ~ ., data = dt_eff)
+y <- dt_eff$rif_riquezanet
+
+# Create DMatrix
+dtrain <- xgb.DMatrix(data = X, label = y)
+
+# Train xgboost model
+params <- list(
+  objective = "reg:squarederror",
+  booster = "gblinear",
+  eta = 0.3, # learning rate. default 0.3
+  alpha = 0, # default 0
+  lambda = 0 # default 0 regularization term on weights
+)
+
+bst_model <- xgb.train(
+  params = params,
+  dtrain,
+  nrounds = 500
+)
+# bst_model <- xgboost(data = X, label = y, nrounds = 100, objective = "reg:squarederror", booster = "gblinear")
+
+# Feature Importance
+importance_matrix <- xgb.importance(feature_names = colnames(X), model = bst_model)
+importance_matrix_plot <- importance_matrix$Weight  %>% abs() %>% sort(decreasing = T)
+names(importance_matrix_plot) <- importance_matrix$Feature
+# Coefficients (Note that in gblinear, raw dump includes coefficients)
+coefs <- xgb.dump(bst_model, with_stats = TRUE, dump_format = "text")
+# Extract the coefficients
+coefs_values <- as.numeric(coefs[5:length(coefs)]) # assuming coefs contains numeric values starting from the second element
+
+# Determine the indices for each categorical variable
+factor_indices <- lapply(factor_cols, function(col) grep(col, colnames(X)))
+
+# Calculate the sum of the absolute coefficients for each categorical variable
+joint_importance <- sapply(factor_indices, function(indices) sum(abs(coefs_values[indices])))
+
+# Combine with the variable names
+joint_importance_named <- setNames(joint_importance, factor_cols)
+
+
+# PREVIEW PRELIMINARY RESULTS
+sink("output/gradient-boost/xgboost/xgboost_linear_loop.txt")
+bst_model %>% print()
+"IMPORTANCE MATRIX:" %>% print()
+importance_matrix %>% print()
+sink()
+
+########3 PLOTTING PARTIAL DEPENDENCE
+jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop_joint.jpeg")
+barplot(joint_importance_named,
+  main = "Joint Importance of Categorical Variables",
+  ylab = "Importance", las = 2, cex.names = 0.8, col = "skyblue"
+)
+dev.off()
+jpeg(file = "output/gradient-boost/xgboost/xgboost_linear_loop.jpeg")
+barplot(importance_matrix_plot,
+  main = "Joint Importance of Categorical Variables",
+  ylab = "Importance", las = 2, cex.names = 0.8, col = "skyblue"
+)
+dev.off()
