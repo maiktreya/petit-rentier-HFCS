@@ -92,3 +92,24 @@ CONSIDERATIONS:
 ### ML APPROACHES
 
 - (Salas-Rojo & Rodríguez, 2022): Inheritances and wealth inequality: a machine learning approach. ✅
+
+---
+---
+
+## DRAFT NOTES
+
+  -> FIRST STEPS:
+
+- Check how the distinct social clasess are constructed
+  - Worker
+  - Capitalist
+  - Slf-Employed
+  - Retired
+  - Inactive
+  - Manager
+
+- Get the remaining variables needed to include:
+  - Multiprop
+  - Inheritance
+  - Rental income
+  - Education
