@@ -3,7 +3,11 @@
 c("magrittr", "data.table", "dineq") %>% sapply(library, character.only = T)
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
-selected_variables <- c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "riquezanet", "riquezafin", "rif_actreales")
+selected_variables <- c(
+        "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
+        "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "rents",
+        "tipo_auton", "direc", "multipr"
+)
 final_dt <- data.table()
 
 # LOOP OVER ALL SURVEYS TO CREATED SUBSET OF NEEDED VARIABLES FOR EACH YEAR AND RUN MODELS

@@ -321,8 +321,8 @@ colnames(full_mean) <- c(
     "s6b_sum",
     "s6b_sum_rent",
     "p6_81",
-    "p6_37",
-    "s6b_dir",
+    "tipo_auton",
+    "direc",
     "p5_1",
     "empre",
     "auton"
@@ -340,14 +340,16 @@ main_mean <-
         main_selection[, paste0(path, "databol3.dta")] %>% sapply(as.numeric) +
         main_selection[, paste0(path, "databol4.dta")] %>% sapply(as.numeric) +
         main_selection[, paste0(path, "databol5.dta")] %>% sapply(as.numeric)) / 5
-main_mean %>% data.table()
+main_mean <- main_mean %>% as.data.table()
 main_mean <- as.data.frame(main_mean)
 if (sel_year == 2002 | sel_year == 2005) {
-    main_mean[, "np2_32"] <- main_mean[, "p2_32"] - 1
+    main_mean$np2_32 <- main_mean$p2_32 - 1
 }
 if (sel_year == 2002 | sel_year == 2005) {
     main_mean[, "p5_1"] <- full_mean[, "p5_1"] - 1
 }
+main_mean$multipr <- main_mean$np2_32
+main_mean$np2_32 <- NULL
 if (sel_year == 2005) {
     colnames(main_mean)[colnames(main_mean) == "renthog04_€05"] <- "renthog"
 }
