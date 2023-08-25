@@ -139,7 +139,31 @@ CONSIDERATIONS:
 ** OBTAIN SELF-EMPLOYED FOR 6.81 BEFORE OPTION 3 APPEARED (BEFORE 2017)
 
 - We have to combine the response to 2 distinct questions:
-    1 . P.6.30 -> Response 2 (Only one self-employed job)
+    1. P.6.30 -> Response 2 (Only one self-employed job).
+    2. P.6.37 -> Response 1 (liberal worker / freelance),
+    3. question P.4.105 is asked as p6_36 in 2002-2005 and is complementary (juridic nature of bussiness) stored as "auton".
+- Afterwards we have to move self-employed from employers for all years:
+
+```r
+# take all self_employeds meeting both 6.30 and p6.37 conditions to a new category
+dt_eff[ p6_30 %in% 2 & p6_37 %in% 1, p6_81] <- 3
+```
+
+- INHERITANCE IS ONLY ASKED FROM 2008 AS P.9.18
+
+- FINANCIAL GAINS:
+  - p4_16 -> public shares profit
+  - p4_25 -> non-public shares profit
+  - p4_112 -> bussiness profit
+  - sell of assets: p7_8a
+  - p4_36 fixed income assets profit
+  - p4_40 other fin assets profit
+
+- REAL GAINS (rental income):
+  - p2_43_0 (total gains)
+
+- ALL RENTS:
+  - (real and financial): p7_1 (category) p7_2 (amount)
 
 ### 2. OTHER TASKS
 

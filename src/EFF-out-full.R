@@ -40,7 +40,7 @@ s637_2[is.na(s637_2)] <- 0
 s637_3[is.na(s637_3)] <- 0
 s637_4[is.na(s637_4)] <- 0
 s637_5[is.na(s637_5)] <- 0
-s637_sum <- (s637_1 + s637_2 + s637_3 + s637_4 + s637_5) / 5
+p6_37 <- (s637_1 + s637_2 + s637_3 + s637_4 + s637_5) / 5
 
 
 if (sel_year %in% c(2002, 2005)) {
@@ -222,7 +222,6 @@ f3[is.na(f3)] <- 0
 f4[is.na(f4)] <- 0
 f0 <- f1 + f2 + f3 + f4
 full_mean[, "p2_43_1"] <- f0
-full_mean[, "p2_43_4"] <- f0
 
 fp_sum <- (fp_1 + fp_2 + fp_3 + fp_4 + fp_5) / 5
 fp_sum_total <- fp_sum[, 1] + fp_sum[, 2] + fp_sum[, 3] + fp_sum[, 4] + fp_sum[, 5]
@@ -233,6 +232,7 @@ if (sel_year %in% c(2002, 2005, 2008, 2011, 2014, 2017, 2020)) {
     aa <- full_mean[, "np2_5"]
 }
 full_mean <- data.frame(
+    full_mean[, "p1_5_1"],
     full_mean[, "p2_2"],
     full_mean[, "p2_1"],
     full_mean[, "p2_18_1"],
@@ -249,7 +249,6 @@ full_mean <- data.frame(
     full_mean[, "p2_35a_3"],
     full_mean[, "p2_42_1"],
     full_mean[, "p2_43_1"],
-    full_mean[, "p2_43_4"],
     full_mean[, "p7_2"],
     full_mean[, "p7_4a"],
     full_mean[, "p7_4b"],
@@ -274,13 +273,14 @@ full_mean <- data.frame(
     s6b_sum,
     s6b_sum,
     p6_81,
-    s637_sum,
+    p6_37,
     s6b_dir,
     full_mean[, "p5_1"],
     empre,
     auton
 )
 colnames(full_mean) <- c(
+    "educ",
     "p2_2",
     "p2_1",
     "pagopr_vivpr",
@@ -297,8 +297,7 @@ colnames(full_mean) <- c(
     "p2_35a_4",
     "p2_42_1",
     "p2_43",
-    "p2_43_4",
-    "p7_2",
+    "rents",
     "p7_4a",
     "p7_4b",
     "p2_23",
@@ -322,7 +321,7 @@ colnames(full_mean) <- c(
     "s6b_sum",
     "s6b_sum_rent",
     "p6_81",
-    "s637_sum",
+    "p6_37",
     "s6b_dir",
     "p5_1",
     "empre",
@@ -386,7 +385,7 @@ set[set$s6_owner > 0, "s6_owner"] <- 1
 set[set$s6_sum3 %in% 1, "nsitlabdom"] <- 1
 set[set$s6b_dir %in% 1, "nsitlabdom"] <- 6
 set[set$s6_sum2 %in% 1, "nsitlabdom"] <- 2
-set[set$s637_sum %in% 1, "nsitlabdom"] <- 3
+set[set$p6_37 %in% 1, "nsitlabdom"] <- 3
 set[set$s6b_sum %in% 1, "nsitlabdom"] <- 2
 set[set$s6_sum5 %in% 1, "nsitlabdom"] <- 4
 set[set$s6_sum6 %in% 1, "nsitlabdom"] <- 4
