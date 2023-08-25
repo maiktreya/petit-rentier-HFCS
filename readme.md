@@ -123,6 +123,8 @@ CONSIDERATIONS:
   - With this change we instead disolve group 3.retired based on past working positions.
   - There is a problem for delimitation of autonomous workers previous 2017
 
+---
+
 > NUEVA OPCIÓN DE RESPUESTA
 > P.6.81. ¿DURANTE LA MAYOR PARTE DE SU VIDA LABORAL, CUÁL HA SIDO SU SITUACIÓN?
 >
@@ -133,6 +135,11 @@ CONSIDERATIONS:
 >- Trabajador por cuenta propia sin empleados (nueva 2017).
 
 ---
+
+** OBTAIN SELF-EMPLOYED FOR 6.81 BEFORE OPTION 3 APPEARED (BEFORE 2017)
+
+- We have to combine the response to 2 distinct questions:
+    1 . P.6.30 -> Response 2 (Only one self-employed job)
 
 ### 2. OTHER TASKS
 
