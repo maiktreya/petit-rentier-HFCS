@@ -4,6 +4,8 @@ REAL ESTATE WEALTH INEQUALITY AND SOCIAL CLASS: A RIF-oriented distributional an
 
 ## WORKING HYPOTHESIS
 
+- It has been theorized a growing access to other forms of non-labour rents for workers. analysing the EFF in all its waves for a subsample of workers, we analyse the evolution of wealth distribution and composition for workers and the influence of an important set of covariates on it through RIF regressions: the age cohort, being a managerial worker or being multihomeowner or obtaining rental income.
+
 - Previous literature almost exclusively focusses on "wealth inequality" rather than more general an informative "wealth distribution".
 
 - There is a generalized trend towards growing wealth distribution. this fact may be hidden if just focus on the mean but could be detected either clustering population or analysing alternative statistics (mean, GINI). Technically , the recent development of RIF regressions makes this kind of analysis suitable.
