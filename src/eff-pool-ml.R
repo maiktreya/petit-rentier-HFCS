@@ -6,7 +6,7 @@ sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
 selected_variables <- c(
         "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
         "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "rents",
-        "tipo_auton", "direc", "multipr"
+        "tipo_auton", "direc", "multipr", p2_42_1
 )
 final_dt <- data.table()
 
@@ -17,8 +17,8 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- dt_eff$bage # create a variable for binary age
         dt_eff[young != 1]$young <- 2 # set above 35 to non-young
         setnames(dt_eff,
-                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5"),
-                new = c("class", "worker", "homeowner", "mainres_val")
+                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5", p2_42_1),
+                new = c("class", "worker", "homeowner", "mainres_val", "useprop")
         )
         # create a categorical income variable
         dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
