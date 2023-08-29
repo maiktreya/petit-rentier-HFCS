@@ -17,7 +17,7 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- dt_eff$bage # create a variable for binary age
         dt_eff[young != 1]$young <- 2 # set above 35 to non-young
         setnames(dt_eff,
-                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5", p2_42_1),
+                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5", "p2_42_1"),
                 new = c("class", "worker", "homeowner", "mainres_val", "useprop")
         )
         # create a categorical income variable
