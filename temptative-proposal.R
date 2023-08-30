@@ -17,7 +17,7 @@ models_dt <- models_dt_int <- list()
 cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100)
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 
-dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "worker")
+dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "self-employed")
 dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 
 for (i in seq_along(years)) {
