@@ -18,17 +18,18 @@ cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100)
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 
 # prepare the RIF
-dt_eff[sv_year == 2002, riquezanet := riquezanet / 0.7331]
-dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
+
 dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "worker")
 dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 # Estimate RIF model
 
 for (i in seq_along(years)) {
-    models_dt[[i]] <- lm(rif_riquezanet ~ bage + class, data = dt_eff[sv_year == years[i]])
-    models_dt_int[[i]] <- lm(rif_riquezanet ~ bage * class, data = dt_eff[sv_year == years[i]])
-    coefs <- coef(summary(lm(rif_riquezanet ~ bage + class, data = dt_eff[sv_year == years[i]])))
-    coefs_int <- coef(summary(lm(rif_riquezanet ~ bage * class, data = dt_eff[sv_year == years[i]])))
+    dt_eff[sv_year == years[i], riquezanet := riquezanet / cpi[i]]
+    dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5, weights = dt_eff$facine3)
+    models_dt[[i]] <- lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_eff[sv_year == years[i]])
+    models_dt_int[[i]] <- lm(rif_riquezanet ~ bage * class, weights = facine3, data = dt_eff[sv_year == years[i]])
+    coefs <- coef(summary(lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_eff[sv_year == years[i]])))
+    coefs_int <- coef(summary(lm(rif_riquezanet ~ bage * class, weights = facine3, data = dt_eff[sv_year == years[i]])))
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
     pre_dt_int <- c(rbind(coefs_int[, "Estimate"], coefs_int[, "Pr(>|t|)"]))
     final_dt <- cbind(final_dt, c(years[i], pre_dt))
