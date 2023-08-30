@@ -12,9 +12,12 @@ dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos
 dt_eff[, ..selected_variables]
 dt_eff[is.na(dt_eff)] <- 0
 final_dt <- data.table()
+cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100)
 
+years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 
 # prepare the RIF
+dt_eff[sv_year == 2002, riquezanet := riquezanet / 73.31]
 dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 # Estimate RIF model
 bst_model02 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + worker, data = dt_eff[sv_year == 2002])
