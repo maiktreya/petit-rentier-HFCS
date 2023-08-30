@@ -35,8 +35,8 @@ for (i in seq_along(years)) {
     final_dt_int <- cbind(final_dt_int, c(years[i], pre_dt_int))
 }
 
-interleaved_names <- c(rbind(row.names(coefs), rep("coef", 10)))
-interleaved_names_int <- c(rbind(row.names(coefs_int), rep("coef", 28)))
+interleaved_names <- c("year", rbind(row.names(coefs), rep("p-val", 10)))
+interleaved_names_int <- c("year", rbind(row.names(coefs_int), rep("p-val", 28)))
 
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
