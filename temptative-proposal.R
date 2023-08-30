@@ -42,8 +42,8 @@ interleaved_names_int <- c(rbind(row.names(coefs_int), rep("coef", 28)))
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
 
-fwrite(final_dt, file = "final_dt")
-fwrite(final_dt_int, file = "final_dt_int")
+fwrite(final_dt, file = "output/final_dt.csv")
+fwrite(final_dt_int, file = "output/final_dt_int.csv")
 
 sink("output/temptative_multi.txt")
 print("################## MAIN MODEL ###################")
