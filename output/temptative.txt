@@ -1,242 +1,544 @@
-[1] "############### 2002 ###############"
+[1] "###############2002 ###############"
 
 Call:
 lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
-    2002])
+    years[i]])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -693799 -336979 -132314  426108  731797 
 
 Coefficients:
-                   Estimate Std. Error t value
-(Intercept)          268451      23218  11.562
-bage35-44             63966      22493   2.844
-bage45-54            206732      22049   9.376
-bage54-65            270897      22508  12.035
-bage65-75            221397      26151   8.466
-bage75               168743      27477   6.141
-classinactive       -354554      20157 -17.589
-classretired        -270261      21879 -12.353
-classself-employed  -154749     132880  -1.165
-classworker         -292654      16889 -17.328
-                        Pr(>|t|)    
-(Intercept)              < 2e-16 ***
-bage35-44                0.00448 ** 
-bage45-54                < 2e-16 ***
-bage54-65                < 2e-16 ***
-bage65-75                < 2e-16 ***
-bage75             0.00000000088 ***
-classinactive            < 2e-16 ***
-classretired             < 2e-16 ***
-classself-employed       0.24424    
-classworker              < 2e-16 ***
+                   Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)          268451      23218  11.562       < 2e-16 ***
+bage35-44             63966      22493   2.844       0.00448 ** 
+bage45-54            206732      22049   9.376       < 2e-16 ***
+bage54-65            270897      22508  12.035       < 2e-16 ***
+bage65-75            221397      26151   8.466       < 2e-16 ***
+bage75               168743      27477   6.141 0.00000000088 ***
+classinactive       -354554      20157 -17.589       < 2e-16 ***
+classretired        -270261      21879 -12.353       < 2e-16 ***
+classself-employed  -154749     132880  -1.165       0.24424    
+classworker         -292654      16889 -17.328       < 2e-16 ***
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 372400 on 5133 degrees of freedom
 Multiple R-squared:  0.1172,	Adjusted R-squared:  0.1157 
 F-statistic: 75.74 on 9 and 5133 DF,  p-value: < 2.2e-16
 
-[1] "############### 2020 ###############"
+[1] "###############2005 ###############"
 
 Call:
 lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
-    2020])
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-754874 -382380   45272  371541  724062 
+
+Coefficients:
+                   Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)          245616      21286  11.539       < 2e-16 ***
+bage35-44            125743      20672   6.083 0.00000000125 ***
+bage45-54            256086      20031  12.784       < 2e-16 ***
+bage54-65            354807      20349  17.436       < 2e-16 ***
+bage65-75            292570      23731  12.329       < 2e-16 ***
+bage75               289389      24590  11.768       < 2e-16 ***
+classinactive       -323983      18152 -17.849       < 2e-16 ***
+classretired        -264032      20158 -13.098       < 2e-16 ***
+classself-employed  -413426      91717  -4.508 0.00000668073 ***
+classworker         -273773      15829 -17.296       < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 373600 on 5952 degrees of freedom
+Multiple R-squared:  0.1292,	Adjusted R-squared:  0.1278 
+F-statistic: 98.09 on 9 and 5952 DF,  p-value: < 2.2e-16
+
+[1] "###############2008 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-755570 -387178   72689  305921  738896 
+
+Coefficients:
+                   Estimate Std. Error t value    Pr(>|t|)    
+(Intercept)          228248      23865   9.564     < 2e-16 ***
+bage35-44            117592      23428   5.019 0.000000533 ***
+bage45-54            262283      22434  11.691     < 2e-16 ***
+bage54-65            372871      22876  16.300     < 2e-16 ***
+bage65-75            344758      25777  13.375     < 2e-16 ***
+bage75               314497      26127  12.037     < 2e-16 ***
+classinactive       -321449      17732 -18.128     < 2e-16 ***
+classretired        -202971      19351 -10.489     < 2e-16 ***
+classself-employed  -307350      82123  -3.743    0.000184 ***
+classworker         -257804      15716 -16.404     < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 370800 on 6187 degrees of freedom
+Multiple R-squared:  0.1332,	Adjusted R-squared:  0.1319 
+F-statistic: 105.6 on 9 and 6187 DF,  p-value: < 2.2e-16
+
+[1] "###############2011 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-771606 -387761   63297  321365  744487 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          230260      26859   8.573  < 2e-16 ***
+bage35-44             79998      26964   2.967 0.003020 ** 
+bage45-54            232600      25690   9.054  < 2e-16 ***
+bage54-65            352138      25765  13.668  < 2e-16 ***
+bage65-75            386896      28086  13.775  < 2e-16 ***
+bage75               332102      28308  11.732  < 2e-16 ***
+classinactive       -329052      17257 -19.067  < 2e-16 ***
+classretired        -238031      18539 -12.840  < 2e-16 ***
+classself-employed  -331443      93512  -3.544 0.000396 ***
+classworker         -262674      16073 -16.343  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 369800 on 6096 degrees of freedom
+Multiple R-squared:  0.1393,	Adjusted R-squared:  0.138 
+F-statistic: 109.6 on 9 and 6096 DF,  p-value: < 2.2e-16
+
+[1] "###############2014 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-748235 -344143  -74813  333492  765948 
+
+Coefficients:
+                   Estimate Std. Error t value          Pr(>|t|)    
+(Intercept)          222018      25953   8.555           < 2e-16 ***
+bage35-44             40615      26062   1.558           0.11920    
+bage45-54            182824      24916   7.338 0.000000000000246 ***
+bage54-65            309945      25072  12.362           < 2e-16 ***
+bage65-75            371766      27579  13.480           < 2e-16 ***
+bage75               306114      27844  10.994           < 2e-16 ***
+classinactive       -342271      16756 -20.426           < 2e-16 ***
+classretired        -215930      18568 -11.629           < 2e-16 ***
+classself-employed  -311461     106315  -2.930           0.00341 ** 
+classworker         -288706      15518 -18.605           < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 364700 on 6110 degrees of freedom
+Multiple R-squared:  0.1701,	Adjusted R-squared:  0.1689 
+F-statistic: 139.2 on 9 and 6110 DF,  p-value: < 2.2e-16
+
+[1] "###############2017 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-712655 -322210   -3602  271504  796544 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          204508      25508   8.018 1.27e-15 ***
+bage35-44             60725      25453   2.386   0.0171 *  
+bage45-54            212609      24561   8.656  < 2e-16 ***
+bage54-65            318609      24477  13.017  < 2e-16 ***
+bage65-75            353696      27466  12.878  < 2e-16 ***
+bage75               342179      27679  12.362  < 2e-16 ***
+classinactive       -355358      16899 -21.028  < 2e-16 ***
+classretired        -172497      18949  -9.103  < 2e-16 ***
+classself-employed  -339374      83834  -4.048 5.22e-05 ***
+classworker         -306572      15043 -20.380  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 359900 on 6403 degrees of freedom
+Multiple R-squared:  0.1919,	Adjusted R-squared:  0.1908 
+F-statistic:   169 on 9 and 6403 DF,  p-value: < 2.2e-16
+
+[1] "###############2020 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -676620 -290610  -52721  268514  788017 
 
 Coefficients:
-                   Estimate Std. Error t value
-(Intercept)          196296      25879   7.585
-bage35-44             40593      25194   1.611
-bage45-54            172108      24108   7.139
-bage54-65            278481      24221  11.497
-bage65-75            325873      27890  11.684
-bage75               356649      28394  12.561
-classinactive       -338619      17438 -19.419
-classretired        -144989      20141  -7.199
-classself-employed  -215133      65890  -3.265
-classworker         -264670      15353 -17.239
-                            Pr(>|t|)    
-(Intercept)        0.000000000000038 ***
-bage35-44                     0.1072    
-bage45-54          0.000000000001046 ***
-bage54-65                    < 2e-16 ***
-bage65-75                    < 2e-16 ***
-bage75                       < 2e-16 ***
-classinactive                < 2e-16 ***
-classretired       0.000000000000679 ***
-classself-employed            0.0011 ** 
-classworker                  < 2e-16 ***
+                   Estimate Std. Error t value          Pr(>|t|)    
+(Intercept)          196296      25879   7.585 0.000000000000038 ***
+bage35-44             40593      25194   1.611            0.1072    
+bage45-54            172108      24108   7.139 0.000000000001046 ***
+bage54-65            278481      24221  11.497           < 2e-16 ***
+bage65-75            325873      27890  11.684           < 2e-16 ***
+bage75               356649      28394  12.561           < 2e-16 ***
+classinactive       -338619      17438 -19.419           < 2e-16 ***
+classretired        -144989      20141  -7.199 0.000000000000679 ***
+classself-employed  -215133      65890  -3.265            0.0011 ** 
+classworker         -264670      15353 -17.239           < 2e-16 ***
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 359800 on 6303 degrees of freedom
 Multiple R-squared:   0.19,	Adjusted R-squared:  0.1889 
 F-statistic: 164.3 on 9 and 6303 DF,  p-value: < 2.2e-16
 
-[1] "############### 2002 INTERACTIONS ###############"
+[1] "###############2002 INTERACTIONS ###############"
 
 Call:
 lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
-    2002])
+    years[i]])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -729544 -328170 -192214  429777  682052 
 
 Coefficients: (5 not defined because of singularities)
-                             Estimate Std. Error t value
-(Intercept)                    228952      53644   4.268
-bage35-44                       71001      61077   1.162
-bage45-54                      248102      59136   4.195
-bage54-65                      321312      59256   5.422
-bage65-75                      346141      83309   4.155
-bage75                         416742     150368   2.771
-classinactive                 -173841      78527  -2.214
-classretired                  -474160     141381  -3.354
-classself-employed            -249457     178013  -1.401
-classworker                   -265309      57391  -4.623
-bage35-44:classinactive        -76270      92134  -0.828
-bage45-54:classinactive       -173741      88881  -1.955
-bage54-65:classinactive       -202704      86236  -2.351
-bage65-75:classinactive       -292840     103575  -2.827
-bage75:classinactive          -405925     162741  -2.494
-bage35-44:classretired          19757     299844   0.066
-bage45-54:classretired         162714     165875   0.981
-bage54-65:classretired         202060     145888   1.385
-bage65-75:classretired         114985     155601   0.739
-bage75:classretired                NA         NA      NA
-bage35-44:classself-employed       NA         NA      NA
-bage45-54:classself-employed   418098     412842   1.013
-bage54-65:classself-employed   -55185     318414  -0.173
-bage65-75:classself-employed       NA         NA      NA
-bage75:classself-employed          NA         NA      NA
-bage35-44:classworker            3119      66360   0.047
-bage45-54:classworker          -31117      64518  -0.482
-bage54-65:classworker          -42586      65588  -0.649
-bage65-75:classworker          164451     110859   1.483
-bage75:classworker                 NA         NA      NA
-                                 Pr(>|t|)    
-(Intercept)                  0.0000200829 ***
-bage35-44                        0.245094    
-bage45-54                    0.0000276990 ***
-bage54-65                    0.0000000615 ***
-bage65-75                    0.0000330712 ***
-bage75                           0.005600 ** 
-classinactive                    0.026889 *  
-classretired                     0.000803 ***
-classself-employed               0.161173    
-classworker                  0.0000038789 ***
-bage35-44:classinactive          0.407813    
-bage45-54:classinactive          0.050666 .  
-bage54-65:classinactive          0.018783 *  
-bage65-75:classinactive          0.004712 ** 
-bage75:classinactive             0.012652 *  
-bage35-44:classretired           0.947468    
-bage45-54:classretired           0.326669    
-bage54-65:classretired           0.166102    
-bage65-75:classretired           0.459957    
-bage75:classretired                    NA    
-bage35-44:classself-employed           NA    
-bage45-54:classself-employed     0.311236    
-bage54-65:classself-employed     0.862412    
-bage65-75:classself-employed           NA    
-bage75:classself-employed              NA    
-bage35-44:classworker            0.962509    
-bage45-54:classworker            0.629615    
-bage54-65:classworker            0.516175    
-bage65-75:classworker            0.138023    
-bage75:classworker                     NA    
+                             Estimate Std. Error t value     Pr(>|t|)    
+(Intercept)                    228952      53644   4.268 0.0000200829 ***
+bage35-44                       71001      61077   1.162     0.245094    
+bage45-54                      248102      59136   4.195 0.0000276990 ***
+bage54-65                      321312      59256   5.422 0.0000000615 ***
+bage65-75                      346141      83309   4.155 0.0000330712 ***
+bage75                         416742     150368   2.771     0.005600 ** 
+classinactive                 -173841      78527  -2.214     0.026889 *  
+classretired                  -474160     141381  -3.354     0.000803 ***
+classself-employed            -249457     178013  -1.401     0.161173    
+classworker                   -265309      57391  -4.623 0.0000038789 ***
+bage35-44:classinactive        -76270      92134  -0.828     0.407813    
+bage45-54:classinactive       -173741      88881  -1.955     0.050666 .  
+bage54-65:classinactive       -202704      86236  -2.351     0.018783 *  
+bage65-75:classinactive       -292840     103575  -2.827     0.004712 ** 
+bage75:classinactive          -405925     162741  -2.494     0.012652 *  
+bage35-44:classretired          19757     299844   0.066     0.947468    
+bage45-54:classretired         162714     165875   0.981     0.326669    
+bage54-65:classretired         202060     145888   1.385     0.166102    
+bage65-75:classretired         114985     155601   0.739     0.459957    
+bage75:classretired                NA         NA      NA           NA    
+bage35-44:classself-employed       NA         NA      NA           NA    
+bage45-54:classself-employed   418098     412842   1.013     0.311236    
+bage54-65:classself-employed   -55185     318414  -0.173     0.862412    
+bage65-75:classself-employed       NA         NA      NA           NA    
+bage75:classself-employed          NA         NA      NA           NA    
+bage35-44:classworker            3119      66360   0.047     0.962509    
+bage45-54:classworker          -31117      64518  -0.482     0.629615    
+bage54-65:classworker          -42586      65588  -0.649     0.516175    
+bage65-75:classworker          164451     110859   1.483     0.138023    
+bage75:classworker                 NA         NA      NA           NA    
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 371700 on 5118 degrees of freedom
 Multiple R-squared:  0.1234,	Adjusted R-squared:  0.1193 
 F-statistic: 30.02 on 24 and 5118 DF,  p-value: < 2.2e-16
 
-[1] "############### 2020 INTERACTIONS ###############"
+[1] "###############2005 INTERACTIONS ###############"
 
 Call:
 lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
-    2020])
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-777919 -379943   22226  371320  685231 
+
+Coefficients: (2 not defined because of singularities)
+                             Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)                    245622      51788   4.743 0.00000215727 ***
+bage35-44                      121312      59848   2.027       0.04271 *  
+bage45-54                      256385      56330   4.551 0.00000543436 ***
+bage54-65                      341238      56522   6.037 0.00000000166 ***
+bage65-75                      377846      80970   4.667 0.00000313088 ***
+bage75                         400073     123939   3.228       0.00125 ** 
+classinactive                 -276973      64920  -4.266 0.00002017757 ***
+classretired                  -372896     113574  -3.283       0.00103 ** 
+classself-employed            -800146     287075  -2.787       0.00533 ** 
+classworker                   -285158      55254  -5.161 0.00000025377 ***
+bage35-44:classinactive         13903      78820   0.176       0.85999    
+bage45-54:classinactive        -30954      74574  -0.415       0.67810    
+bage54-65:classinactive        -44261      72288  -0.612       0.54036    
+bage65-75:classinactive       -162978      92694  -1.758       0.07876 .  
+bage75:classinactive          -167225     131932  -1.268       0.20502    
+bage35-44:classretired          80124     183637   0.436       0.66262    
+bage45-54:classretired          21256     141532   0.150       0.88063    
+bage54-65:classretired         125222     118212   1.059       0.28951    
+bage65-75:classretired          23802     130063   0.183       0.85480    
+bage75:classretired                NA         NA      NA            NA    
+bage35-44:classself-employed   278760     471994   0.591       0.55481    
+bage45-54:classself-employed   543761     343176   1.584       0.11313    
+bage54-65:classself-employed   325549     325836   0.999       0.31778    
+bage65-75:classself-employed   422299     348070   1.213       0.22508    
+bage75:classself-employed          NA         NA      NA            NA    
+bage35-44:classworker            5553      64696   0.086       0.93160    
+bage45-54:classworker            8644      61346   0.141       0.88795    
+bage54-65:classworker           40967      62537   0.655       0.51244    
+bage65-75:classworker          115350     111829   1.031       0.30236    
+bage75:classworker             285158     292344   0.975       0.32939    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 373500 on 5934 degrees of freedom
+Multiple R-squared:  0.1327,	Adjusted R-squared:  0.1287 
+F-statistic: 33.62 on 27 and 5934 DF,  p-value: < 2.2e-16
+
+[1] "###############2008 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-761429 -391463   50359  317824  687051 
+
+Coefficients: (4 not defined because of singularities)
+                             Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)                    195613      65407   2.991      0.002795 ** 
+bage35-44                      161140      72311   2.228      0.025886 *  
+bage45-54                      286611      69056   4.150 0.00003363821 ***
+bage54-65                      399723      68970   5.796 0.00000000714 ***
+bage65-75                      411365      80537   5.108 0.00000033574 ***
+bage75                         450082     121692   3.699      0.000219 ***
+classinactive                 -193514      85172  -2.272      0.023118 *  
+classretired                  -317824     103463  -3.072      0.002136 ** 
+classself-employed             -94641     158192  -0.598      0.549685    
+classworker                   -236969      69006  -3.434      0.000599 ***
+bage35-44:classinactive        -59866      98621  -0.607      0.543851    
+bage45-54:classinactive        -92582      91927  -1.007      0.313913    
+bage54-65:classinactive       -138476      90366  -1.532      0.125480    
+bage65-75:classinactive       -222754      99547  -2.238      0.025278 *  
+bage75:classinactive          -212746     134677  -1.580      0.114232    
+bage35-44:classretired         206693     283029   0.730      0.465241    
+bage45-54:classretired         -75328     130948  -0.575      0.565142    
+bage54-65:classretired         137107     108505   1.264      0.206421    
+bage65-75:classretired          91547     114279   0.801      0.423118    
+bage75:classretired                NA         NA      NA            NA    
+bage35-44:classself-employed       NA         NA      NA            NA    
+bage45-54:classself-employed  -542034     244418  -2.218      0.026615 *  
+bage54-65:classself-employed  -218703     194805  -1.123      0.261618    
+bage65-75:classself-employed       NA         NA      NA            NA    
+bage75:classself-employed          NA         NA      NA            NA    
+bage35-44:classworker          -46783      77099  -0.607      0.544013    
+bage45-54:classworker           -8243      73817  -0.112      0.911089    
+bage54-65:classworker           -7942      74514  -0.107      0.915119    
+bage65-75:classworker          115656     107393   1.077      0.281547    
+bage75:classworker              76940     206574   0.372      0.709565    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 370000 on 6171 degrees of freedom
+Multiple R-squared:  0.1394,	Adjusted R-squared:  0.1359 
+F-statistic: 39.97 on 25 and 6171 DF,  p-value: < 2.2e-16
+
+[1] "###############2011 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-755693 -380625   73253  317944  681076 
+
+Coefficients: (2 not defined because of singularities)
+                             Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)                    101596      73909   1.375      0.169307    
+bage35-44                      239911      81186   2.955      0.003138 ** 
+bage45-54                      378552      77368   4.893 0.00000101943 ***
+bage54-65                      470846      77094   6.107 0.00000000108 ***
+bage65-75                      499646      83546   5.980 0.00000000235 ***
+bage75                         417760     112473   3.714      0.000206 ***
+classinactive                 -136025      87970  -1.546      0.122092    
+classretired                  -256047     376865  -0.679      0.496903    
+classself-employed            -673807     379147  -1.777      0.075591 .  
+classworker                   -136977      79218  -1.729      0.083839 .  
+bage35-44:classinactive       -225777      98413  -2.294      0.021814 *  
+bage45-54:classinactive       -225431      93864  -2.402      0.016349 *  
+bage54-65:classinactive       -182161      93332  -1.952      0.051013 .  
+bage65-75:classinactive       -166252     100074  -1.661      0.096705 .  
+bage75:classinactive          -157157     124099  -1.266      0.205422    
+bage35-44:classretired         160161     459825   0.348      0.727620    
+bage45-54:classretired          52296     384452   0.136      0.891804    
+bage54-65:classretired          45853     378170   0.121      0.903497    
+bage65-75:classretired          24587     379046   0.065      0.948284    
+bage75:classretired             64441     386463   0.167      0.867575    
+bage35-44:classself-employed       NA         NA      NA            NA    
+bage45-54:classself-employed    39209     461040   0.085      0.932229    
+bage54-65:classself-employed   346987     401627   0.864      0.387648    
+bage65-75:classself-employed   558230     415431   1.344      0.179083    
+bage75:classself-employed          NA         NA      NA            NA    
+bage35-44:classworker         -165779      87836  -1.887      0.059158 .  
+bage45-54:classworker         -145404      83765  -1.736      0.082640 .  
+bage54-65:classworker         -120566      83976  -1.436      0.151133    
+bage65-75:classworker           86174     105092   0.820      0.412256    
+bage75:classworker            -136757     285912  -0.478      0.632441    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 369500 on 6078 degrees of freedom
+Multiple R-squared:  0.143,	Adjusted R-squared:  0.1392 
+F-statistic: 37.55 on 27 and 6078 DF,  p-value: < 2.2e-16
+
+[1] "###############2014 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-747962 -314811  -50009  347850  750136 
+
+Coefficients: (4 not defined because of singularities)
+                             Estimate Std. Error t value    Pr(>|t|)    
+(Intercept)                    188468      68721   2.743    0.006115 ** 
+bage35-44                         893      75866   0.012    0.990609    
+bage45-54                      234803      72110   3.256    0.001135 ** 
+bage54-65                      355579      71786   4.953 0.000000749 ***
+bage65-75                      405043      78485   5.161 0.000000254 ***
+bage75                         457226     122042   3.746    0.000181 ***
+classinactive                 -180178      83449  -2.159    0.030879 *  
+classretired                  -347850     101596  -3.424    0.000621 ***
+classself-employed            -400073     276202  -1.448    0.147534    
+classworker                   -292910      73986  -3.959 0.000076115 ***
+bage35-44:classinactive        -55507      94288  -0.589    0.556090    
+bage45-54:classinactive       -162581      89252  -1.822    0.068565 .  
+bage54-65:classinactive       -203509      88476  -2.300    0.021473 *  
+bage65-75:classinactive       -255227      95340  -2.677    0.007448 ** 
+bage75:classinactive          -248105     132511  -1.872    0.061209 .  
+bage35-44:classretired           4037     278335   0.015    0.988427    
+bage45-54:classretired           7208     125286   0.058    0.954125    
+bage54-65:classretired         135714     106774   1.271    0.203761    
+bage65-75:classretired         143957     109003   1.321    0.186662    
+bage75:classretired                NA         NA      NA          NA    
+bage35-44:classself-employed       NA         NA      NA          NA    
+bage45-54:classself-employed       NA         NA      NA          NA    
+bage54-65:classself-employed    21633     321192   0.067    0.946305    
+bage65-75:classself-employed   132198     322755   0.410    0.682120    
+bage75:classself-employed          NA         NA      NA          NA    
+bage35-44:classworker           87334      82315   1.061    0.288739    
+bage45-54:classworker          -24734      78466  -0.315    0.752609    
+bage54-65:classworker           -2866      78718  -0.036    0.970961    
+bage65-75:classworker          145057     102880   1.410    0.158600    
+bage75:classworker             292910     244382   1.199    0.230740    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 363600 on 6094 degrees of freedom
+Multiple R-squared:  0.1772,	Adjusted R-squared:  0.1738 
+F-statistic: 52.48 on 25 and 6094 DF,  p-value: < 2.2e-16
+
+[1] "###############2017 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-752376 -313571  -57153  271565  742992 
+
+Coefficients: (3 not defined because of singularities)
+                                       Estimate         Std. Error t value Pr(>|t|)    
+(Intercept)                    20580.8476723879   63474.1486260420   0.324 0.745767    
+bage35-44                     199504.3637656100   70308.9123552509   2.838 0.004561 ** 
+bage45-54                     414879.3648662627   67339.1674351961   6.161 7.67e-10 ***
+bage54-65                     511561.6712537686   66741.8089849163   7.665 2.06e-14 ***
+bage65-75                     577343.7924392626   77157.3104105859   7.483 8.26e-14 ***
+bage75                        625113.6731323460   99444.8790594570   6.286 3.47e-10 ***
+classinactive                -117878.5783621760   79569.0562447910  -1.481 0.138533    
+classretired                 -271564.5338795690   77398.6154998221  -3.509 0.000453 ***
+classself-employed                 0.0000002164  367133.8690845726   0.000 1.000000    
+classworker                  -106053.7679935439   69064.6587777450  -1.536 0.124693    
+bage35-44:classinactive      -116772.0366761063   90261.8272977749  -1.294 0.195815    
+bage45-54:classinactive      -237680.3760161549   85885.2373338788  -2.767 0.005666 ** 
+bage54-65:classinactive      -255144.3869542092   84807.4306488196  -3.009 0.002636 ** 
+bage65-75:classinactive      -347739.6951565891   94872.3366906077  -3.665 0.000249 ***
+bage75:classinactive         -349381.9626540232  112621.6621168978  -3.102 0.001929 ** 
+bage35-44:classretired                       NA                 NA      NA       NA    
+bage45-54:classretired         37273.5634736357  144296.0829054918   0.258 0.796174    
+bage54-65:classretired         62669.8410796711   84008.7785456436   0.746 0.455700    
+bage65-75:classretired         64582.7245263489   89600.3399193838   0.721 0.471067    
+bage75:classretired                          NA                 NA      NA       NA    
+bage35-44:classself-employed -374536.1922429714  514420.6594251656  -0.728 0.466595    
+bage45-54:classself-employed  210234.3082657776  514023.1854281434   0.409 0.682555    
+bage54-65:classself-employed -229367.4988114487  391957.7996351987  -0.585 0.558445    
+bage65-75:classself-employed -574565.5094478176  388634.5053755605  -1.478 0.139344    
+bage75:classself-employed                    NA                 NA      NA       NA    
+bage35-44:classworker        -163125.1873824652   76900.6509042241  -2.121 0.033940 *  
+bage45-54:classworker        -231896.7142047899   73880.9727988664  -3.139 0.001704 ** 
+bage54-65:classworker        -201813.3755538778   73602.5399293939  -2.742 0.006125 ** 
+bage65-75:classworker        -112891.5185165258   98812.4468640604  -1.142 0.253296    
+bage75:classworker            -93982.6074087887  207031.3596290248  -0.454 0.649878    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 359100 on 6386 degrees of freedom
+Multiple R-squared:  0.1978,	Adjusted R-squared:  0.1945 
+F-statistic: 60.56 on 26 and 6386 DF,  p-value: < 2.2e-16
+
+[1] "###############2020 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
 -769371 -285766  -90157  273059  731167 
 
 Coefficients: (4 not defined because of singularities)
-                             Estimate Std. Error t value
-(Intercept)                     74162      78358   0.946
-bage35-44                       87041      85574   1.017
-bage45-54                      279172      81461   3.427
-bage54-65                      431156      81194   5.310
-bage65-75                      540758      92842   5.825
-bage75                         571532     126722   4.510
-classinactive                 -138456      89196  -1.552
-classretired                  -232691     100289  -2.320
-classself-employed            -400073     272742  -1.467
-classworker                   -159635      82952  -1.924
-bage35-44:classinactive        -77834      99908  -0.779
-bage45-54:classinactive       -191832      94371  -2.033
-bage54-65:classinactive       -220569      94091  -2.344
-bage65-75:classinactive       -345149     107046  -3.224
-bage75:classinactive          -338554     136751  -2.476
-bage35-44:classretired         317110     275155   1.152
-bage45-54:classretired          44964     138382   0.325
-bage54-65:classretired          58582     105602   0.555
-bage65-75:classretired          -9593     112564  -0.085
-bage75:classretired                NA         NA      NA
-bage35-44:classself-employed       NA         NA      NA
-bage45-54:classself-employed       NA         NA      NA
-bage54-65:classself-employed   184829     298609   0.619
-bage65-75:classself-employed    87928     288110   0.305
-bage75:classself-employed          NA         NA      NA
-bage35-44:classworker          -28047      90952  -0.308
-bage45-54:classworker          -82064      86770  -0.946
-bage54-65:classworker         -154092      86770  -1.776
-bage65-75:classworker          -64956     110018  -0.590
-bage75:classworker             159635     221437   0.721
-                                  Pr(>|t|)    
-(Intercept)                       0.343955    
-bage35-44                         0.309126    
-bage45-54                         0.000614 ***
-bage54-65                    0.00000011324 ***
-bage65-75                    0.00000000601 ***
-bage75                       0.00000659616 ***
-classinactive                     0.120651    
-classretired                      0.020361 *  
-classself-employed                0.142465    
-classworker                       0.054346 .  
-bage35-44:classinactive           0.435980    
-bage45-54:classinactive           0.042121 *  
-bage54-65:classinactive           0.019098 *  
-bage65-75:classinactive           0.001269 ** 
-bage75:classinactive              0.013324 *  
-bage35-44:classretired            0.249169    
-bage45-54:classretired            0.745245    
-bage54-65:classretired            0.579087    
-bage65-75:classretired            0.932086    
-bage75:classretired                     NA    
-bage35-44:classself-employed            NA    
-bage45-54:classself-employed            NA    
-bage54-65:classself-employed      0.535960    
-bage65-75:classself-employed      0.760232    
-bage75:classself-employed               NA    
-bage35-44:classworker             0.757808    
-bage45-54:classworker             0.344305    
-bage54-65:classworker             0.075803 .  
-bage65-75:classworker             0.554937    
-bage75:classworker                0.470995    
+                             Estimate Std. Error t value      Pr(>|t|)    
+(Intercept)                     74162      78358   0.946      0.343955    
+bage35-44                       87041      85574   1.017      0.309126    
+bage45-54                      279172      81461   3.427      0.000614 ***
+bage54-65                      431156      81194   5.310 0.00000011324 ***
+bage65-75                      540758      92842   5.825 0.00000000601 ***
+bage75                         571532     126722   4.510 0.00000659616 ***
+classinactive                 -138456      89196  -1.552      0.120651    
+classretired                  -232691     100289  -2.320      0.020361 *  
+classself-employed            -400073     272742  -1.467      0.142465    
+classworker                   -159635      82952  -1.924      0.054346 .  
+bage35-44:classinactive        -77834      99908  -0.779      0.435980    
+bage45-54:classinactive       -191832      94371  -2.033      0.042121 *  
+bage54-65:classinactive       -220569      94091  -2.344      0.019098 *  
+bage65-75:classinactive       -345149     107046  -3.224      0.001269 ** 
+bage75:classinactive          -338554     136751  -2.476      0.013324 *  
+bage35-44:classretired         317110     275155   1.152      0.249169    
+bage45-54:classretired          44964     138382   0.325      0.745245    
+bage54-65:classretired          58582     105602   0.555      0.579087    
+bage65-75:classretired          -9593     112564  -0.085      0.932086    
+bage75:classretired                NA         NA      NA            NA    
+bage35-44:classself-employed       NA         NA      NA            NA    
+bage45-54:classself-employed       NA         NA      NA            NA    
+bage54-65:classself-employed   184829     298609   0.619      0.535960    
+bage65-75:classself-employed    87928     288110   0.305      0.760232    
+bage75:classself-employed          NA         NA      NA            NA    
+bage35-44:classworker          -28047      90952  -0.308      0.757808    
+bage45-54:classworker          -82064      86770  -0.946      0.344305    
+bage54-65:classworker         -154092      86770  -1.776      0.075803 .  
+bage65-75:classworker          -64956     110018  -0.590      0.554937    
+bage75:classworker             159635     221437   0.721      0.470995    
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 359100 on 6287 degrees of freedom
 Multiple R-squared:  0.1951,	Adjusted R-squared:  0.1919 
