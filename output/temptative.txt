@@ -1,92 +1,288 @@
 [1] "############### 2002 ###############"
 
 Call:
-lm(formula = rif_riquezanet ~ bage + educ + rents + sex + multipr + 
+lm(formula = rif_riquezanet ~ bage + class + educ + sex + multipr + 
     direc + as.logical(riquezafin), data = dt_eff[sv_year == 
     2002])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--872372 -148185  -58178  176149  871186 
+-889698 -150273  -74079  194338  837124 
 
 Coefficients:
-                               Estimate   Std. Error
-(Intercept)                 -20013.5620   19413.1867
-bage35-44                    44241.5974   17697.7292
-bage45-54                   138825.3096   17489.1367
-bage54-65                   178111.7132   17576.8185
-bage65-75                   168824.3374   17405.7625
-bage75                      136920.1397   18490.1985
-educ                         24407.7516    1363.5003
-rents                            1.4383       0.4098
-sexWomen                     -1523.1099    8824.0410
-multipr                    -260023.4563    9234.2123
-direc                       108932.0381   13078.7078
-as.logical(riquezafin)TRUE  197718.8130   10344.0797
-                           t value Pr(>|t|)    
-(Intercept)                 -1.031 0.302624    
-bage35-44                    2.500 0.012456 *  
-bage45-54                    7.938 2.51e-15 ***
-bage54-65                   10.133  < 2e-16 ***
-bage65-75                    9.699  < 2e-16 ***
-bage75                       7.405 1.52e-13 ***
-educ                        17.901  < 2e-16 ***
-rents                        3.510 0.000453 ***
-sexWomen                    -0.173 0.862965    
-multipr                    -28.159  < 2e-16 ***
-direc                        8.329  < 2e-16 ***
-as.logical(riquezafin)TRUE  19.114  < 2e-16 ***
+                           Estimate Std. Error t value
+(Intercept)                  132245      22507   5.876
+bage35-44                     37269      18061   2.064
+bage45-54                    128205      17890   7.166
+bage54-65                    172756      18539   9.318
+bage65-75                    173963      21550   8.072
+bage75                       138514      22570   6.137
+classinactive               -117554      18267  -6.435
+classretired                -121278      18029  -6.727
+classself-employed          -118734     106782  -1.112
+classworker                 -152525      14201 -10.740
+educ                          23874       1411  16.918
+sexWomen                      12973      10598   1.224
+multipr                     -269140       9407 -28.612
+direc                        101150      13724   7.370
+as.logical(riquezafin)TRUE   182657      10569  17.282
+                           Pr(>|t|)    
+(Intercept)                4.47e-09 ***
+bage35-44                    0.0391 *  
+bage45-54                  8.81e-13 ***
+bage54-65                   < 2e-16 ***
+bage65-75                  8.52e-16 ***
+bage75                     9.04e-10 ***
+classinactive              1.34e-10 ***
+classretired               1.92e-11 ***
+classself-employed           0.2662    
+classworker                 < 2e-16 ***
+educ                        < 2e-16 ***
+sexWomen                     0.2210    
+multipr                     < 2e-16 ***
+direc                      1.97e-13 ***
+as.logical(riquezafin)TRUE  < 2e-16 ***
 ---
 Signif. codes:  
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 292700 on 5131 degrees of freedom
-Multiple R-squared:  0.4317,	Adjusted R-squared:  0.4305 
-F-statistic: 354.3 on 11 and 5131 DF,  p-value: < 2.2e-16
+Residual standard error: 298200 on 5128 degrees of freedom
+Multiple R-squared:  0.4346,	Adjusted R-squared:  0.433 
+F-statistic: 281.5 on 14 and 5128 DF,  p-value: < 2.2e-16
 
+[1] "############### 2020 ###############"
 
 Call:
-lm(formula = rif_riquezanet ~ bage + educ + rents + sex + multipr + 
+lm(formula = rif_riquezanet ~ bage + class + educ + sex + multipr + 
     direc + as.logical(riquezafin), data = dt_eff[sv_year == 
     2020])
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--785998 -158164  -37399  168616  845838 
+-853585 -165853  -20302  160487  873386 
 
 Coefficients:
-                               Estimate   Std. Error
-(Intercept)                -175810.8508   18119.5722
-bage35-44                     3325.0497   19997.6630
-bage45-54                    93010.5447   19196.6315
-bage54-65                   149575.6045   19311.8447
-bage65-75                   166407.8031   19797.1939
-bage75                      181297.8467   20001.0837
-educ                            99.0892       8.4236
-rents                            1.1581       0.1829
-sexWomen                    -32676.2012    7556.2606
-multipr                     255409.8959    8177.8440
-direc                       127702.1278    9192.2021
-as.logical(riquezafin)TRUE  231818.2516    8715.9315
-                           t value          Pr(>|t|)    
-(Intercept)                 -9.703           < 2e-16 ***
-bage35-44                    0.166             0.868    
-bage45-54                    4.845 0.000001295431866 ***
-bage54-65                    7.745 0.000000000000011 ***
-bage65-75                    8.406           < 2e-16 ***
-bage75                       9.064           < 2e-16 ***
-educ                        11.763           < 2e-16 ***
-rents                        6.334 0.000000000256129 ***
-sexWomen                    -4.324 0.000015531448397 ***
-multipr                     31.232           < 2e-16 ***
-direc                       13.892           < 2e-16 ***
-as.logical(riquezafin)TRUE  26.597           < 2e-16 ***
+                              Estimate  Std. Error t value
+(Intercept)                 -93889.728   22148.165  -4.239
+bage35-44                    -4504.887   20213.870  -0.223
+bage45-54                    85752.708   19405.375   4.419
+bage54-65                   140094.346   19612.062   7.143
+bage65-75                   154053.223   22631.090   6.807
+bage75                      174439.488   23078.420   7.559
+classinactive              -110587.638   15255.442  -7.249
+classretired                -56098.134   16730.743  -3.353
+classself-employed          -84830.494   53316.759  -1.591
+classworker                 -87479.405   13484.825  -6.487
+educ                            99.899       8.537  11.702
+sexWomen                    -24313.444    8085.165  -3.007
+multipr                     258442.136    8230.442  31.401
+direc                       112670.543    9945.878  11.328
+as.logical(riquezafin)TRUE  236059.676    8797.863  26.831
+                           Pr(>|t|)    
+(Intercept)                2.28e-05 ***
+bage35-44                  0.823651    
+bage45-54                  1.01e-05 ***
+bage54-65                  1.01e-12 ***
+bage65-75                  1.09e-11 ***
+bage75                     4.66e-14 ***
+classinactive              4.70e-13 ***
+classretired               0.000804 ***
+classself-employed         0.111645    
+classworker                9.41e-11 ***
+educ                        < 2e-16 ***
+sexWomen                   0.002647 ** 
+multipr                     < 2e-16 ***
+direc                       < 2e-16 ***
+as.logical(riquezafin)TRUE  < 2e-16 ***
 ---
 Signif. codes:  
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 285300 on 6301 degrees of freedom
-Multiple R-squared:  0.479,	Adjusted R-squared:  0.4781 
-F-statistic: 526.7 on 11 and 6301 DF,  p-value: < 2.2e-16
+Residual standard error: 288100 on 6298 degrees of freedom
+Multiple R-squared:  0.4809,	Adjusted R-squared:  0.4797 
+F-statistic: 416.7 on 14 and 6298 DF,  p-value: < 2.2e-16
 
-[1] "############### 2020 ###############"
+[1] "############### 2002 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class + educ + sex + multipr + 
+    direc + as.logical(riquezafin), data = dt_eff[sv_year == 
+    2002])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-890738 -151527  -76637  195411  833900 
+
+Coefficients: (5 not defined because of singularities)
+                             Estimate Std. Error t value
+(Intercept)                    138908      44850   3.097
+bage35-44                        7192      49067   0.147
+bage45-54                      125223      47649   2.628
+bage54-65                      186158      47864   3.889
+bage65-75                      149070      67174   2.219
+bage75                         126142     121022   1.042
+classinactive                  -69610      63378  -1.098
+classretired                  -117399     113901  -1.031
+classself-employed             -63001     143300  -0.440
+classworker                   -165704      46195  -3.587
+educ                            23750       1419  16.735
+sexWomen                        13787      10655   1.294
+multipr                       -269493       9426 -28.592
+direc                          100208      13771   7.277
+as.logical(riquezafin)TRUE     181948      10594  17.174
+bage35-44:classinactive          9501      74003   0.128
+bage45-54:classinactive        -47057      71436  -0.659
+bage54-65:classinactive        -89808      69306  -1.296
+bage65-75:classinactive        -39421      83332  -0.473
+bage75:classinactive           -35891     130976  -0.274
+bage35-44:classretired         -56160     240826  -0.233
+bage45-54:classretired         -30011     133302  -0.225
+bage54-65:classretired         -20625     117303  -0.176
+bage65-75:classretired          17161     125049   0.137
+bage75:classretired                NA         NA      NA
+bage35-44:classself-employed       NA         NA      NA
+bage45-54:classself-employed    11329     331582   0.034
+bage54-65:classself-employed  -202812     255759  -0.793
+bage65-75:classself-employed       NA         NA      NA
+bage75:classself-employed          NA         NA      NA
+bage35-44:classworker           39604      53285   0.743
+bage45-54:classworker            9635      51846   0.186
+bage54-65:classworker           -4186      52676  -0.079
+bage65-75:classworker           87609      89111   0.983
+bage75:classworker                 NA         NA      NA
+                                      Pr(>|t|)    
+(Intercept)                           0.001965 ** 
+bage35-44                             0.883469    
+bage45-54                             0.008614 ** 
+bage54-65                             0.000102 ***
+bage65-75                             0.026520 *  
+bage75                                0.297320    
+classinactive                         0.272110    
+classretired                          0.302724    
+classself-employed                    0.660217    
+classworker                           0.000338 ***
+educ                                   < 2e-16 ***
+sexWomen                              0.195737    
+multipr                                < 2e-16 ***
+direc                        0.000000000000394 ***
+as.logical(riquezafin)TRUE             < 2e-16 ***
+bage35-44:classinactive               0.897846    
+bage45-54:classinactive               0.510098    
+bage54-65:classinactive               0.195094    
+bage65-75:classinactive               0.636192    
+bage75:classinactive                  0.784077    
+bage35-44:classretired                0.815618    
+bage45-54:classretired                0.821881    
+bage54-65:classretired                0.860435    
+bage65-75:classretired                0.890852    
+bage75:classretired                         NA    
+bage35-44:classself-employed                NA    
+bage45-54:classself-employed          0.972747    
+bage54-65:classself-employed          0.427825    
+bage65-75:classself-employed                NA    
+bage75:classself-employed                   NA    
+bage35-44:classworker                 0.457373    
+bage45-54:classworker                 0.852586    
+bage54-65:classworker                 0.936657    
+bage65-75:classworker                 0.325582    
+bage75:classworker                          NA    
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 298400 on 5113 degrees of freedom
+Multiple R-squared:  0.4355,	Adjusted R-squared:  0.4323 
+F-statistic:   136 on 29 and 5113 DF,  p-value: < 2.2e-16
+
+[1] "############### 2020 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class + educ + sex + multipr + 
+    direc + as.logical(riquezafin), data = dt_eff[sv_year == 
+    2020])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-848412 -163909  -20262  158859  862710 
+
+Coefficients: (4 not defined because of singularities)
+                                Estimate  Std. Error
+(Intercept)                  -212119.838   63462.937
+bage35-44                      94584.462   68671.135
+bage45-54                     199853.673   65402.543
+bage54-65                     271282.081   65247.671
+bage65-75                     304301.283   74616.305
+bage75                        330355.875  101781.731
+classinactive                  33470.145   71841.165
+classretired                  -91498.240   80584.774
+classself-employed           -158002.661  219000.097
+classworker                    34167.166   66872.408
+educ                             100.335       8.545
+sexWomen                      -23805.567    8101.742
+multipr                       258825.623    8241.699
+direc                         112401.624    9971.272
+as.logical(riquezafin)TRUE    234463.539    8825.312
+bage35-44:classinactive       -84526.421   80159.118
+bage45-54:classinactive      -153130.063   75732.725
+bage54-65:classinactive      -160154.700   75522.786
+bage65-75:classinactive      -184938.121   85942.198
+bage75:classinactive         -198229.886  109736.133
+bage35-44:classretired        465956.157  220750.812
+bage45-54:classretired         97321.591  111041.423
+bage54-65:classretired         24778.579   84759.573
+bage65-75:classretired          -326.973   90308.705
+bage75:classretired                   NA          NA
+bage35-44:classself-employed          NA          NA
+bage45-54:classself-employed          NA          NA
+bage54-65:classself-employed   91069.362  239641.357
+bage65-75:classself-employed   30810.650  231178.510
+bage75:classself-employed             NA          NA
+bage35-44:classworker        -110644.506   72996.163
+bage45-54:classworker        -112979.459   69624.472
+bage54-65:classworker        -139908.597   69639.048
+bage65-75:classworker         -78622.546   88265.042
+bage75:classworker            -73285.780  177768.307
+                             t value  Pr(>|t|)    
+(Intercept)                   -3.342  0.000835 ***
+bage35-44                      1.377  0.168452    
+bage45-54                      3.056  0.002254 ** 
+bage54-65                      4.158 0.0000326 ***
+bage65-75                      4.078 0.0000459 ***
+bage75                         3.246  0.001178 ** 
+classinactive                  0.466  0.641310    
+classretired                  -1.135  0.256239    
+classself-employed            -0.721  0.470645    
+classworker                    0.511  0.609418    
+educ                          11.742   < 2e-16 ***
+sexWomen                      -2.938  0.003312 ** 
+multipr                       31.404   < 2e-16 ***
+direc                         11.273   < 2e-16 ***
+as.logical(riquezafin)TRUE    26.567   < 2e-16 ***
+bage35-44:classinactive       -1.054  0.291702    
+bage45-54:classinactive       -2.022  0.043221 *  
+bage54-65:classinactive       -2.121  0.033993 *  
+bage65-75:classinactive       -2.152  0.031444 *  
+bage75:classinactive          -1.806  0.070900 .  
+bage35-44:classretired         2.111  0.034831 *  
+bage45-54:classretired         0.876  0.380822    
+bage54-65:classretired         0.292  0.770037    
+bage65-75:classretired        -0.004  0.997111    
+bage75:classretired               NA        NA    
+bage35-44:classself-employed      NA        NA    
+bage45-54:classself-employed      NA        NA    
+bage54-65:classself-employed   0.380  0.703941    
+bage65-75:classself-employed   0.133  0.893979    
+bage75:classself-employed         NA        NA    
+bage35-44:classworker         -1.516  0.129631    
+bage45-54:classworker         -1.623  0.104704    
+bage54-65:classworker         -2.009  0.044574 *  
+bage65-75:classworker         -0.891  0.373095    
+bage75:classworker            -0.412  0.680167    
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 288000 on 6282 degrees of freedom
+Multiple R-squared:  0.4825,	Adjusted R-squared:  0.4801 
+F-statistic: 195.3 on 30 and 6282 DF,  p-value: < 2.2e-16
+
