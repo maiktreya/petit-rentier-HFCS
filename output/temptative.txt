@@ -6,42 +6,29 @@ lm(formula = rif_riquezanet ~ bage + educ + rents + sex + multipr +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--858484 -155487  -26094  175073  918707 
+-862875 -157759  -31944  175699  928652 
 
-Coefficients: (1 not defined because of singularities)
-                 Estimate   Std. Error t value
-(Intercept)    25209.7696   19294.7678   1.307
-bage35-44      24934.4893   17105.5062   1.458
-bage45-54     130810.7394   16870.2797   7.754
-bage54-65     178134.2909   16938.2347  10.517
-bage65-75     161495.6364   16784.9106   9.621
-bage75        139386.5937   17906.9907   7.784
-educ           31498.9625    1273.9995  24.724
-rents              2.1863       0.3962   5.518
-sex                    NA           NA      NA
-multipr      -289258.3576    8676.2593 -33.339
-direc         150911.1847   12667.5602  11.913
-workerWorker  -88503.8046    9117.4998  -9.707
-             Pr(>|t|)    
-(Intercept)     0.191    
-bage35-44       0.145    
-bage45-54    1.07e-14 ***
-bage54-65     < 2e-16 ***
-bage65-75     < 2e-16 ***
-bage75       8.45e-15 ***
-educ          < 2e-16 ***
-rents        3.60e-08 ***
-sex                NA    
-multipr       < 2e-16 ***
-direc         < 2e-16 ***
-workerWorker  < 2e-16 ***
+Coefficients:
+                 Estimate   Std. Error t value Pr(>|t|)    
+(Intercept)    32814.2530   19744.4113   1.662   0.0966 .  
+bage35-44      24720.1776   17102.1460   1.445   0.1484    
+bage45-54     130292.7561   16868.9968   7.724 1.35e-14 ***
+bage54-65     177522.4274   16937.8865  10.481  < 2e-16 ***
+bage65-75     161571.4651   16781.2622   9.628  < 2e-16 ***
+bage75        140658.6856   17916.8840   7.851 5.00e-15 ***
+educ           31453.7728    1273.9642  24.690  < 2e-16 ***
+rents              2.1661       0.3963   5.466 4.82e-08 ***
+sexWomen      -15718.9785    8700.8222  -1.807   0.0709 .  
+multipr      -287633.5528    8720.8454 -32.982  < 2e-16 ***
+direc         147313.2689   12820.3947  11.491  < 2e-16 ***
+workerWorker  -91868.4165    9303.7976  -9.874  < 2e-16 ***
 ---
 Signif. codes:  
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 282900 on 5132 degrees of freedom
-Multiple R-squared:  0.4214,	Adjusted R-squared:  0.4202 
-F-statistic: 373.7 on 10 and 5132 DF,  p-value: < 2.2e-16
+Residual standard error: 282900 on 5131 degrees of freedom
+Multiple R-squared:  0.4217,	Adjusted R-squared:  0.4205 
+F-statistic: 340.2 on 11 and 5131 DF,  p-value: < 2.2e-16
 
 
 Call:
@@ -50,43 +37,43 @@ lm(formula = rif_riquezanet ~ bage + educ + rents + sex + multipr +
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--829007 -180662    1586  192769  820192 
+-839932 -189830   -2837  217442  844959 
 
-Coefficients: (1 not defined because of singularities)
+Coefficients:
                      Estimate   Std. Error t value
-(Intercept)      -201712.4453   22701.7011  -8.885
-bage35-44           9767.3205   20955.3865   0.466
-bage45-54         104410.8825   20115.2693   5.191
-bage54-65         168631.0025   20226.3279   8.337
-bage65-75         200505.8504   20703.4456   9.685
-bage75            216268.0769   20980.1302  10.308
-educ                 150.9883       8.6088  17.539
-rents                  1.3120       0.1921   6.829
-sex                        NA           NA      NA
-multipr           306674.7803    8350.1038  36.727
-direc             159156.6390   10249.1102  15.529
-workerNon-Worker   58938.7902   16644.5746   3.541
-workerWorker       11651.8054   13772.9486   0.846
-                         Pr(>|t|)    
-(Intercept)               < 2e-16 ***
-bage35-44                0.641160    
-bage45-54        0.00000021614634 ***
-bage54-65                 < 2e-16 ***
-bage65-75                 < 2e-16 ***
-bage75                    < 2e-16 ***
-educ                      < 2e-16 ***
-rents            0.00000000000933 ***
-sex                            NA    
-multipr                   < 2e-16 ***
-direc                     < 2e-16 ***
-workerNon-Worker         0.000401 ***
-workerWorker             0.397589    
+(Intercept)      -169202.2604   23035.9202  -7.345
+bage35-44           7340.8826   20870.4677   0.352
+bage45-54         103282.2323   20031.8352   5.156
+bage54-65         166719.0572   20143.5221   8.277
+bage65-75         195235.4469   20629.4433   9.464
+bage75            213957.2051   20894.8623  10.240
+educ                 150.3169       8.5733  17.533
+rents                  1.3096       0.1913   6.845
+sexWomen          -57600.1379    7840.4709  -7.347
+multipr           303975.7970    8323.3366  36.521
+direc             145258.3788   10380.1496  13.994
+workerNon-Worker   59894.5650   16575.5594   3.613
+workerWorker        9343.0885   13719.0177   0.681
+                          Pr(>|t|)    
+(Intercept)      0.000000000000232 ***
+bage35-44                 0.725048    
+bage45-54        0.000000260106473 ***
+bage54-65                  < 2e-16 ***
+bage65-75                  < 2e-16 ***
+bage75                     < 2e-16 ***
+educ                       < 2e-16 ***
+rents            0.000000000008349 ***
+sexWomen         0.000000000000229 ***
+multipr                    < 2e-16 ***
+direc                      < 2e-16 ***
+workerNon-Worker          0.000305 ***
+workerWorker              0.495876    
 ---
 Signif. codes:  
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 299000 on 6301 degrees of freedom
-Multiple R-squared:  0.4174,	Adjusted R-squared:  0.4164 
-F-statistic: 410.5 on 11 and 6301 DF,  p-value: < 2.2e-16
+Residual standard error: 297700 on 6300 degrees of freedom
+Multiple R-squared:  0.4224,	Adjusted R-squared:  0.4213 
+F-statistic: 383.9 on 12 and 6300 DF,  p-value: < 2.2e-16
 
 [1] "############### 2020 ###############"
