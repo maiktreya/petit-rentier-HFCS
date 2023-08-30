@@ -1,6 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 options(scipen = 99)
+rif_var <- "quantile"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
@@ -24,7 +25,7 @@ for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     dt_transform[, riquezanet := riquezanet / (cpi[i] / 100)]
     # Estimate RIF model
-    dt_transform$rif_riquezanet <- rif(dt_transform$riquezanet, method = "quantile", quantile = 0.5, weights = dt_transform$facine3)
+    dt_transform$rif_riquezanet <- rif(dt_transform$riquezanet, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
     models_dt[[i]] <- lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_transform)
     models_dt_int[[i]] <- lm(rif_riquezanet ~ bage * class, weights = facine3, data = dt_transform)
     coefs <- coef(summary(lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_transform)))
@@ -41,17 +42,17 @@ interleaved_names_int <- c("year", rbind(row.names(coefs_int), rep("p-val", 28))
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
 
-fwrite(final_dt, file = "output/final_dt.csv")
-fwrite(final_dt_int, file = "output/final_dt_int.csv")
+fwrite(final_dt, file = paste0("output/", rif_var, "_final_dt.csv"))
+fwrite(final_dt_int, file = paste0("output/", rif_var, "_final_dt_int.csv"))
 
-sink("output/temptative_multi.txt")
+sink(paste0("output/", rif_var, "_temptative_multi.txt"))
 print("################## MAIN MODEL ###################")
 print(final_dt)
 print("################## INTERACTIONS MODEL ###################")
 print(final_dt_int)
 sink()
 
-sink("output/temptative.txt")
+sink(paste0("output/", rif_var, "_temptative.txt"))
 
 for (i in seq_along(years)) {
     print(paste0("###############", years[i], " ###############"))
