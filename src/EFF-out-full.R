@@ -11,7 +11,6 @@ full_mean <-
         full_selection[, paste0(path, "otras_secciones_imp3.dta")] %>% sapply(as.numeric) +
         full_selection[, paste0(path, "otras_secciones_imp4.dta")] %>% sapply(as.numeric) +
         full_selection[, paste0(path, "otras_secciones_imp5.dta")] %>% sapply(as.numeric)) / 5
-full_mean %>% data.table()
 kind <- c("p6_30_1", "p6_30_2", "p6_30_3", "p6_30_4", "p6_30_5", "p6_30_6", "p6_30_7", "p6_30_8")
 class <- c("p6_1c1_1", "p6_1c2_1", "p6_1c3_1", "p6_1c4_1", "p6_1c5_1", "p6_1c6_1", "p6_1c7_1", "p6_1c8_1")
 valor_2002_2005 <- c("p5_7_1", "p5_7_2", "p5_7_1", "p5_7_1", "p5_7_1", "p5_7_1", "p5_7_1", "p5_7_1", "p5_7_1", "p5_7_1")
@@ -389,15 +388,15 @@ set[!(set$p2_2 %in% c(2, 3)), "p2_2"] <- 0
 set[set$p2_2 > 0, "p2_2"] <- 1
 set[set$s6_owner > 0, "s6_owner"] <- 1
 set[set$s6_sum3 %in% 1, "nsitlabdom"] <- 1
-set[set$s6b_dir %in% 1, "nsitlabdom"] <- 6
 set[set$s6_sum2 %in% 1, "nsitlabdom"] <- 2
-set[set$p6_37 %in% 1, "nsitlabdom"] <- 3
 set[set$s6b_sum %in% 1, "nsitlabdom"] <- 2
+set[set$p6_37 %in% 1, "nsitlabdom"] <- 3
 set[set$s6_sum5 %in% 1, "nsitlabdom"] <- 4
 set[set$s6_sum6 %in% 1, "nsitlabdom"] <- 4
 set[set$s6_sum7 %in% 1, "nsitlabdom"] <- 4
 set[set$s6_sum8 %in% 1, "nsitlabdom"] <- 4
 set[set$s6_sum4 %in% 1, "nsitlabdom"] <- 5
+set[set$direc %in% 1, "nsitlabdom"] <- 6
 set$deuda_vivienda <- set$dvivpral + set$deuoprop
 actreales <- set["np2_5"] + set["otraspr"] - set["dvivpral"] - set["deuoprop"]
 transf <- full_mean["p2_35_1"]

@@ -20,8 +20,8 @@ years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 # prepare the RIF
 dt_eff[sv_year == 2002, riquezanet := riquezanet / 0.7331]
 dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
-
-
+dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "worker")
+dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 # Estimate RIF model
 
 for (i in seq_along(years)) {

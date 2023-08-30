@@ -17,9 +17,10 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- dt_eff$bage # create a variable for binary age
         dt_eff[young != 1]$young <- 2 # set above 35 to non-young
         setnames(dt_eff,
-                old = c("nsitlabdom", "p6_81", "np2_1", "np2_5", "p2_42_1", "p2_35_1"),
-                new = c("class", "worker", "homeowner", "mainres_val", "useprop", "inherit")
+                old = c("p6_81", "np2_1", "np2_5", "p2_42_1", "p2_35_1"),
+                new = c("worker", "homeowner", "mainres_val", "useprop", "inherit")
         )
+        dt_eff[direc == 1, class := 6]
         dt_eff[inherit == 2.6, inherit := 3]
         dt_eff[inherit == 2.2, inherit := 2]
         dt_eff[inherit == 2.4, inherit := 2]
@@ -33,7 +34,7 @@ for (i in seq_along(sel_year)) {
         # DEFINITION OF CATEGORICAL VARIABLES, ALL BINARY BUT RENTHOG 1 WHICH IS USED TO DIVIDE BETWEEN GROUPS
         dt_eff$renthog1 <- factor(dt_eff$renthog1, levels = c(1, 2, 3), labels = c("Low", "Middle", "High"))
         dt_eff$sex <- factor(dt_eff$sex, levels = c(1, 2), labels = c("Man", "Women"))
-        dt_eff$class <- factor(dt_eff$class, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
+        dt_eff$class <- factor(dt_eff$nsitlabdom, levels = c(1, 2, 3, 4, 5, 6), labels = c("worker", "capitalist", "self-employed", "inactive", "retired", "manager"))
         dt_eff$bage <- factor(dt_eff$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
