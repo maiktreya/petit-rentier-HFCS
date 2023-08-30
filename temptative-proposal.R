@@ -22,7 +22,7 @@ dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
-    dt_transform[, riquezanet := riquezanet / cpi[i]]
+    dt_transform[, riquezanet := riquezanet / (cpi[i] / 100)]
     # Estimate RIF model
     dt_transform$rif_riquezanet <- rif(dt_transform$riquezanet, method = "quantile", quantile = 0.5, weights = dt_transform$facine3)
     models_dt[[i]] <- lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_transform)
