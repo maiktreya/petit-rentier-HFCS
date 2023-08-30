@@ -6,7 +6,7 @@ sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
 selected_variables <- c(
         "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
         "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "rents",
-        "tipo_auton", "direc", "multipr", "useprop", "viaprop"
+        "tipo_auton", "direc", "multipr", "useprop", "inherit"
 )
 final_dt <- data.table()
 
@@ -18,8 +18,14 @@ for (i in seq_along(sel_year)) {
         dt_eff[young != 1]$young <- 2 # set above 35 to non-young
         setnames(dt_eff,
                 old = c("nsitlabdom", "p6_81", "np2_1", "np2_5", "p2_42_1", "p2_35_1"),
-                new = c("class", "worker", "homeowner", "mainres_val", "useprop", "viaprop")
+                new = c("class", "worker", "homeowner", "mainres_val", "useprop", "inherit")
         )
+        dt_eff[inherit == 2.6, inherit := 3]
+        dt_eff[inherit == 2.2, inherit := 2]
+        dt_eff[inherit == 2.4, inherit := 2]
+        dt_eff[inherit != 2, inherit := 0]
+        dt_eff[inherit == 2, inherit := 1]
+        dt_eff[is.na(inherit), inherit := 0]
         # create a categorical income variable
         dt_eff[renthog < 20000, renthog1 := "a"][renthog > 20000, renthog1 := "b"][renthog > 80000, renthog1 := "c"]
         dt_eff[renthog1 == "a", renthog1 := 1][renthog1 == "b", renthog1 := 2][renthog1 == "c", renthog1 := 3]
@@ -32,6 +38,7 @@ for (i in seq_along(sel_year)) {
         dt_eff$young <- factor(dt_eff$young, levels = c(1, 2), labels = c("Young", "Not-Young"))
         dt_eff$worker <- factor(dt_eff$worker, levels = c(1, 2), labels = c("Worker", "Non-Worker"))
         dt_eff$homeowner <- factor(dt_eff$homeowner, levels = c(0, 1), labels = c("Non-Owner", "Homeowner"))
+        dt_eff$inherit <- factor(dt_eff$inherit, levels = c(0, 1), labels = c("Non-inherit", "Inheritance"))
         dt_eff$rif_actreales <- rif(dt_eff$actreales, method = "quantile", quantile = 0.5)
         dt_eff <- dt_eff[, ..selected_variables][, sv_year := sel_year[i]]
         final_dt <- rbind(final_dt, dt_eff)

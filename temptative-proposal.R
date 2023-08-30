@@ -5,7 +5,7 @@ c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
     "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "class",
-    "tipo_auton", "direc", "multipr", "useprop", "viaprop"
+    "tipo_auton", "direc", "multipr", "useprop", "inherit"
 )
 dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
 # Convert 'class' and 'bage' to dummy variables
@@ -19,10 +19,15 @@ years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 dt_eff[sv_year == 2002, riquezanet := riquezanet / 0.7331]
 dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 # Estimate RIF model
-bst_model02 <- lm(rif_riquezanet ~ bage + class + educ + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2002])
-bst_model20 <- lm(rif_riquezanet ~ bage + class + educ + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2020])
-bst_model02int <- lm(rif_riquezanet ~ bage * class + educ + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2002])
-bst_model20int <- lm(rif_riquezanet ~ bage * class + educ + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2020])
+bst_model02 <- lm(rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 2002])
+bst_model20 <- lm(rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 2020])
+bst_model02int <- lm(rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 2002])
+bst_model20int <- lm(rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 2020])
+
+# bst_model02 <- lm(rif_riquezanet ~ bage + class + educ + sex + multipr + direc + as.logical(riquezafin) + inherit, data = dt_eff[sv_year == 2002])
+# bst_model20 <- lm(rif_riquezanet ~ bage + class + educ + sex + multipr + direc + as.logical(riquezafin) + inherit, data = dt_eff[sv_year == 2020])
+# bst_model02int <- lm(rif_riquezanet ~ bage * class + educ + sex + multipr + direc + as.logical(riquezafin) + inherit, data = dt_eff[sv_year == 2002])
+# bst_model20int <- lm(rif_riquezanet ~ bage * class + educ + sex + multipr + direc + as.logical(riquezafin) + inherit, data = dt_eff[sv_year == 2020])
 
 sink("output/temptative.txt")
 print("############### 2002 ###############")
