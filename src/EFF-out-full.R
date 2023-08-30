@@ -328,7 +328,9 @@ colnames(full_mean) <- c(
     "auton"
 )
 
-full_mean[full_mean$p2_35_1 %in% c(1.2, 1.4, 1.6, 1.8, 97), "p2_35_1"] <- 0
+full_mean[full_mean$p2_35_1 %in% c(97), "p2_35_1"] <- 0
+full_mean[full_mean$p2_35_1 %in% c(1.2, 1.4), "p2_35_1"] <- 1
+full_mean[full_mean$p2_35_1 %in% c(1.6, 1.8), "p2_35_1"] <- 2
 
 ##### SELECTED VARIABLES IDS AND NAMES
 main_selection <- sapply(paste0(path, selectors_eff_main), haven::read_dta)

@@ -6,7 +6,11 @@ c("magrittr", "survey", "dineq", "data.table", "oaxaca", "gtsummary", "xtable") 
 
 # PARAMETERS AND VARIABLES TO INITIALIZE
 sel_year <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020) # selected survey year
-selected_variables <- c("facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class", "actreales", "RIF_actreales")
+selected_variables <- c(
+        "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
+        "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "rents",
+        "tipo_auton", "direc", "multipr", "useprop", "viaprop"
+)
 models <- list()
 final_dt <- data.table()
 
