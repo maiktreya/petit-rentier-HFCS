@@ -16,11 +16,11 @@ cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100)
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 
 # prepare the RIF
-dt_eff[sv_year == 2002, riquezanet := riquezanet / 0.7331]
+dt_eff[sv_year == 2002 & worker == "Worker", riquezanet := riquezanet / 0.7331]
 dt_eff$rif_riquezanet <- rif(dt_eff$riquezanet, method = "quantile", quantile = 0.5)
 # Estimate RIF model
-bst_model02 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + worker, data = dt_eff[sv_year == 2002])
-bst_model20 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + worker, data = dt_eff[sv_year == 2020])
+bst_model02 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2002])
+bst_model20 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + as.logical(riquezafin), data = dt_eff[sv_year == 2020])
 
 
 sink("output/temptative.txt")
