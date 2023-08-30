@@ -232,6 +232,7 @@ if (sel_year %in% c(2002, 2005, 2008, 2011, 2014, 2017, 2020)) {
     aa <- full_mean[, "np2_5"]
 }
 full_mean <- data.frame(
+    full_mean[, "p1_1_1"],
     full_mean[, "p1_5_1"],
     full_mean[, "p2_2"],
     full_mean[, "p2_1"],
@@ -280,6 +281,7 @@ full_mean <- data.frame(
     auton
 )
 colnames(full_mean) <- c(
+    "sex",
     "educ",
     "p2_2",
     "p2_1",

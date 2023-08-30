@@ -21,7 +21,6 @@ bst_model02 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc +
 bst_model20 <- lm(rif_riquezanet ~ bage + educ + rents + sex + multipr + direc + worker, data = dt_eff[sv_year == 2020])
 
 
-summary(bst_model)
 sink("output/temptative.txt")
 print("############### 2002 ###############")
 bst_model02 %>%
@@ -31,3 +30,4 @@ bst_model20 %>%
     summary() %>%
     print()
 print("############### 2020 ###############")
+sink()

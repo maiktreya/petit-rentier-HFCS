@@ -21,5 +21,3 @@ for (i in seq_along(years)) {
 
 ## BENCHMARK PERFORMANCE THROUGH TOTAL TIME OF EXECUTION AND SAVE FINAL STATE
 (Sys.time() - start_time) %>% print()
-unlink("saves/*.RData*") # nolint
-paste0("saves/", start_time, ".RData") %>% save.image()
