@@ -1,0 +1,294 @@
+[1] "###############2002 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            268451               63966              206732              270897  
+         bage65-75              bage75       classinactive        classretired  
+            221397              168743             -354553             -270261  
+classself-employed         classworker  
+           -154749             -292654  
+
+[1] "###############2005 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            245616              125743              256085              354807  
+         bage65-75              bage75       classinactive        classretired  
+            292570              289389             -323983             -264033  
+classself-employed         classworker  
+           -413426             -273773  
+
+[1] "###############2008 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            228248              117592              262283              372871  
+         bage65-75              bage75       classinactive        classretired  
+            344758              314497             -321449             -202971  
+classself-employed         classworker  
+           -307349             -257804  
+
+[1] "###############2011 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            230260               79997              232600              352138  
+         bage65-75              bage75       classinactive        classretired  
+            386896              332102             -329052             -238031  
+classself-employed         classworker  
+           -331443             -262674  
+
+[1] "###############2014 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            222018               40615              182824              309945  
+         bage65-75              bage75       classinactive        classretired  
+            371766              306114             -342271             -215930  
+classself-employed         classworker  
+           -311461             -288706  
+
+[1] "###############2017 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            204508               60725              212609              318609  
+         bage65-75              bage75       classinactive        classretired  
+            353696              342179             -355358             -172497  
+classself-employed         classworker  
+           -339374             -306572  
+
+[1] "###############2020 ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage + class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+       (Intercept)           bage35-44           bage45-54           bage54-65  
+            196296               40593              172108              278481  
+         bage65-75              bage75       classinactive        classretired  
+            325873              356649             -338619             -144989  
+classself-employed         classworker  
+           -215133             -264670  
+
+[1] "###############2002 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                      228952                         71001                        248102  
+                   bage54-65                     bage65-75                        bage75  
+                      321312                        346141                        416742  
+               classinactive                  classretired            classself-employed  
+                     -173841                       -474160                       -249457  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -265309                        -76270                       -173741  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                     -202704                       -292840                       -405925  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                       19757                        162714                        202060  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                      114985                            NA                            NA  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                      418098                        -55185                            NA  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                          3119                        -31117  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                      -42586                        164451                            NA  
+
+[1] "###############2005 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                      245622                        121312                        256385  
+                   bage54-65                     bage65-75                        bage75  
+                      341239                        377846                        400073  
+               classinactive                  classretired            classself-employed  
+                     -276973                       -372896                       -800146  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -285158                         13903                        -30954  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                      -44261                       -162978                       -167225  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                       80123                         21256                        125222  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                       23802                            NA                        278760  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                      543761                        325549                        422299  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                          5553                          8644  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                       40967                        115350                        285158  
+
+[1] "###############2008 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                      195613                        161140                        286611  
+                   bage54-65                     bage65-75                        bage75  
+                      399723                        411365                        450082  
+               classinactive                  classretired            classself-employed  
+                     -193513                       -317824                        -94641  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -236969                        -59866                        -92582  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                     -138476                       -222755                       -212746  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                      206693                        -75328                        137107  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                       91547                            NA                            NA  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                     -542034                       -218703                            NA  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                        -46783                         -8243  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                       -7942                        115657                         76940  
+
+[1] "###############2011 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                      101596                        239911                        378552  
+                   bage54-65                     bage65-75                        bage75  
+                      470846                        499646                        417760  
+               classinactive                  classretired            classself-employed  
+                     -136025                       -256047                       -673807  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -136977                       -225777                       -225431  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                     -182161                       -166252                       -157157  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                      160161                         52296                         45853  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                       24587                         64441                            NA  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                       39209                        346987                        558230  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                       -165779                       -145404  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                     -120566                         86174                       -136757  
+
+[1] "###############2014 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                      188469                           893                        234803  
+                   bage54-65                     bage65-75                        bage75  
+                      355579                        405043                        457226  
+               classinactive                  classretired            classself-employed  
+                     -180178                       -347850                       -400073  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -292910                        -55507                       -162581  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                     -203509                       -255227                       -248105  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                        4037                          7208                        135714  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                      143957                            NA                            NA  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                          NA                         21633                        132198  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                         87334                        -24734  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                       -2866                        145057                        292910  
+
+[1] "###############2017 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+            20580.8476723879             199504.3637656100             414879.3648662627  
+                   bage54-65                     bage65-75                        bage75  
+           511561.6712537686             577343.7924392626             625113.6731323460  
+               classinactive                  classretired            classself-employed  
+          -117878.5783621760            -271564.5338795690                  0.0000002164  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+          -106053.7679935439            -116772.0366761063            -237680.3760161549  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+          -255144.3869542092            -347739.6951565891            -349381.9626540232  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                          NA              37273.5634736357              62669.8410796711  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+            64582.7245263489                            NA            -374536.1922429714  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+           210234.3082657776            -229367.4988114487            -574565.5094478176  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA            -163125.1873824652            -231896.7142047899  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+          -201813.3755538778            -112891.5185165258             -93982.6074087887  
+
+[1] "###############2020 INTERACTIONS ###############"
+
+Call:
+lm(formula = rif_riquezanet ~ bage * class, data = dt_eff[sv_year == 
+    years[i]])
+
+Coefficients:
+                 (Intercept)                     bage35-44                     bage45-54  
+                       74162                         87041                        279172  
+                   bage54-65                     bage65-75                        bage75  
+                      431156                        540758                        571533  
+               classinactive                  classretired            classself-employed  
+                     -138456                       -232691                       -400073  
+                 classworker       bage35-44:classinactive       bage45-54:classinactive  
+                     -159635                        -77833                       -191832  
+     bage54-65:classinactive       bage65-75:classinactive          bage75:classinactive  
+                     -220569                       -345149                       -338554  
+      bage35-44:classretired        bage45-54:classretired        bage54-65:classretired  
+                      317110                         44965                         58582  
+      bage65-75:classretired           bage75:classretired  bage35-44:classself-employed  
+                       -9593                            NA                            NA  
+bage45-54:classself-employed  bage54-65:classself-employed  bage65-75:classself-employed  
+                          NA                        184829                         87928  
+   bage75:classself-employed         bage35-44:classworker         bage45-54:classworker  
+                          NA                        -28047                        -82064  
+       bage54-65:classworker         bage65-75:classworker            bage75:classworker  
+                     -154092                        -64956                        159635  
+
