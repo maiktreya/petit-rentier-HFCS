@@ -1,6 +1,6 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
-options(scipen = 9)
+options(scipen = 99)
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
@@ -38,8 +38,8 @@ for (i in seq_along(years)) {
 interleaved_names <- c(rbind(row.names(coefs), rep("coef", 10)))
 interleaved_names_int <- c(rbind(row.names(coefs_int), rep("coef", 28)))
 
-final_dt <- cbind(interleaved_names, final_dt)
-final_dt_int <- cbind(interleaved_names_int, final_dt_int)
+final_dt <- cbind(interleaved_names, round(final_dt, 3))
+final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
 
 fwrite(final_dt, file = "final_dt")
 fwrite(final_dt_int, file = "final_dt_int")
