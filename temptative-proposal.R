@@ -35,12 +35,12 @@ for (i in seq_along(years)) {
     coefs_int <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
     pre_dt_int <- c(rbind(coefs_int[, "Estimate"], coefs_int[, "Pr(>|t|)"]))
-    final_dt <- cbind(final_dt, c(years[i], pre_dt))
-    final_dt_int <- cbind(final_dt_int, c(years[i], pre_dt_int))
+    final_dt <- cbind(final_dt, pre_dt)
+    final_dt_int <- cbind(final_dt_int, pre_dt_int)
 }
 
-interleaved_names <- c(rbind(row.names(coefs), rep("p-val", 10)))
-interleaved_names_int <- c(rbind(row.names(coefs_int), rep("p-val", 28)))
+interleaved_names <- c(rbind(row.names(coef(summary(models_dt[[1]]))), rep("p-val", 10)))
+interleaved_names_int <- c(rbind(row.names(coef(summary(models_dt_int[[1]]))), rep("p-val", 28)))
 
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
