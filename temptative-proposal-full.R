@@ -5,7 +5,7 @@ rif_var <- "gini"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
-    "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "class",
+    "actreales", "riquezanet", "riquezafin", "educ", "auton", "class",
     "tipo_auton", "direc", "multipr", "useprop", "inherit"
 )
 dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
@@ -25,9 +25,9 @@ dt_eff[worker == "Worker"]
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
-    dt_transform$rif_riquezanet <- rif(dt_transform$riquezanet, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
-    models_dt[[i]] <- lm(rif_riquezanet ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
-    coefs <- coef(summary(lm(rif_riquezanet ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
+    dt_transform$rif_actreales <- rif(dt_transform$actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
+    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
+    coefs <- coef(summary(lm(rif_actreales ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
