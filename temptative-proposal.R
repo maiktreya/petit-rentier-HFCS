@@ -1,11 +1,11 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 options(scipen = 99)
-rif_var <- "gini"
+rif_var <- "quantile"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
-    "actreales", "riquezanet", "riquezafin", "rif_actreales", "educ", "auton", "class",
+    "actreales", "riquezanet", "riquezafin", "educ", "auton", "class",
     "tipo_auton", "direc", "multipr", "useprop", "inherit"
 )
 dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
@@ -24,11 +24,11 @@ dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
-    dt_transform$rif_riquezanet <- rif(dt_transform$riquezanet, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
-    models_dt[[i]] <- lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_transform)
-    models_dt_int[[i]] <- lm(rif_riquezanet ~ bage * class, weights = facine3, data = dt_transform)
-    coefs <- coef(summary(lm(rif_riquezanet ~ bage + class, weights = facine3, data = dt_transform))) %>% data.table()
-    coefs_int <- coef(summary(lm(rif_riquezanet ~ bage * class, weights = facine3, data = dt_transform))) %>% data.table()
+    dt_transform$rif_actreales <- rif(dt_transform$rif_actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
+    models_dt[[i]] <- lm(rif_actreales ~ bage + class, weights = facine3, data = dt_transform)
+    models_dt_int[[i]] <- lm(rif_actreales ~ bage * class, weights = facine3, data = dt_transform)
+    coefs <- coef(summary(lm(rif_actreales ~ bage + class, weights = facine3, data = dt_transform))) %>% data.table()
+    coefs_int <- coef(summary(lm(rif_actreales ~ bage * class, weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs_int[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
@@ -46,17 +46,17 @@ final_dt <- cbind(interleaved_names, round(final_dt, 3))
 final_dt_int <- cbind(interleaved_names_int, round(final_dt_int, 3))
 colnames(final_dt) <- colnames(final_dt_int) <- c("vars", years)
 
-fwrite(final_dt, file = paste0("output/interact/", rif_var, "_final_dt.csv"))
-fwrite(final_dt_int, file = paste0("output/interact/", rif_var, "_final_dt_int.csv"))
+fwrite(final_dt, file = paste0("output/interac/", rif_var, "_final_dt.csv"))
+fwrite(final_dt_int, file = paste0("output/interac/", rif_var, "_final_dt_int.csv"))
 
-sink(paste0("output/interact/", rif_var, "_temptative_multi.txt"))
+sink(paste0("output/interac/", rif_var, "_temptative_multi.txt"))
 print("################## MAIN MODEL ###################")
 print(final_dt)
 print("################## INTERACTIONS MODEL ###################")
 print(final_dt_int)
 sink()
 
-sink(paste0("output/interact/", rif_var, "_temptative.txt"))
+sink(paste0("output/interac/", rif_var, "_temptative.txt"))
 
 for (i in seq_along(years)) {
     print(paste0("###############", years[i], " ###############"))
