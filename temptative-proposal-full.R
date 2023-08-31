@@ -17,9 +17,12 @@ models_dt <- list()
 
 cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100) / 100
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
-
+dt_eff[homeowner == "", homeowner := "Non-Owner"]
 dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "self-employed")
 dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
+dt_eff$inherit <- relevel(as.factor(dt_eff$inherit), ref = "Non-inherit")
+dt_eff$homeowner <- relevel(as.factor(dt_eff$homeowner), ref = "Non-Owner")
+
 dt_eff[worker == "Worker"][, sex := as.factor(sex)][, educ := as.factor(educ)][, inherit := as.factor(inherit)][, multipr := as.factor(multipr)][, multipr := as.factor(multipr)][, riquezafin := as.factor(as.logical(riquezafin))]
 
 for (i in seq_along(years)) {
