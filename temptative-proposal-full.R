@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 options(scipen = 99)
-rif_var <- "gini"
+rif_var <- "quantile"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
