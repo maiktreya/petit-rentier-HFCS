@@ -20,14 +20,14 @@ years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 
 dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "self-employed")
 dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
-dt_eff[worker == "Worker"]
+dt_eff[worker == "Worker"][, sex := as.factor(sex)][, educ := as.factor(educ)][, inherit := as.factor(inherit)][, multipr := as.factor(multipr)][, multipr := as.factor(multipr)][, riquezafin := as.factor(as.logical(riquezafin))]
 
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
     dt_transform$rif_actreales <- rif(dt_transform$actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
-    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
-    coefs <- coef(summary(lm(rif_actreales ~ bage + sex + educ + as.logical(riquezafin) + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
+    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
+    coefs <- coef(summary(lm(rif_actreales ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
