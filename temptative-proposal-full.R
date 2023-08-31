@@ -24,14 +24,14 @@ dt_eff$inherit <- relevel(as.factor(dt_eff$inherit), ref = "Non-inherit")
 dt_eff$homeowner <- relevel(as.factor(dt_eff$homeowner), ref = "Non-Owner")
 dt_eff$riquezafin <- factor(as.logical(dt_eff$riquezafin), levels = c(T, F), labels = c("Fin", "NonFin"))
 
-dt_eff <- fastDummies::dummy_cols(dt_eff, select_columns = c("sex", "riquezafin", "inherit", "homeowner", "direc"))
-
+# dt_eff <- fastDummies::dummy_cols(dt_eff, select_columns = c("class"))
+dt_eff <- dt_eff[worker == "Worker"]
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
     dt_transform$rif_actreales <- rif(dt_transform$actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
-    models_dt[[i]] <- lm(rif_actreales ~ bage + sex_Man + sex_Women + riquezafin_Fin + riquezafin_NonFin + inherit_Inheritance + dt_transform$"inherit_Non-inherit" + direc_0 + direc_1 + homeowner_Homeowner + dt_transform$"homeowner_Non-Owner" + multipr, weights = facine3, data = dt_transform)
-    coefs <- coef(summary(lm(rif_actreales ~ bage + sex_Man + sex_Women + riquezafin_Fin + riquezafin_NonFin + inherit_Inheritance + dt_transform$"inherit_Non-inherit" + direc_0 + direc_1 + homeowner_Homeowner + dt_transform$"homeowner_Non-Owner" + multipr, weights = facine3, data = dt_transform))) %>% data.table()
+    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
+    coefs <- coef(summary(lm(rif_actreales ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
