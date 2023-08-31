@@ -14,21 +14,22 @@ dt_eff[, ..selected_variables]
 dt_eff[is.na(dt_eff)] <- 0
 final_dt <- final_dt_int <- data.table()
 models_dt <- models_dt_int <- list()
-
 cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100) / 100
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
-
+dummied <- dt_transform$"class_self-employed" + class_capitalist + class_inactive + class_manager + class_retired + class_worker
 dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "self-employed")
 dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
+
+dt_eff <- fastDummies::dummy_cols(dt_eff, select_columns = "class")
 
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
     dt_transform$rif_actreales <- rif(dt_transform$rif_actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
     models_dt[[i]] <- lm(rif_actreales ~ bage + class, weights = facine3, data = dt_transform)
-    models_dt_int[[i]] <- lm(rif_actreales ~ bage * class, weights = facine3, data = dt_transform)
+    models_dt_int[[i]] <- lm(rif_actreales ~ bage * (class), weights = facine3, data = dt_transform)
     coefs <- coef(summary(lm(rif_actreales ~ bage + class, weights = facine3, data = dt_transform))) %>% data.table()
-    coefs_int <- coef(summary(lm(rif_actreales ~ bage * class, weights = facine3, data = dt_transform))) %>% data.table()
+    coefs_int <- coef(summary(lm(rif_actreales ~ bage * (class), weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs_int[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)

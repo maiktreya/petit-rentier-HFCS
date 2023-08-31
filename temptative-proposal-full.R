@@ -23,7 +23,7 @@ dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
 dt_eff$inherit <- relevel(as.factor(dt_eff$inherit), ref = "Non-inherit")
 dt_eff$homeowner <- relevel(as.factor(dt_eff$homeowner), ref = "Non-Owner")
 
-dt_eff[worker == "Worker"][, sex := as.factor(sex)][, educ := as.factor(educ)][, inherit := as.factor(inherit)][, multipr := as.factor(multipr)][, multipr := as.factor(multipr)][, riquezafin := as.factor(as.logical(riquezafin))]
+aa <- fastDummies::dummy_cols(dt_eff$class)
 
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
@@ -56,5 +56,4 @@ for (i in seq_along(years)) {
     print(paste0("###############", years[i], " ###############"))
     print(summary(models_dt[[i]]))
 }
-
 sink()

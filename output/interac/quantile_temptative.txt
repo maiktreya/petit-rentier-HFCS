@@ -295,88 +295,101 @@ F-statistic: 633.6 on 10 and 6302 DF,  p-value: < 0.00000000000000022
 [1] "###############2002 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
             Min              1Q          Median              3Q             Max 
 -0.000000144495 -0.000000000017  0.000000000002  0.000000000030  0.000000000584 
 
-Coefficients: (5 not defined because of singularities)
-                                         Estimate              Std. Error             t value
-(Intercept)               10102.38578653333206603     0.00000000009499571 106345701194122.672
-bage0-34                      0.00000000000560632     0.00000000000218969               2.560
-bage35-44                     0.00000000000565815     0.00000000000206424               2.741
-bage54-65                     0.00000000000056549     0.00000000009875605               0.006
-bage65-75                    -0.00000000000118200     0.00000000009790890              -0.012
-bage75                        0.00000000000009257     0.00000000000851429               0.011
-classcapitalist              -0.00000000000073295     0.00000000009506494              -0.008
-classinactive                -0.00000000000027665     0.00000000009504230              -0.003
-classmanager                 -0.00000000000051605     0.00000000009506999              -0.005
-classretired                 -0.00000000000072507     0.00000000009535531              -0.008
-classworker                  -0.00000000000609137     0.00000000009500805              -0.064
-bage0-34:classcapitalist     -0.00000000000539501     0.00000000000606068              -0.890
-bage35-44:classcapitalist    -0.00000000000547551     0.00000000000519581              -1.054
-bage54-65:classcapitalist    -0.00000000000029218     0.00000000009891990              -0.003
-bage65-75:classcapitalist     0.00000000000193544     0.00000000009969215               0.019
-bage75:classcapitalist        0.00000000000043789     0.00000000019109566               0.002
-bage0-34:classinactive       -0.00000000000586846     0.00000000000593621              -0.989
-bage35-44:classinactive      -0.00000000000593521     0.00000000000489583              -1.212
-bage54-65:classinactive      -0.00000000000075219     0.00000000009883750              -0.008
-bage65-75:classinactive       0.00000000000086866     0.00000000009798536               0.009
-bage75:classinactive         -0.00000000000039251     0.00000000000939293              -0.042
-bage0-34:classmanager        -0.00000000000569666     0.00000000000828521              -0.688
-bage35-44:classmanager       -0.00000000000557736     0.00000000000575095              -0.970
-bage54-65:classmanager       -0.00000000000071439     0.00000000009892406              -0.007
-bage65-75:classmanager        0.00000000000096976     0.00000000009817093               0.010
-bage75:classmanager          -0.00000000000002471     0.00000000001352377              -0.002
-bage0-34:classretired                          NA                      NA                  NA
-bage35-44:classretired       -0.00000000000593111     0.00000000002088606              -0.284
-bage54-65:classretired       -0.00000000000018086     0.00000000009914846              -0.002
-bage65-75:classretired        0.00000000000132299     0.00000000009827057               0.013
-bage75:classretired                            NA                      NA                  NA
-bage0-34:classworker                           NA                      NA                  NA
-bage35-44:classworker                          NA                      NA                  NA
-bage54-65:classworker         0.00000000000507863     0.00000000009879047               0.051
-bage65-75:classworker         0.00000000000696238     0.00000000009882751               0.070
-bage75:classworker                             NA                      NA                  NA
-                                      Pr(>|t|)    
-(Intercept)               < 0.0000000000000002 ***
-bage0-34                               0.01049 *  
-bage35-44                              0.00615 ** 
-bage54-65                              0.99543    
-bage65-75                              0.99037    
-bage75                                 0.99133    
-classcapitalist                        0.99385    
-classinactive                          0.99768    
-classmanager                           0.99567    
-classretired                           0.99393    
-classworker                            0.94888    
-bage0-34:classcapitalist               0.37342    
-bage35-44:classcapitalist              0.29201    
-bage54-65:classcapitalist              0.99764    
-bage65-75:classcapitalist              0.98451    
-bage75:classcapitalist                 0.99817    
-bage0-34:classinactive                 0.32291    
-bage35-44:classinactive                0.22545    
-bage54-65:classinactive                0.99393    
-bage65-75:classinactive                0.99293    
-bage75:classinactive                   0.96667    
-bage0-34:classmanager                  0.49176    
-bage35-44:classmanager                 0.33218    
-bage54-65:classmanager                 0.99424    
-bage65-75:classmanager                 0.99212    
-bage75:classmanager                    0.99854    
-bage0-34:classretired                       NA    
-bage35-44:classretired                 0.77644    
-bage54-65:classretired                 0.99854    
-bage65-75:classretired                 0.98926    
-bage75:classretired                         NA    
-bage0-34:classworker                        NA    
-bage35-44:classworker                       NA    
-bage54-65:classworker                  0.95900    
-bage65-75:classworker                  0.94384    
-bage75:classworker                          NA    
+Coefficients: (11 not defined because of singularities)
+                                                            Estimate              Std. Error
+(Intercept)                                  10102.38578653332479007     0.00000000000153073
+bage0-34                                         0.00000000000560632     0.00000000000218969
+bage35-44                                        0.00000000000565815     0.00000000000206424
+bage54-65                                        0.00000000000564412     0.00000000000260740
+bage65-75                                        0.00000000000578037     0.00000000001344338
+bage75                                           0.00000000000009257     0.00000000000851429
+dt_transform$"class_self-employed"               0.00000000000609137     0.00000000009500805
+class_capitalist                                 0.00000000000535842     0.00000000000393701
+class_inactive                                   0.00000000000581471     0.00000000000334617
+class_manager                                    0.00000000000557532     0.00000000000405720
+class_retired                                    0.00000000000536629     0.00000000000841383
+class_worker                                                      NA                      NA
+bage0-34:dt_transform$"class_self-employed"                       NA                      NA
+bage35-44:dt_transform$"class_self-employed"                      NA                      NA
+bage54-65:dt_transform$"class_self-employed"    -0.00000000000507863     0.00000000009879047
+bage65-75:dt_transform$"class_self-employed"    -0.00000000000696238     0.00000000009882751
+bage75:dt_transform$"class_self-employed"                         NA                      NA
+bage0-34:class_capitalist                       -0.00000000000539501     0.00000000000606068
+bage35-44:class_capitalist                      -0.00000000000547551     0.00000000000519581
+bage54-65:class_capitalist                      -0.00000000000537081     0.00000000000625990
+bage65-75:class_capitalist                      -0.00000000000502694     0.00000000002308889
+bage75:class_capitalist                          0.00000000000043789     0.00000000019109566
+bage0-34:class_inactive                         -0.00000000000586846     0.00000000000593621
+bage35-44:class_inactive                        -0.00000000000593521     0.00000000000489583
+bage54-65:class_inactive                        -0.00000000000583081     0.00000000000478455
+bage65-75:class_inactive                        -0.00000000000609372     0.00000000001398938
+bage75:class_inactive                           -0.00000000000039251     0.00000000000939293
+bage0-34:class_manager                          -0.00000000000569666     0.00000000000828521
+bage35-44:class_manager                         -0.00000000000557736     0.00000000000575095
+bage54-65:class_manager                         -0.00000000000579302     0.00000000000632528
+bage65-75:class_manager                         -0.00000000000599262     0.00000000001523499
+bage75:class_manager                            -0.00000000000002471     0.00000000001352377
+bage0-34:class_retired                                            NA                      NA
+bage35-44:class_retired                         -0.00000000000593111     0.00000000002088606
+bage54-65:class_retired                         -0.00000000000525949     0.00000000000919012
+bage65-75:class_retired                         -0.00000000000563938     0.00000000001586434
+bage75:class_retired                                              NA                      NA
+bage0-34:class_worker                                             NA                      NA
+bage35-44:class_worker                                            NA                      NA
+bage54-65:class_worker                                            NA                      NA
+bage65-75:class_worker                                            NA                      NA
+bage75:class_worker                                               NA                      NA
+                                                          t value             Pr(>|t|)    
+(Intercept)                                  6599699419482582.000 < 0.0000000000000002 ***
+bage0-34                                                    2.560              0.01049 *  
+bage35-44                                                   2.741              0.00615 ** 
+bage54-65                                                   2.165              0.03046 *  
+bage65-75                                                   0.430              0.66723    
+bage75                                                      0.011              0.99133    
+dt_transform$"class_self-employed"                          0.064              0.94888    
+class_capitalist                                            1.361              0.17356    
+class_inactive                                              1.738              0.08232 .  
+class_manager                                               1.374              0.16945    
+class_retired                                               0.638              0.52364    
+class_worker                                                   NA                   NA    
+bage0-34:dt_transform$"class_self-employed"                    NA                   NA    
+bage35-44:dt_transform$"class_self-employed"                   NA                   NA    
+bage54-65:dt_transform$"class_self-employed"               -0.051              0.95900    
+bage65-75:dt_transform$"class_self-employed"               -0.070              0.94384    
+bage75:dt_transform$"class_self-employed"                      NA                   NA    
+bage0-34:class_capitalist                                  -0.890              0.37342    
+bage35-44:class_capitalist                                 -1.054              0.29201    
+bage54-65:class_capitalist                                 -0.858              0.39095    
+bage65-75:class_capitalist                                 -0.218              0.82766    
+bage75:class_capitalist                                     0.002              0.99817    
+bage0-34:class_inactive                                    -0.989              0.32291    
+bage35-44:class_inactive                                   -1.212              0.22545    
+bage54-65:class_inactive                                   -1.219              0.22302    
+bage65-75:class_inactive                                   -0.436              0.66315    
+bage75:class_inactive                                      -0.042              0.96667    
+bage0-34:class_manager                                     -0.688              0.49176    
+bage35-44:class_manager                                    -0.970              0.33218    
+bage54-65:class_manager                                    -0.916              0.35979    
+bage65-75:class_manager                                    -0.393              0.69408    
+bage75:class_manager                                       -0.002              0.99854    
+bage0-34:class_retired                                         NA                   NA    
+bage35-44:class_retired                                    -0.284              0.77644    
+bage54-65:class_retired                                    -0.572              0.56715    
+bage65-75:class_retired                                    -0.355              0.72225    
+bage75:class_retired                                           NA                   NA    
+bage0-34:class_worker                                          NA                   NA    
+bage35-44:class_worker                                         NA                   NA    
+bage54-65:class_worker                                         NA                   NA    
+bage65-75:class_worker                                         NA                   NA    
+bage75:class_worker                                            NA                   NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -387,88 +400,101 @@ F-statistic: 170.5 on 30 and 5112 DF,  p-value: < 0.00000000000000022
 [1] "###############2005 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
             Min              1Q          Median              3Q             Max 
 -0.000000000677 -0.000000000035 -0.000000000002  0.000000000031  0.000000034014 
 
-Coefficients: (2 not defined because of singularities)
-                                         Estimate              Std. Error              t value
-(Intercept)               17227.51705085334469914     0.00000000000380874 4523159314835977.000
-bage0-34                      0.00000000000002951     0.00000000000047227                0.062
-bage35-44                    -0.00000000000107544     0.00000000000696807               -0.154
-bage54-65                    -0.00000000000013337     0.00000000000473069               -0.028
-bage65-75                    -0.00000000000194872     0.00000000000778477               -0.250
-bage75                       -0.00000000000229950     0.00000000001040765               -0.221
-classcapitalist              -0.00000000000060801     0.00000000000388885               -0.156
-classinactive                -0.00000000000056031     0.00000000000386523               -0.145
-classmanager                 -0.00000000000044279     0.00000000000387513               -0.114
-classretired                 -0.00000000000082125     0.00000000000422023               -0.195
-classworker                  -0.00000000000072078     0.00000000000382246               -0.189
-bage0-34:classcapitalist      0.00000000000045597     0.00000000000138086                0.330
-bage35-44:classcapitalist     0.00000000000099751     0.00000000000705994                0.141
-bage54-65:classcapitalist     0.00000000000005634     0.00000000000493995                0.011
-bage65-75:classcapitalist     0.00000000000115290     0.00000000000913887                0.126
-bage75:classcapitalist        0.00000000000020733     0.00000000003464046                0.006
-bage0-34:classinactive       -0.00000000000022817     0.00000000000105657               -0.216
-bage35-44:classinactive       0.00000000000095544     0.00000000000703159                0.136
-bage54-65:classinactive       0.00000000000004008     0.00000000000480438                0.008
-bage65-75:classinactive       0.00000000000187802     0.00000000000782988                0.240
-bage75:classinactive          0.00000000000257356     0.00000000001044542                0.246
-bage0-34:classmanager        -0.00000000000014070     0.00000000000174542               -0.081
-bage35-44:classmanager        0.00000000000672889     0.00000000000705543                0.954
-bage54-65:classmanager        0.00000000000015658     0.00000000000486230                0.032
-bage65-75:classmanager        0.00000000000180190     0.00000000000787722                0.229
-bage75:classmanager           0.00000000000171160     0.00000000001047969                0.163
-bage0-34:classretired                          NA                      NA                   NA
-bage35-44:classretired        0.00000000000237157     0.00000000000754751                0.314
-bage54-65:classretired        0.00000000000058403     0.00000000000510350                0.114
-bage65-75:classretired        0.00000000000228693     0.00000000000800223                0.286
-bage75:classretired           0.00000000000265774     0.00000000001057515                0.251
-bage0-34:classworker                           NA                      NA                   NA
-bage35-44:classworker         0.00000000000115484     0.00000000000698171                0.165
-bage54-65:classworker         0.00000000000028860     0.00000000000476676                0.061
-bage65-75:classworker         0.00000000000288551     0.00000000000814954                0.354
-bage75:classworker           -0.00000000000067638     0.00000000001535476               -0.044
-                                     Pr(>|t|)    
-(Intercept)               <0.0000000000000002 ***
-bage0-34                                0.950    
-bage35-44                               0.877    
-bage54-65                               0.978    
-bage65-75                               0.802    
-bage75                                  0.825    
-classcapitalist                         0.876    
-classinactive                           0.885    
-classmanager                            0.909    
-classretired                            0.846    
-classworker                             0.850    
-bage0-34:classcapitalist                0.741    
-bage35-44:classcapitalist               0.888    
-bage54-65:classcapitalist               0.991    
-bage65-75:classcapitalist               0.900    
-bage75:classcapitalist                  0.995    
-bage0-34:classinactive                  0.829    
-bage35-44:classinactive                 0.892    
-bage54-65:classinactive                 0.993    
-bage65-75:classinactive                 0.810    
-bage75:classinactive                    0.805    
-bage0-34:classmanager                   0.936    
-bage35-44:classmanager                  0.340    
-bage54-65:classmanager                  0.974    
-bage65-75:classmanager                  0.819    
-bage75:classmanager                     0.870    
-bage0-34:classretired                      NA    
-bage35-44:classretired                  0.753    
-bage54-65:classretired                  0.909    
-bage65-75:classretired                  0.775    
-bage75:classretired                     0.802    
-bage0-34:classworker                       NA    
-bage35-44:classworker                   0.869    
-bage54-65:classworker                   0.952    
-bage65-75:classworker                   0.723    
-bage75:classworker                      0.965    
+Coefficients: (8 not defined because of singularities)
+                                                            Estimate              Std. Error
+(Intercept)                                  17227.51705085334469914     0.00000000000032368
+bage0-34                                         0.00000000000002951     0.00000000000047227
+bage35-44                                        0.00000000000007939     0.00000000000043608
+bage54-65                                        0.00000000000015523     0.00000000000058534
+bage65-75                                        0.00000000000093679     0.00000000000241087
+bage75                                          -0.00000000000297588     0.00000000001128936
+dt_transform$"class_self-employed"               0.00000000000072078     0.00000000000382246
+class_capitalist                                 0.00000000000011278     0.00000000000084936
+class_inactive                                   0.00000000000016047     0.00000000000073370
+class_manager                                    0.00000000000027799     0.00000000000078416
+class_retired                                   -0.00000000000010046     0.00000000000184625
+class_worker                                                      NA                      NA
+bage0-34:dt_transform$"class_self-employed"                       NA                      NA
+bage35-44:dt_transform$"class_self-employed"    -0.00000000000115484     0.00000000000698171
+bage54-65:dt_transform$"class_self-employed"    -0.00000000000028860     0.00000000000476676
+bage65-75:dt_transform$"class_self-employed"    -0.00000000000288551     0.00000000000814954
+bage75:dt_transform$"class_self-employed"        0.00000000000067638     0.00000000001535476
+bage0-34:class_capitalist                        0.00000000000045597     0.00000000000138086
+bage35-44:class_capitalist                      -0.00000000000015733     0.00000000000121611
+bage54-65:class_capitalist                      -0.00000000000023225     0.00000000000153830
+bage65-75:class_capitalist                      -0.00000000000173261     0.00000000000535990
+bage75:class_capitalist                          0.00000000000088371     0.00000000003491550
+bage0-34:class_inactive                         -0.00000000000022817     0.00000000000105657
+bage35-44:class_inactive                        -0.00000000000019940     0.00000000000103895
+bage54-65:class_inactive                        -0.00000000000024851     0.00000000000102241
+bage65-75:class_inactive                        -0.00000000000100749     0.00000000000255276
+bage75:class_inactive                            0.00000000000324994     0.00000000001132419
+bage0-34:class_manager                          -0.00000000000014070     0.00000000000174542
+bage35-44:class_manager                          0.00000000000557405     0.00000000000118960
+bage54-65:class_manager                         -0.00000000000013201     0.00000000000126696
+bage65-75:class_manager                         -0.00000000000108361     0.00000000000269447
+bage75:class_manager                             0.00000000000238798     0.00000000001135581
+bage0-34:class_retired                                            NA                      NA
+bage35-44:class_retired                          0.00000000000121673     0.00000000000293275
+bage54-65:class_retired                          0.00000000000029544     0.00000000000200222
+bage65-75:class_retired                         -0.00000000000059858     0.00000000000304059
+bage75:class_retired                             0.00000000000333412     0.00000000001144396
+bage0-34:class_worker                                             NA                      NA
+bage35-44:class_worker                                            NA                      NA
+bage54-65:class_worker                                            NA                      NA
+bage65-75:class_worker                                            NA                      NA
+bage75:class_worker                                               NA                      NA
+                                                           t value             Pr(>|t|)    
+(Intercept)                                  53224536904265376.000 < 0.0000000000000002 ***
+bage0-34                                                     0.062                0.950    
+bage35-44                                                    0.182                0.856    
+bage54-65                                                    0.265                0.791    
+bage65-75                                                    0.389                0.698    
+bage75                                                      -0.264                0.792    
+dt_transform$"class_self-employed"                           0.189                0.850    
+class_capitalist                                             0.133                0.894    
+class_inactive                                               0.219                0.827    
+class_manager                                                0.355                0.723    
+class_retired                                               -0.054                0.957    
+class_worker                                                    NA                   NA    
+bage0-34:dt_transform$"class_self-employed"                     NA                   NA    
+bage35-44:dt_transform$"class_self-employed"                -0.165                0.869    
+bage54-65:dt_transform$"class_self-employed"                -0.061                0.952    
+bage65-75:dt_transform$"class_self-employed"                -0.354                0.723    
+bage75:dt_transform$"class_self-employed"                    0.044                0.965    
+bage0-34:class_capitalist                                    0.330                0.741    
+bage35-44:class_capitalist                                  -0.129                0.897    
+bage54-65:class_capitalist                                  -0.151                0.880    
+bage65-75:class_capitalist                                  -0.323                0.747    
+bage75:class_capitalist                                      0.025                0.980    
+bage0-34:class_inactive                                     -0.216                0.829    
+bage35-44:class_inactive                                    -0.192                0.848    
+bage54-65:class_inactive                                    -0.243                0.808    
+bage65-75:class_inactive                                    -0.395                0.693    
+bage75:class_inactive                                        0.287                0.774    
+bage0-34:class_manager                                      -0.081                0.936    
+bage35-44:class_manager                                      4.686           0.00000285 ***
+bage54-65:class_manager                                     -0.104                0.917    
+bage65-75:class_manager                                     -0.402                0.688    
+bage75:class_manager                                         0.210                0.833    
+bage0-34:class_retired                                          NA                   NA    
+bage35-44:class_retired                                      0.415                0.678    
+bage54-65:class_retired                                      0.148                0.883    
+bage65-75:class_retired                                     -0.197                0.844    
+bage75:class_retired                                         0.291                0.771    
+bage0-34:class_worker                                           NA                   NA    
+bage35-44:class_worker                                          NA                   NA    
+bage54-65:class_worker                                          NA                   NA    
+bage65-75:class_worker                                          NA                   NA    
+bage75:class_worker                                             NA                   NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -479,88 +505,101 @@ F-statistic:   181 on 33 and 5928 DF,  p-value: < 0.00000000000000022
 [1] "###############2008 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
             Min              1Q          Median              3Q             Max 
 -0.000000176623 -0.000000000022  0.000000000002  0.000000000029  0.000000001246 
 
-Coefficients: (4 not defined because of singularities)
-                                         Estimate              Std. Error             t value
-(Intercept)               15889.51907892778763198     0.00000000002805088 566453402454906.500
-bage0-34                      0.00000000000007168     0.00000000000234380               0.031
-bage35-44                     0.00000000000005731     0.00000000000208674               0.027
-bage54-65                    -0.00000000000034879     0.00000000003180175              -0.011
-bage65-75                     0.00000000000020056     0.00000000003708730               0.005
-bage75                        0.00000000000043681     0.00000000004324867               0.010
-classcapitalist               0.00000000000025552     0.00000000002828610               0.009
-classinactive                -0.00000000000501100     0.00000000002818393              -0.178
-classmanager                  0.00000000000024144     0.00000000002829081               0.009
-classretired                  0.00000000000002376     0.00000000002959199               0.001
-classworker                   0.00000000000043718     0.00000000002809579               0.016
-bage0-34:classcapitalist      0.00000000000054159     0.00000000000688901               0.079
-bage35-44:classcapitalist     0.00000000000003356     0.00000000000553344               0.006
-bage54-65:classcapitalist     0.00000000000053902     0.00000000003229445               0.017
-bage65-75:classcapitalist     0.00000000000015942     0.00000000004062975               0.004
-bage75:classcapitalist       -0.00000000000035336     0.00000000013466281              -0.003
-bage0-34:classinactive        0.00000000000533553     0.00000000000557664               0.957
-bage35-44:classinactive       0.00000000000549421     0.00000000000481758               1.140
-bage54-65:classinactive       0.00000000000575618     0.00000000003201440               0.180
-bage65-75:classinactive       0.00000000000523847     0.00000000003727291               0.141
-bage75:classinactive          0.00000000000501690     0.00000000004339970               0.116
-bage0-34:classmanager         0.00000000000121627     0.00000000000937669               0.130
-bage35-44:classmanager        0.00000000000001000     0.00000000000628911               0.002
-bage54-65:classmanager        0.00000000000072574     0.00000000003230548               0.022
-bage65-75:classmanager        0.00000000000019424     0.00000000003764154               0.005
-bage75:classmanager          -0.00000000000033980     0.00000000004403519              -0.008
-bage0-34:classretired                          NA                      NA                  NA
-bage35-44:classretired        0.00000000000113692     0.00000000006514202               0.017
-bage54-65:classretired        0.00000000000080497     0.00000000003333940               0.024
-bage65-75:classretired        0.00000000000021744     0.00000000003831021               0.006
-bage75:classretired          -0.00000000000003931     0.00000000004430909              -0.001
-bage0-34:classworker                           NA                      NA                  NA
-bage35-44:classworker                          NA                      NA                  NA
-bage54-65:classworker         0.00000000000029106     0.00000000003191897               0.009
-bage65-75:classworker        -0.00000000000071447     0.00000000003928101              -0.018
-bage75:classworker                             NA                      NA                  NA
-                                     Pr(>|t|)    
-(Intercept)               <0.0000000000000002 ***
-bage0-34                                0.976    
-bage35-44                               0.978    
-bage54-65                               0.991    
-bage65-75                               0.996    
-bage75                                  0.992    
-classcapitalist                         0.993    
-classinactive                           0.859    
-classmanager                            0.993    
-classretired                            0.999    
-classworker                             0.988    
-bage0-34:classcapitalist                0.937    
-bage35-44:classcapitalist               0.995    
-bage54-65:classcapitalist               0.987    
-bage65-75:classcapitalist               0.997    
-bage75:classcapitalist                  0.998    
-bage0-34:classinactive                  0.339    
-bage35-44:classinactive                 0.254    
-bage54-65:classinactive                 0.857    
-bage65-75:classinactive                 0.888    
-bage75:classinactive                    0.908    
-bage0-34:classmanager                   0.897    
-bage35-44:classmanager                  0.999    
-bage54-65:classmanager                  0.982    
-bage65-75:classmanager                  0.996    
-bage75:classmanager                     0.994    
-bage0-34:classretired                      NA    
-bage35-44:classretired                  0.986    
-bage54-65:classretired                  0.981    
-bage65-75:classretired                  0.995    
-bage75:classretired                     0.999    
-bage0-34:classworker                       NA    
-bage35-44:classworker                      NA    
-bage54-65:classworker                   0.993    
-bage65-75:classworker                   0.985    
-bage75:classworker                         NA    
+Coefficients: (10 not defined because of singularities)
+                                                            Estimate              Std. Error
+(Intercept)                                  15889.51907892778763198     0.00000000000158780
+bage0-34                                         0.00000000000007168     0.00000000000234380
+bage35-44                                        0.00000000000005731     0.00000000000208674
+bage54-65                                       -0.00000000000005772     0.00000000000273306
+bage65-75                                       -0.00000000000051390     0.00000000001294335
+bage75                                           0.00000000000043681     0.00000000004324867
+dt_transform$"class_self-employed"              -0.00000000000043718     0.00000000002809579
+class_capitalist                                -0.00000000000018167     0.00000000000397144
+class_inactive                                  -0.00000000000544818     0.00000000000316270
+class_manager                                   -0.00000000000019574     0.00000000000400485
+class_retired                                   -0.00000000000041342     0.00000000000955797
+class_worker                                                      NA                      NA
+bage0-34:dt_transform$"class_self-employed"                       NA                      NA
+bage35-44:dt_transform$"class_self-employed"                      NA                      NA
+bage54-65:dt_transform$"class_self-employed"    -0.00000000000029106     0.00000000003191897
+bage65-75:dt_transform$"class_self-employed"     0.00000000000071447     0.00000000003928101
+bage75:dt_transform$"class_self-employed"                         NA                      NA
+bage0-34:class_capitalist                        0.00000000000054159     0.00000000000688901
+bage35-44:class_capitalist                       0.00000000000003356     0.00000000000553344
+bage54-65:class_capitalist                       0.00000000000024796     0.00000000000624900
+bage65-75:class_capitalist                       0.00000000000087389     0.00000000002104375
+bage75:class_capitalist                         -0.00000000000035336     0.00000000013466281
+bage0-34:class_inactive                          0.00000000000533553     0.00000000000557664
+bage35-44:class_inactive                         0.00000000000549421     0.00000000000481758
+bage54-65:class_inactive                         0.00000000000546512     0.00000000000458698
+bage65-75:class_inactive                         0.00000000000595293     0.00000000001346598
+bage75:class_inactive                            0.00000000000501690     0.00000000004339970
+bage0-34:class_manager                           0.00000000000121627     0.00000000000937669
+bage35-44:class_manager                          0.00000000000001000     0.00000000000628911
+bage54-65:class_manager                          0.00000000000043468     0.00000000000630578
+bage65-75:class_manager                          0.00000000000090870     0.00000000001445505
+bage75:class_manager                            -0.00000000000033980     0.00000000004403519
+bage0-34:class_retired                                            NA                      NA
+bage35-44:class_retired                          0.00000000000113692     0.00000000006514202
+bage54-65:class_retired                          0.00000000000051391     0.00000000001037470
+bage65-75:class_retired                          0.00000000000093190     0.00000000001611630
+bage75:class_retired                            -0.00000000000003931     0.00000000004430909
+bage0-34:class_worker                                             NA                      NA
+bage35-44:class_worker                                            NA                      NA
+bage54-65:class_worker                                            NA                      NA
+bage65-75:class_worker                                            NA                      NA
+bage75:class_worker                                               NA                      NA
+                                                           t value            Pr(>|t|)    
+(Intercept)                                  10007280357128372.000 <0.0000000000000002 ***
+bage0-34                                                     0.031               0.976    
+bage35-44                                                    0.027               0.978    
+bage54-65                                                   -0.021               0.983    
+bage65-75                                                   -0.040               0.968    
+bage75                                                       0.010               0.992    
+dt_transform$"class_self-employed"                          -0.016               0.988    
+class_capitalist                                            -0.046               0.964    
+class_inactive                                              -1.723               0.085 .  
+class_manager                                               -0.049               0.961    
+class_retired                                               -0.043               0.966    
+class_worker                                                    NA                  NA    
+bage0-34:dt_transform$"class_self-employed"                     NA                  NA    
+bage35-44:dt_transform$"class_self-employed"                    NA                  NA    
+bage54-65:dt_transform$"class_self-employed"                -0.009               0.993    
+bage65-75:dt_transform$"class_self-employed"                 0.018               0.985    
+bage75:dt_transform$"class_self-employed"                       NA                  NA    
+bage0-34:class_capitalist                                    0.079               0.937    
+bage35-44:class_capitalist                                   0.006               0.995    
+bage54-65:class_capitalist                                   0.040               0.968    
+bage65-75:class_capitalist                                   0.042               0.967    
+bage75:class_capitalist                                     -0.003               0.998    
+bage0-34:class_inactive                                      0.957               0.339    
+bage35-44:class_inactive                                     1.140               0.254    
+bage54-65:class_inactive                                     1.191               0.234    
+bage65-75:class_inactive                                     0.442               0.658    
+bage75:class_inactive                                        0.116               0.908    
+bage0-34:class_manager                                       0.130               0.897    
+bage35-44:class_manager                                      0.002               0.999    
+bage54-65:class_manager                                      0.069               0.945    
+bage65-75:class_manager                                      0.063               0.950    
+bage75:class_manager                                        -0.008               0.994    
+bage0-34:class_retired                                          NA                  NA    
+bage35-44:class_retired                                      0.017               0.986    
+bage54-65:class_retired                                      0.050               0.960    
+bage65-75:class_retired                                      0.058               0.954    
+bage75:class_retired                                        -0.001               0.999    
+bage0-34:class_worker                                           NA                  NA    
+bage35-44:class_worker                                          NA                  NA    
+bage54-65:class_worker                                          NA                  NA    
+bage65-75:class_worker                                          NA                  NA    
+bage75:class_worker                                             NA                  NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -571,88 +610,101 @@ F-statistic: 199.3 on 31 and 6165 DF,  p-value: < 0.00000000000000022
 [1] "###############2011 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
            Min             1Q         Median             3Q            Max 
 -0.00000034187 -0.00000000003  0.00000000000  0.00000000005  0.00000000137 
 
-Coefficients: (2 not defined because of singularities)
-                                          Estimate               Std. Error              t value
-(Intercept)               -22092.99055293753190199      0.00000000004660772 -474020008345387.688
-bage0-34                      -0.00000000000026174      0.00000000000502271               -0.052
-bage35-44                     -0.00000000000020695      0.00000000000419192               -0.049
-bage54-65                     -0.00000000000002052      0.00000000005493918                0.000
-bage65-75                     -0.00000000000070851      0.00000000008039238               -0.009
-bage75                         0.00000000000083191      0.00000000007929167                0.010
-classcapitalist               -0.00000000000069446      0.00000000004710654               -0.015
-classinactive                 -0.00000000000045751      0.00000000004682811               -0.010
-classmanager                   0.00000000000052159      0.00000000004721940                0.011
-classretired                  -0.00000000000035894      0.00000000004916745               -0.007
-classworker                   -0.00000000000008177      0.00000000004670955               -0.002
-bage0-34:classcapitalist      -0.00000000000003331      0.00000000001349905               -0.002
-bage35-44:classcapitalist      0.00000000000120127      0.00000000001064737                0.113
-bage54-65:classcapitalist      0.00000000000034373      0.00000000005606727                0.006
-bage65-75:classcapitalist      0.00000000000142467      0.00000000008375109                0.017
-bage75:classcapitalist        -0.00000000000146073      0.00000000009187465               -0.016
-bage0-34:classinactive         0.00000000000016492      0.00000000000951591                0.017
-bage35-44:classinactive        0.00000000000026018      0.00000000000774258                0.034
-bage54-65:classinactive        0.00000000000018046      0.00000000005534903                0.003
-bage65-75:classinactive        0.00000000000015366      0.00000000008077045                0.002
-bage75:classinactive          -0.00000000000056575      0.00000000007959863               -0.007
-bage0-34:classmanager          0.00000000000058366      0.00000000001843896                0.032
-bage35-44:classmanager        -0.00000000000075801      0.00000000001222520               -0.062
-bage54-65:classmanager        -0.00000000000089532      0.00000000005622871               -0.016
-bage65-75:classmanager        -0.00000000000021609      0.00000000008120163               -0.003
-bage75:classmanager           -0.00000000000130042      0.00000000008037160               -0.016
-bage0-34:classretired         -0.00000000000091372      0.00000000004694279               -0.019
-bage35-44:classretired        -0.00000000000143930      0.00000000004661637               -0.031
-bage54-65:classretired         0.00000000000027261      0.00000000005736973                0.005
-bage65-75:classretired         0.00000000000088240      0.00000000008196842                0.011
-bage75:classretired           -0.00000000000104293      0.00000000008088941               -0.013
-bage0-34:classworker                            NA                       NA                   NA
-bage35-44:classworker                           NA                       NA                   NA
-bage54-65:classworker         -0.00000000000477545      0.00000000005517738               -0.087
-bage65-75:classworker          0.00000000000080661      0.00000000008593659                0.009
-bage75:classworker            -0.00000000000148022      0.00000000009824750               -0.015
-                                     Pr(>|t|)    
-(Intercept)               <0.0000000000000002 ***
-bage0-34                                0.958    
-bage35-44                               0.961    
-bage54-65                               1.000    
-bage65-75                               0.993    
-bage75                                  0.992    
-classcapitalist                         0.988    
-classinactive                           0.992    
-classmanager                            0.991    
-classretired                            0.994    
-classworker                             0.999    
-bage0-34:classcapitalist                0.998    
-bage35-44:classcapitalist               0.910    
-bage54-65:classcapitalist               0.995    
-bage65-75:classcapitalist               0.986    
-bage75:classcapitalist                  0.987    
-bage0-34:classinactive                  0.986    
-bage35-44:classinactive                 0.973    
-bage54-65:classinactive                 0.997    
-bage65-75:classinactive                 0.998    
-bage75:classinactive                    0.994    
-bage0-34:classmanager                   0.975    
-bage35-44:classmanager                  0.951    
-bage54-65:classmanager                  0.987    
-bage65-75:classmanager                  0.998    
-bage75:classmanager                     0.987    
-bage0-34:classretired                   0.984    
-bage35-44:classretired                  0.975    
-bage54-65:classretired                  0.996    
-bage65-75:classretired                  0.991    
-bage75:classretired                     0.990    
-bage0-34:classworker                       NA    
-bage35-44:classworker                      NA    
-bage54-65:classworker                   0.931    
-bage65-75:classworker                   0.993    
-bage75:classworker                      0.988    
+Coefficients: (8 not defined because of singularities)
+                                                             Estimate               Std. Error
+(Intercept)                                  -22092.99055293753190199      0.00000000000308264
+bage0-34                                         -0.00000000000026174      0.00000000000502271
+bage35-44                                        -0.00000000000020695      0.00000000000419192
+bage54-65                                        -0.00000000000479597      0.00000000000512150
+bage65-75                                         0.00000000000009810      0.00000000003036713
+bage75                                           -0.00000000000064831      0.00000000005801208
+dt_transform$"class_self-employed"                0.00000000000008177      0.00000000004670955
+class_capitalist                                 -0.00000000000061269      0.00000000000749995
+class_inactive                                   -0.00000000000037574      0.00000000000548591
+class_manager                                     0.00000000000060336      0.00000000000817895
+class_retired                                    -0.00000000000027717      0.00000000001595811
+class_worker                                                       NA                       NA
+bage0-34:dt_transform$"class_self-employed"                        NA                       NA
+bage35-44:dt_transform$"class_self-employed"                       NA                       NA
+bage54-65:dt_transform$"class_self-employed"      0.00000000000477545      0.00000000005517738
+bage65-75:dt_transform$"class_self-employed"     -0.00000000000080661      0.00000000008593659
+bage75:dt_transform$"class_self-employed"         0.00000000000148022      0.00000000009824750
+bage0-34:class_capitalist                        -0.00000000000003331      0.00000000001349905
+bage35-44:class_capitalist                        0.00000000000120127      0.00000000001064737
+bage54-65:class_capitalist                        0.00000000000511918      0.00000000001230670
+bage65-75:class_capitalist                        0.00000000000061806      0.00000000003838585
+bage75:class_capitalist                           0.00000000000001949      0.00000000007429121
+bage0-34:class_inactive                           0.00000000000016492      0.00000000000951591
+bage35-44:class_inactive                          0.00000000000026018      0.00000000000774258
+bage54-65:class_inactive                          0.00000000000495591      0.00000000000845167
+bage65-75:class_inactive                         -0.00000000000065295      0.00000000003135432
+bage75:class_inactive                             0.00000000000091447      0.00000000005843094
+bage0-34:class_manager                            0.00000000000058366      0.00000000001843896
+bage35-44:class_manager                          -0.00000000000075801      0.00000000001222520
+bage54-65:class_manager                           0.00000000000388013      0.00000000001302244
+bage65-75:class_manager                          -0.00000000000102270      0.00000000003244892
+bage75:class_manager                              0.00000000000017980      0.00000000005947964
+bage0-34:class_retired                           -0.00000000000091372      0.00000000004694279
+bage35-44:class_retired                          -0.00000000000143930      0.00000000004661637
+bage54-65:class_retired                           0.00000000000504806      0.00000000001729746
+bage65-75:class_retired                           0.00000000000007579      0.00000000003432273
+bage75:class_retired                              0.00000000000043729      0.00000000006017748
+bage0-34:class_worker                                              NA                       NA
+bage35-44:class_worker                                             NA                       NA
+bage54-65:class_worker                                             NA                       NA
+bage65-75:class_worker                                             NA                       NA
+bage75:class_worker                                                NA                       NA
+                                                           t value            Pr(>|t|)    
+(Intercept)                                  -7166914549313488.000 <0.0000000000000002 ***
+bage0-34                                                    -0.052               0.958    
+bage35-44                                                   -0.049               0.961    
+bage54-65                                                   -0.936               0.349    
+bage65-75                                                    0.003               0.997    
+bage75                                                      -0.011               0.991    
+dt_transform$"class_self-employed"                           0.002               0.999    
+class_capitalist                                            -0.082               0.935    
+class_inactive                                              -0.068               0.945    
+class_manager                                                0.074               0.941    
+class_retired                                               -0.017               0.986    
+class_worker                                                    NA                  NA    
+bage0-34:dt_transform$"class_self-employed"                     NA                  NA    
+bage35-44:dt_transform$"class_self-employed"                    NA                  NA    
+bage54-65:dt_transform$"class_self-employed"                 0.087               0.931    
+bage65-75:dt_transform$"class_self-employed"                -0.009               0.993    
+bage75:dt_transform$"class_self-employed"                    0.015               0.988    
+bage0-34:class_capitalist                                   -0.002               0.998    
+bage35-44:class_capitalist                                   0.113               0.910    
+bage54-65:class_capitalist                                   0.416               0.677    
+bage65-75:class_capitalist                                   0.016               0.987    
+bage75:class_capitalist                                      0.000               1.000    
+bage0-34:class_inactive                                      0.017               0.986    
+bage35-44:class_inactive                                     0.034               0.973    
+bage54-65:class_inactive                                     0.586               0.558    
+bage65-75:class_inactive                                    -0.021               0.983    
+bage75:class_inactive                                        0.016               0.988    
+bage0-34:class_manager                                       0.032               0.975    
+bage35-44:class_manager                                     -0.062               0.951    
+bage54-65:class_manager                                      0.298               0.766    
+bage65-75:class_manager                                     -0.032               0.975    
+bage75:class_manager                                         0.003               0.998    
+bage0-34:class_retired                                      -0.019               0.984    
+bage35-44:class_retired                                     -0.031               0.975    
+bage54-65:class_retired                                      0.292               0.770    
+bage65-75:class_retired                                      0.002               0.998    
+bage75:class_retired                                         0.007               0.994    
+bage0-34:class_worker                                           NA                  NA    
+bage35-44:class_worker                                          NA                  NA    
+bage54-65:class_worker                                          NA                  NA    
+bage65-75:class_worker                                          NA                  NA    
+bage75:class_worker                                             NA                  NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -663,88 +715,101 @@ F-statistic: 184.4 on 33 and 6072 DF,  p-value: < 0.00000000000000022
 [1] "###############2014 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
            Min             1Q         Median             3Q            Max 
 -0.00000000984 -0.00000000011 -0.00000000001  0.00000000005  0.00000123886 
 
-Coefficients: (5 not defined because of singularities)
-                                         Estimate              Std. Error              t value
-(Intercept)               -40566.6674594147043535      0.0000000001348240 -300886190134915.750
-bage0-34                      -0.0000000000003636      0.0000000000179771               -0.020
-bage35-44                      0.0000000000368469      0.0000000000144297                2.554
-bage54-65                      0.0000000000048290      0.0000000001745989                0.028
-bage65-75                     -0.0000000000011715      0.0000000000844223               -0.014
-bage75                         0.0000000000034912      0.0000000002473220                0.014
-classcapitalist                0.0000000000029518      0.0000000001374547                0.021
-classinactive                  0.0000000000032610      0.0000000001358333                0.024
-classmanager                   0.0000000000029078      0.0000000001372438                0.021
-classretired                   0.0000000000022135      0.0000000001450788                0.015
-classworker                    0.0000000000030956      0.0000000001344159                0.023
-bage0-34:classcapitalist       0.0000000000021620      0.0000000000659877                0.033
-bage35-44:classcapitalist     -0.0000000000360620      0.0000000000424445               -0.850
-bage54-65:classcapitalist     -0.0000000000053686      0.0000000001794038               -0.030
-bage65-75:classcapitalist      0.0000000000002688      0.0000000001560515                0.002
-bage75:classcapitalist        -0.0000000000053313      0.0000000039906972               -0.001
-bage0-34:classinactive        -0.0000000000002102      0.0000000000367904               -0.006
-bage35-44:classinactive       -0.0000000000375555      0.0000000000292829               -1.283
-bage54-65:classinactive       -0.0000000000047110      0.0000000001761114               -0.027
-bage65-75:classinactive        0.0000000000009573      0.0000000000885129                0.011
-bage75:classinactive          -0.0000000000034441      0.0000000002485588               -0.014
-bage0-34:classmanager          0.0000000000032231      0.0000000000947300                0.034
-bage35-44:classmanager        -0.0000000000368616      0.0000000000394957               -0.933
-bage54-65:classmanager        -0.0000000000038626      0.0000000001782013               -0.022
-bage65-75:classmanager         0.0000000000010772      0.0000000000926259                0.012
-bage75:classmanager           -0.0000000000039180      0.0000000002509186               -0.016
-bage0-34:classretired                          NA                      NA                   NA
-bage35-44:classretired        -0.0000000000334417      0.0000000001394028               -0.240
-bage54-65:classretired        -0.0000000000036878      0.0000000001839557               -0.020
-bage65-75:classretired         0.0000000000019939      0.0000000001006586                0.020
-bage75:classretired           -0.0000000000030869      0.0000000002533641               -0.012
-bage0-34:classworker                           NA                      NA                   NA
-bage35-44:classworker                          NA                      NA                   NA
-bage54-65:classworker         -0.0000000000047064      0.0000000001749229               -0.027
-bage65-75:classworker                          NA                      NA                   NA
-bage75:classworker                             NA                      NA                   NA
-                                     Pr(>|t|)    
-(Intercept)               <0.0000000000000002 ***
-bage0-34                               0.9839    
-bage35-44                              0.0107 *  
-bage54-65                              0.9779    
-bage65-75                              0.9889    
-bage75                                 0.9887    
-classcapitalist                        0.9829    
-classinactive                          0.9808    
-classmanager                           0.9831    
-classretired                           0.9878    
-classworker                            0.9816    
-bage0-34:classcapitalist               0.9739    
-bage35-44:classcapitalist              0.3956    
-bage54-65:classcapitalist              0.9761    
-bage65-75:classcapitalist              0.9986    
-bage75:classcapitalist                 0.9989    
-bage0-34:classinactive                 0.9954    
-bage35-44:classinactive                0.1997    
-bage54-65:classinactive                0.9787    
-bage65-75:classinactive                0.9914    
-bage75:classinactive                   0.9889    
-bage0-34:classmanager                  0.9729    
-bage35-44:classmanager                 0.3507    
-bage54-65:classmanager                 0.9827    
-bage65-75:classmanager                 0.9907    
-bage75:classmanager                    0.9875    
-bage0-34:classretired                      NA    
-bage35-44:classretired                 0.8104    
-bage54-65:classretired                 0.9840    
-bage65-75:classretired                 0.9842    
-bage75:classretired                    0.9903    
-bage0-34:classworker                       NA    
-bage35-44:classworker                      NA    
-bage54-65:classworker                  0.9785    
-bage65-75:classworker                      NA    
-bage75:classworker                         NA    
+Coefficients: (11 not defined because of singularities)
+                                                              Estimate                Std. Error
+(Intercept)                                  -40566.667459414704353549      0.000000000010482304
+bage0-34                                         -0.000000000000363587      0.000000000017977137
+bage35-44                                         0.000000000036846861      0.000000000014429713
+bage54-65                                         0.000000000000122627      0.000000000018248594
+bage65-75                                        -0.000000000001171518      0.000000000084422259
+bage75                                            0.000000000000404262      0.000000000055001958
+dt_transform$"class_self-employed"               -0.000000000000008731      0.000000000214769104
+class_capitalist                                 -0.000000000000143807      0.000000000028743026
+class_inactive                                    0.000000000000165371      0.000000000019571930
+class_manager                                    -0.000000000000187878      0.000000000027717301
+class_retired                                    -0.000000000000882120      0.000000000054591607
+class_worker                                                        NA                        NA
+bage0-34:dt_transform$"class_self-employed"                         NA                        NA
+bage35-44:dt_transform$"class_self-employed"                        NA                        NA
+bage54-65:dt_transform$"class_self-employed"      0.000000000001619476      0.000000000242190382
+bage65-75:dt_transform$"class_self-employed"     -0.000000000003086899      0.000000000253364144
+bage75:dt_transform$"class_self-employed"                           NA                        NA
+bage0-34:class_capitalist                         0.000000000002161953      0.000000000065987683
+bage35-44:class_capitalist                       -0.000000000036062006      0.000000000042444470
+bage54-65:class_capitalist                       -0.000000000000662213      0.000000000045099492
+bage65-75:class_capitalist                        0.000000000000268779      0.000000000156051456
+bage75:class_capitalist                          -0.000000000002244441      0.000000003983405714
+bage0-34:class_inactive                          -0.000000000000210218      0.000000000036790380
+bage35-44:class_inactive                         -0.000000000037555487      0.000000000029282873
+bage54-65:class_inactive                         -0.000000000000004623      0.000000000029384425
+bage65-75:class_inactive                          0.000000000000957333      0.000000000088512933
+bage75:class_inactive                            -0.000000000000357209      0.000000000060320151
+bage0-34:class_manager                            0.000000000003223059      0.000000000094729985
+bage35-44:class_manager                          -0.000000000036861556      0.000000000039495684
+bage54-65:class_manager                           0.000000000000843765      0.000000000040049253
+bage65-75:class_manager                           0.000000000001077248      0.000000000092625937
+bage75:class_manager                             -0.000000000000831120      0.000000000069406032
+bage0-34:class_retired                                              NA                        NA
+bage35-44:class_retired                          -0.000000000033441653      0.000000000139402765
+bage54-65:class_retired                           0.000000000001018611      0.000000000060728387
+bage65-75:class_retired                           0.000000000001993932      0.000000000100658573
+bage75:class_retired                                                NA                        NA
+bage0-34:class_worker                                               NA                        NA
+bage35-44:class_worker                                              NA                        NA
+bage54-65:class_worker                                              NA                        NA
+bage65-75:class_worker                                              NA                        NA
+bage75:class_worker                                                 NA                        NA
+                                                           t value            Pr(>|t|)    
+(Intercept)                                  -3870014277511198.500 <0.0000000000000002 ***
+bage0-34                                                    -0.020              0.9839    
+bage35-44                                                    2.554              0.0107 *  
+bage54-65                                                    0.007              0.9946    
+bage65-75                                                   -0.014              0.9889    
+bage75                                                       0.007              0.9941    
+dt_transform$"class_self-employed"                           0.000              1.0000    
+class_capitalist                                            -0.005              0.9960    
+class_inactive                                               0.008              0.9933    
+class_manager                                               -0.007              0.9946    
+class_retired                                               -0.016              0.9871    
+class_worker                                                    NA                  NA    
+bage0-34:dt_transform$"class_self-employed"                     NA                  NA    
+bage35-44:dt_transform$"class_self-employed"                    NA                  NA    
+bage54-65:dt_transform$"class_self-employed"                 0.007              0.9947    
+bage65-75:dt_transform$"class_self-employed"                -0.012              0.9903    
+bage75:dt_transform$"class_self-employed"                       NA                  NA    
+bage0-34:class_capitalist                                    0.033              0.9739    
+bage35-44:class_capitalist                                  -0.850              0.3956    
+bage54-65:class_capitalist                                  -0.015              0.9883    
+bage65-75:class_capitalist                                   0.002              0.9986    
+bage75:class_capitalist                                     -0.001              0.9996    
+bage0-34:class_inactive                                     -0.006              0.9954    
+bage35-44:class_inactive                                    -1.283              0.1997    
+bage54-65:class_inactive                                     0.000              0.9999    
+bage65-75:class_inactive                                     0.011              0.9914    
+bage75:class_inactive                                       -0.006              0.9953    
+bage0-34:class_manager                                       0.034              0.9729    
+bage35-44:class_manager                                     -0.933              0.3507    
+bage54-65:class_manager                                      0.021              0.9832    
+bage65-75:class_manager                                      0.012              0.9907    
+bage75:class_manager                                        -0.012              0.9904    
+bage0-34:class_retired                                          NA                  NA    
+bage35-44:class_retired                                     -0.240              0.8104    
+bage54-65:class_retired                                      0.017              0.9866    
+bage65-75:class_retired                                      0.020              0.9842    
+bage75:class_retired                                            NA                  NA    
+bage0-34:class_worker                                           NA                  NA    
+bage35-44:class_worker                                          NA                  NA    
+bage54-65:class_worker                                          NA                  NA    
+bage65-75:class_worker                                          NA                  NA    
+bage75:class_worker                                             NA                  NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -755,88 +820,101 @@ F-statistic:   203 on 30 and 6089 DF,  p-value: < 0.00000000000000022
 [1] "###############2017 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
            Min             1Q         Median             3Q            Max 
 -0.00000055435 -0.00000000007  0.00000000002  0.00000000019  0.00000000337 
 
-Coefficients: (3 not defined because of singularities)
-                                          Estimate               Std. Error              t value
-(Intercept)               -56307.20035326791548869      0.00000000011245518 -500707928060674.312
-bage0-34                      -0.00000000000017664      0.00000000000841144               -0.021
-bage35-44                      0.00000000000140841      0.00000000014270349                0.010
-bage54-65                      0.00000000000296294      0.00000000013018019                0.023
-bage65-75                      0.00000000000309494      0.00000000011952707                0.026
-bage75                        -0.00000000000497026      0.00000000021543414               -0.023
-classcapitalist                0.00000000000178258      0.00000000011313122                0.016
-classinactive                  0.00000000000088326      0.00000000011271040                0.008
-classmanager                   0.00000000000092161      0.00000000011281471                0.008
-classretired                   0.00000000000691892      0.00000000012236888                0.057
-classworker                    0.00000000000102031      0.00000000011254469                0.009
-bage0-34:classcapitalist      -0.00000000000210802      0.00000000003014239               -0.070
-bage35-44:classcapitalist     -0.00000000000117888      0.00000000014407464               -0.008
-bage54-65:classcapitalist     -0.00000000000382905      0.00000000013216234               -0.029
-bage65-75:classcapitalist     -0.00000000000110560      0.00000000014044499               -0.008
-bage75:classcapitalist         0.00000000000425697      0.00000000098771000                0.004
-bage0-34:classinactive         0.00000000000130359      0.00000000001761106                0.074
-bage35-44:classinactive       -0.00000000000191684      0.00000000014317032               -0.013
-bage54-65:classinactive       -0.00000000000274132      0.00000000013061446               -0.021
-bage65-75:classinactive       -0.00000000000323997      0.00000000012022453               -0.027
-bage75:classinactive           0.00000000000373587      0.00000000021570601                0.017
-bage0-34:classmanager         -0.00000000000005521      0.00000000002329131               -0.002
-bage35-44:classmanager        -0.00000000000236674      0.00000000014337700               -0.017
-bage54-65:classmanager        -0.00000000000320347      0.00000000013084199               -0.024
-bage65-75:classmanager        -0.00000000000349064      0.00000000012026119               -0.029
-bage75:classmanager            0.00000000000542539      0.00000000021594431                0.025
-bage0-34:classretired                           NA                       NA                   NA
-bage35-44:classretired                          NA                       NA                   NA
-bage54-65:classretired        -0.00000000000958354      0.00000000013922805               -0.069
-bage65-75:classretired        -0.00000000002644804      0.00000000012899828               -0.205
-bage75:classretired           -0.00000000000087517      0.00000000022084174               -0.004
-bage0-34:classworker                            NA                       NA                   NA
-bage35-44:classworker         -0.00000000000139204      0.00000000014284199               -0.010
-bage54-65:classworker         -0.00000000000304794      0.00000000013037629               -0.023
-bage65-75:classworker         -0.00000000000426088      0.00000000012214459               -0.035
-bage75:classworker             0.00000000000353557      0.00000000025333885                0.014
-                                     Pr(>|t|)    
-(Intercept)               <0.0000000000000002 ***
-bage0-34                                0.983    
-bage35-44                               0.992    
-bage54-65                               0.982    
-bage65-75                               0.979    
-bage75                                  0.982    
-classcapitalist                         0.987    
-classinactive                           0.994    
-classmanager                            0.993    
-classretired                            0.955    
-classworker                             0.993    
-bage0-34:classcapitalist                0.944    
-bage35-44:classcapitalist               0.993    
-bage54-65:classcapitalist               0.977    
-bage65-75:classcapitalist               0.994    
-bage75:classcapitalist                  0.997    
-bage0-34:classinactive                  0.941    
-bage35-44:classinactive                 0.989    
-bage54-65:classinactive                 0.983    
-bage65-75:classinactive                 0.979    
-bage75:classinactive                    0.986    
-bage0-34:classmanager                   0.998    
-bage35-44:classmanager                  0.987    
-bage54-65:classmanager                  0.980    
-bage65-75:classmanager                  0.977    
-bage75:classmanager                     0.980    
-bage0-34:classretired                      NA    
-bage35-44:classretired                     NA    
-bage54-65:classretired                  0.945    
-bage65-75:classretired                  0.838    
-bage75:classretired                     0.997    
-bage0-34:classworker                       NA    
-bage35-44:classworker                   0.992    
-bage54-65:classworker                   0.981    
-bage65-75:classworker                   0.972    
-bage75:classworker                      0.989    
+Coefficients: (9 not defined because of singularities)
+                                                             Estimate               Std. Error
+(Intercept)                                  -56307.20035326791548869      0.00000000000448767
+bage0-34                                         -0.00000000000017664      0.00000000000841144
+bage35-44                                         0.00000000000001637      0.00000000000628884
+bage54-65                                        -0.00000000000008500      0.00000000000714819
+bage65-75                                        -0.00000000000116594      0.00000000002515114
+bage75                                           -0.00000000000143469      0.00000000013329930
+dt_transform$"class_self-employed"               -0.00000000000102031      0.00000000011254469
+class_capitalist                                  0.00000000000076227      0.00000000001313943
+class_inactive                                   -0.00000000000013705      0.00000000000880944
+class_manager                                    -0.00000000000009870      0.00000000001005633
+class_retired                                     0.00000000000589861      0.00000000004845735
+class_worker                                                       NA                       NA
+bage0-34:dt_transform$"class_self-employed"                        NA                       NA
+bage35-44:dt_transform$"class_self-employed"      0.00000000000139204      0.00000000014284199
+bage54-65:dt_transform$"class_self-employed"      0.00000000000304794      0.00000000013037629
+bage65-75:dt_transform$"class_self-employed"      0.00000000000426088      0.00000000012214459
+bage75:dt_transform$"class_self-employed"        -0.00000000000353557      0.00000000025333885
+bage0-34:class_capitalist                        -0.00000000000210802      0.00000000003014239
+bage35-44:class_capitalist                        0.00000000000021316      0.00000000002080301
+bage54-65:class_capitalist                       -0.00000000000078111      0.00000000002389769
+bage65-75:class_capitalist                        0.00000000000315528      0.00000000007791441
+bage75:class_capitalist                           0.00000000000072140      0.00000000097310219
+bage0-34:class_inactive                           0.00000000000130359      0.00000000001761106
+bage35-44:class_inactive                         -0.00000000000052480      0.00000000001315308
+bage54-65:class_inactive                          0.00000000000030662      0.00000000001282003
+bage65-75:class_inactive                          0.00000000000102091      0.00000000002828069
+bage75:class_inactive                             0.00000000000020030      0.00000000013373824
+bage0-34:class_manager                           -0.00000000000005521      0.00000000002329131
+bage35-44:class_manager                          -0.00000000000097470      0.00000000001523907
+bage54-65:class_manager                          -0.00000000000015553      0.00000000001496132
+bage65-75:class_manager                           0.00000000000077024      0.00000000002843612
+bage75:class_manager                              0.00000000000188982      0.00000000013412225
+bage0-34:class_retired                                             NA                       NA
+bage35-44:class_retired                                            NA                       NA
+bage54-65:class_retired                          -0.00000000000653560      0.00000000004988653
+bage65-75:class_retired                          -0.00000000002218716      0.00000000005464811
+bage75:class_retired                             -0.00000000000441074      0.00000000014187285
+bage0-34:class_worker                                              NA                       NA
+bage35-44:class_worker                                             NA                       NA
+bage54-65:class_worker                                             NA                       NA
+bage65-75:class_worker                                             NA                       NA
+bage75:class_worker                                                NA                       NA
+                                                            t value            Pr(>|t|)    
+(Intercept)                                  -12547081893410748.000 <0.0000000000000002 ***
+bage0-34                                                     -0.021               0.983    
+bage35-44                                                     0.003               0.998    
+bage54-65                                                    -0.012               0.991    
+bage65-75                                                    -0.046               0.963    
+bage75                                                       -0.011               0.991    
+dt_transform$"class_self-employed"                           -0.009               0.993    
+class_capitalist                                              0.058               0.954    
+class_inactive                                               -0.016               0.988    
+class_manager                                                -0.010               0.992    
+class_retired                                                 0.122               0.903    
+class_worker                                                     NA                  NA    
+bage0-34:dt_transform$"class_self-employed"                      NA                  NA    
+bage35-44:dt_transform$"class_self-employed"                  0.010               0.992    
+bage54-65:dt_transform$"class_self-employed"                  0.023               0.981    
+bage65-75:dt_transform$"class_self-employed"                  0.035               0.972    
+bage75:dt_transform$"class_self-employed"                    -0.014               0.989    
+bage0-34:class_capitalist                                    -0.070               0.944    
+bage35-44:class_capitalist                                    0.010               0.992    
+bage54-65:class_capitalist                                   -0.033               0.974    
+bage65-75:class_capitalist                                    0.040               0.968    
+bage75:class_capitalist                                       0.001               0.999    
+bage0-34:class_inactive                                       0.074               0.941    
+bage35-44:class_inactive                                     -0.040               0.968    
+bage54-65:class_inactive                                      0.024               0.981    
+bage65-75:class_inactive                                      0.036               0.971    
+bage75:class_inactive                                         0.001               0.999    
+bage0-34:class_manager                                       -0.002               0.998    
+bage35-44:class_manager                                      -0.064               0.949    
+bage54-65:class_manager                                      -0.010               0.992    
+bage65-75:class_manager                                       0.027               0.978    
+bage75:class_manager                                          0.014               0.989    
+bage0-34:class_retired                                           NA                  NA    
+bage35-44:class_retired                                          NA                  NA    
+bage54-65:class_retired                                      -0.131               0.896    
+bage65-75:class_retired                                      -0.406               0.685    
+bage75:class_retired                                         -0.031               0.975    
+bage0-34:class_worker                                            NA                  NA    
+bage35-44:class_worker                                           NA                  NA    
+bage54-65:class_worker                                           NA                  NA    
+bage65-75:class_worker                                           NA                  NA    
+bage75:class_worker                                              NA                  NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -847,88 +925,101 @@ F-statistic: 200.1 on 32 and 6380 DF,  p-value: < 0.00000000000000022
 [1] "###############2020 INTERACTIONS ###############"
 
 Call:
-lm(formula = rif_actreales ~ bage * class, data = dt_transform, 
-    weights = facine3)
+lm(formula = rif_actreales ~ bage * (dt_transform$"class_self-employed" + 
+    class_capitalist + class_inactive + class_manager + class_retired + 
+    class_worker), data = dt_transform, weights = facine3)
 
 Weighted Residuals:
             Min              1Q          Median              3Q             Max 
 -0.000000012919 -0.000000000085  0.000000000001  0.000000000078  0.000000115875 
 
-Coefficients: (4 not defined because of singularities)
-                                          Estimate               Std. Error              t value
-(Intercept)               -38963.21721774376783287      0.00000000003917584 -994572601494084.250
-bage0-34                      -0.00000000000003569      0.00000000000191061               -0.019
-bage35-44                      0.00000000000035682      0.00000000000135732                0.263
-bage54-65                     -0.00000000000454794      0.00000000004006291               -0.114
-bage65-75                     -0.00000000000422085      0.00000000003968728               -0.106
-bage75                        -0.00000000000224854      0.00000000002592873               -0.087
-classcapitalist               -0.00000000000434702      0.00000000003930002               -0.111
-classinactive                 -0.00000000000398964      0.00000000003920844               -0.102
-classmanager                  -0.00000000000430913      0.00000000003922026               -0.110
-classretired                  -0.00000000000359600      0.00000000003954293               -0.091
-classworker                   -0.00000000000446905      0.00000000003916441               -0.114
-bage0-34:classcapitalist      -0.00000000000022530      0.00000000001113722               -0.020
-bage35-44:classcapitalist     -0.00000000000027170      0.00000000000497474               -0.055
-bage54-65:classcapitalist      0.00000000000496008      0.00000000004037515                0.123
-bage65-75:classcapitalist      0.00000000000416051      0.00000000007252778                0.057
-bage75:classcapitalist        -0.00000000000020537      0.00000000011701724               -0.002
-bage0-34:classinactive        -0.00000000000051885      0.00000000000381580               -0.136
-bage35-44:classinactive       -0.00000000000077105      0.00000000000287559               -0.268
-bage54-65:classinactive        0.00000000000436356      0.00000000004013199                0.109
-bage65-75:classinactive        0.00000000000420236      0.00000000003979828                0.106
-bage75:classinactive           0.00000000000245771      0.00000000002606700                0.094
-bage0-34:classmanager          0.00000000000005887      0.00000000000558951                0.011
-bage35-44:classmanager        -0.00000000000083405      0.00000000000346342               -0.241
-bage54-65:classmanager         0.00000000000430416      0.00000000004014921                0.107
-bage65-75:classmanager         0.00000000000419101      0.00000000003979096                0.105
-bage75:classmanager            0.00000000000163900      0.00000000002609335                0.063
-bage0-34:classretired                           NA                       NA                   NA
-bage35-44:classretired         0.00000000000168196      0.00000000001078626                0.156
-bage54-65:classretired         0.00000000000383343      0.00000000004049565                0.095
-bage65-75:classretired         0.00000000000346585      0.00000000004006482                0.087
-bage75:classretired            0.00000000000124939      0.00000000002650825                0.047
-bage0-34:classworker                            NA                       NA                   NA
-bage35-44:classworker                           NA                       NA                   NA
-bage54-65:classworker          0.00000000000471107      0.00000000004006852                0.118
-bage65-75:classworker          0.00000000014177417      0.00000000004009472                3.536
-bage75:classworker                              NA                       NA                   NA
-                                      Pr(>|t|)    
-(Intercept)               < 0.0000000000000002 ***
-bage0-34                              0.985099    
-bage35-44                             0.792644    
-bage54-65                             0.909622    
-bage65-75                             0.915306    
-bage75                                0.930897    
-classcapitalist                       0.911928    
-classinactive                         0.918955    
-classmanager                          0.912516    
-classretired                          0.927544    
-classworker                           0.909154    
-bage0-34:classcapitalist              0.983861    
-bage35-44:classcapitalist             0.956446    
-bage54-65:classcapitalist             0.902230    
-bage65-75:classcapitalist             0.954257    
-bage75:classcapitalist                0.998600    
-bage0-34:classinactive                0.891846    
-bage35-44:classinactive               0.788604    
-bage54-65:classinactive               0.913420    
-bage65-75:classinactive               0.915910    
-bage75:classinactive                  0.924886    
-bage0-34:classmanager                 0.991597    
-bage35-44:classmanager                0.809706    
-bage54-65:classmanager                0.914631    
-bage65-75:classmanager                0.916121    
-bage75:classmanager                   0.949918    
-bage0-34:classretired                       NA    
-bage35-44:classretired                0.876089    
-bage54-65:classretired                0.924586    
-bage65-75:classretired                0.931067    
-bage75:classretired                   0.962409    
-bage0-34:classworker                        NA    
-bage35-44:classworker                       NA    
-bage54-65:classworker                 0.906408    
-bage65-75:classworker                 0.000409 ***
-bage75:classworker                          NA    
+Coefficients: (10 not defined because of singularities)
+                                                             Estimate               Std. Error
+(Intercept)                                  -38963.21721774376783287      0.00000000000094609
+bage0-34                                         -0.00000000000003569      0.00000000000191061
+bage35-44                                         0.00000000000035682      0.00000000000135732
+bage54-65                                         0.00000000000016313      0.00000000000149641
+bage65-75                                         0.00000000013755332      0.00000000000585634
+bage75                                           -0.00000000000224854      0.00000000002592873
+dt_transform$"class_self-employed"                0.00000000000446905      0.00000000003916441
+class_capitalist                                  0.00000000000012203      0.00000000000326188
+class_inactive                                    0.00000000000047941      0.00000000000185756
+class_manager                                     0.00000000000015992      0.00000000000209216
+class_retired                                     0.00000000000087305      0.00000000000545821
+class_worker                                                       NA                       NA
+bage0-34:dt_transform$"class_self-employed"                        NA                       NA
+bage35-44:dt_transform$"class_self-employed"                       NA                       NA
+bage54-65:dt_transform$"class_self-employed"     -0.00000000000471107      0.00000000004006852
+bage65-75:dt_transform$"class_self-employed"     -0.00000000014177417      0.00000000004009472
+bage75:dt_transform$"class_self-employed"                          NA                       NA
+bage0-34:class_capitalist                        -0.00000000000022530      0.00000000001113722
+bage35-44:class_capitalist                       -0.00000000000027170      0.00000000000497474
+bage54-65:class_capitalist                        0.00000000000024901      0.00000000000523021
+bage65-75:class_capitalist                       -0.00000000013761366      0.00000000006098767
+bage75:class_capitalist                          -0.00000000000020537      0.00000000011701724
+bage0-34:class_inactive                          -0.00000000000051885      0.00000000000381580
+bage35-44:class_inactive                         -0.00000000000077105      0.00000000000287559
+bage54-65:class_inactive                         -0.00000000000034751      0.00000000000278907
+bage65-75:class_inactive                         -0.00000000013757181      0.00000000000656658
+bage75:class_inactive                             0.00000000000245771      0.00000000002606700
+bage0-34:class_manager                            0.00000000000005887      0.00000000000558951
+bage35-44:class_manager                          -0.00000000000083405      0.00000000000346342
+bage54-65:class_manager                          -0.00000000000040692      0.00000000000302680
+bage65-75:class_manager                          -0.00000000013758316      0.00000000000652204
+bage75:class_manager                              0.00000000000163900      0.00000000002609335
+bage0-34:class_retired                                             NA                       NA
+bage35-44:class_retired                           0.00000000000168196      0.00000000001078626
+bage54-65:class_retired                          -0.00000000000087765      0.00000000000609096
+bage65-75:class_retired                          -0.00000000013830831      0.00000000000802538
+bage75:class_retired                              0.00000000000124939      0.00000000002650825
+bage0-34:class_worker                                              NA                       NA
+bage35-44:class_worker                                             NA                       NA
+bage54-65:class_worker                                             NA                       NA
+bage65-75:class_worker                                             NA                       NA
+bage75:class_worker                                                NA                       NA
+                                                            t value             Pr(>|t|)    
+(Intercept)                                  -41183561697206184.000 < 0.0000000000000002 ***
+bage0-34                                                     -0.019             0.985099    
+bage35-44                                                     0.263             0.792644    
+bage54-65                                                     0.109             0.913193    
+bage65-75                                                    23.488 < 0.0000000000000002 ***
+bage75                                                       -0.087             0.930897    
+dt_transform$"class_self-employed"                            0.114             0.909154    
+class_capitalist                                              0.037             0.970158    
+class_inactive                                                0.258             0.796349    
+class_manager                                                 0.076             0.939072    
+class_retired                                                 0.160             0.872924    
+class_worker                                                     NA                   NA    
+bage0-34:dt_transform$"class_self-employed"                      NA                   NA    
+bage35-44:dt_transform$"class_self-employed"                     NA                   NA    
+bage54-65:dt_transform$"class_self-employed"                 -0.118             0.906408    
+bage65-75:dt_transform$"class_self-employed"                 -3.536             0.000409 ***
+bage75:dt_transform$"class_self-employed"                        NA                   NA    
+bage0-34:class_capitalist                                    -0.020             0.983861    
+bage35-44:class_capitalist                                   -0.055             0.956446    
+bage54-65:class_capitalist                                    0.048             0.962029    
+bage65-75:class_capitalist                                   -2.256             0.024079 *  
+bage75:class_capitalist                                      -0.002             0.998600    
+bage0-34:class_inactive                                      -0.136             0.891846    
+bage35-44:class_inactive                                     -0.268             0.788604    
+bage54-65:class_inactive                                     -0.125             0.900845    
+bage65-75:class_inactive                                    -20.950 < 0.0000000000000002 ***
+bage75:class_inactive                                         0.094             0.924886    
+bage0-34:class_manager                                        0.011             0.991597    
+bage35-44:class_manager                                      -0.241             0.809706    
+bage54-65:class_manager                                      -0.134             0.893060    
+bage65-75:class_manager                                     -21.095 < 0.0000000000000002 ***
+bage75:class_manager                                          0.063             0.949918    
+bage0-34:class_retired                                           NA                   NA    
+bage35-44:class_retired                                       0.156             0.876089    
+bage54-65:class_retired                                      -0.144             0.885434    
+bage65-75:class_retired                                     -17.234 < 0.0000000000000002 ***
+bage75:class_retired                                          0.047             0.962409    
+bage0-34:class_worker                                            NA                   NA    
+bage35-44:class_worker                                           NA                   NA    
+bage54-65:class_worker                                           NA                   NA    
+bage65-75:class_worker                                           NA                   NA    
+bage75:class_worker                                              NA                   NA    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
