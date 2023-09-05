@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 options(scipen = 99)
-rif_var <- "quantile"
+rif_var <- "gini"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
@@ -29,17 +29,16 @@ dt_eff <- dt_eff[worker == "Worker"]
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
-    dt_transform$rif_actreales <- rif(dt_transform$actreales, method = as.character(rif_var), quantile = 0.5, weights = dt_transform$facine3)
-    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
+    dt_transform$rif_actreales <- rif(dt_transform$actreales, method = as.character(rif_var), quantile = 0.5)
+    models_dt[[i]] <- lm(rif_actreales ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
     coefs <- coef(summary(lm(rif_actreales ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
     coefs[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
     final_dt <- cbind(final_dt, pre_dt)
 }
-
-interleaved_names <- c(rbind(row.names(coef(summary(models_dt[[1]]))), rep("p-val", 10)))
-interleaved_names_int <- c(rbind(row.names(coef(summary(models_dt_int[[1]]))), rep("p-val", 28)))
+previous_names <- row.names(coef(summary(models_dt[[1]])))
+interleaved_names <- c(rbind(previous_names, rep("p-val", length(previous_names))))
 
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 colnames(final_dt) <- c("vars", years)
