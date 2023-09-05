@@ -6,33 +6,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--21871413  -4546490    213828   3192934 
-      Max 
- 27087401 
+      Min        1Q    Median 
+-21871413  -4546490    213828 
+       3Q       Max 
+  3192934  27087401 
 
 Coefficients:
-                   Estimate Std. Error
-(Intercept)         67923.9     9948.1
-bage0-34           -62487.4     6557.4
-bage35-44          -39008.7     5889.9
-bage54-65            8220.4     6560.2
-bage65-75            9080.8     6867.3
-bage75              -2482.9     8332.7
-sexWomen            -4648.9     4372.6
-educ                 8363.7      679.9
-riquezafinNonFin   -44933.9     5628.2
-inheritInheritance -10533.9     8743.8
-direc               33636.1     9091.2
-homeownerHomeowner  86334.6     4987.6
-multipr            -77251.9     5269.8
+                   Estimate
+(Intercept)          5436.5
+bage35-44           23478.7
+bage45-54           62487.4
+bage54-65           70707.8
+bage65-75           71568.2
+bage75              60004.5
+sexWomen            -4648.9
+educ                 8363.7
+riquezafinNonFin   -44933.9
+inheritInheritance -10533.9
+direc               33636.1
+homeownerHomeowner  86334.6
+multipr            -77251.9
+                   Std. Error
+(Intercept)           10762.6
+bage35-44              6294.9
+bage45-54              6557.4
+bage54-65              7189.3
+bage65-75              7525.7
+bage75                 8841.3
+sexWomen               4372.6
+educ                    679.9
+riquezafinNonFin       5628.2
+inheritInheritance     8743.8
+direc                  9091.2
+homeownerHomeowner     4987.6
+multipr                5269.8
                    t value
-(Intercept)          6.828
-bage0-34            -9.529
-bage35-44           -6.623
-bage54-65            1.253
-bage65-75            1.322
-bage75              -0.298
+(Intercept)          0.505
+bage35-44            3.730
+bage45-54            9.529
+bage54-65            9.835
+bage65-75            9.510
+bage75               6.787
 sexWomen            -1.063
 educ                12.302
 riquezafinNonFin    -7.984
@@ -40,24 +54,38 @@ inheritInheritance  -1.205
 direc                3.700
 homeownerHomeowner  17.310
 multipr            -14.659
-                               Pr(>|t|)    
-(Intercept)         0.00000000001011544 ***
-bage0-34           < 0.0000000000000002 ***
-bage35-44           0.00000000004057413 ***
-bage54-65                      0.210264    
-bage65-75                      0.186150    
-bage75                         0.765743    
-sexWomen                       0.287761    
-educ               < 0.0000000000000002 ***
-riquezafinNonFin    0.00000000000000191 ***
-inheritInheritance             0.228392    
-direc                          0.000219 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)                    0.613498
+bage35-44                      0.000195
+bage45-54          < 0.0000000000000002
+bage54-65          < 0.0000000000000002
+bage65-75          < 0.0000000000000002
+bage75              0.00000000001340110
+sexWomen                       0.287761
+educ               < 0.0000000000000002
+riquezafinNonFin    0.00000000000000191
+inheritInheritance             0.228392
+direc                          0.000219
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)           
+bage35-44          ***
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen              
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance    
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 6535000 on 3511 degrees of freedom
 Multiple R-squared:  0.2925,	Adjusted R-squared:   0.29 
@@ -71,33 +99,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--53422849  -7254936    514731   5007770 
-      Max 
- 46191466 
+      Min        1Q    Median 
+-53422849  -7254936    514731 
+       3Q       Max 
+  5007770  46191466 
 
 Coefficients:
-                   Estimate Std. Error
-(Intercept)           86058      15472
-bage0-34             -97568      10264
-bage35-44            -43691       9237
-bage54-65             22978      10295
-bage65-75             13888      10995
-bage75                 1722      13649
-sexWomen               5780       6337
-educ                  12306       1054
-riquezafinNonFin     -35754       8693
-inheritInheritance   -54069      13553
-direc                 48135      14591
-homeownerHomeowner   165133       7930
-multipr             -141329       7643
+                   Estimate
+(Intercept)          -11510
+bage35-44             53877
+bage45-54             97568
+bage54-65            120546
+bage65-75            111456
+bage75                99290
+sexWomen               5780
+educ                  12306
+riquezafinNonFin     -35754
+inheritInheritance   -54069
+direc                 48135
+homeownerHomeowner   165133
+multipr             -141329
+                   Std. Error
+(Intercept)             16284
+bage35-44                9705
+bage45-54               10264
+bage54-65               11212
+bage65-75               11880
+bage75                  14330
+sexWomen                 6337
+educ                     1054
+riquezafinNonFin         8693
+inheritInheritance      13553
+direc                   14591
+homeownerHomeowner       7930
+multipr                  7643
                    t value
-(Intercept)          5.562
-bage0-34            -9.506
-bage35-44           -4.730
-bage54-65            2.232
-bage65-75            1.263
-bage75               0.126
+(Intercept)         -0.707
+bage35-44            5.551
+bage45-54            9.506
+bage54-65           10.751
+bage65-75            9.382
+bage75               6.929
 sexWomen             0.912
 educ                11.679
 riquezafinNonFin    -4.113
@@ -105,24 +147,38 @@ inheritInheritance  -3.990
 direc                3.299
 homeownerHomeowner  20.825
 multipr            -18.491
-                               Pr(>|t|)    
-(Intercept)                0.0000000283 ***
-bage0-34           < 0.0000000000000002 ***
-bage35-44                  0.0000023178 ***
-bage54-65                      0.025662 *  
-bage65-75                      0.206595    
-bage75                         0.899610    
-sexWomen                       0.361755    
-educ               < 0.0000000000000002 ***
-riquezafinNonFin           0.0000397606 ***
-inheritInheritance         0.0000673252 ***
-direc                          0.000978 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)                    0.479719
+bage35-44              0.00000003009336
+bage45-54          < 0.0000000000000002
+bage54-65          < 0.0000000000000002
+bage65-75          < 0.0000000000000002
+bage75                 0.00000000000488
+sexWomen                       0.361755
+educ               < 0.0000000000000002
+riquezafinNonFin       0.00003976063999
+inheritInheritance     0.00006732524639
+direc                          0.000978
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)           
+bage35-44          ***
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen              
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance ***
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10820000 on 4247 degrees of freedom
 Multiple R-squared:  0.289,	Adjusted R-squared:  0.287 
@@ -136,33 +192,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--52412584  -5826201    245300   4516906 
-      Max 
- 87175538 
+      Min        1Q    Median 
+-52412584  -5826201    245300 
+       3Q       Max 
+  4516906  87175538 
 
 Coefficients:
-                   Estimate Std. Error
-(Intercept)          -36045      14842
-bage0-34             -74512      10388
-bage35-44            -41433       8888
-bage54-65             51400       9808
-bage65-75             32617      10738
-bage75                45700      11934
-sexWomen              -5356       6060
-educ                  14529       1032
-riquezafinNonFin     -70113       9128
-inheritInheritance   -11525      12339
-direc                 21746      13439
-homeownerHomeowner   122465       7809
-multipr              160891       7354
+                   Estimate
+(Intercept)         -110557
+bage35-44             33079
+bage45-54             74512
+bage54-65            125912
+bage65-75            107129
+bage75               120212
+sexWomen              -5356
+educ                  14529
+riquezafinNonFin     -70113
+inheritInheritance   -11525
+direc                 21746
+homeownerHomeowner   122465
+multipr              160891
+                   Std. Error
+(Intercept)             15760
+bage35-44                9745
+bage45-54               10388
+bage54-65               11114
+bage65-75               12106
+bage75                  13066
+sexWomen                 6060
+educ                     1032
+riquezafinNonFin         9128
+inheritInheritance      12339
+direc                   13439
+homeownerHomeowner       7809
+multipr                  7354
                    t value
-(Intercept)         -2.429
-bage0-34            -7.173
-bage35-44           -4.662
-bage54-65            5.241
-bage65-75            3.038
-bage75               3.829
+(Intercept)         -7.015
+bage35-44            3.394
+bage45-54            7.173
+bage54-65           11.329
+bage65-75            8.849
+bage75               9.200
 sexWomen            -0.884
 educ                14.084
 riquezafinNonFin    -7.681
@@ -170,24 +240,38 @@ inheritInheritance  -0.934
 direc                1.618
 homeownerHomeowner  15.683
 multipr             21.877
-                               Pr(>|t|)    
-(Intercept)                     0.01520 *  
-bage0-34             0.0000000000008612 ***
-bage35-44            0.0000032316053427 ***
-bage54-65            0.0000001676220327 ***
-bage65-75                       0.00240 ** 
-bage75                          0.00013 ***
-sexWomen                        0.37686    
-educ               < 0.0000000000000002 ***
-riquezafinNonFin     0.0000000000000193 ***
-inheritInheritance              0.35034    
-direc                           0.10571    
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)          0.0000000000026530
+bage35-44                      0.000694
+bage45-54            0.0000000000008612
+bage54-65          < 0.0000000000000002
+bage65-75          < 0.0000000000000002
+bage75             < 0.0000000000000002
+sexWomen                       0.376858
+educ               < 0.0000000000000002
+riquezafinNonFin     0.0000000000000193
+inheritInheritance             0.350342
+direc                          0.105708
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)        ***
+bage35-44          ***
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen              
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance    
+direc                 
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10940000 on 4344 degrees of freedom
 Multiple R-squared:  0.3246,	Adjusted R-squared:  0.3227 
@@ -201,33 +285,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--58442967  -6109783    823387   5634950 
-      Max 
- 86271909 
+      Min        1Q    Median 
+-58442967  -6109783    823387 
+       3Q       Max 
+  5634950  86271909 
 
 Coefficients:
-                   Estimate Std. Error
-(Intercept)          -36448      14232
-bage0-34             -59593      11873
-bage35-44            -21923       9710
-bage54-65             80086      10535
-bage65-75             79994      11356
-bage75                52304      11988
-sexWomen             -11412       6710
-educ                   2764        511
-riquezafinNonFin     -71040       9246
-inheritInheritance   -18697      12474
-direc                 53294      14900
-homeownerHomeowner   115305       8815
-multipr              166279       7805
+                   Estimate
+(Intercept)          -96042
+bage35-44             37670
+bage45-54             59593
+bage54-65            139679
+bage65-75            139587
+bage75               111897
+sexWomen             -11412
+educ                   2764
+riquezafinNonFin     -71040
+inheritInheritance   -18697
+direc                 53294
+homeownerHomeowner   115305
+multipr              166279
+                   Std. Error
+(Intercept)             15430
+bage35-44               11652
+bage45-54               11873
+bage54-65               12604
+bage65-75               13269
+bage75                  13714
+sexWomen                 6710
+educ                      511
+riquezafinNonFin         9246
+inheritInheritance      12474
+direc                   14900
+homeownerHomeowner       8815
+multipr                  7805
                    t value
-(Intercept)         -2.561
-bage0-34            -5.019
-bage35-44           -2.258
-bage54-65            7.602
-bage65-75            7.044
-bage75               4.363
+(Intercept)         -6.224
+bage35-44            3.233
+bage45-54            5.019
+bage54-65           11.083
+bage65-75           10.520
+bage75               8.159
 sexWomen            -1.701
 educ                 5.410
 riquezafinNonFin    -7.684
@@ -235,24 +333,38 @@ inheritInheritance  -1.499
 direc                3.577
 homeownerHomeowner  13.080
 multipr             21.303
-                               Pr(>|t|)    
-(Intercept)                    0.010469 *  
-bage0-34             0.0000005400241230 ***
-bage35-44                      0.024002 *  
-bage54-65            0.0000000000000356 ***
-bage65-75            0.0000000000021623 ***
-bage75               0.0000131289993208 ***
-sexWomen                       0.089045 .  
-educ                 0.0000000664296165 ***
-riquezafinNonFin     0.0000000000000190 ***
-inheritInheritance             0.133997    
-direc                          0.000352 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)        0.000000000529457241
+bage35-44                      0.001234
+bage45-54          0.000000540024122984
+bage54-65          < 0.0000000000000002
+bage65-75          < 0.0000000000000002
+bage75             0.000000000000000438
+sexWomen                       0.089045
+educ               0.000000066429616457
+riquezafinNonFin   0.000000000000019019
+inheritInheritance             0.133997
+direc                          0.000352
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)        ***
+bage35-44          ** 
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen           .  
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance    
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 12420000 on 4312 degrees of freedom
 Multiple R-squared:  0.2639,	Adjusted R-squared:  0.2619 
@@ -266,33 +378,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--53771381  -5763240    307175   4864991 
-      Max 
- 90709210 
+      Min        1Q    Median 
+-53771381  -5763240    307175 
+       3Q       Max 
+  4864991  90709210 
 
 Coefficients:
-                     Estimate Std. Error
-(Intercept)        -45394.242  11783.592
-bage0-34           -38328.913  10768.121
-bage35-44          -42617.414   8174.886
-bage54-65           46485.558   8750.086
-bage65-75           65021.684   9483.422
-bage75              38910.554  10250.668
-sexWomen            -1412.993   5690.801
-educ                   49.856      7.185
-riquezafinNonFin   -72520.786   8206.437
-inheritInheritance -50592.558  10163.836
-direc               49420.633  12048.671
-homeownerHomeowner 119195.723   7222.975
-multipr            186876.605   6627.407
+                     Estimate
+(Intercept)        -83723.155
+bage35-44           -4288.501
+bage45-54           38328.913
+bage54-65           84814.471
+bage65-75          103350.597
+bage75              77239.467
+sexWomen            -1412.993
+educ                   49.856
+riquezafinNonFin   -72520.786
+inheritInheritance -50592.558
+direc               49420.633
+homeownerHomeowner 119195.723
+multipr            186876.605
+                   Std. Error
+(Intercept)         12825.510
+bage35-44           10583.714
+bage45-54           10768.121
+bage54-65           11346.552
+bage65-75           11983.164
+bage75              12571.065
+sexWomen             5690.801
+educ                    7.185
+riquezafinNonFin     8206.437
+inheritInheritance  10163.836
+direc               12048.671
+homeownerHomeowner   7222.975
+multipr              6627.407
                    t value
-(Intercept)         -3.852
-bage0-34            -3.559
-bage35-44           -5.213
-bage54-65            5.313
-bage65-75            6.856
-bage75               3.796
+(Intercept)         -6.528
+bage35-44           -0.405
+bage45-54            3.559
+bage54-65            7.475
+bage65-75            8.625
+bage75               6.144
 sexWomen            -0.248
 educ                 6.939
 riquezafinNonFin    -8.837
@@ -300,24 +426,38 @@ inheritInheritance  -4.978
 direc                4.102
 homeownerHomeowner  16.502
 multipr             28.198
-                               Pr(>|t|)    
-(Intercept)                    0.000119 ***
-bage0-34                       0.000376 ***
-bage35-44              0.00000019426648 ***
-bage54-65              0.00000011352132 ***
-bage65-75              0.00000000000806 ***
-bage75                         0.000149 ***
-sexWomen                       0.803919    
-educ                   0.00000000000455 ***
-riquezafinNonFin   < 0.0000000000000002 ***
-inheritInheritance     0.00000066848676 ***
-direc                  0.00004175846785 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)           0.000000000074416
+bage35-44                      0.685352
+bage45-54                      0.000376
+bage54-65             0.000000000000093
+bage65-75          < 0.0000000000000002
+bage75                0.000000000875953
+sexWomen                       0.803919
+educ                  0.000000000004548
+riquezafinNonFin   < 0.0000000000000002
+inheritInheritance    0.000000668486763
+direc                 0.000041758467853
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen              
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance ***
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10740000 on 4321 degrees of freedom
 Multiple R-squared:  0.3636,	Adjusted R-squared:  0.3618 
@@ -331,33 +471,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--45345926  -6126968    480426   5761343 
-      Max 
- 61359314 
+      Min        1Q    Median 
+-45345926  -6126968    480426 
+       3Q       Max 
+  5761343  61359314 
 
 Coefficients:
-                     Estimate Std. Error
-(Intercept)        -38304.411  11243.185
-bage0-34           -35205.664  11610.528
-bage35-44          -29163.003   8301.885
-bage54-65           43812.378   8668.355
-bage65-75           47617.058   9434.204
-bage75              33746.451  10112.995
-sexWomen           -12900.356   5748.678
-educ                   62.723      7.462
-riquezafinNonFin   -79139.438   7926.702
-inheritInheritance -28175.970   9182.471
-direc               59111.228  10967.473
-homeownerHomeowner 114213.889   6941.998
-multipr            160752.078   6736.554
+                     Estimate
+(Intercept)        -73510.075
+bage35-44            6042.661
+bage45-54           35205.664
+bage54-65           79018.042
+bage65-75           82822.722
+bage75              68952.115
+sexWomen           -12900.356
+educ                   62.723
+riquezafinNonFin   -79139.438
+inheritInheritance -28175.970
+direc               59111.228
+homeownerHomeowner 114213.889
+multipr            160752.078
+                   Std. Error
+(Intercept)         13085.528
+bage35-44           11480.607
+bage45-54           11610.528
+bage54-65           12001.551
+bage65-75           12662.344
+bage75              13130.596
+sexWomen             5748.678
+educ                    7.462
+riquezafinNonFin     7926.702
+inheritInheritance   9182.471
+direc               10967.473
+homeownerHomeowner   6941.998
+multipr              6736.554
                    t value
-(Intercept)         -3.407
-bage0-34            -3.032
-bage35-44           -3.513
-bage54-65            5.054
-bage65-75            5.047
-bage75               3.337
+(Intercept)         -5.618
+bage35-44            0.526
+bage45-54            3.032
+bage54-65            6.584
+bage65-75            6.541
+bage75               5.251
 sexWomen            -2.244
 educ                 8.406
 riquezafinNonFin    -9.984
@@ -365,24 +519,38 @@ inheritInheritance  -3.068
 direc                5.390
 homeownerHomeowner  16.453
 multipr             23.863
-                               Pr(>|t|)    
-(Intercept)                    0.000663 ***
-bage0-34                       0.002441 ** 
-bage35-44                      0.000448 ***
-bage54-65                   0.000000448 ***
-bage65-75                   0.000000465 ***
-bage75                         0.000854 ***
-sexWomen                       0.024875 *  
-educ               < 0.0000000000000002 ***
-riquezafinNonFin   < 0.0000000000000002 ***
-inheritInheritance             0.002164 ** 
-direc                       0.000000074 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)             0.0000000204648
+bage35-44                       0.59868
+bage45-54                       0.00244
+bage54-65               0.0000000000508
+bage65-75               0.0000000000676
+bage75                  0.0000001576908
+sexWomen                        0.02487
+educ               < 0.0000000000000002
+riquezafinNonFin   < 0.0000000000000002
+inheritInheritance              0.00216
+direc                   0.0000000740116
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          ** 
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen           *  
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance ** 
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10920000 on 4728 degrees of freedom
 Multiple R-squared:  0.3293,	Adjusted R-squared:  0.3276 
@@ -396,33 +564,47 @@ lm(formula = rif_actreales ~ bage + sex + educ + riquezafin +
     weights = facine3)
 
 Weighted Residuals:
-      Min        1Q    Median        3Q 
--51046311  -5885113    455316   5890941 
-      Max 
- 59214600 
+      Min        1Q    Median 
+-51046311  -5885113    455316 
+       3Q       Max 
+  5890941  59214600 
 
 Coefficients:
-                     Estimate Std. Error
-(Intercept)        -54915.624   9776.165
-bage0-34           -23295.388  10829.187
-bage35-44          -41140.932   7417.660
-bage54-65           30264.510   7541.674
-bage65-75           47260.693   8400.540
-bage75              32580.383   9443.736
-sexWomen             -419.750   5152.391
-educ                   66.026      6.488
-riquezafinNonFin   -66005.468   6996.968
-inheritInheritance -10337.601   8429.129
-direc               65219.633   9455.604
-homeownerHomeowner 132373.961   6033.101
-multipr            143516.399   6039.549
+                     Estimate
+(Intercept)        -78211.012
+bage35-44          -17845.543
+bage45-54           23295.388
+bage54-65           53559.898
+bage65-75           70556.082
+bage75              55875.771
+sexWomen             -419.750
+educ                   66.026
+riquezafinNonFin   -66005.468
+inheritInheritance -10337.601
+direc               65219.633
+homeownerHomeowner 132373.961
+multipr            143516.399
+                   Std. Error
+(Intercept)         11963.769
+bage35-44           10923.312
+bage45-54           10829.187
+bage54-65           11228.517
+bage65-75           11876.917
+bage75              12615.698
+sexWomen             5152.391
+educ                    6.488
+riquezafinNonFin     6996.968
+inheritInheritance   8429.129
+direc                9455.604
+homeownerHomeowner   6033.101
+multipr              6039.549
                    t value
-(Intercept)         -5.617
-bage0-34            -2.151
-bage35-44           -5.546
-bage54-65            4.013
-bage65-75            5.626
-bage75               3.450
+(Intercept)         -6.537
+bage35-44           -1.634
+bage45-54            2.151
+bage54-65            4.770
+bage65-75            5.941
+bage75               4.429
 sexWomen            -0.081
 educ                10.177
 riquezafinNonFin    -9.433
@@ -430,24 +612,38 @@ inheritInheritance  -1.226
 direc                6.897
 homeownerHomeowner  21.941
 multipr             23.763
-                               Pr(>|t|)    
-(Intercept)            0.00000002046499 ***
-bage0-34                       0.031512 *  
-bage35-44              0.00000003069687 ***
-bage54-65              0.00006085181806 ***
-bage65-75              0.00000001947558 ***
-bage75                         0.000565 ***
-sexWomen                       0.935074    
-educ               < 0.0000000000000002 ***
-riquezafinNonFin   < 0.0000000000000002 ***
-inheritInheritance             0.220102    
-direc                  0.00000000000596 ***
-homeownerHomeowner < 0.0000000000000002 ***
-multipr            < 0.0000000000000002 ***
+                               Pr(>|t|)
+(Intercept)            0.00000000006899
+bage35-44                        0.1024
+bage45-54                        0.0315
+bage54-65              0.00000189569170
+bage65-75              0.00000000303530
+bage75                 0.00000966970560
+sexWomen                         0.9351
+educ               < 0.0000000000000002
+riquezafinNonFin   < 0.0000000000000002
+inheritInheritance               0.2201
+direc                  0.00000000000596
+homeownerHomeowner < 0.0000000000000002
+multipr            < 0.0000000000000002
+                      
+(Intercept)        ***
+bage35-44             
+bage45-54          *  
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+sexWomen              
+educ               ***
+riquezafinNonFin   ***
+inheritInheritance    
+direc              ***
+homeownerHomeowner ***
+multipr            ***
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 10050000 on 4913 degrees of freedom
 Multiple R-squared:  0.355,	Adjusted R-squared:  0.3534 
