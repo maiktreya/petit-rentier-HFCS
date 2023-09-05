@@ -1,7 +1,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 options(scipen = 99)
-rif_var <- "gini"
+rif_var <- "quantile"
 c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
 selected_variables <- c(
     "facine3", "renthog", "renthog1", "bage", "homeowner", "worker", "young", "sex", "class",
@@ -19,7 +19,7 @@ cpi <- c(73.31, 80.44, 89.11, 93.35, 96.82, 97.98, 100) / 100
 years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
 dt_eff[homeowner == "", homeowner := "Non-Owner"]
 dt_eff$class <- relevel(as.factor(dt_eff$class), ref = "self-employed")
-dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "45-54")
+dt_eff$bage <- relevel(as.factor(dt_eff$bage), ref = "0-34")
 dt_eff$inherit <- relevel(as.factor(dt_eff$inherit), ref = "Non-inherit")
 dt_eff$homeowner <- relevel(as.factor(dt_eff$homeowner), ref = "Non-Owner")
 dt_eff$riquezafin <- factor(as.logical(dt_eff$riquezafin), levels = c(T, F), labels = c("Fin", "NonFin"))
