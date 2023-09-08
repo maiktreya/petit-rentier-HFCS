@@ -29,11 +29,10 @@ dt_eff <- dt_eff[worker == "Worker"]
 for (i in seq_along(years)) {
     dt_transform <- dt_eff[sv_year == years[i]]
     # Estimate RIF model
-    dt_eff[riquezanet <= 0, riquezanet := 1]
-    dt_eff[, riquezanet := log(riquezanet)]
+    dt_transform[riquezanet <= 0, riquezanet := 1]
+    dt_transform[, riquezanet := log(riquezanet)]
     models_dt[[i]] <- lm(riquezanet ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform)
     coefs <- coef(summary(lm(riquezanet ~ bage + sex + educ + riquezafin + inherit + direc + homeowner + multipr, weights = facine3, data = dt_transform))) %>% data.table()
-    coefs[, Estimate := Estimate / cpi[i]]
     coefs <- as.data.frame(coefs)
     pre_dt <- c(rbind(coefs[, "Estimate"], coefs[, "Pr(>|t|)"]))
     final_dt <- cbind(final_dt, pre_dt)
@@ -44,12 +43,9 @@ interleaved_names <- c(rbind(previous_names, rep("p-val", length(previous_names)
 final_dt <- cbind(interleaved_names, round(final_dt, 3))
 colnames(final_dt) <- c("vars", years)
 
-fwrite(final_dt, file = paste0("output/full-model/", rif_var, "_final_dt.csv"))
+fwrite(final_dt, file = paste0("output/log-model/", rif_var, "_final_dt.csv"))
 
-sink(paste0("output/log-model/", rif_var, "_temptative_multi.txt"))
-print("################## MAIN MODEL ###################")
-print(final_dt)
-sink()
+
 
 sink(paste0("output/log-model/", rif_var, "_temptative.txt"))
 
