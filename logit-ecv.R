@@ -56,7 +56,8 @@ survey_total <- as.svydesign2(svydesign(
 ))
 
 
-model <- svyglm(rentsbi ~ tenancy + bage + class, design = survey_total)
+model <- svyglm(rentsbi ~ bage + class, design = survey_total)
+model <- lm(rentsbi ~ bage + class, data = survey_ecv, weights = PB040)
 
 
 print(summary(model))
