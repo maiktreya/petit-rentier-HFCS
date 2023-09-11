@@ -55,7 +55,11 @@ for (i in seq_along(years)) {
 
     survey_ecv$AGE <- survey_ecv$AGE %>% as.factor()
     survey_ecv[tenancy != 1, "tenancy"] <- 0
+    survey_ecv[AGE == 0, AGE := NA]
+    survey_ecv[PL040C == 0, PL040C := NA]
+
     setnames(survey_ecv, old = c("HH021", "PL040C", "AGE"), new = c("tenancy", "class", "bage"))
+
     join_ecv <- rbind(join_ecv, survey_ecv, fill = T)
 
     survey_total <- as.svydesign2(svydesign(
@@ -64,7 +68,7 @@ for (i in seq_along(years)) {
         weights = ~ survey_ecv$PB040
     ))
 
-    model <- svyglm(rentsbi ~ class, design = survey_total, family = quasibinomial())
+    model <- svyglm(rentsbi ~ factor(class) + factor(bage) + factor(tenancy), design = survey_total)
 
     props <- svyby(~rentsbi, ~class, svymean, design = survey_total, na.rm = T)
 
@@ -80,6 +84,8 @@ survey_join <- as.svydesign2(svydesign(
 ))
 # final_props %>% fwrite(file = "output/logit-ECV/logit.csv")
 # print(final_props)
-reg <- svyglm(outcome ~ treatment + period + did, design = survey_join, family = "quasibinomial") %>%
+reg <- svyglm(outcome ~ treatment * period, design = survey_join, family = "quasibinomial")
+
+model %>%
     summary() %>%
     print()
