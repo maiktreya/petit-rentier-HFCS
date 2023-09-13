@@ -29,7 +29,7 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
 c("magrittr", "survey", "data.table") %>% sapply(library, character.only = T)
-options(scipen = 9999)
+options(scipen = 99)
 ### PARAMETERS AND VARIABLES TO INITIALIZE
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999)
 important_variables <- c("PB040", "HY040N", "DB040", "HY090G", "HY100N", "HY130N", "HH021", "PY035N", "PB140", "PL031", "PL040", "PL051", "PY010N", "PB110")
@@ -47,6 +47,7 @@ for (i in seq_along(years)) {
     survey_ecv$tenancy <- survey_ecv$HH021
     survey_ecv$rents <- survey_ecv[, HY040N + HY090N]
     survey_ecv[, rentsbi := 0][rents / HY020 >= 0.1, rentsbi := 1]
+    # survey_ecv[, rentsbi := 0][rents >= 1000, rentsbi := 1]
     survey_ecv[, direc := 0][PL051 %in% c(1, 11, 12, 13, 14, 15, 16, 17, 18, 19), `:=`(direc = 1)]
     survey_ecv[direc == 1 & PL040C == 1, `:=`(PL040C = 4)]
     survey_ecv[, treatment := 0][PL040C == 1, treatment := 1]
@@ -67,14 +68,18 @@ for (i in seq_along(years)) {
 
 
     setnames(survey_ecv,
-        old = c("RB090", "HH021", "PL040C", "AGE", "RB290", "PB140", "HX040", "HY040N", "HY090N"),
-        new = c("sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
+        old = c("PL051", "PE041", "RB090", "HH021", "PL040C", "AGE", "RB290", "PB140", "HX040", "HY040N", "HY090N"),
+        new = c("ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
     )
 
+    survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1))
+    survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100))
 
+    survey_ecv$class <- factor(survey_ecv$class, levels = c(1, 2, 3, 4), labels = c("employer", "self-employed", "worker", "manager")) %>% relevel(ref = "worker")
+    survey_ecv[, manager := 0][class == "manager", manager := 1]
+    survey_ecv[, employer := 0][class == "employer", employer := 1]
 
-    survey_ecv$class <- factor(survey_ecv$class, levels = c(1, 2, 3, 4), labels = c("employer", "self-employed", "worker", "manager"))
-    survey_ecv$bage <- factor(survey_ecv$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75"))
+    survey_ecv$bage <- factor(survey_ecv$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75")) %>% relevel(ref = "45-54")
     survey_ecv$sex <- factor(survey_ecv$sex, levels = c(1, 2), labels = c("Man", "Women"))
     survey_ecv$housrent <- factor(as.integer(survey_ecv$housrent > 0), levels = c(0, 1), labels = c("Norent", "Yesrent"))
     survey_ecv$profit <- factor(as.integer(survey_ecv$profit > 0), levels = c(0, 1), labels = c("Noprofit", "Yesprofit"))
@@ -92,7 +97,7 @@ for (i in seq_along(years)) {
         weights = ~ survey_ecv$PB040
     ))
 
-    model <- svyglm(rentsbi ~ class + bage + housrent + profit + sex, design = survey_total)
+    model <- svyglm(rentsbi ~ bage + country + educ + members + sex + manager + employer + ocup + educ, design = survey_total, family = "quasibinomial")
 
     props <- svyby(~rentsbi, ~class, svymean, design = survey_total, na.rm = T)
 
