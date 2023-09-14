@@ -1,0 +1,156 @@
+
+Call:
+svyglm(formula = rentsbi ~ bage + country + educ + members + 
+    sex + class + ocup + educ, design = survey_total, family = "quasibinomial")
+
+Survey design:
+survey_total <- as.svydesign2(svydesign(
+        ids = ~1,
+        data = survey_ecv,
+        weights = ~ survey_ecv$PB040
+    ))
+
+Coefficients:
+                    Estimate Std. Error t value
+(Intercept)        -13.39943    0.77461 -17.298
+bage0-34            -1.44327    0.33435  -4.317
+bage35-44           -0.47545    0.16912  -2.811
+bage54-65            0.47208    0.14704   3.211
+bage65-75            0.84346    0.17735   4.756
+bage75               0.79809    0.19725   4.046
+country1            11.36918    0.70066  16.226
+country2            11.12566    0.79185  14.050
+country3            10.60853    0.78324  13.544
+educ1                0.11600    0.22247   0.521
+educ2                0.26781    0.22903   1.169
+educ3                0.71388    0.21395   3.337
+educ4                0.05903    0.79084   0.075
+educ5                1.01458    0.20751   4.889
+members             -0.01078    0.04914  -0.219
+sexWomen             0.20028    0.09945   2.014
+classself-employed  -0.58221    0.18991  -3.066
+classworker         -1.51812    0.16963  -8.950
+classmanager        -0.92257    0.38275  -2.410
+ocup1                0.48397    0.29865   1.621
+ocup2                0.05644    0.19469   0.290
+ocup3               -0.03696    0.20759  -0.178
+ocup4                0.01129    0.21499   0.053
+ocup5               -0.11946    0.20746  -0.576
+ocup6               -0.50138    0.39475  -1.270
+ocup7               -0.69720    0.30092  -2.317
+ocup8               -0.49800    0.33811  -1.473
+ocup9               -1.67195    0.64069  -2.610
+                               Pr(>|t|)    
+(Intercept)        < 0.0000000000000002 ***
+bage0-34                     0.00001596 ***
+bage35-44                       0.00494 ** 
+bage54-65                       0.00133 ** 
+bage65-75                    0.00000200 ***
+bage75                       0.00005242 ***
+country1           < 0.0000000000000002 ***
+country2           < 0.0000000000000002 ***
+country3           < 0.0000000000000002 ***
+educ1                           0.60207    
+educ2                           0.24229    
+educ3                           0.00085 ***
+educ4                           0.94050    
+educ5                        0.00000103 ***
+members                         0.82645    
+sexWomen                        0.04404 *  
+classself-employed              0.00218 ** 
+classworker        < 0.0000000000000002 ***
+classmanager                    0.01595 *  
+ocup1                           0.10514    
+ocup2                           0.77188    
+ocup3                           0.85868    
+ocup4                           0.95812    
+ocup5                           0.56473    
+ocup6                           0.20406    
+ocup7                           0.02053 *  
+ocup8                           0.14080    
+ocup9                           0.00908 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for quasibinomial family taken to be 1.016709)
+
+Number of Fisher Scoring iterations: 12
+
+
+Call:
+svyglm(formula = rentsbi ~ bage + country + educ + members + 
+    sex + class + ocup + educ, design = survey_total, family = "quasibinomial")
+
+Survey design:
+survey_total <- as.svydesign2(svydesign(
+        ids = ~1,
+        data = survey_ecv,
+        weights = ~ survey_ecv$PB040
+    ))
+
+Coefficients:
+                     Estimate Std. Error t value
+(Intercept)         -9.034247   2.050872  -4.405
+bage0-34            -3.157614   1.234677  -2.557
+bage35-44            0.045345   1.320679   0.034
+bage54-65           -1.340308   1.326198  -1.011
+bage65-75           -1.662672   1.525178  -1.090
+bage75              -4.023976   1.453690  -2.768
+country1            11.104546   1.674769   6.630
+country2             8.265715   1.917972   4.310
+country3             9.194073   1.890180   4.864
+educ1                1.612323   0.660894   2.440
+educ2               -1.088817   1.410774  -0.772
+educ3               -0.007112   0.791111  -0.009
+educ4              -11.757870   1.305111  -9.009
+educ5               -0.075875   0.597472  -0.127
+members             -0.337140   0.361905  -0.932
+sexWomen            -3.441638   0.629041  -5.471
+classself-employed  -0.531914   1.095468  -0.486
+classworker         -0.725255   0.677952  -1.070
+classmanager        -1.933791   1.491407  -1.297
+ocup1               -2.376148   0.961573  -2.471
+ocup2               -2.856123   1.359217  -2.101
+ocup3               -1.653452   1.443203  -1.146
+ocup4               -2.036157   0.768181  -2.651
+ocup5               -1.200290   1.158557  -1.036
+ocup6               -3.006522   1.055753  -2.848
+ocup7               -5.487352   1.236783  -4.437
+ocup8               -6.039871   1.401796  -4.309
+ocup9               -7.043542   1.501988  -4.689
+                               Pr(>|t|)    
+(Intercept)             0.0000106502643 ***
+bage0-34                        0.01055 *  
+bage35-44                       0.97261    
+bage54-65                       0.31221    
+bage65-75                       0.27567    
+bage75                          0.00565 ** 
+country1                0.0000000000346 ***
+country2                0.0000164616073 ***
+country3                0.0000011616611 ***
+educ1                           0.01472 *  
+educ2                           0.44025    
+educ3                           0.99283    
+educ4              < 0.0000000000000002 ***
+educ5                           0.89895    
+members                         0.35157    
+sexWomen                0.0000000454266 ***
+classself-employed              0.62729    
+classworker                     0.28474    
+classmanager                    0.19478    
+ocup1                           0.01348 *  
+ocup2                           0.03563 *  
+ocup3                           0.25195    
+ocup4                           0.00804 ** 
+ocup5                           0.30021    
+ocup6                           0.00441 ** 
+ocup7                   0.0000091978344 ***
+ocup8                   0.0000165319654 ***
+ocup9                   0.0000027638829 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for quasibinomial family taken to be 15.6194)
+
+Number of Fisher Scoring iterations: 12
+
