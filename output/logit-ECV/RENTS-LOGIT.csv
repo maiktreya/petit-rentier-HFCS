@@ -70,8 +70,7 @@ ocup7              < 0.0000000000000002 ***
 ocup8              < 0.0000000000000002 ***
 ocup9              < 0.0000000000000002 ***
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for quasibinomial family taken to be 0.1012763)
 
@@ -149,8 +148,7 @@ ocup7              < 0.0000000000000002 ***
 ocup8              < 0.0000000000000002 ***
 ocup9              0.000000000000000500 ***
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for quasibinomial family taken to be 0.08963104)
 

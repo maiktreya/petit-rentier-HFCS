@@ -88,7 +88,7 @@ for (i in seq_along(years)) {
     models2[[i]] <- svyglm(rents ~ bage + country + educ + members + sex + class + ocup + educ, design = survey_total)
 }
 
-sink(paste0("RENTS-LOGIT.csv"))
+sink(paste0("output/logit-ECV/RENTS-LOGIT.csv"))
 models[[1]] %>%
     summary() %>%
     print()
@@ -98,7 +98,7 @@ models[[2]] %>%
 sink()
 
 
-sink(paste0("RENTS.csv"))
+sink(paste0("output/logit-ECV/RENTS.csv"))
 models2[[1]] %>%
     summary() %>%
     print()
