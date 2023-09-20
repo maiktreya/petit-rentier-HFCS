@@ -1,158 +1,334 @@
 
 Call:
-svyglm(formula = rents ~ bage + country + educ + members + sex + 
-    class + ocup + educ, design = survey_total)
+lm(formula = rents ~ bage + country + educ + members + sex + 
+    class + ocup + educ, data = survey_ecv, weights = PB040)
 
-Survey design:
-survey_total <- as.svydesign2(svydesign(
-        ids = ~1,
-        data = survey_ecv,
-        weights = ~ survey_ecv$PB040
-    ))
+Weighted Residuals:
+    Min      1Q  Median      3Q 
+-359.84  -51.98  -22.27   38.96 
+    Max 
+ 648.66 
 
 Coefficients:
-                   Estimate Std. Error t value
-(Intercept)         1.23665    1.44624   0.855
-bage0-34           -0.81899    0.12505  -6.549
-bage35-44          -0.45879    0.10296  -4.456
-bage54-65           0.64056    0.11373   5.632
-bage65-75           1.50610    0.15065   9.998
-bage75              1.51958    0.16535   9.190
-country1            0.21192    1.41034   0.150
-country2           -0.46114    1.41981  -0.325
-country3           -0.64730    1.41491  -0.457
-educ1               0.34660    0.15947   2.173
-educ2               0.59411    0.15322   3.877
-educ3               1.15970    0.15759   7.359
-educ4               1.06421    0.48670   2.187
-educ5               1.78159    0.16291  10.936
-members             0.26257    0.03155   8.322
-sexWomen           -0.13874    0.07705  -1.801
-classself-employed -0.94803    0.26283  -3.607
-classworker        -1.64122    0.24108  -6.808
-classmanager       -0.99045    0.43583  -2.273
-ocup1               1.24854    0.30301   4.121
-ocup2               0.79130    0.16754   4.723
-ocup3               0.16712    0.15240   1.097
-ocup4               0.39046    0.17507   2.230
-ocup5              -0.11682    0.13226  -0.883
-ocup6              -0.24189    0.27011  -0.896
-ocup7              -0.31980    0.14378  -2.224
-ocup8              -0.29943    0.16542  -1.810
-ocup9              -0.46356    0.11946  -3.880
-                               Pr(>|t|)    
-(Intercept)                    0.392525    
-bage0-34              0.000000000060138 ***
-bage35-44             0.000008429685517 ***
-bage54-65             0.000000018153729 ***
-bage65-75          < 0.0000000000000002 ***
-bage75             < 0.0000000000000002 ***
-country1                       0.880560    
-country2                       0.745346    
-country3                       0.647332    
-educ1                          0.029770 *  
-educ2                          0.000106 ***
-educ3                 0.000000000000198 ***
-educ4                          0.028792 *  
-educ5              < 0.0000000000000002 ***
-members            < 0.0000000000000002 ***
-sexWomen                       0.071768 .  
-classself-employed             0.000311 ***
-classworker           0.000000000010378 ***
-classmanager                   0.023070 *  
-ocup1                 0.000038052876722 ***
-ocup2                 0.000002347548743 ***
-ocup3                          0.272846    
-ocup4                          0.025746 *  
-ocup5                          0.377107    
-ocup6                          0.370522    
-ocup7                          0.026150 *  
-ocup8                          0.070298 .  
-ocup9                          0.000105 ***
+                   Estimate
+(Intercept)         1.23665
+bage0-34           -0.81899
+bage35-44          -0.45879
+bage54-65           0.64056
+bage65-75           1.50610
+bage75              1.51958
+country1            0.21192
+country2           -0.46114
+country3           -0.64730
+educ1               0.34660
+educ2               0.59411
+educ3               1.15970
+educ4               1.06421
+educ5               1.78159
+members             0.26257
+sexWomen           -0.13874
+classself-employed -0.94803
+classworker        -1.64122
+classmanager       -0.99045
+ocup1               1.24854
+ocup2               0.79130
+ocup3               0.16712
+ocup4               0.39046
+ocup5              -0.11682
+ocup6              -0.24189
+ocup7              -0.31980
+ocup8              -0.29943
+ocup9              -0.46356
+                   Std. Error
+(Intercept)           1.24775
+bage0-34              0.09650
+bage35-44             0.07844
+bage54-65             0.08405
+bage65-75             0.10966
+bage75                0.11981
+country1              1.23068
+country2              1.23978
+country3              1.23555
+educ1                 0.13142
+educ2                 0.12626
+educ3                 0.12582
+educ4                 0.50143
+educ5                 0.12520
+members               0.02223
+sexWomen              0.05595
+classself-employed    0.14802
+classworker           0.12923
+classmanager          0.28982
+ocup1                 0.19652
+ocup2                 0.10916
+ocup3                 0.11419
+ocup4                 0.11996
+ocup5                 0.10855
+ocup6                 0.23040
+ocup7                 0.12237
+ocup8                 0.14582
+ocup9                 0.12561
+                   t value
+(Intercept)          0.991
+bage0-34            -8.487
+bage35-44           -5.849
+bage54-65            7.621
+bage65-75           13.735
+bage75              12.683
+country1             0.172
+country2            -0.372
+country3            -0.524
+educ1                2.637
+educ2                4.705
+educ3                9.217
+educ4                2.122
+educ5               14.230
+members             11.811
+sexWomen            -2.480
+classself-employed  -6.405
+classworker        -12.700
+classmanager        -3.417
+ocup1                6.353
+ocup2                7.249
+ocup3                1.464
+ocup4                3.255
+ocup5               -1.076
+ocup6               -1.050
+ocup7               -2.613
+ocup8               -2.053
+ocup9               -3.690
+                               Pr(>|t|)
+(Intercept)                    0.321655
+bage0-34           < 0.0000000000000002
+bage35-44             0.000000005066985
+bage54-65             0.000000000000027
+bage65-75          < 0.0000000000000002
+bage75             < 0.0000000000000002
+country1                       0.863284
+country2                       0.709935
+country3                       0.600363
+educ1                          0.008367
+educ2                 0.000002561086501
+educ3              < 0.0000000000000002
+educ4                          0.033830
+educ5              < 0.0000000000000002
+members            < 0.0000000000000002
+sexWomen                       0.013162
+classself-employed    0.000000000156016
+classworker        < 0.0000000000000002
+classmanager                   0.000634
+ocup1                 0.000000000218125
+ocup2                 0.000000000000446
+ocup3                          0.143356
+ocup4                          0.001137
+ocup5                          0.281849
+ocup6                          0.293806
+ocup7                          0.008976
+ocup8                          0.040056
+ocup9                          0.000225
+                      
+(Intercept)           
+bage0-34           ***
+bage35-44          ***
+bage54-65          ***
+bage65-75          ***
+bage75             ***
+country1              
+country2              
+country3              
+educ1              ** 
+educ2              ***
+educ3              ***
+educ4              *  
+educ5              ***
+members            ***
+sexWomen           *  
+classself-employed ***
+classworker        ***
+classmanager       ***
+ocup1              ***
+ocup2              ***
+ocup3                 
+ocup4              ** 
+ocup5                 
+ocup6                 
+ocup7              ** 
+ocup8              *  
+ocup9              ***
 ---
 Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 8.38999)
-
-Number of Fisher Scoring iterations: 2
+Residual standard error: 88.72 on 12222 degrees of freedom
+  (1199 observations deleted due to missingness)
+Multiple R-squared:  0.1335,	Adjusted R-squared:  0.1316 
+F-statistic: 69.73 on 27 and 12222 DF,  p-value: < 0.00000000000000022
 
 
 Call:
-svyglm(formula = rents ~ bage + country + educ + members + sex + 
-    class + ocup + educ, design = survey_total)
+lm(formula = rents ~ bage + country + educ + members + sex + 
+    class + ocup + educ, data = survey_ecv, weights = PB040)
 
-Survey design:
-survey_total <- as.svydesign2(svydesign(
-        ids = ~1,
-        data = survey_ecv,
-        weights = ~ survey_ecv$PB040
-    ))
+Weighted Residuals:
+    Min      1Q  Median      3Q 
+-4694.9   -63.8   -27.9    45.8 
+    Max 
+ 6794.8 
 
 Coefficients:
-                   Estimate Std. Error t value Pr(>|t|)
-(Intercept)         1.09732    1.58237   0.693  0.48803
-bage0-34           -2.71847    0.91351  -2.976  0.00293
-bage35-44          -0.13772    0.90575  -0.152  0.87915
-bage54-65           0.07261    1.01538   0.072  0.94300
-bage65-75          -0.63060    1.38035  -0.457  0.64779
-bage75             -1.96053    1.55824  -1.258  0.20835
-country1            1.50964    0.69638   2.168  0.03019
-country2            0.77702    1.40232   0.554  0.57952
-country3            1.69957    1.17565   1.446  0.14830
-educ1               1.61649    0.87871   1.840  0.06584
-educ2               0.70572    1.15368   0.612  0.54073
-educ3               1.13613    1.10075   1.032  0.30203
-educ4               1.02944    1.70269   0.605  0.54545
-educ5               2.55226    1.15906   2.202  0.02768
-members            -0.45709    0.23878  -1.914  0.05560
-sexWomen           -0.68362    0.66393  -1.030  0.30319
-classself-employed  0.51298    1.23476   0.415  0.67782
-classworker         0.78561    0.72456   1.084  0.27827
-classmanager       -2.04035    1.41721  -1.440  0.14997
-ocup1               1.62668    1.29293   1.258  0.20836
-ocup2              -2.54459    1.33165  -1.911  0.05604
-ocup3              -1.30184    1.77899  -0.732  0.46431
-ocup4              -2.13156    0.92552  -2.303  0.02129
-ocup5              -0.21588    1.11382  -0.194  0.84632
-ocup6              -1.65907    1.15448  -1.437  0.15072
-ocup7              -0.93041    1.48685  -0.626  0.53148
-ocup8              -1.04842    1.61217  -0.650  0.51550
-ocup9              -2.76856    0.93910  -2.948  0.00320
-                     
-(Intercept)          
-bage0-34           **
-bage35-44            
-bage54-65            
-bage65-75            
-bage75               
-country1           * 
-country2             
-country3             
-educ1              . 
-educ2                
-educ3                
-educ4                
-educ5              * 
-members            . 
-sexWomen             
-classself-employed   
-classworker          
-classmanager         
-ocup1                
-ocup2              . 
-ocup3                
-ocup4              * 
-ocup5                
-ocup6                
-ocup7                
-ocup8                
-ocup9              **
+                   Estimate
+(Intercept)         1.09732
+bage0-34           -2.71847
+bage35-44          -0.13772
+bage54-65           0.07261
+bage65-75          -0.63060
+bage75             -1.96053
+country1            1.50964
+country2            0.77702
+country3            1.69957
+educ1               1.61649
+educ2               0.70572
+educ3               1.13613
+educ4               1.02944
+educ5               2.55226
+members            -0.45709
+sexWomen           -0.68362
+classself-employed  0.51298
+classworker         0.78561
+classmanager       -2.04035
+ocup1               1.62668
+ocup2              -2.54459
+ocup3              -1.30184
+ocup4              -2.13156
+ocup5              -0.21588
+ocup6              -1.65907
+ocup7              -0.93041
+ocup8              -1.04842
+ocup9              -2.76856
+                   Std. Error
+(Intercept)           7.76874
+bage0-34              0.12372
+bage35-44             0.07136
+bage54-65             0.08388
+bage65-75             0.09800
+bage75                0.11673
+country1              7.76418
+country2              7.76627
+country3              7.76625
+educ1                 0.19544
+educ2                 0.19911
+educ3                 0.20161
+educ4                 1.70674
+educ5                 0.19733
+members               0.01989
+sexWomen              0.05783
+classself-employed    0.20779
+classworker           0.19152
+classmanager          0.31576
+ocup1                 0.20250
+ocup2                 0.09872
+ocup3                 0.12035
+ocup4                 0.14020
+ocup5                 0.10661
+ocup6                 0.37601
+ocup7                 0.11554
+ocup8                 0.14279
+ocup9                 0.08540
+                   t value
+(Intercept)          0.141
+bage0-34           -21.973
+bage35-44           -1.930
+bage54-65            0.866
+bage65-75           -6.434
+bage75             -16.795
+country1             0.194
+country2             0.100
+country3             0.219
+educ1                8.271
+educ2                3.544
+educ3                5.635
+educ4                0.603
+educ5               12.934
+members            -22.985
+sexWomen           -11.821
+classself-employed   2.469
+classworker          4.102
+classmanager        -6.462
+ocup1                8.033
+ocup2              -25.775
+ocup3              -10.817
+ocup4              -15.204
+ocup5               -2.025
+ocup6               -4.412
+ocup7               -8.053
+ocup8               -7.342
+ocup9              -32.418
+                               Pr(>|t|)
+(Intercept)                    0.887676
+bage0-34           < 0.0000000000000002
+bage35-44                      0.053654
+bage54-65                      0.386719
+bage65-75          0.000000000127809090
+bage75             < 0.0000000000000002
+country1                       0.845837
+country2                       0.920305
+country3                       0.826777
+educ1              < 0.0000000000000002
+educ2                          0.000395
+educ3              0.000000017792526130
+educ4                          0.546409
+educ5              < 0.0000000000000002
+members            < 0.0000000000000002
+sexWomen           < 0.0000000000000002
+classself-employed             0.013572
+classworker        0.000041186524321905
+classmanager       0.000000000106775060
+ocup1              0.000000000000001025
+ocup2              < 0.0000000000000002
+ocup3              < 0.0000000000000002
+ocup4              < 0.0000000000000002
+ocup5                          0.042890
+ocup6              0.000010301483097852
+ocup7              0.000000000000000871
+ocup8              0.000000000000221126
+ocup9              < 0.0000000000000002
+                      
+(Intercept)           
+bage0-34           ***
+bage35-44          .  
+bage54-65             
+bage65-75          ***
+bage75             ***
+country1              
+country2              
+country3              
+educ1              ***
+educ2              ***
+educ3              ***
+educ4                 
+educ5              ***
+members            ***
+sexWomen           ***
+classself-employed *  
+classworker        ***
+classmanager       ***
+ocup1              ***
+ocup2              ***
+ocup3              ***
+ocup4              ***
+ocup5              *  
+ocup6              ***
+ocup7              ***
+ocup8              ***
+ocup9              ***
 ---
 Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 7.517339)
-
-Number of Fisher Scoring iterations: 2
+Residual standard error: 241.7 on 14550 degrees of freedom
+  (923 observations deleted due to missingness)
+Multiple R-squared:  0.2577,	Adjusted R-squared:  0.2563 
+F-statistic: 187.1 on 27 and 14550 DF,  p-value: < 0.00000000000000022
 
