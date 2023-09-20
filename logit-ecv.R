@@ -85,7 +85,7 @@ for (i in seq_along(years)) {
     ))
 
     models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + sex + class + ocup + educ, design = survey_total, family = "quasibinomial")
-    models2[[i]] <- lm(rents ~ bage + country + educ + members + sex + class + ocup + educ, weights  = PB040, data = survey_ecv)
+    models2[[i]] <- lm(rents ~ bage + country + educ + members + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
 }
 
 sink(paste0("output/ECV/RENTSBI.csv"))
