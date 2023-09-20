@@ -47,6 +47,7 @@ for (i in seq_along(years)) {
     ## PB040 FACTORE ELEVACIÓN, HB070 CÓDIGO DEL REPORTADOR
     survey_ecv$tenancy <- survey_ecv$HH021
     survey_ecv$rents <- survey_ecv[, HY040N + HY090N]
+    survey_ecv[rents != 0, rents := log(rents)]
     survey_ecv[, rentsbi := 0][rents / HY020 >= 0.1, rentsbi := 1]
     # survey_ecv[, rentsbi := 0][rents >= 1000, rentsbi := 1]
     survey_ecv[, direc := 0][PL051 %in% c(1, 11, 12, 13, 14, 15, 16, 17, 18, 19), `:=`(direc = 1)]
