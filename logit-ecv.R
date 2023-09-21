@@ -65,8 +65,8 @@ for (i in seq_along(years)) {
         new = c("ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
     )
 
-    survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1))
-    survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100))
+    survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1)) %>% relevel(ref = 3)
+    survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100)) %>% relevel(ref = 3)
     survey_ecv$class <- factor(survey_ecv$class, levels = c(1, 2, 3, 4), labels = c("employer", "self-employed", "worker", "manager")) %>% relevel(ref = "worker")
     survey_ecv[, manager := 0][class == "manager", manager := 1]
     survey_ecv[, employer := 0][class == "employer", employer := 1]
@@ -88,7 +88,7 @@ for (i in seq_along(years)) {
     models2[[i]] <- lm(rents ~ bage + country + educ + members + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
 }
 
-sink(paste0("output/ECV/RENTSBI.txt"))
+sink(paste0("output/ECV/RENTSBI.csv"))
 models[[1]] %>%
     summary() %>%
     print()
@@ -98,7 +98,7 @@ models[[2]] %>%
 sink()
 
 
-sink(paste0("output/ECV/LN_RENTS.txt"))
+sink(paste0("output/ECV/LN_RENTS.csv"))
 models2[[1]] %>%
     summary() %>%
     print()
@@ -106,3 +106,10 @@ models2[[2]] %>%
     summary() %>%
     print()
 sink()
+
+survey_ecv$ocup %>%
+    unique() %>%
+    print()
+survey_ecv$educ %>%
+    unique() %>%
+    print()
