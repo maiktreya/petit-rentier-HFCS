@@ -88,7 +88,7 @@ for (i in seq_along(years)) {
     models2[[i]] <- lm(log_rents ~ bage + country + educ + members + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
 }
 
-sink(paste0("output/ECV/RENTSBI.txt"))
+sink(paste0("output/ECV/RENTSBI", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
 models[[1]] %>%
     summary() %>%
     print()
@@ -98,7 +98,7 @@ models[[2]] %>%
 sink()
 
 
-sink(paste0("output/ECV/LN_RENTS.txt"))
+sink(paste0("output/ECV/LN_RENTS", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
 models2[[1]] %>%
     summary() %>%
     print()
