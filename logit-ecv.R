@@ -47,7 +47,7 @@ for (i in seq_along(years)) {
     ## PB040 FACTORE ELEVACIÓN, HB070 CÓDIGO DEL REPORTADOR
     survey_ecv$tenancy <- survey_ecv$HH021
     survey_ecv$rents <- survey_ecv[, HY040N + HY090N]
-    survey_ecv[rents != 0, rents := log(rents)]
+    survey_ecv[rents != 0, log_rents := log(rents)]
     survey_ecv[, rentsbi := 0][rents / HY020 >= 0.1, rentsbi := 1]
     # survey_ecv[, rentsbi := 0][rents >= 1000, rentsbi := 1]
     survey_ecv[, direc := 0][PL051 %in% c(1, 11, 12, 13, 14, 15, 16, 17, 18, 19), `:=`(direc = 1)]
@@ -85,7 +85,7 @@ for (i in seq_along(years)) {
     ))
 
     models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + sex + class + ocup + educ, design = survey_total, family = "quasibinomial")
-    models2[[i]] <- lm(rents ~ bage + country + educ + members + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
+    models2[[i]] <- lm(log_rents ~ bage + country + educ + members + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
 }
 
 sink(paste0("output/ECV/RENTSBI.csv"))
@@ -106,10 +106,3 @@ models2[[2]] %>%
     summary() %>%
     print()
 sink()
-
-survey_ecv$ocup %>%
-    unique() %>%
-    print()
-survey_ecv$educ %>%
-    unique() %>%
-    print()
