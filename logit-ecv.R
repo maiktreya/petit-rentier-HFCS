@@ -40,8 +40,6 @@ models <- models2 <- list()
 for (i in seq_along(years)) {
     sel_year <- years[i]
     survey_ecv <- fread(paste0(".datasets/ecv/filtered_data", sel_year, ".csv"))
-    metadata_hogar <- read.csv(".datasets/ecv/metadata/metadata.hogar.h-d.csv")
-    metadata_personal <- fread(".datasets/ecv/metadata/metadata.personal.r-p.csv")
     ifelse(sel_year %in% c(2021, 2022), survey_ecv[, PL040C := PL040 + PL040B], survey_ecv[, PL040C := PL040])
     # survey_ecv[PL040C %in% c(0, 4), PL040C := NA]
     ## PB040 FACTORE ELEVACIÓN, HB070 CÓDIGO DEL REPORTADOR
@@ -59,14 +57,23 @@ for (i in seq_along(years)) {
     survey_ecv[tenancy != 1, "tenancy"] <- 0
     survey_ecv[AGE == 0, AGE := NA]
     survey_ecv[PL040C == 0, PL040C := NA]
-
+    educ_cat <- c("non-applicant", "primary", "secondary", "fp", "medium", "higher")
+    isco08 <- c(
+        "Armed Forces Occupations",
+        "Managers", "Professionals", "Technicians and Associate Professionals",
+        "Clerical Support Workers", "Service and Sales Workers",
+        "Skilled Agricultural, Forestry and Fishery Workers",
+        "Craft and Related Trades Workers",
+        "Plant and Machine Operators, and Assemblers",
+        "Elementary Occupations"
+    )
     setnames(survey_ecv,
         old = c("PL051", "PE041", "RB090", "HH021", "PL040C", "AGE", "RB290", "PB140", "HX040", "HY040N", "HY090N"),
         new = c("ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
     )
 
-    survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1)) %>% relevel(ref = 3)
-    survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100)) %>% relevel(ref = 3)
+    survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1), levels = c(0:9), labels = isco08) %>% relevel(ref = "Elementary Occupations")
+    survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100), levels = c(0:5), labels = educ_cat) %>% relevel(ref = "secondary")
     survey_ecv$class <- factor(survey_ecv$class, levels = c(1, 2, 3, 4), labels = c("employer", "self-employed", "worker", "manager")) %>% relevel(ref = "worker")
     survey_ecv[, manager := 0][class == "manager", manager := 1]
     survey_ecv[, employer := 0][class == "employer", employer := 1]

@@ -11,97 +11,155 @@ survey_total <- as.svydesign2(svydesign(
     ))
 
 Coefficients:
-                    Estimate Std. Error
-(Intercept)        -14.59329    0.77357
-bage0-34            -1.44327    0.33435
-bage35-44           -0.47545    0.16912
-bage54-65            0.47208    0.14704
-bage65-75            0.84346    0.17735
-bage75               0.79809    0.19725
-country1            11.36918    0.70066
-country2            11.12566    0.79185
-country3            10.60853    0.78324
-educ0               -0.26781    0.22903
-educ1               -0.15181    0.18204
-educ3                0.44606    0.15986
-educ4               -0.20879    0.77871
-educ5                0.74677    0.15691
-members             -0.01078    0.04914
-sexWomen             0.20028    0.09945
-classemployer        1.51812    0.16963
-classself-employed   0.93591    0.11904
-classmanager         0.59555    0.34807
-ocup0               -0.05644    0.19469
-ocup1                0.42752    0.30687
-ocup3               -0.09341    0.21797
-ocup4               -0.04516    0.22681
-ocup5               -0.17591    0.23439
-ocup6               -0.55782    0.41671
-ocup7               -0.75364    0.32086
-ocup8               -0.55445    0.35121
-ocup9               -1.72839    0.64182
-                   t value
-(Intercept)        -18.865
-bage0-34            -4.317
-bage35-44           -2.811
-bage54-65            3.211
-bage65-75            4.756
-bage75               4.046
-country1            16.226
-country2            14.050
-country3            13.544
-educ0               -1.169
-educ1               -0.834
-educ3                2.790
-educ4               -0.268
-educ5                4.759
-members             -0.219
-sexWomen             2.014
-classemployer        8.950
-classself-employed   7.862
-classmanager         1.711
-ocup0               -0.290
-ocup1                1.393
-ocup3               -0.429
-ocup4               -0.199
-ocup5               -0.750
-ocup6               -1.339
-ocup7               -2.349
-ocup8               -1.579
-ocup9               -2.693
-                               Pr(>|t|)    
-(Intercept)        < 0.0000000000000002 ***
-bage0-34            0.00001596432447349 ***
-bage35-44                       0.00494 ** 
-bage54-65                       0.00133 ** 
-bage65-75           0.00000199849096379 ***
-bage75              0.00005242481257311 ***
-country1           < 0.0000000000000002 ***
-country2           < 0.0000000000000002 ***
-country3           < 0.0000000000000002 ***
-educ0                           0.24229    
-educ1                           0.40433    
-educ3                           0.00527 ** 
-educ4                           0.78861    
-educ5               0.00000196702686650 ***
-members                         0.82645    
-sexWomen                        0.04404 *  
-classemployer      < 0.0000000000000002 ***
-classself-employed  0.00000000000000409 ***
-classmanager                    0.08710 .  
-ocup0                           0.77188    
-ocup1                           0.16360    
-ocup3                           0.66827    
-ocup4                           0.84220    
-ocup5                           0.45297    
-ocup6                           0.18072    
-ocup7                           0.01885 *  
-ocup8                           0.11443    
-ocup9                           0.00709 ** 
+                                                        Estimate
+(Intercept)                                            -16.32168
+bage0-34                                                -1.44327
+bage35-44                                               -0.47545
+bage54-65                                                0.47208
+bage65-75                                                0.84346
+bage75                                                   0.79809
+country1                                                11.36918
+country2                                                11.12566
+country3                                                10.60853
+educnon-applicant                                       -0.26781
+educprimary                                             -0.15181
+educfp                                                   0.44606
+educmedium                                              -0.20879
+educhigher                                               0.74677
+members                                                 -0.01078
+sexWomen                                                 0.20028
+classemployer                                            1.51812
+classself-employed                                       0.93591
+classmanager                                             0.59555
+ocupArmed Forces Occupations                             1.67195
+ocupManagers                                             2.15591
+ocupProfessionals                                        1.72839
+ocupTechnicians and Associate Professionals              1.63498
+ocupClerical Support Workers                             1.68324
+ocupService and Sales Workers                            1.55248
+ocupSkilled Agricultural, Forestry and Fishery Workers   1.17057
+ocupCraft and Related Trades Workers                     0.97475
+ocupPlant and Machine Operators, and Assemblers          1.17394
+                                                       Std. Error
+(Intercept)                                               0.99491
+bage0-34                                                  0.33435
+bage35-44                                                 0.16912
+bage54-65                                                 0.14704
+bage65-75                                                 0.17735
+bage75                                                    0.19725
+country1                                                  0.70066
+country2                                                  0.79185
+country3                                                  0.78324
+educnon-applicant                                         0.22903
+educprimary                                               0.18204
+educfp                                                    0.15986
+educmedium                                                0.77871
+educhigher                                                0.15691
+members                                                   0.04914
+sexWomen                                                  0.09945
+classemployer                                             0.16963
+classself-employed                                        0.11904
+classmanager                                              0.34807
+ocupArmed Forces Occupations                              0.64069
+ocupManagers                                              0.68161
+ocupProfessionals                                         0.64182
+ocupTechnicians and Associate Professionals               0.64744
+ocupClerical Support Workers                              0.64361
+ocupService and Sales Workers                             0.64228
+ocupSkilled Agricultural, Forestry and Fishery Workers    0.73442
+ocupCraft and Related Trades Workers                      0.68424
+ocupPlant and Machine Operators, and Assemblers           0.70392
+                                                       t value
+(Intercept)                                            -16.405
+bage0-34                                                -4.317
+bage35-44                                               -2.811
+bage54-65                                                3.211
+bage65-75                                                4.756
+bage75                                                   4.046
+country1                                                16.226
+country2                                                14.050
+country3                                                13.544
+educnon-applicant                                       -1.169
+educprimary                                             -0.834
+educfp                                                   2.790
+educmedium                                              -0.268
+educhigher                                               4.759
+members                                                 -0.219
+sexWomen                                                 2.014
+classemployer                                            8.950
+classself-employed                                       7.862
+classmanager                                             1.711
+ocupArmed Forces Occupations                             2.610
+ocupManagers                                             3.163
+ocupProfessionals                                        2.693
+ocupTechnicians and Associate Professionals              2.525
+ocupClerical Support Workers                             2.615
+ocupService and Sales Workers                            2.417
+ocupSkilled Agricultural, Forestry and Fishery Workers   1.594
+ocupCraft and Related Trades Workers                     1.425
+ocupPlant and Machine Operators, and Assemblers          1.668
+                                                                   Pr(>|t|)
+(Intercept)                                            < 0.0000000000000002
+bage0-34                                                0.00001596432447349
+bage35-44                                                           0.00494
+bage54-65                                                           0.00133
+bage65-75                                               0.00000199849096379
+bage75                                                  0.00005242481257311
+country1                                               < 0.0000000000000002
+country2                                               < 0.0000000000000002
+country3                                               < 0.0000000000000002
+educnon-applicant                                                   0.24229
+educprimary                                                         0.40433
+educfp                                                              0.00527
+educmedium                                                          0.78861
+educhigher                                              0.00000196702686650
+members                                                             0.82645
+sexWomen                                                            0.04404
+classemployer                                          < 0.0000000000000002
+classself-employed                                      0.00000000000000409
+classmanager                                                        0.08710
+ocupArmed Forces Occupations                                        0.00908
+ocupManagers                                                        0.00157
+ocupProfessionals                                                   0.00709
+ocupTechnicians and Associate Professionals                         0.01157
+ocupClerical Support Workers                                        0.00893
+ocupService and Sales Workers                                       0.01566
+ocupSkilled Agricultural, Forestry and Fishery Workers              0.11099
+ocupCraft and Related Trades Workers                                0.15431
+ocupPlant and Machine Operators, and Assemblers                     0.09540
+                                                          
+(Intercept)                                            ***
+bage0-34                                               ***
+bage35-44                                              ** 
+bage54-65                                              ** 
+bage65-75                                              ***
+bage75                                                 ***
+country1                                               ***
+country2                                               ***
+country3                                               ***
+educnon-applicant                                         
+educprimary                                               
+educfp                                                 ** 
+educmedium                                                
+educhigher                                             ***
+members                                                   
+sexWomen                                               *  
+classemployer                                          ***
+classself-employed                                     ***
+classmanager                                           .  
+ocupArmed Forces Occupations                           ** 
+ocupManagers                                           ** 
+ocupProfessionals                                      ** 
+ocupTechnicians and Associate Professionals            *  
+ocupClerical Support Workers                           ** 
+ocupService and Sales Workers                          *  
+ocupSkilled Agricultural, Forestry and Fishery Workers    
+ocupCraft and Related Trades Workers                      
+ocupPlant and Machine Operators, and Assemblers        .  
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for quasibinomial family taken to be 1.016709)
 
@@ -120,97 +178,155 @@ survey_total <- as.svydesign2(svydesign(
     ))
 
 Coefficients:
-                    Estimate Std. Error
-(Intercept)        -13.70444    1.69513
-bage0-34            -3.15761    1.23468
-bage35-44            0.04534    1.32068
-bage54-65           -1.34031    1.32620
-bage65-75           -1.66267    1.52518
-bage75              -4.02398    1.45369
-country1            11.10455    1.67477
-country2             8.26571    1.91797
-country3             9.19407    1.89018
-educ0                1.08882    1.41077
-educ1                2.70114    1.48730
-educ3                1.08171    1.50659
-educ4              -10.66905    1.34721
-educ5                1.01294    1.35220
-members             -0.33714    0.36191
-sexWomen            -3.44164    0.62904
-classemployer        0.72525    0.67795
-classself-employed   0.19334    1.22574
-classmanager        -1.20854    1.25961
-ocup0                2.85612    1.35922
-ocup1                0.47997    1.29820
-ocup3                1.20267    1.68079
-ocup4                0.81997    1.26543
-ocup5                1.65583    1.36041
-ocup6               -0.15040    1.56893
-ocup7               -2.63123    1.71078
-ocup8               -3.18375    1.88686
-ocup9               -4.18742    2.08738
-                   t value
-(Intercept)         -8.085
-bage0-34            -2.557
-bage35-44            0.034
-bage54-65           -1.011
-bage65-75           -1.090
-bage75              -2.768
-country1             6.630
-country2             4.310
-country3             4.864
-educ0                0.772
-educ1                1.816
-educ3                0.718
-educ4               -7.919
-educ5                0.749
-members             -0.932
-sexWomen            -5.471
-classemployer        1.070
-classself-employed   0.158
-classmanager        -0.959
-ocup0                2.101
-ocup1                0.370
-ocup3                0.716
-ocup4                0.648
-ocup5                1.217
-ocup6               -0.096
-ocup7               -1.538
-ocup8               -1.687
-ocup9               -2.006
-                               Pr(>|t|)    
-(Intercept)        0.000000000000000673 ***
-bage0-34                        0.01055 *  
-bage35-44                       0.97261    
-bage54-65                       0.31221    
-bage65-75                       0.27567    
-bage75                          0.00565 ** 
-country1           0.000000000034635791 ***
-country2           0.000016461601780048 ***
-country3           0.000001161660748588 ***
-educ0                           0.44025    
-educ1                           0.06937 .  
-educ3                           0.47278    
-educ4              0.000000000000002559 ***
-educ5                           0.45380    
-members                         0.35157    
-sexWomen           0.000000045426553401 ***
-classemployer                   0.28474    
-classself-employed              0.87467    
-classmanager                    0.33735    
-ocup0                           0.03563 *  
-ocup1                           0.71159    
-ocup3                           0.47429    
-ocup4                           0.51701    
-ocup5                           0.22356    
-ocup6                           0.92363    
-ocup7                           0.12406    
-ocup8                           0.09156 .  
-ocup9                           0.04487 *  
+                                                        Estimate
+(Intercept)                                            -17.89186
+bage0-34                                                -3.15761
+bage35-44                                                0.04534
+bage54-65                                               -1.34031
+bage65-75                                               -1.66267
+bage75                                                  -4.02398
+country1                                                11.10455
+country2                                                 8.26571
+country3                                                 9.19407
+educnon-applicant                                        1.08882
+educprimary                                              2.70114
+educfp                                                   1.08171
+educmedium                                             -10.66905
+educhigher                                               1.01294
+members                                                 -0.33714
+sexWomen                                                -3.44164
+classemployer                                            0.72525
+classself-employed                                       0.19334
+classmanager                                            -1.20854
+ocupArmed Forces Occupations                             7.04354
+ocupManagers                                             4.66739
+ocupProfessionals                                        4.18742
+ocupTechnicians and Associate Professionals              5.39009
+ocupClerical Support Workers                             5.00739
+ocupService and Sales Workers                            5.84325
+ocupSkilled Agricultural, Forestry and Fishery Workers   4.03702
+ocupCraft and Related Trades Workers                     1.55619
+ocupPlant and Machine Operators, and Assemblers          1.00367
+                                                       Std. Error
+(Intercept)                                               1.50555
+bage0-34                                                  1.23468
+bage35-44                                                 1.32068
+bage54-65                                                 1.32620
+bage65-75                                                 1.52518
+bage75                                                    1.45369
+country1                                                  1.67477
+country2                                                  1.91797
+country3                                                  1.89018
+educnon-applicant                                         1.41077
+educprimary                                               1.48730
+educfp                                                    1.50659
+educmedium                                                1.34721
+educhigher                                                1.35220
+members                                                   0.36191
+sexWomen                                                  0.62904
+classemployer                                             0.67795
+classself-employed                                        1.22574
+classmanager                                              1.25961
+ocupArmed Forces Occupations                              1.50199
+ocupManagers                                              1.34843
+ocupProfessionals                                         2.08738
+ocupTechnicians and Associate Professionals               1.70407
+ocupClerical Support Workers                              1.21126
+ocupService and Sales Workers                             1.91428
+ocupSkilled Agricultural, Forestry and Fishery Workers    1.58365
+ocupCraft and Related Trades Workers                      1.35355
+ocupPlant and Machine Operators, and Assemblers           1.39186
+                                                       t value
+(Intercept)                                            -11.884
+bage0-34                                                -2.557
+bage35-44                                                0.034
+bage54-65                                               -1.011
+bage65-75                                               -1.090
+bage75                                                  -2.768
+country1                                                 6.630
+country2                                                 4.310
+country3                                                 4.864
+educnon-applicant                                        0.772
+educprimary                                              1.816
+educfp                                                   0.718
+educmedium                                              -7.919
+educhigher                                               0.749
+members                                                 -0.932
+sexWomen                                                -5.471
+classemployer                                            1.070
+classself-employed                                       0.158
+classmanager                                            -0.959
+ocupArmed Forces Occupations                             4.689
+ocupManagers                                             3.461
+ocupProfessionals                                        2.006
+ocupTechnicians and Associate Professionals              3.163
+ocupClerical Support Workers                             4.134
+ocupService and Sales Workers                            3.052
+ocupSkilled Agricultural, Forestry and Fishery Workers   2.549
+ocupCraft and Related Trades Workers                     1.150
+ocupPlant and Machine Operators, and Assemblers          0.721
+                                                                   Pr(>|t|)
+(Intercept)                                            < 0.0000000000000002
+bage0-34                                                           0.010555
+bage35-44                                                          0.972611
+bage54-65                                                          0.312206
+bage65-75                                                          0.275665
+bage75                                                             0.005645
+country1                                                0.00000000003463581
+country2                                                0.00001646160307491
+country3                                                0.00000116166037721
+educnon-applicant                                                  0.440253
+educprimary                                                        0.069371
+educfp                                                             0.472780
+educmedium                                              0.00000000000000256
+educhigher                                                         0.453805
+members                                                            0.351574
+sexWomen                                                0.00000004542655340
+classemployer                                                      0.284740
+classself-employed                                                 0.874669
+classmanager                                                       0.337347
+ocupArmed Forces Occupations                            0.00000276388287169
+ocupManagers                                                       0.000539
+ocupProfessionals                                                  0.044868
+ocupTechnicians and Associate Professionals                        0.001564
+ocupClerical Support Workers                            0.00003584669074519
+ocupService and Sales Workers                                      0.002274
+ocupSkilled Agricultural, Forestry and Fishery Workers             0.010808
+ocupCraft and Related Trades Workers                               0.250281
+ocupPlant and Machine Operators, and Assemblers                    0.470860
+                                                          
+(Intercept)                                            ***
+bage0-34                                               *  
+bage35-44                                                 
+bage54-65                                                 
+bage65-75                                                 
+bage75                                                 ** 
+country1                                               ***
+country2                                               ***
+country3                                               ***
+educnon-applicant                                         
+educprimary                                            .  
+educfp                                                    
+educmedium                                             ***
+educhigher                                                
+members                                                   
+sexWomen                                               ***
+classemployer                                             
+classself-employed                                        
+classmanager                                              
+ocupArmed Forces Occupations                           ***
+ocupManagers                                           ***
+ocupProfessionals                                      *  
+ocupTechnicians and Associate Professionals            ** 
+ocupClerical Support Workers                           ***
+ocupService and Sales Workers                          ** 
+ocupSkilled Agricultural, Forestry and Fishery Workers *  
+ocupCraft and Related Trades Workers                      
+ocupPlant and Machine Operators, and Assemblers           
 ---
 Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
+  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05
+  ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for quasibinomial family taken to be 15.6194)
 
