@@ -69,7 +69,7 @@ for (i in seq_along(years)) {
     )
     setnames(survey_ecv,
         old = c("PB190", "PL051", "PE041", "RB090", "HH021", "PL040C", "AGE", "RB290", "PB140", "HX040", "HY040N", "HY090N"),
-        new = c("married", "ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
+        new = c("civil", "ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
     )
 
     survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1), levels = c(0:9), labels = isco08) %>% relevel(ref = "Elementary Occupations")
@@ -83,6 +83,7 @@ for (i in seq_along(years)) {
     survey_ecv$profit <- factor(as.integer(survey_ecv$profit > 0), levels = c(0, 1), labels = c("Noprofit", "Yesprofit"))
     survey_ecv$country <- factor(survey_ecv$country)
     survey_ecv$tenancy <- factor(survey_ecv$tenancy)
+    survey_ecv$civil <- factor(survey_ecv$civil)
 
     join_ecv <- rbind(join_ecv, survey_ecv, fill = T)
 
@@ -92,8 +93,8 @@ for (i in seq_along(years)) {
         weights = ~ survey_ecv$PB040
     ))
 
-    models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + married + sex + class + tenancy + educ, design = survey_total, family = "quasibinomial")
-    models2[[i]] <- lm(log_rents ~ bage + country + educ + members + married + sex + class + tenancy + educ, weights = PB040, data = survey_ecv)
+    models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + civil + sex + class + tenancy + educ, design = survey_total, family = "quasibinomial")
+    models2[[i]] <- lm(log_rents ~ bage + country + educ + members + civil + sex + class + tenancy + educ, weights = PB040, data = survey_ecv)
 }
 
 sink(paste0("output/ECV/RENTSBI", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
