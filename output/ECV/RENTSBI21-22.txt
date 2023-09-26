@@ -1,220 +1,188 @@
 
-Call:
-svyglm(formula = rentsbi ~ bage + country + educ + members + 
-    civil + sex + class + tenancy + educ, design = survey_total, 
-    family = "quasibinomial")
+==============================================
+                       Dependent variable:    
+                   ---------------------------
+                             rentsbi          
+----------------------------------------------
+bage0-34                    -1.340***         
+                             (0.342)          
+                                              
+bage35-44                   -0.385**          
+                             (0.169)          
+                                              
+bage54-65                   0.434***          
+                             (0.149)          
+                                              
+bage65-75                   0.831***          
+                             (0.165)          
+                                              
+bage75                      0.773***          
+                             (0.190)          
+                                              
+country1                    10.830***         
+                             (0.612)          
+                                              
+country2                    10.873***         
+                             (0.700)          
+                                              
+country3                    10.349***         
+                             (0.707)          
+                                              
+educnon-applicant            -0.203           
+                             (0.230)          
+                                              
+educprimary                  -0.116           
+                             (0.182)          
+                                              
+educfp                      0.534***          
+                             (0.157)          
+                                              
+educmedium                   -0.145           
+                             (0.778)          
+                                              
+educhigher                  0.923***          
+                             (0.145)          
+                                              
+members                     -0.00003          
+                             (0.063)          
+                                              
+civil1                      11.885***         
+                             (0.558)          
+                                              
+civil2                      11.695***         
+                             (0.560)          
+                                              
+civil3                      11.393***         
+                             (0.600)          
+                                              
+civil4                      11.668***         
+                             (0.567)          
+                                              
+civil5                      11.832***         
+                             (0.565)          
+                                              
+sexWomen                     0.217**          
+                             (0.102)          
+                                              
+classemployer               1.499***          
+                             (0.169)          
+                                              
+classself-employed          0.923***          
+                             (0.119)          
+                                              
+classmanager                0.926***          
+                             (0.288)          
+                                              
+tenancy2                    -0.546***         
+                             (0.136)          
+                                              
+tenancy3                    -0.908***         
+                             (0.196)          
+                                              
+tenancy4                    -1.134***         
+                             (0.409)          
+                                              
+tenancy5                     -0.342           
+                             (0.219)          
+                                              
+Constant                   -25.822***         
+                             (0.862)          
+                                              
+----------------------------------------------
+Observations                 12,250           
+==============================================
+Note:              *p<0.1; **p<0.05; ***p<0.01
 
-Survey design:
-survey_total <- as.svydesign2(svydesign(
-        ids = ~1,
-        data = survey_ecv,
-        weights = ~ survey_ecv$PB040
-    ))
-
-Coefficients:
-                       Estimate
-(Intercept)        -25.82239884
-bage0-34            -1.33953608
-bage35-44           -0.38471955
-bage54-65            0.43435481
-bage65-75            0.83084312
-bage75               0.77349569
-country1            10.83014441
-country2            10.87319217
-country3            10.34853832
-educnon-applicant   -0.20272885
-educprimary         -0.11598871
-educfp               0.53394150
-educmedium          -0.14459473
-educhigher           0.92329764
-members             -0.00003044
-civil1              11.88513104
-civil2              11.69545698
-civil3              11.39321292
-civil4              11.66761347
-civil5              11.83157551
-sexWomen             0.21699400
-classemployer        1.49915178
-classself-employed   0.92310095
-classmanager         0.92583303
-tenancy2            -0.54588879
-tenancy3            -0.90768969
-tenancy4            -1.13354822
-tenancy5            -0.34157849
-                     Std. Error t value
-(Intercept)          0.86174263 -29.965
-bage0-34             0.34207356  -3.916
-bage35-44            0.16932733  -2.272
-bage54-65            0.14851664   2.925
-bage65-75            0.16487628   5.039
-bage75               0.18973205   4.077
-country1             0.61212342  17.693
-country2             0.69985677  15.536
-country3             0.70704202  14.636
-educnon-applicant    0.23046268  -0.880
-educprimary          0.18215192  -0.637
-educfp               0.15745058   3.391
-educmedium           0.77818391  -0.186
-educhigher           0.14484805   6.374
-members              0.06314344   0.000
-civil1               0.55820798  21.292
-civil2               0.55964155  20.898
-civil3               0.59992607  18.991
-civil4               0.56720705  20.570
-civil5               0.56500649  20.941
-sexWomen             0.10230032   2.121
-classemployer        0.16916824   8.862
-classself-employed   0.11876018   7.773
-classmanager         0.28765057   3.219
-tenancy2             0.13557799  -4.026
-tenancy3             0.19635973  -4.623
-tenancy4             0.40929430  -2.770
-tenancy5             0.21898243  -1.560
-                               Pr(>|t|)    
-(Intercept)        < 0.0000000000000002 ***
-bage0-34            0.00009054581687301 ***
-bage35-44                      0.023101 *  
-bage54-65                      0.003455 ** 
-bage65-75           0.00000047418599219 ***
-bage75              0.00004595288729032 ***
-country1           < 0.0000000000000002 ***
-country2           < 0.0000000000000002 ***
-country3           < 0.0000000000000002 ***
-educnon-applicant              0.379061    
-educprimary                    0.524287    
-educfp                         0.000698 ***
-educmedium                     0.852596    
-educhigher          0.00000000019047419 ***
-members                        0.999615    
-civil1             < 0.0000000000000002 ***
-civil2             < 0.0000000000000002 ***
-civil3             < 0.0000000000000002 ***
-civil4             < 0.0000000000000002 ***
-civil5             < 0.0000000000000002 ***
-sexWomen                       0.033930 *  
-classemployer      < 0.0000000000000002 ***
-classself-employed  0.00000000000000829 ***
-classmanager                   0.001292 ** 
-tenancy2            0.00005698363743084 ***
-tenancy3            0.00000382866890487 ***
-tenancy4                       0.005622 ** 
-tenancy5                       0.118823    
----
-Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
-
-(Dispersion parameter for quasibinomial family taken to be 1.029585)
-
-Number of Fisher Scoring iterations: 12
-
-
-Call:
-svyglm(formula = rentsbi ~ bage + country + educ + members + 
-    civil + sex + class + tenancy + educ, design = survey_total, 
-    family = "quasibinomial")
-
-Survey design:
-survey_total <- as.svydesign2(svydesign(
-        ids = ~1,
-        data = survey_ecv,
-        weights = ~ survey_ecv$PB040
-    ))
-
-Coefficients:
-                    Estimate Std. Error
-(Intercept)        -15.58439    2.01035
-bage0-34            -4.95588    1.82955
-bage35-44            1.19223    1.23719
-bage54-65            0.82789    1.21539
-bage65-75            1.04994    1.06956
-bage75              -2.00031    1.19954
-country1            11.03014    2.11704
-country2             7.21638    2.73214
-country3             7.44874    2.79279
-educnon-applicant    1.34334    1.66808
-educprimary          2.84226    1.62791
-educfp               0.80751    1.79194
-educmedium          -9.55062    1.57864
-educhigher           1.57723    1.62665
-members             -0.81847    0.33931
-civil1               2.47858    1.74975
-civil2               3.18125    1.81727
-civil3              -3.61708    2.33237
-civil4               3.14527    1.85687
-civil5              -0.77199    1.81475
-sexWomen            -3.24271    0.70188
-classemployer        1.07797    0.48660
-classself-employed   0.61804    1.02446
-classmanager        -2.09231    1.35542
-tenancy2            -0.09238    0.68566
-tenancy3             2.08496    1.35845
-tenancy4            -1.40350    0.75923
-tenancy5            -2.94049    1.13761
-                   t value
-(Intercept)         -7.752
-bage0-34            -2.709
-bage35-44            0.964
-bage54-65            0.681
-bage65-75            0.982
-bage75              -1.668
-country1             5.210
-country2             2.641
-country3             2.667
-educnon-applicant    0.805
-educprimary          1.746
-educfp               0.451
-educmedium          -6.050
-educhigher           0.970
-members             -2.412
-civil1               1.417
-civil2               1.751
-civil3              -1.551
-civil4               1.694
-civil5              -0.425
-sexWomen            -4.620
-classemployer        2.215
-classself-employed   0.603
-classmanager        -1.544
-tenancy2            -0.135
-tenancy3             1.535
-tenancy4            -1.849
-tenancy5            -2.585
-                              Pr(>|t|)    
-(Intercept)        0.00000000000000964 ***
-bage0-34                       0.00676 ** 
-bage35-44                      0.33523    
-bage54-65                      0.49577    
-bage65-75                      0.32629    
-bage75                         0.09542 .  
-country1           0.00000019124654637 ***
-country2                       0.00827 ** 
-country3                       0.00766 ** 
-educnon-applicant              0.42065    
-educprimary                    0.08084 .  
-educfp                         0.65226    
-educmedium         0.00000000148476393 ***
-educhigher                     0.33225    
-members                        0.01587 *  
-civil1                         0.15664    
-civil2                         0.08004 .  
-civil3                         0.12097    
-civil4                         0.09031 .  
-civil5                         0.67055    
-sexWomen           0.00000386973836365 ***
-classemployer                  0.02676 *  
-classself-employed             0.54633    
-classmanager                   0.12269    
-tenancy2                       0.89282    
-tenancy3                       0.12485    
-tenancy4                       0.06454 .  
-tenancy5                       0.00975 ** 
----
-Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
-
-(Dispersion parameter for quasibinomial family taken to be 125.5117)
-
-Number of Fisher Scoring iterations: 12
-
+==============================================
+                       Dependent variable:    
+                   ---------------------------
+                             rentsbi          
+----------------------------------------------
+bage0-34                    -4.956***         
+                             (1.830)          
+                                              
+bage35-44                     1.192           
+                             (1.237)          
+                                              
+bage54-65                     0.828           
+                             (1.215)          
+                                              
+bage65-75                     1.050           
+                             (1.070)          
+                                              
+bage75                       -2.000*          
+                             (1.200)          
+                                              
+country1                    11.030***         
+                             (2.117)          
+                                              
+country2                    7.216***          
+                             (2.732)          
+                                              
+country3                    7.449***          
+                             (2.793)          
+                                              
+educnon-applicant             1.343           
+                             (1.668)          
+                                              
+educprimary                  2.842*           
+                             (1.628)          
+                                              
+educfp                        0.808           
+                             (1.792)          
+                                              
+educmedium                  -9.551***         
+                             (1.579)          
+                                              
+educhigher                    1.577           
+                             (1.627)          
+                                              
+members                     -0.818**          
+                             (0.339)          
+                                              
+civil1                        2.479           
+                             (1.750)          
+                                              
+civil2                       3.181*           
+                             (1.817)          
+                                              
+civil3                       -3.617           
+                             (2.332)          
+                                              
+civil4                       3.145*           
+                             (1.857)          
+                                              
+civil5                       -0.772           
+                             (1.815)          
+                                              
+sexWomen                    -3.243***         
+                             (0.702)          
+                                              
+classemployer                1.078**          
+                             (0.487)          
+                                              
+classself-employed            0.618           
+                             (1.024)          
+                                              
+classmanager                 -2.092           
+                             (1.355)          
+                                              
+tenancy2                     -0.092           
+                             (0.686)          
+                                              
+tenancy3                      2.085           
+                             (1.358)          
+                                              
+tenancy4                     -1.404*          
+                             (0.759)          
+                                              
+tenancy5                    -2.940***         
+                             (1.138)          
+                                              
+Constant                   -15.584***         
+                             (2.010)          
+                                              
+----------------------------------------------
+Observations                 14,578           
+==============================================
+Note:              *p<0.1; **p<0.05; ***p<0.01

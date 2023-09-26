@@ -1,210 +1,190 @@
 
-Call:
-lm(formula = log_rents ~ bage + country + educ + members + civil + 
-    sex + class + tenancy + educ, data = survey_ecv, weights = PB040)
+===============================================
+                        Dependent variable:    
+                    ---------------------------
+                             log_rents         
+-----------------------------------------------
+bage0-34                     -1.110***         
+                              (0.172)          
+                                               
+bage35-44                    -0.431***         
+                              (0.120)          
+                                               
+bage54-65                     0.228**          
+                              (0.114)          
+                                               
+bage65-75                    0.703***          
+                              (0.135)          
+                                               
+bage75                        0.293*           
+                              (0.156)          
+                                               
+country1                       1.594           
+                              (1.435)          
+                                               
+country2                       1.138           
+                              (1.467)          
+                                               
+country3                       0.760           
+                              (1.459)          
+                                               
+educnon-applicant             -0.241           
+                              (0.204)          
+                                               
+educprimary                    0.106           
+                              (0.161)          
+                                               
+educfp                       0.532***          
+                              (0.128)          
+                                               
+educmedium                     0.614           
+                              (0.779)          
+                                               
+educhigher                   0.923***          
+                              (0.113)          
+                                               
+members                       0.071*           
+                              (0.037)          
+                                               
+civil2                         0.059           
+                              (0.110)          
+                                               
+civil3                        -0.397           
+                              (0.281)          
+                                               
+civil4                        -0.087           
+                              (0.146)          
+                                               
+civil5                        -0.087           
+                              (0.146)          
+                                               
+sexWomen                       0.063           
+                              (0.082)          
+                                               
+classemployer                1.377***          
+                              (0.150)          
+                                               
+classself-employed           0.493***          
+                              (0.112)          
+                                               
+classmanager                  0.560*           
+                              (0.288)          
+                                               
+tenancy2                      -0.133           
+                              (0.099)          
+                                               
+tenancy3                     -0.411***         
+                              (0.151)          
+                                               
+tenancy4                      -0.577*          
+                              (0.317)          
+                                               
+tenancy5                     -0.395**          
+                              (0.181)          
+                                               
+Constant                      3.400**          
+                              (1.447)          
+                                               
+-----------------------------------------------
+Observations                   4,121           
+R2                             0.087           
+Adjusted R2                    0.081           
+Residual Std. Error     71.488 (df = 4094)     
+F Statistic          14.962*** (df = 26; 4094) 
+===============================================
+Note:               *p<0.1; **p<0.05; ***p<0.01
 
-Weighted Residuals:
-    Min      1Q  Median      3Q     Max 
--335.50  -42.01    8.14   47.58  299.23 
-
-Coefficients:
-                   Estimate Std. Error
-(Intercept)         3.40030    1.44740
-bage0-34           -1.10957    0.17236
-bage35-44          -0.43138    0.11957
-bage54-65           0.22792    0.11447
-bage65-75           0.70316    0.13466
-bage75              0.29270    0.15639
-country1            1.59393    1.43487
-country2            1.13756    1.46652
-country3            0.76020    1.45858
-educnon-applicant  -0.24084    0.20392
-educprimary         0.10650    0.16138
-educfp              0.53169    0.12758
-educmedium          0.61373    0.77932
-educhigher          0.92271    0.11296
-members             0.07101    0.03718
-civil2              0.05874    0.11025
-civil3             -0.39736    0.28129
-civil4             -0.08721    0.14611
-civil5             -0.08658    0.14649
-sexWomen            0.06273    0.08228
-classemployer       1.37690    0.15041
-classself-employed  0.49276    0.11183
-classmanager        0.56046    0.28789
-tenancy2           -0.13349    0.09929
-tenancy3           -0.41134    0.15146
-tenancy4           -0.57673    0.31656
-tenancy5           -0.39458    0.18119
-                   t value
-(Intercept)          2.349
-bage0-34            -6.438
-bage35-44           -3.608
-bage54-65            1.991
-bage65-75            5.222
-bage75               1.872
-country1             1.111
-country2             0.776
-country3             0.521
-educnon-applicant   -1.181
-educprimary          0.660
-educfp               4.167
-educmedium           0.788
-educhigher           8.168
-members              1.910
-civil2               0.533
-civil3              -1.413
-civil4              -0.597
-civil5              -0.591
-sexWomen             0.762
-classemployer        9.154
-classself-employed   4.406
-classmanager         1.947
-tenancy2            -1.344
-tenancy3            -2.716
-tenancy4            -1.822
-tenancy5            -2.178
-                               Pr(>|t|)    
-(Intercept)                    0.018859 *  
-bage0-34           0.000000000135426779 ***
-bage35-44                      0.000313 ***
-bage54-65                      0.046543 *  
-bage65-75          0.000000186122558633 ***
-bage75                         0.061333 .  
-country1                       0.266698    
-country2                       0.437979    
-country3                       0.602260    
-educnon-applicant              0.237653    
-educprimary                    0.509359    
-educfp             0.000031445820718780 ***
-educmedium                     0.431029    
-educhigher         0.000000000000000412 ***
-members                        0.056242 .  
-civil2                         0.594187    
-civil3                         0.157831    
-civil4                         0.550606    
-civil5                         0.554524    
-sexWomen                       0.445841    
-classemployer      < 0.0000000000000002 ***
-classself-employed 0.000010780513569640 ***
-classmanager                   0.051629 .  
-tenancy2                       0.178867    
-tenancy3                       0.006638 ** 
-tenancy4                       0.068547 .  
-tenancy5                       0.029489 *  
----
-Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
-
-Residual standard error: 71.49 on 4094 degrees of freedom
-  (9328 observations deleted due to missingness)
-Multiple R-squared:  0.08677,	Adjusted R-squared:  0.08097 
-F-statistic: 14.96 on 26 and 4094 DF,  p-value: < 0.00000000000000022
-
-
-Call:
-lm(formula = log_rents ~ bage + country + educ + members + civil + 
-    sex + class + tenancy + educ, data = survey_ecv, weights = PB040)
-
-Weighted Residuals:
-     Min       1Q   Median       3Q 
--2772.52   -51.86     0.27    38.19 
-     Max 
- 2380.35 
-
-Coefficients:
-                    Estimate Std. Error
-(Intercept)         6.408720   3.324237
-bage0-34           -1.611909   0.264629
-bage35-44          -0.014162   0.075021
-bage54-65           1.519568   0.102074
-bage65-75           1.256790   0.112798
-bage75              1.262321   0.142418
-country2           -4.202253   0.127993
-country3           -1.583888   0.510302
-educnon-applicant  -0.724911   0.324138
-educprimary         0.772873   0.104318
-educfp              0.170003   0.075670
-educmedium         -2.521762   1.420339
-educhigher          0.006694   0.079902
-members            -0.130843   0.037847
-civil1             -0.268173   3.324714
-civil2             -0.369454   3.326286
-civil3             -0.912566   3.329321
-civil4              0.378461   3.326644
-civil5             -2.047559   3.326213
-sexWomen           -1.210887   0.066373
-classemployer       0.353756   0.240292
-classself-employed -1.544014   0.082194
-classmanager        1.105750   0.470864
-tenancy2            1.620642   0.103200
-tenancy3            3.126218   0.100926
-tenancy4            0.950250   0.644590
-tenancy5            0.371507   0.222050
-                   t value
-(Intercept)          1.928
-bage0-34            -6.091
-bage35-44           -0.189
-bage54-65           14.887
-bage65-75           11.142
-bage75               8.863
-country2           -32.832
-country3            -3.104
-educnon-applicant   -2.236
-educprimary          7.409
-educfp               2.247
-educmedium          -1.775
-educhigher           0.084
-members             -3.457
-civil1              -0.081
-civil2              -0.111
-civil3              -0.274
-civil4               0.114
-civil5              -0.616
-sexWomen           -18.244
-classemployer        1.472
-classself-employed -18.785
-classmanager         2.348
-tenancy2            15.704
-tenancy3            30.975
-tenancy4             1.474
-tenancy5             1.673
-                               Pr(>|t|)    
-(Intercept)                    0.053929 .  
-bage0-34               0.00000000120794 ***
-bage35-44                      0.850277    
-bage54-65          < 0.0000000000000002 ***
-bage65-75          < 0.0000000000000002 ***
-bage75             < 0.0000000000000002 ***
-country2           < 0.0000000000000002 ***
-country3                       0.001921 ** 
-educnon-applicant              0.025370 *  
-educprimary            0.00000000000015 ***
-educfp                         0.024709 *  
-educmedium                     0.075884 .  
-educhigher                     0.933235    
-members                        0.000551 ***
-civil1                         0.935715    
-civil2                         0.911565    
-civil3                         0.784020    
-civil4                         0.909427    
-civil5                         0.538199    
-sexWomen           < 0.0000000000000002 ***
-classemployer                  0.141034    
-classself-employed < 0.0000000000000002 ***
-classmanager                   0.018898 *  
-tenancy2           < 0.0000000000000002 ***
-tenancy3           < 0.0000000000000002 ***
-tenancy4                       0.140495    
-tenancy5                       0.094376 .  
----
-Signif. codes:  
-  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’
-  0.1 ‘ ’ 1
-
-Residual standard error: 116.9 on 4804 degrees of freedom
-  (10670 observations deleted due to missingness)
-Multiple R-squared:  0.7115,	Adjusted R-squared:  0.7099 
-F-statistic: 455.6 on 26 and 4804 DF,  p-value: < 0.00000000000000022
-
+===============================================
+                        Dependent variable:    
+                    ---------------------------
+                             log_rents         
+-----------------------------------------------
+bage0-34                     -1.612***         
+                              (0.265)          
+                                               
+bage35-44                     -0.014           
+                              (0.075)          
+                                               
+bage54-65                    1.520***          
+                              (0.102)          
+                                               
+bage65-75                    1.257***          
+                              (0.113)          
+                                               
+bage75                       1.262***          
+                              (0.142)          
+                                               
+country2                     -4.202***         
+                              (0.128)          
+                                               
+country3                     -1.584***         
+                              (0.510)          
+                                               
+educnon-applicant            -0.725**          
+                              (0.324)          
+                                               
+educprimary                  0.773***          
+                              (0.104)          
+                                               
+educfp                        0.170**          
+                              (0.076)          
+                                               
+educmedium                    -2.522*          
+                              (1.420)          
+                                               
+educhigher                     0.007           
+                              (0.080)          
+                                               
+members                      -0.131***         
+                              (0.038)          
+                                               
+civil1                        -0.268           
+                              (3.325)          
+                                               
+civil2                        -0.369           
+                              (3.326)          
+                                               
+civil3                        -0.913           
+                              (3.329)          
+                                               
+civil4                         0.378           
+                              (3.327)          
+                                               
+civil5                        -2.048           
+                              (3.326)          
+                                               
+sexWomen                     -1.211***         
+                              (0.066)          
+                                               
+classemployer                  0.354           
+                              (0.240)          
+                                               
+classself-employed           -1.544***         
+                              (0.082)          
+                                               
+classmanager                  1.106**          
+                              (0.471)          
+                                               
+tenancy2                     1.621***          
+                              (0.103)          
+                                               
+tenancy3                     3.126***          
+                              (0.101)          
+                                               
+tenancy4                       0.950           
+                              (0.645)          
+                                               
+tenancy5                      0.372*           
+                              (0.222)          
+                                               
+Constant                      6.409*           
+                              (3.324)          
+                                               
+-----------------------------------------------
+Observations                   4,831           
+R2                             0.711           
+Adjusted R2                    0.710           
+Residual Std. Error     116.908 (df = 4804)    
+F Statistic         455.627*** (df = 26; 4804) 
+===============================================
+Note:               *p<0.1; **p<0.05; ***p<0.01
