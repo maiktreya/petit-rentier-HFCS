@@ -54,7 +54,7 @@ for (i in seq_along(years)) {
     survey_ecv[, outcome := 0][PL040C == 1, outcome := rentsbi]
     survey_ecv[, period := 0][HB060 == tail(years, 1), period := 1]
     survey_ecv$AGE <- survey_ecv$AGE %>% as.factor()
-    survey_ecv[tenancy != 1, "tenancy"] <- 0
+    # survey_ecv[tenancy != 1, "tenancy"] <- 0
     survey_ecv[AGE == 0, AGE := NA]
     survey_ecv[PL040C == 0, PL040C := NA]
     educ_cat <- c("non-applicant", "primary", "secondary", "fp", "medium", "higher")
@@ -82,6 +82,7 @@ for (i in seq_along(years)) {
     survey_ecv$housrent <- factor(as.integer(survey_ecv$housrent > 0), levels = c(0, 1), labels = c("Norent", "Yesrent"))
     survey_ecv$profit <- factor(as.integer(survey_ecv$profit > 0), levels = c(0, 1), labels = c("Noprofit", "Yesprofit"))
     survey_ecv$country <- factor(survey_ecv$country)
+    survey_ecv$tenancy <- factor(survey_ecv$tenancy)
 
     join_ecv <- rbind(join_ecv, survey_ecv, fill = T)
 
@@ -91,8 +92,8 @@ for (i in seq_along(years)) {
         weights = ~ survey_ecv$PB040
     ))
 
-    models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + married + sex + class + ocup + educ, design = survey_total, family = "quasibinomial")
-    models2[[i]] <- lm(log_rents ~ bage + country + educ + members + married + sex + class + ocup + educ, weights = PB040, data = survey_ecv)
+    models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + married + sex + class + tenancy + educ, design = survey_total, family = "quasibinomial")
+    models2[[i]] <- lm(log_rents ~ bage + country + educ + members + married + sex + class + tenancy + educ, weights = PB040, data = survey_ecv)
 }
 
 sink(paste0("output/ECV/RENTSBI", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
