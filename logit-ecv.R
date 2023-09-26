@@ -99,15 +99,19 @@ for (i in seq_along(years)) {
 
 sink(paste0("output/ECV/RENTSBI", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
 models[[1]] %>%
-    stargazer(type = "text")
+    stargazer(type = "text") %>%
+    print()
 models[[2]] %>%
-    stargazer(type = "text")
+    stargazer(type = "text") %>%
+    print()
 sink()
 
 
 sink(paste0("output/ECV/LN_RENTS", substr(years[1], 3, 4), "-", substr(years[2], 3, 4), ".txt"))
 models2[[1]] %>%
-    stargazer(type = "text")
+    stargazer(type = "text") %>%
+    print()
 models2[[2]] %>%
-    stargazer(type = "text")
+    stargazer(type = "text") %>%
+    print()
 sink()
