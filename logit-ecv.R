@@ -75,8 +75,6 @@ for (i in seq_along(years)) {
     survey_ecv$ocup <- factor(substring(survey_ecv$ocup, 1, 1), levels = c(0:9), labels = isco08) %>% relevel(ref = "Elementary Occupations")
     survey_ecv$educ <- factor(as.integer(survey_ecv$educ / 100), levels = c(0:5), labels = educ_cat) %>% relevel(ref = "secondary")
     survey_ecv$class <- factor(survey_ecv$class, levels = c(1, 2, 3, 4), labels = c("employer", "self-employed", "worker", "manager")) %>% relevel(ref = "worker")
-    survey_ecv[, manager := 0][class == "manager", manager := 1]
-    survey_ecv[, employer := 0][class == "employer", employer := 1]
     survey_ecv$bage <- factor(survey_ecv$bage, levels = c(1, 2, 3, 4, 5, 6), labels = c("0-34", "35-44", "45-54", "54-65", "65-75", "75")) %>% relevel(ref = "45-54")
     survey_ecv$sex <- factor(survey_ecv$sex, levels = c(1, 2), labels = c("Man", "Women"))
     survey_ecv$housrent <- factor(as.integer(survey_ecv$housrent > 0), levels = c(0, 1), labels = c("Norent", "Yesrent"))
