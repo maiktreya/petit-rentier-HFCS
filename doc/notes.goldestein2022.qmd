@@ -1,0 +1,12 @@
+---
+title: "NOTES GOLDSTEIN 2022"
+author: "Miguel Garcia-Duch"
+date: "5/22/2021"
+format:
+  html:
+    code-fold: true
+---
+
+## THEORY OF THE PETIT RENTIER AS SOCIAL CLASS
+
+## ECONOMETRIC METHODOLOGY
