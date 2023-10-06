@@ -28,7 +28,7 @@
 # ORDEN DE FILTRADO VARIABLES
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
-c("magrittr", "survey", "data.table") %>% sapply(library, character.only = T)
+c("magrittr", "survey", "data.table", "stargazer") %>% sapply(library, character.only = T)
 options(scipen = 99)
 ### PARAMETERS AND VARIABLES TO INITIALIZE
 quantile_cuts <- c(.25, .5, .75, .9, .99, .999)
