@@ -30,6 +30,13 @@ res_table <- rbind(total_props[, -1], unname(diffs[-1]))
 plot(total_props[, "prop_ren_k"], x = years, type = "l", ylim = range(0, max(total_props[, -1])))
 lines(total_props[, "prop_ren_tot"], x = years, col = "blue")
 lines(total_props[, "prop_ren_w"], x = years, col = "red")
-res_export <- as.data.table(res_table) %>% fwrite("output/rentsbi.csv")
+res_export <- as.data.table(res_table)
+res_export %>% fwrite("output/rentsbi.csv")
 
 cbind(c(years, "diff"), round(res_table, 2)) %>% print()
+
+
+
+d <- cbind(res_export$prop_ren_w, "worker")
+colnames(d) <- c("x", "id")
+d <- rbind(d, cbind(res_export$prop_ren_k, "capitalist"))
