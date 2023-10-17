@@ -1,6 +1,6 @@
 ### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
 `%>%` <- magrittr::`%>%` # nolint
-c("survey", "data.table", "dineq", "xgboost") %>% sapply(library, character.only = T)
+c("survey", "data.table", "lme4") %>% sapply(library, character.only = T)
 options(scipen = 99)
 
 final_dt <- data.table()
