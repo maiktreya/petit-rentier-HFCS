@@ -6,6 +6,7 @@ library(lme4)
 # import test pseudo-panel statistics
 dt_eff <- fread("output/rentsbi.csv")
 
+# transform data accordingly
 dt_eff[, variable_num := 0][variable == "prop_ren_w", variable_num := 1][variable == "prop_ren_k", variable_num := 2][, years_bi := rep(1:7, 2)]
 dt_mixed <- dt_eff[, list(years_bi, variable_num, value)]
 setnames(dt_mixed,
