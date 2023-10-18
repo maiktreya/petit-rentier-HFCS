@@ -17,7 +17,7 @@ setnames(dt_mixed,
 print(dt_mixed)
 # lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
 # lmer(rentsbi ~ year + (year | class), data = dt_eff)
-fm1 <- lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+fm1 <- lmer(Reaction ~ Days + (Days | Subject), data = dt_mixed)
 fm1 %>%
     summary() %>%
     print()
