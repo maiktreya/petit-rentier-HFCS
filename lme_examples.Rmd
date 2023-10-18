@@ -24,10 +24,18 @@ fm1 <- lmer(rents ~ year + (year | class), data = dt_mixed)
 fm1 %>%
     summary() %>%
     print()
-
+print("-----------------------------")
+fm1 %>% print()
+print("-----------------------------")
+print("-----------------------------")
 # effects + one covariate/regressor
 fm2 <- lmer(rents ~ year + Covariate1 + (year | class), data = dt_mixed)
 fm2 %>%
     summary() %>%
     print()
+print("-----------------------------")
+fm2 %>% print()
+print("-----------------------------")
+print("-----------------------------")
+
 ```{r}

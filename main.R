@@ -1,36 +1,37 @@
-### WORKSPACE SETUP- MEMORY CLEAN AND PACKAGES IMPORT
-`%>%` <- magrittr::`%>%` # nolint
-c("survey", "data.table", "lme4") %>% sapply(library, character.only = T)
-options(scipen = 99)
+# LME library examples
+library(magrittr)
+library(data.table)
+library(lme4)
 
-final_dt <- data.table()
-prop_ren_tot <- prop_ren_w <- prop_ren_k <- c()
-years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
-rif_var <- "quantile"
-dt_eff <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
-dt_eff[, rentsbi := 0][rents >= renthog * 0.15, rentsbi := 1]
-dt_eff[, rentsbi := 0][rents >= 5000, rentsbi := 1]
+# import test pseudo-panel statistics
+dt_eff <- fread("output/rentsbi.csv")
 
-for (i in years) {
-    final_dt <- dt_eff[sv_year == i]
-    survey_total <- svydesign(
-        ids = ~1,
-        data = as.data.frame(final_dt),
-        weights = ~ final_dt$facine3
-    )
+# transform data accordingly
+dt_eff[, variable_num := 0][variable == "prop_ren_w", variable_num := 1][variable == "prop_ren_k", variable_num := 2][, years_bi := rep(1:7, 2)]
+dt_mixed <- dt_eff[, list(years_bi, variable_num, value)]
+setnames(dt_mixed,
+    old = c("years_bi", "variable_num", "value"),
+    new = c("year", "class", "rents")
+)
+dt_mixed$Covariate1 <- rbinom(n = nrow(dt_mixed), size = 10, prob = 0.2)
 
-    prop_ren_tot <- c(prop_ren_tot, svymean(~rentsbi, survey_total)[[1]])
-    prop_ren_w <- c(prop_ren_w, svymean(~rentsbi, subset(survey_total, class == "worker"))[[1]])
-    prop_ren_k <- c(prop_ren_k, svymean(~rentsbi, subset(survey_total, class == "capitalist"))[[1]])
-}
+## estimate random correlated effects (Mixed Models)
 
-total_props <- data.table(cbind(years, prop_ren_tot, prop_ren_w, prop_ren_k))
-diffs <- tail(total_props, 1) - head(total_props, 1)
-
-plot(total_props$prop_ren_k, x = total_props$years)
-lines(total_props$prop_ren_tot, x = total_props$years, col = "blue")
-lines(total_props$prop_ren_w, x = total_props$years, col = "red")
-
-
-res_export <- melt(total_props, id.vars = "years")
-res_export[variable != "prop_ren_tot", ] %>% fwrite("output/rentsbi.csv")
+# only effects, no covariates
+fm1 <- lmer(rents ~ year + (year | class), data = dt_mixed)
+fm1 %>%
+    summary() %>%
+    print()
+print("-----------------------------")
+fm1 %>% print()
+print("-----------------------------")
+print("-----------------------------")
+# effects + one covariate/regressor
+fm2 <- lmer(rents ~ year + Covariate1 + (year | class), data = dt_mixed)
+fm2 %>%
+    summary() %>%
+    print()
+print("-----------------------------")
+fm2 %>% print()
+print("-----------------------------")
+print("-----------------------------")
