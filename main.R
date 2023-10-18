@@ -1,6 +1,7 @@
 # LME library examples
 library(magrittr)
 library(data.table)
+library(survey)
 library(lme4)
 
 # import test pseudo-panel statistics
@@ -35,3 +36,17 @@ print("-----------------------------")
 fm2 %>% print()
 print("-----------------------------")
 print("-----------------------------")
+dt <- "saves/eff-pool-2002-2020.csv" %>% fread() # Data table con microdatos anuales
+years <- c(2002, 2005, 2008, 2011, 2014, 2017, 2020)
+means <- list()
+dt[, rentsbi := 0][rents > 0, 1 * renthog & rents > 1000]
+for (i in seq_along(years)) {
+    dt_yr <- dt[sv_year == years[i]] %>% data.frame()
+    dt_sv <- svydesign(
+        ids = ~1,
+        data = dt_yr,
+        weights = ~ dt_yr$facine3
+    )
+    means[[i]] <- svyby(~renthog, ~class, dt_sv, svymean)
+}
+print(means)
