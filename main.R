@@ -24,19 +24,13 @@ for (i in years) {
     prop_ren_k <- c(prop_ren_k, svymean(~rentsbi, subset(survey_total, class == "capitalist"))[[1]])
 }
 
-total_props <- cbind(years, prop_ren_tot, prop_ren_w, prop_ren_k)
-res_table <- rbind(total_props[, -1], unname(diffs[-1]))
+total_props <- data.table(cbind(years, prop_ren_tot, prop_ren_w, prop_ren_k))
+diffs <- tail(total_props, 1) - head(total_props, 1)
 
-plot(total_props[, "prop_ren_k"], x = years, type = "l", ylim = range(0, max(total_props[, -1])))
-lines(total_props[, "prop_ren_tot"], x = years, col = "blue")
-lines(total_props[, "prop_ren_w"], x = years, col = "red")
-res_export <- as.data.table(res_table)
-res_export %>% fwrite("output/rentsbi.csv")
-
-cbind(c(years, "diff"), round(res_table, 2)) %>% print()
+plot(total_props$prop_ren_k, x = total_props$years)
+lines(total_props$prop_ren_tot, x = total_props$years, col = "blue")
+lines(total_props$prop_ren_w, x = total_props$years, col = "red")
 
 
-
-d <- cbind(res_export$prop_ren_w, "worker")
-colnames(d) <- c("x", "id")
-d <- rbind(d, cbind(res_export$prop_ren_k, "capitalist"))
+res_export <- melt(total_props, id.vars = "years")
+res_export[variable != "prop_ren_tot", ] %>% fwrite("output/rentsbi.csv")
