@@ -1,6 +1,9 @@
+# HFCS MAIN FILE FOR IMPORTING AND MERGING IMPUTATIONS FOR DISTINCT HFCS WAVES
+
 library(magrittr)
 library(data.table)
 
+rm(list = ls())
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 final_dt_h <- final_dt_p <- data.table()
 codes <- c("H", "HN", "D", "P", "PN")
@@ -28,4 +31,10 @@ for (i in codes[4:5]) {
 }
 
 # MERGE
-# final_dt <- melt(final_dt_h, final_dt_p)
+# Removed common colums
+nm1 <- intersect(colnames(final_dt_p), colnames(final_dt_h))[-1]
+# Remove the duplicate columns from final_dt_p before merging
+final_dt_p <- final_dt_p[, !duplicated(colnames(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
+final_dt_h <- final_dt_h[, !duplicated(colnames(final_dt_h)), with = FALSE]
+# Now you can merge without worrying about duplicate column names and indexing
+final_dt <- merge(final_dt_h, final_dt_p, by = "ID")
