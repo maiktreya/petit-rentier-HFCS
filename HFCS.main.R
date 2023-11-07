@@ -12,7 +12,7 @@ codes <- c("H", "HN", "D", "P", "PN")
 for (i in codes[1:3]) {
     imp_dt <- data.table()
     for (j in 1:5) {
-        imp <- fread(paste0(path_string, i, j, ".csv"))
+        imp <- fread(paste0(path_string, i, j, ".csv"))[, imp := j]
         imp_dt <- rbindlist(list(imp_dt, imp))
     }
     final_dt_h <- cbind(final_dt_h, imp_dt)
@@ -23,7 +23,7 @@ for (i in codes[1:3]) {
 for (i in codes[4:5]) {
     imp_dt <- data.table()
     for (j in 1:5) {
-        imp <- fread(paste0(path_string, i, j, ".csv"))
+        imp <- fread(paste0(path_string, i, j, ".csv"))[, imp := j]
         imp_dt <- rbindlist(list(imp_dt, imp))
     }
     final_dt_p <- cbind(final_dt_p, imp_dt)
@@ -32,9 +32,12 @@ for (i in codes[4:5]) {
 
 # MERGE
 # Removed common colums
-nm1 <- intersect(colnames(final_dt_p), colnames(final_dt_h))[-1]
+nm1 <- intersect(colnames(final_dt_p), colnames(final_dt_h))
+nm1 <- nm1[!(nm1 %in% c("ID", "imp"))]
 # Remove the duplicate columns from final_dt_p before merging
-final_dt_p <- final_dt_p[, !duplicated(colnames(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
-final_dt_h <- final_dt_h[, !duplicated(colnames(final_dt_h)), with = FALSE]
+final_dt_p1 <- final_dt_p[, !duplicated(colnames(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
+final_dt_h1 <- final_dt_h[, !duplicated(colnames(final_dt_h)), with = FALSE]
 # Now you can merge without worrying about duplicate column names and indexing
-final_dt <- merge(final_dt_h, final_dt_p, by = "ID")
+final_dt <- merge(final_dt_h1, final_dt_p1, by = "ID")
+
+final_dt2 <- sapply(split.default(final_dt_h, names(final_dt_h)), rowSums, na.rm = TRUE)
