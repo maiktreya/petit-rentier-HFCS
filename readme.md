@@ -1,3 +1,35 @@
-@ updated 17/10/2021
 
-# Towards the integration of mixed models and machine learning
+# HFCS USAGE
+
+
+## JOINT COLNAMES
+  [1] "id"                  "survey"              "sa0010"              "sa0100"              "im0100"              "hw0010"              "dwhoho"
+  [8] "docogood"            "dhageh1b"            "docogoodp"           "dofinassist"         "dh0001"              "dh0006"              "dh14p"
+ [15] "dhn013"              "dh0003"              "dh0004"              "dhhtype"             "dh0002"              "da1110"              "da1120"
+ [22] "da1121"              "da1130"              "da1131"              "da1140"              "da2101"              "da21011"             "da21012"
+ [29] "da2102"              "da2103"              "da2104"              "da2105"              "da2106"              "da2107"              "da2108"
+ [36] "da2109"              "dl1110"              "dl1120"              "dl1200"              "dl1100"              "dl2100"              "dl2110"
+ [43] "dl2200"              "dl2000"              "di1412"              "di1100"              "di1200"              "di1300"              "di1410"
+ [50] "di1400"              "di1420"              "di1510"              "di1520"              "di1500"              "di1610"              "di1620"
+ [57] "di1600"              "di1700"              "da1000"              "da1200"              "da1400"              "da2100"              "da3001"
+ [64] "dl1000"              "di2000"              "dn3001"              "da1000i"             "da2100i"             "da1110i"             "da1120i"
+ [71] "da1121i"             "da1130i"             "da1131i"             "da1140i"             "da1400i"             "da1200i"             "da2101i"
+ [78] "da21011i"            "da21012i"            "da2102i"             "da2103i"             "da2104i"             "da2105i"             "da2106i"
+ [85] "da2107i"             "da2108i"             "da2109i"             "dl1000i"             "dl1100i"             "dl1110i"             "dl1120i"
+ [92] "dl1200i"             "dofinassets"         "dohmronly"           "dodaratio"           "dodaratio75p"        "doltvratio"          "doltvratio75p"
+ [99] "dodiratio"           "dodiratio300p"       "dodstotal"           "dodstotal40p"        "dodsmortg"           "dodsmortg40p"        "dodsmortghmr"
+[106] "doabletosave"        "dofoodc"             "dofoodcp"            "docreditc"           "doinherit"           "doeinherit"          "dhaq01"
+[113] "dhnq01"              "dhlq01"              "dhiq01"              "di1300i"             "da1000sh"            "da1122"              "da1122i"
+[120] "da2100sh"            "datop10"             "dhaged65plus"        "dhchildrendependent" "dhhst"               "dhra0100h"           "di1100i"
+[127] "di1200i"             "di1400i"             "di1410i"             "di1420i"             "di1500i"             "di1510i"             "di1520i"
+[134] "di1600i"             "di1610i"             "di1620i"             "di1700i"             "di1800"              "di1800i"             "di2000eq"
+[141] "ditop10"             "ditop10eq"           "dl1110a"             "dl1110ai"            "dl1110b"             "dl1110bi"            "dl1110c"
+[148] "dl1110ci"            "dl1120a"             "dl1120ai"            "dl1120b"             "dl1120bi"            "dl1231"              "dl1231i"
+[155] "dodiratiom"          "da2199"              "da2199i"             "datop10ea"           "dhaq01ea"            "dhiq01ea"            "dhlq01ea"
+[162] "dhnq01ea"            "ditop10ea"           "ditop10eqea"         "dl1120c"             "dl1120ci"            "dl1210"              "dl1210i"
+[169] "dl1220"              "dl1220i"             "dl1230"              "dl1230i"             "dl2000i"             "dl2100i"             "dl2110i"
+[176] "dl2120"              "dl2120i"             "dl2200i"             "dl2210"              "dl2210i"             "dltop10"             "dnfpos"
+[183] "dnnla"               "dnnlai"              "dnnlaratio"          "dntop10"             "docreditappl"        "docreditrefused"     "dodiratiom300p"
+[190] "dodni"               "dofoodch"            "dofoodchuc"          "dofoodcuc"           "dlcc"                "dlcl"                "dltop10ea"
+[197] "dntop10ea"           "docreditrefusal"     "dodstotalp"          "dodstotal40pp"       "dogiftinher"         "dl1232"              "dl1232i"
+[204] "dhageh1"             "dheduh1"             "dhemph1"             "dhgenderh1"          "dhidh1"
