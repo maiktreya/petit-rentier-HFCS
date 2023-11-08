@@ -41,11 +41,20 @@ final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1,
 
 # unify consistently personal and househould datafiles
 final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
+
+hfcs.design <- svydesign(
+    ids = ~SA0010,
+    weights = ~HW0010,
+    data = data.frame(final_dt),
+)
+
 # aggregate imputation files into a single one by summing and averaging
 final_dt_reduced <- final_dt[, lapply(.SD, sum), SA0010.x, .SDcols = is.numeric]
 # export in an optimzed compressed format
 final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv.gz", compress = "gzip")
 
 # HW0010 -> weights
+# IM0100 -> implicate ID
 # HID -> household id A (personal file)
 # SA0010 -> household id B
+# SA0100 -> country

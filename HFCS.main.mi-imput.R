@@ -45,9 +45,13 @@ weights <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
 
 
 hfcs.design <- svrepdesign(
-    ids = ~SA0010,
+    repweights = weights,
     weights = ~HW0010,
-    data = data.frame(final_dt),
+    data = imputationList(list(imp1, imp2, imp3, imp4, imp5)),
+    scale = 1, rscale = rep(1 / 999, 1000),
+    mse = FALSE, type = "other",
+    combined.weights = TRUE,
+    na.rm = T
 )
 # HW0010 -> weights
 # HID -> household id A (personal file)
