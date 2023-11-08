@@ -37,8 +37,8 @@ for (i in codes[4:5]) {
 nm1 <- intersect(names(final_dt_p), names(final_dt_h))
 nm1 <- nm1[!(nm1 %in% c("ID", "imp"))]
 # Remove the duplicate columns from final_dt_p before merging
-final_dt_p <- final_dt_p[, !duplicated(names(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
-final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE]
+final_dt_p <- final_dt_p[, !duplicated(names(final_dt_p)), with = FALSE]
+final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1, with = FALSE]
 
 # unify consistently personal and househould datafiles
 final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
