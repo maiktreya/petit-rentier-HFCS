@@ -31,9 +31,20 @@ for (i in codes[4:5]) {
     rm(list = setdiff(ls(), c("final_dt_h", "final_dt_p", "path_string", "codes")))
 }
 
-tab <- final_dt_h[, c("SA0010", "SA0100", "HW0010", "IM0100", "HB0100")]
-imp1 <- merge(tab, final_dt_p, by = c("SA0010", "SA0100", "IM0100"))
+# MERGE
+# Removed common colums but indexes
+nm1 <- intersect(names(final_dt_p), names(final_dt_h))
+nm1 <- nm1[!(nm1 %in% c("SA0010", "imp", "ID"))]
+# Remove the duplicate columns from final_dt_p before merging
+final_dt_p <- final_dt_p[, !duplicated(names(final_dt_p)), with = FALSE]
+final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1, with = FALSE]
 
+# unify consistently personal and househould datafiles
+final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
+# aggregate imputation files into a single one by summing and averaging
+final_dt_reduced <- final_dt[, lapply(.SD, sum), SA0010.x, .SDcols = is.numeric]
+# export in an optimzed compressed format
+final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv.gz", compress = "gzip")
 
 # HW0010 -> weights
 # HID -> household id A (personal file)
