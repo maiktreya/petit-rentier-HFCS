@@ -1,5 +1,4 @@
 # HFCS MAIN FILE FOR IMPORTING AND MERGING IMPUTATIONS FOR DISTINCT HFCS WAVES
-
 library(magrittr)
 library(data.table)
 library(survey)
@@ -33,7 +32,7 @@ for (i in codes[4:5]) {
 }
 
 # MERGE
-# Removed common colums
+# Removed common colums but indexes
 nm1 <- intersect(names(final_dt_p), names(final_dt_h))
 nm1 <- nm1[!(nm1 %in% c("ID", "imp"))]
 # Remove the duplicate columns from final_dt_p before merging
@@ -44,4 +43,4 @@ final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1,
 final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
 # aggregate imputation files into a single one by summing and averaging
 final_dt_reduced <- final_dt[, lapply(.SD, sum), ID, .SDcols = is.numeric]
-final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv")
+final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv.gz", compress = "gzip")
