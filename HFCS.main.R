@@ -44,10 +44,10 @@ imp5 <- imp[imp == 5, ] %>% data.frame()
 weights <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
 
 
-hfcs.design <- svrepdesign(
+hfcs.design <- svydesign(
     ids = ~SA0010,
     weights = ~HW0010,
-    data = data.frame(final_dt),
+    data = data.frame(imp),
 )
 # HW0010 -> weights
 # HID -> household id A (personal file)
