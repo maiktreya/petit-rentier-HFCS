@@ -34,7 +34,7 @@ for (i in codes[4:5]) {
 # MERGE
 # Removed common colums but indexes
 nm1 <- intersect(names(final_dt_p), names(final_dt_h))
-nm1 <- nm1[!(nm1 %in% c("ID", "imp"))]
+nm1 <- nm1[!(nm1 %in% c("ID", "imp", "HID"))]
 # Remove the duplicate columns from final_dt_p before merging
 final_dt_p <- final_dt_p[, !duplicated(names(final_dt_p)), with = FALSE]
 final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1, with = FALSE]
@@ -42,6 +42,6 @@ final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1,
 # unify consistently personal and househould datafiles
 final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
 # aggregate imputation files into a single one by summing and averaging
-final_dt_reduced <- final_dt[, lapply(.SD, sum), ID, .SDcols = is.numeric]
+final_dt_reduced <- final_dt[, lapply(.SD, sum), HID, .SDcols = is.numeric]
 # export in an optimzed compressed format
 final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv.gz", compress = "gzip")
