@@ -2,7 +2,9 @@
 
 library(magrittr)
 library(data.table)
+library(survey)
 
+# Clean and define hardcoded global variables
 rm(list = ls())
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 final_dt_h <- final_dt_p <- data.table()
@@ -32,12 +34,13 @@ for (i in codes[4:5]) {
 
 # MERGE
 # Removed common colums
-nm1 <- intersect(colnames(final_dt_p), colnames(final_dt_h))
+nm1 <- intersect(names(final_dt_p), names(final_dt_h))
 nm1 <- nm1[!(nm1 %in% c("ID", "imp"))]
 # Remove the duplicate columns from final_dt_p before merging
-final_dt_p1 <- final_dt_p[, !duplicated(colnames(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
-final_dt_h1 <- final_dt_h[, !duplicated(colnames(final_dt_h)), with = FALSE]
-# Now you can merge without worrying about duplicate column names and indexing
-final_dt <- merge(final_dt_h1, final_dt_p1, by = "ID")
+final_dt_p <- final_dt_p[, !duplicated(names(final_dt_p)), with = FALSE][, !nm1, with = FALSE]
+final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE]
 
-final_dt2 <- sapply(split.default(final_dt_h, names(final_dt_h)), rowSums, na.rm = TRUE)
+# unify consistently personal and househould datafiles
+final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.y = TRUE)
+# aggregate imputation files into a single one by summing and averaging
+final_dt_reduced <- final_dt[, lapply(.SD, sum), ID, .SDcols = is.numeric]
