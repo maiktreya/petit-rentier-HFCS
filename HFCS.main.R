@@ -43,4 +43,5 @@ final_dt_h <- final_dt_h[, !duplicated(names(final_dt_h)), with = FALSE][, !nm1,
 final_dt <- merge(final_dt_h, final_dt_p, by = "ID", all.x = TRUE)
 # aggregate imputation files into a single one by summing and averaging
 final_dt_reduced <- final_dt[, lapply(.SD, sum), ID, .SDcols = is.numeric]
+# export in an optimzed compressed format
 final_dt_reduced %>% fwrite(".datasets/HFCS/totals/total2011.csv.gz", compress = "gzip")
