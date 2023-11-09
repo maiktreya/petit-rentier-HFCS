@@ -6,6 +6,7 @@ library(mitools)
 
 # Clean and define hardcoded global variables
 rm(list = ls())
+init_time <- Sys.time()
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 final_dt_h <- final_dt_p <- imp_design <- imp <- list()
 codes <- c("H", "HN", "D", "P", "PN")
@@ -33,4 +34,6 @@ hfcs <- svrepdesign(
     mse = FALSE, type = "other",
     combined.weights = TRUE
 )
+(Sys.time() - init_time) %>% print()
 saveRDS(hfcs, file = "saves/hfcs.RDS")
+(Sys.time() - init_time) %>% print()
