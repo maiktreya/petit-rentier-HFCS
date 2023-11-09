@@ -12,18 +12,8 @@ codes <- c("H", "HN", "D", "P", "PN")
 # Import and measure performance of survey with multiple imputations
 hfcs <- readRDS("saves/hfcs.RDS")
 
-# Loop through each set of imputations and create svydesign objects
-for (i in 1:5) {
-    # Create the svydesign object for the i-th imputation
-    designs[[i]] <- svydesign(ids = ~1, weights = ~weights, data = imp_data[[i]])
-}
-
-design <- svydesign(id = ~ household_id + individual_id, strata = ~country, weights = ~weight, data = households, nest = FALSE)
-
-
-
 # Combine the list of designs into an imputation list for analysis
-design_list <- imputationList(designs)
+design_list <- imputationList(hfcs)
 
 # Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
 mean_results <- with(design_list, svymean(~variable))
