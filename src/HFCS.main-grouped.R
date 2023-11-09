@@ -33,7 +33,7 @@ for (i in 1:5) {
 design_list <- imputationList(designs)
 
 # Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
-mean_results <- with(design_list, svymean(~variable))
+mean_results <- with(design_list, svymean(~HB0100))
 
 # Combine the mean results from all imputed datasets using Rubin's rules
 combined_mean <- MIcombine(mean_results)
