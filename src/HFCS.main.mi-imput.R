@@ -33,3 +33,4 @@ hfcs <- svrepdesign(
     mse = FALSE, type = "other",
     combined.weights = TRUE
 )
+saveRDS(hfcs, file = "saves/hfcs.RDS")
