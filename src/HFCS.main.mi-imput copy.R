@@ -22,14 +22,13 @@ for (i in 1:5) {
 
 ######## SURVEY MANAGEMENT
 W <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
-repweg <- dplyr::select(W, "wr0001":"wr1000") %>% na.omit(method = "mean")
+repweg <- na.omit(W, method = "mean")
 
-hfcs <- svrepdesign(
-    repweights = repweg,
-    weights = ~HW0010,
-    data = imputationList(imp),
-    scale = 1,
-    rscale = rep(1 / 999, 1000),
-    mse = FALSE, type = "other",
-    combined.weights = TRUE
-)
+
+for (n in 1:5) {
+    imp_design[[n]] <- svydesign(
+        ids = ~SA0010,
+        weights = ~HW0010,
+        data = imp[[n]]
+    )
+}
