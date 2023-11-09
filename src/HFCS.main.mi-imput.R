@@ -20,8 +20,9 @@ for (i in 1:5) {
 }
 
 ######## SURVEY MANAGEMENT
-W <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
-repweg <- dplyr::select(W, "wr0001":"wr1000") %>% na.omit(method = "mean")
+repweg <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>%
+    data.frame() %>%
+    na.omit(method = "mean")
 
 hfcs <- svrepdesign(
     repweights = repweg,
