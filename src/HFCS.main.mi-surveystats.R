@@ -16,7 +16,7 @@ hfcs <- readRDS("saves/hfcs.RDS")
 design_list <- imputationList(hfcs)
 
 # Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
-mean_results <- with(design_list, svymean(~variable))
+mean_results <- with(hfcs, svymean(~HB0100, na.rm = TRUE))
 
 # Combine the mean results from all imputed datasets using Rubin's rules
 combined_mean <- MIcombine(mean_results)
