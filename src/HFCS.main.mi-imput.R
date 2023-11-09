@@ -11,19 +11,9 @@ final_dt_h <- final_dt_p <- tab <- imp <- list()
 codes <- c("H", "HN", "D", "P", "PN")
 
 # JOINT HOUSEHOLD MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (i in codes[1]) {
-    for (j in 1:5) {
-        final_dt_h[[j]] <- fread(paste0(path_string, i, j, ".csv"))[, imp := j]
-    }
-}
-
+for (j in 1:5) final_dt_h[[j]] <- fread(paste0(path_string, "H", j, ".csv"))[, imp := j]
 # JOINT PERSONAL MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (i in codes[4]) {
-    imp_dt <- data.table()
-    for (j in 1:5) {
-        final_dt_p[[j]] <- fread(paste0(path_string, i, j, ".csv"))[, imp := j]
-    }
-}
+for (k in 1:5) final_dt_p[[k]] <- fread(paste0(path_string, "P", k, ".csv"))[, imp := k]
 
 for (i in 1:5) {
     tab[[i]] <- final_dt_h[[i]][, c("SA0010", "SA0100", "HW0010", "IM0100", "HB0100")]
