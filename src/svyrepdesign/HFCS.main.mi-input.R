@@ -11,10 +11,10 @@ path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 imp <- list()
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "H", j, ".csv"))[SA0100 == "AT"] %>% data.frame()
+for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "H", j, ".csv"))[SA0100 == "ES"] %>% data.frame()
 
 ######## SURVEY MANAGEMENT
-W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == "AT"] %>% data.frame()
+W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == "ES"] %>% data.frame()
 repweg <- dplyr::select(W, "wr0001":"wr1000")
 
 hfcs <- svrepdesign(
