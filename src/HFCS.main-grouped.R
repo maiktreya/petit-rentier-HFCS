@@ -35,6 +35,7 @@ means <- numeric(length(designs))
 # Loop through each svydesign object and calculate the mean of HB0100
 for (i in 1:5) means[i] <- svymean(~HB0100, designs[[i]], na.rm = TRUE)
 
+
 # Calculate the average mean across all imputations
 mean_of_means <- mean(means)
 
