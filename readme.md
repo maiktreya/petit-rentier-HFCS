@@ -5,6 +5,7 @@
 
 Needed or important variables:
 
+- RA0100 -> reference of household (1 = head)
 - HW0010 -> weights
 - IM0100 -> implicate ID
 - HID -> household id A (personal file)

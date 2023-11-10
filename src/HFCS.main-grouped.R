@@ -29,11 +29,14 @@ for (i in 1:5) {
     )
 }
 
-# Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
-mean_results <- with(designs, svymean(~HB0100))
+# Initialize a vector to store the means from each imputed dataset
+means <- numeric(length(designs))
 
-# Combine the mean results from all imputed datasets using Rubin's rules
-combined_mean <- MIcombine(mean_results)
+# Loop through each svydesign object and calculate the mean of HB0100
+for (i in 1:5) means[i] <- svymean(~HB0100, designs[[i]], na.rm = TRUE)
 
-# Print the combined mean estimate and its associated standard error
-print(combined_mean)
+# Calculate the average mean across all imputations
+mean_of_means <- mean(means)
+
+# Output the average mean
+mean_of_means
