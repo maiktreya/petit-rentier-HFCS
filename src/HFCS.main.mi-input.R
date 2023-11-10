@@ -8,28 +8,25 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/"
-imp_design <- imp <- list()
+final_dt_h <- list()
 codes <- c("H", "HN", "D", "P", "PN")
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (j in 1:5) {
-    imp[[j]] <- fread(paste0(path_string, "h", j, ".csv")) %>%
-        data.frame() %>%
-        na.omit(method = "mean")
-} # household
+for (j in 1:5) final_dt_h[[j]] <- data.frame(fread(paste0(path_string, "h", j, ".csv")))
+
+
 
 ######## SURVEY MANAGEMENT
-W <- fread(".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/w.csv") %>% data.frame()
+W <- fread(paste0(path_string, "w.csv")) %>% data.frame()
 repweg <- dplyr::select(W, "wr0001":"wr1000") %>% na.omit(method = "mean")
 
 hfcs <- svrepdesign(
     repweights = repweg,
-    weights = ~HW0010,
-    data = imputationList(imp),
+    weights = ~hw0010,
+    data = imputationList(final_dt_h),
     scale = 1,
     rscale = rep(1 / 999, 1000),
-    mse = FALSE,
-    type = "other",
+    mse = FALSE, type = "other",
     combined.weights = TRUE
 )
 (Sys.time() - init_time) %>% print()
