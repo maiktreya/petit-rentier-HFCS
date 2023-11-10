@@ -1,12 +1,10 @@
-# HFCS MAIN FILE FOR IMPORTING AND MERGING IMPUTATIONS FOR DISTINCT HFCS WAVES
-library(data.table)
-library(survey)
-library(mitools)
+# MISSING WEIGHTS FIX
+library(data.table) # only dependency needed. Optimized for large datasets
 
 ######## SURVEY MANAGEMENT
-rm(list = ls())
-path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
-imp <- list()
+rm(list = ls()) # clean enviroment before proceeding
+path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/" # I/= csv folder
+imp <- list() # object for imputated datasets with sample weights
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
 for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "H", j, ".csv"))
@@ -21,13 +19,6 @@ W[, (paste0("miss_", names(W)[4:ncol(W)])) := lapply(.SD, function(x) mean(is.na
 # Get columns to work with
 wr_cols <- names(W)[grep("^wr", names(W))]
 
-# Diagnostic print statements
-print("wr_cols:")
-print(wr_cols)
-print("Head of W:")
-print(head(W))
-
-# Proceed if wr_cols is not empty
 if (length(wr_cols) > 0) {
     for (wr_col in wr_cols) {
         miss_col <- paste0("miss_", wr_col)
@@ -36,8 +27,10 @@ if (length(wr_cols) > 0) {
 
     # Ensure no NA values in weights
     W[, (wr_cols) := lapply(.SD, function(x) fifelse(is.na(x), 0, x)), .SDcols = wr_cols]
+    print("Succesfully fixed dataset of implication weights.")
 } else {
     warning("No wr_cols found. Check the column names in W.")
 }
 
+# export fixed implicated weigths to I/O folder
 fwrite(W, paste0(path_string, "W-fixed.csv"))
