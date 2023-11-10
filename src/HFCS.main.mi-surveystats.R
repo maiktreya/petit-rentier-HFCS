@@ -12,11 +12,8 @@ codes <- c("H", "HN", "D", "P", "PN")
 # Import and measure performance of survey with multiple imputations
 hfcs <- readRDS("saves/hfcs.RDS")
 
-# Combine the list of designs into an imputation list for analysis
-design_list <- imputationList(hfcs)
-
 # Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
-mean_results <- with(design_list, svymean(~HB0100, na.rm = TRUE, design = .))
+mean_results <- with(hfcs, svymean(~HB0100))
 
 # Combine the mean results from all imputed datasets using Rubin's rules
 combined_mean <- MIcombine(mean_results)

@@ -12,7 +12,11 @@ imp_design <- imp <- list()
 codes <- c("H", "HN", "D", "P", "PN")
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "H", j, ".csv"))[, imp := j] # household
+for (j in 1:5) {
+    imp[[j]] <- fread(paste0(path_string, "H", j, ".csv")) %>%
+        data.frame() %>%
+        na.omit(method = "mean")
+} # household
 
 ######## SURVEY MANAGEMENT
 W <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
