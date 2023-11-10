@@ -7,19 +7,19 @@ library(mitools)
 # Clean and define hardcoded global variables
 rm(list = ls())
 init_time <- Sys.time()
-path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
+path_string <- ".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/"
 imp_design <- imp <- list()
 codes <- c("H", "HN", "D", "P", "PN")
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
 for (j in 1:5) {
-    imp[[j]] <- fread(paste0(path_string, "H", j, ".csv")) %>%
+    imp[[j]] <- fread(paste0(path_string, "h", j, ".csv")) %>%
         data.frame() %>%
         na.omit(method = "mean")
 } # household
 
 ######## SURVEY MANAGEMENT
-W <- fread(".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/W.csv") %>% data.frame()
+W <- fread(".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/w.csv") %>% data.frame()
 repweg <- dplyr::select(W, "wr0001":"wr1000") %>% na.omit(method = "mean")
 
 hfcs <- svrepdesign(

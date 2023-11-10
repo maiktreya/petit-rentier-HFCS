@@ -6,13 +6,13 @@ library(mitools)
 
 # Clean and define hardcoded global variables
 rm(list = ls())
-path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
+path_string <- ".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/"
 final_dt_h <- final_dt_p <- designs <- imp <- list()
 codes <- c("H", "HN", "D", "P", "PN")
 
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-for (j in 1:5) final_dt_h[[j]] <- fread(paste0(path_string, "H", j, ".csv"))[, imp := j] # household
-for (k in 1:5) final_dt_p[[k]] <- fread(paste0(path_string, "P", k, ".csv"))[, imp := k] # personal
+for (j in 1:5) final_dt_h[[j]] <- fread(paste0(path_string, "h", j, ".csv"))[, imp := j] # household
+for (k in 1:5) final_dt_p[[k]] <- fread(paste0(path_string, "p", k, ".csv"))[, imp := k] # personal
 for (i in 1:5) {
     tab <- final_dt_h[[i]][, c("SA0010", "SA0100", "HW0010", "IM0100", "HB0100")]
     imp[[i]] <- merge(tab, final_dt_p[[i]], by = c("SA0010", "SA0100", "IM0100")) %>% data.frame()
