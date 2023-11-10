@@ -14,8 +14,8 @@ hfcs <- readRDS("saves/hfcs.RDS")
 # aa <- hfcs$designs[[1]]$variables %>% data.table()
 
 # Example analysis: Calculate mean for a variable named 'variable' across all imputed datasets
-mean_results <- with(hfcs, svytotal(~HB0100, na.rm = TRUE))
+mean_results <- with(hfcs, svytotal(~HB0100))
 # Combine the mean results from all imputed datasets using Rubin's rules
-# combined_mean <- MIcombine(mean_results)
+combined_mean <- MIcombine(mean_results)
 # Print the combined mean estimate and its associated standard error
-# print(combined_mean)
+print(combined_mean)
