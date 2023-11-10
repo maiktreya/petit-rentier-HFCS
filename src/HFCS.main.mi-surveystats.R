@@ -7,10 +7,11 @@ library(mitools)
 # Clean and define hardcoded global variables
 rm(list = ls())
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/"
-codes <- c("H", "HN", "D", "P", "PN")
+country_code <- c("AT", "DE", "BE", "ES", "IT", "CY", "MT")
+selected <- country_code[2]
 
 # Import and measure performance of survey with multiple imputations
-hfcs <- readRDS("saves/hfcs.RDS")
+hfcs <- readRDS(paste0("saves/", selected, "hfcs.RDS"))
 # aa <- hfcs$designs[[1]]$variables %>% data.table()
 
 # Combine the mean results from all imputed datasets using Rubin's rules
