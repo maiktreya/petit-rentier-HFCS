@@ -19,7 +19,7 @@ for (n in country_code) {
     for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "D", k, ".csv"))[SA0100 == n]
     for (k in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[SA0100 == n]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("SA0010", "SA0100", "IM0100"))
-    for (i in 1:5) imp[[j]] <- merge(imp[[i]], impD[[j]], by = c("SA0010", "SA0100", "IM0100")) %>% data.frame()
+    for (i in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("SA0010", "SA0100", "IM0100")) %>% data.frame()
 
     ######## SURVEY MANAGEMENT
     W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == n] %>% data.frame()
