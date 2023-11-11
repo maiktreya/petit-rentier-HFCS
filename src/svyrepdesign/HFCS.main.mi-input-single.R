@@ -26,7 +26,8 @@ for (n in country_code) {
         data = imputationList(imp),
         scale = 1,
         rscale = rep(1 / 999, 1000),
-        mse = FALSE, type = "other",
+        mse = FALSE,
+        type = "other",
         combined.weights = TRUE
     )
     (Sys.time() - init_time) %>% print()
