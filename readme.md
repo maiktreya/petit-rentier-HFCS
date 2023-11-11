@@ -33,6 +33,13 @@ panel_countries <- ("AT","DE","BE","ES","IT","CY","MT")
 
 ## INCOME CATEGORIES
 
+    setnames(survey_ecv,
+        old = c("PB190", "PL051", "PE041", "RB090", "HH021", "PL040C", "AGE", "RB290", "PB140", "HX040", "HY040N", "HY090N"),
+        new = c("civil", "ocup", "educ", "sex", "tenancy", "class", "bage", "country", "birth", "members", "housrent", "profit")
+    )
+
+    models[[i]] <- svyglm(rentsbi ~ bage + country + educ + members + civil + sex + class + tenancy + educ, design = survey_total, family = "quasibinomial")
+
 ### Personal
 
 - PG0100received employee income
