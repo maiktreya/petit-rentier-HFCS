@@ -8,8 +8,7 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
-country_code <- c("AT", "DE", "BE", "ES", "IT", "CY", "MT")
-
+country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
 for (n in country_code) {
     imp <- list()
