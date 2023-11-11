@@ -17,9 +17,9 @@ for (n in country_code) {
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
     for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "P", j, ".csv"))[SA0100 == n]
     for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "D", k, ".csv"))[SA0100 == n]
-    for (k in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[SA0100 == n]
+    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[SA0100 == n]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("SA0010", "SA0100", "IM0100"))
-    for (i in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("SA0010", "SA0100", "IM0100")) %>% data.frame()
+    for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("SA0010", "SA0100", "IM0100")) %>% data.frame()
 
     ######## SURVEY MANAGEMENT
     W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == n] %>% data.frame()
