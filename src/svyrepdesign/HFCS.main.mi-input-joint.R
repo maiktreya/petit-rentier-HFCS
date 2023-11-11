@@ -27,7 +27,7 @@ for (n in country_code) {
 
     hfcs <- svrepdesign(
         repweights = repweg,
-        weights = ~HW0010,
+        weights = ~HW0010.x,
         data = imputationList(imp),
         scale = 1,
         rscale = rep(1 / 999, 1000),
