@@ -133,6 +133,7 @@ panel_countries <- ("AT","DE","BE","ES","IT","CY","MT")
 - DHNQ01,DHNQ01 Country quintile, net wealth, among households
 - DHLQ01,DHLQ01 Country quintile, total liabilities, among indebted households
 - DHIQ01,DHIQ01 Country quintile, total gross income (DI2000), among households
+-
 - DA1122,DA1122 Value of other real estate property not for business activities
 - DNTOP10,DNTOP10 Country top 10% net wealth
 - DODIRATIOM,DODIRATIOM Mortgage debt to income ratio of households with mortgage debt
@@ -197,6 +198,7 @@ panel_countries <- ("AT","DE","BE","ES","IT","CY","MT")
 - DL2110,DL2110 Payments for HMR mortgages (flow)
 - DL2200,DL2200 Payments for non-mortgage debt (flow)
 - DL2000,DL2000 Payments for household's total debt (flow)
+
 - DI1412,DI1412 Interest payments
 - DI1100,DI1100 Employee income
 - DI1200,DI1200 Self-employment income
@@ -211,6 +213,7 @@ panel_countries <- ("AT","DE","BE","ES","IT","CY","MT")
 - DI1620,DI1620 Other social transfers
 - DI1600,DI1600 Regular social transfers (except pensions)
 - DI1700,DI1700 Regular private transfers
+
 - DA1000,DA1000 Total real assets 1  (incl. business wealth, vehicles and valuables)
 - DA1200,DA1200 Business wealth
 - DA1400,DA1400 Real estate wealth
@@ -218,6 +221,7 @@ panel_countries <- ("AT","DE","BE","ES","IT","CY","MT")
 - DA3001,DA3001 Total assets, excl. public and occupational pension plans
 - DL1000,DL1000 Total outstanding balance of household's liabilities
 - DI2000,DI2000 Total household gross income
+
 - DA1122i,DA1122i Has other real estate property not for business
 - DATOP10,DATOP10 Country top 10% gross wealth
 - DHHST,DHHST Housing status
