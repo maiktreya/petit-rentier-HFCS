@@ -10,6 +10,25 @@ path_string <- ".datasets/HFCS/csv/HFCS_UDB_4_0_ASCII/"
 country_code <- c("AT", "DE", "BE", "ES", "IT", "CY", "MT")
 selected <- country_code[2]
 
+
+# DERIVED TABLES GENERAL
+c("DHAGEH1", "DH001", "DHEDUH1", "DHGENDERH1", "DHEMPH1", "DHHST")
+c("age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan")
+# DERIVED TABLES INCOME
+c("D11300", "D11400", "DI1520", "D11700", "DI2000")
+c("rental", "financ", "pvpens", "pvtran", "income")
+# DERIVED TABLES WEALTH
+c("DN3001", "DNFPOS", "DNHW", "DNNLA")
+c("net_we", "net_fi", "net_real", "liquid")
+
+# OTHER PROPERTIES AND BUSINESS DERIVED VARIABLES
+C("HD0210", "HB2900", "HB2410", "HB250$x", "HB260$x")
+C("num_bs", "val_op", "num_op", "op_type", "op_use")
+
+# PERSONAL VARIABLES EMPLOYMENT (For head -> RA0010=DHIDH1)
+c("PE0200", "PE0300", "PE0400")
+c("status", "d_isco", "d_nace")
+
 # Import and measure performance of survey with multiple imputations
 hfcs <- readRDS(paste0("saves/", selected, "hfcs.RDS"))
 # aa <- hfcs$designs[[1]]$variables %>% data.table()
