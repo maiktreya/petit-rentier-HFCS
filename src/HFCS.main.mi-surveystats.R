@@ -12,18 +12,18 @@ selected <- country_code[2]
 
 
 # DERIVED TABLES GENERAL
-c("DHAGEH1", "DH001", "DHEDUH1", "DHGENDERH1", "DHEMPH1", "DHHST")
+c("DHAGEH1", "DH0001", "DHEDUH1", "DHGENDERH1", "DHEMPH1", "DHHST")
 c("age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan")
 # DERIVED TABLES INCOME
-c("D11300", "D11400", "DI1520", "D11700", "DI2000")
+c("DI1300", "DI1400", "DI1520", "DI1700", "DI2000")
 c("rental", "financ", "pvpens", "pvtran", "income")
 # DERIVED TABLES WEALTH
-c("DN3001", "DNFPOS", "DNHW", "DNNLA")
-c("net_we", "net_fi", "net_real", "liquid")
+c("DN3001", "DA2100", "DA1120", "DA1110", "DA1400", "DA1200", "DA1000")
+c("net_we", "net_fi", "other", "main", "real", "bussiness", "total_real")
 
 # OTHER PROPERTIES AND BUSINESS DERIVED VARIABLES
-C("HD0210", "HB2900", "HB2410", "HB250$x", "HB260$x")
-C("num_bs", "val_op", "num_op", "op_type", "op_use")
+c("HD0210", "HB2900", "HB2410", "HB250$x", "HB260$x")
+c("num_bs", "val_op", "num_op", "op_type", "op_use")
 
 # PERSONAL VARIABLES EMPLOYMENT (For head -> RA0010=DHIDH1)
 c("PE0200", "PE0300", "PE0400")
