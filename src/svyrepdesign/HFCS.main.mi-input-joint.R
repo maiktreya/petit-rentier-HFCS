@@ -10,9 +10,9 @@ init_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/"
 path_stringB <- "HFCS_UDB_2_5_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
-country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+country_code <- c("AT", "BE", "CY", "DE", "FI", "FR", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
-for (n in "DE") {
+for (n in country_code) {
     imp <- impH <- impD <- list()
 
     # joint matrix pre summing imputations (year-wave)
@@ -21,8 +21,8 @@ for (n in "DE") {
     for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == n]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
     for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
-    for (i in 1:5) {
-        transf <- imp[[i]]
+    for (m in 1:5) {
+        transf <- imp[[m]]
         setnames(transf,
             old = c(
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
@@ -47,8 +47,10 @@ for (n in "DE") {
                 "sa0100", "hw0010.x"
             )
         ]
-        transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
-        imp[[i]] <- transf
+        # fix germany character values in income series.
+        transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
+        transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
+        imp[[m]] <- transf
     }
 
     ######## survey management
