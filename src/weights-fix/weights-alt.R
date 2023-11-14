@@ -14,9 +14,6 @@ W <- merge(W, imp[, .(id, hw0010)], by = "id")[order(sa0100, sa0010)]
 # Replace missing imputation weights with sampling unit weights
 for (col in names(W)[4:ncol(W)]) W[is.na(get(col)), (col) := hw0010]
 
-# Drop non-original weight columns
-W <- W[, .SD, .SDcols = 4:ncol(W)]
-
 # Ensure any NA left is coerced to 0
 W[is.na(W)] <- 0
 
