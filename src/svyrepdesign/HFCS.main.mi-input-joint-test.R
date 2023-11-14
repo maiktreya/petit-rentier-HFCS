@@ -67,5 +67,5 @@ for (n in country_code) {
     (Sys.time() - init_time) %>% print()
     saveRDS(hfcs, file = paste0("saves/", path_stringB, "/", n, "hfcs.RDS"))
     (Sys.time() - init_time) %>% print()
-    rm(list = setdiff(ls(), c("init_time", "country_code", "path_string")))
+    rm(list = setdiff(ls(), c("init_time", "country_code", "path_string", "path_stringB")))
 }
