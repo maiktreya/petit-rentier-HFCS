@@ -17,7 +17,7 @@ for (i in seq_along(path_stringB)) {
     path_string <- paste0(path_stringA, path_stringB[i], "_ASCII/")
     for (selected in country_code) {
         # Import and measure performance of survey with multiple imputations
-        hfcs <- readRDS(paste0("saves/", selected, "hfcs.RDS"))
+        hfcs <- readRDS(paste0("saves/HFCS_UDB_", path_stringB[i], "_ASCII/", selected, "hfcs.RDS"))
         # aa <- hfcs$designs[[1]]$variables %>% data.table()
 
         # Combine the mean results from all imputed datasets using Rubin's rules
@@ -28,5 +28,6 @@ for (i in seq_along(path_stringB)) {
     country_mean <- country_mean %>%
         as.data.frame() %>%
         t()
-    year_mean[, i := country_mean$rentsbi]
+    year_mean[, i := country_mean]
 }
+country_mean %>% print()
