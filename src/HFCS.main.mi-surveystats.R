@@ -28,6 +28,6 @@ for (i in seq_along(path_stringB)) {
     country_mean <- country_mean %>%
         as.data.frame() %>%
         t()
-    year_mean[, i := country_mean]
+    year_mean <- rbind(year_mean, country_mean)
 }
 country_mean %>% print()
