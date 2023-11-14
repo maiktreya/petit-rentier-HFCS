@@ -8,7 +8,7 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/"
-path_stringB <- "HFCS_UDB_3_3_ASCII"
+path_stringB <- "HFCS_UDB_2_5_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
