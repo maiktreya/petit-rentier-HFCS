@@ -9,7 +9,7 @@ rm(list = ls())
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 final_dt_h <- final_dt_p <- designs <- imp <- list()
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-n <- country_code[1]
+n <- country_code[5]
 # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
 imp <- impH <- impD <- list()
 
@@ -45,7 +45,7 @@ for (i in 1:5) {
             "SA0100", "HW0010.x"
         )
     ]
-    transf[, rentsbi := 0][income > 0 & (financ / income) > 0.1, rentsbi := 1]
+    transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
     imp[[i]] <- transf
 }
 # Loop through each set of imputations and create svydesign objects
@@ -54,21 +54,17 @@ for (i in 1:5) {
     designs[[i]] <- svydesign(
         ids = ~1,
         weights = ~HW0010.x,
-        data = imp[[i]],
-        strata = ~SA0100,
-        nest = TRUE
+        data = imp[[i]]
     )
 }
 
 # Initialize a vector to store the means from each imputed dataset
-means <- numeric(length(designs))
+means <- list()
+
 
 # Loop through each svydesign object and calculate the mean of HB0100
-for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)
-
+# for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
+for (i in 1:5) means[[i]] <- svyglm(rentsbi ~ income, designs[[i]], family = quasibinomial())
 
 # Calculate the average mean across all imputations
-mean_of_means <- mean(means)
-
-# Output the average mean
-mean_of_means
+# mean_of_means <- mean(means)

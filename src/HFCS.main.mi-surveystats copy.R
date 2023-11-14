@@ -12,7 +12,7 @@ path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 country_mean <- list()
 
-for (i in 1:4) {
+for (i in 1:1) {
     path_string <- paste0(path_stringA, path_stringB[i], "_ASCII/")
     for (selected in country_code) {
         # Import and measure performance of survey with multiple imputations
