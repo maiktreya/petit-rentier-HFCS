@@ -16,9 +16,9 @@ for (n in country_code) {
     imp <- impH <- impD <- list()
 
     # joint matrix pre summing imputations (year-wave)
-    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "P", j, ".csv"))[sa0100 == n]
-    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "D", k, ".csv"))[sa0100 == n]
-    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[sa0100 == n]
+    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "P", j, ".csv"))[SA0100 == n]
+    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "D", k, ".csv"))[SA0100 == n]
+    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[SA0100 == n]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("SA0010", "SA0100", "IM0100"))
     for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("SA0010", "SA0100", "IM0100"))
     for (i in 1:5) {
@@ -47,7 +47,7 @@ for (n in country_code) {
                 "SA0100", "HW0010.x"
             )
         ]
-        transf[, rentsbi := 0][as.numeric(income) > 0 & (a.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
+        transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
         imp[[i]] <- transf
     }
 
