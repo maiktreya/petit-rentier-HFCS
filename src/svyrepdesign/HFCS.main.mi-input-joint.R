@@ -12,7 +12,7 @@ path_stringB <- "HFCS_UDB_2_5_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
-for (n in country_code) {
+for (n in "DE") {
     imp <- impH <- impD <- list()
 
     # joint matrix pre summing imputations (year-wave)
