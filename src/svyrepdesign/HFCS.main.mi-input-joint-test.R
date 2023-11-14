@@ -9,8 +9,6 @@ rm(list = ls())
 init_time <- Sys.time()
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_5_ASCII/"
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-n <- country_code[6]
-
 
 for (n in country_code) {
     imp <- impH <- impD <- list()
@@ -21,7 +19,6 @@ for (n in country_code) {
     for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "H", h, ".csv"))[SA0100 == n]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("SA0010", "SA0100", "IM0100"))
     for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("SA0010", "SA0100", "IM0100"))
-
     for (i in 1:5) {
         transf <- imp[[i]]
         setnames(transf,
@@ -38,7 +35,6 @@ for (n in country_code) {
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
             )
         )
-
         transf <- transf[
             RA0010 == DHIDH1,
             c(
@@ -49,7 +45,6 @@ for (n in country_code) {
                 "SA0100", "HW0010.x"
             )
         ]
-
         transf[, rentsbi := 0][(financ / income) > 0.1, rentsbi := 1]
         imp[[i]] <- transf
     }
@@ -57,7 +52,6 @@ for (n in country_code) {
     ######## SURVEY MANAGEMENT
     W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == n] %>% data.frame()
     repweg <- dplyr::select(W, "wr0001":"wr1000")
-
     hfcs <- svrepdesign(
         repweights = repweg,
         weights = ~HW0010.x,
@@ -68,4 +62,8 @@ for (n in country_code) {
         type = "other",
         combined.weights = TRUE
     )
+    (Sys.time() - init_time) %>% print()
+    saveRDS(hfcs, file = paste0("saves/", n, "hfcs.RDS"))
+    (Sys.time() - init_time) %>% print()
+    rm(list = setdiff(ls(), c("init_time", "country_code", "path_string")))
 }
