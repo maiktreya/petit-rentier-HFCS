@@ -24,7 +24,7 @@ for (n in country_code) {
     for (i in 1:5) {
         transf <- imp[[i]]
         setnames(transf,
-            c(
+            old = c(
                 "DHAGEH1", "DH0001", "DHEDUH1", "DHGENDERH1", "DHEMPH1", "DHHST",
                 "DI1300", "DI1400", "DI1520", "DI1700", "DI2000",
                 "DN3001", "DA2100", "DA1120", "DA1110", "DA1400", "DA1200", "DA1000",
