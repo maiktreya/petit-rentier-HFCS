@@ -19,7 +19,7 @@ for (i in 1) {
         hfcs <- readRDS(paste0("saves/HFCS_UDB_", path_stringB[i], "_ASCII/", selected, "hfcs.RDS"))
 
         # Combine the mean results from all imputed datasets using Rubin's rules
-        pre <- with(hfcs, svyglm(rentsbi ~ income)) %>% MIcombine()
+        pre <- with(hfcs, svyglm(rentsbi ~ income, family = binomial())) %>% MIcombine()
         country_mean[[selected]] <- pre$coefficients
     }
     # Print the combined mean estimate and its associated standard error
