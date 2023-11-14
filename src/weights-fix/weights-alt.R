@@ -15,7 +15,7 @@ W <- merge(W, imp[, .(ID, HW0010)], by = "ID")[order(SA0100, SA0010)]
 for (col in names(W)[4:ncol(W)]) W[is.na(get(col)), (col) := HW0010]
 
 # Drop non-original weight columns
-W <- W[4:ncol(W)]
+W <- W[, .SD, .SDcols = 4:ncol(W)]
 
 # Ensure any NA left is coerced to 0
 W[is.na(W)] <- 0
