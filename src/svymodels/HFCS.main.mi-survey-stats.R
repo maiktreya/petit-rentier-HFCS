@@ -12,7 +12,7 @@ path_stringB <- c("1_5", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 var_code <- c("rentsbi", "income")
-for (varname in varcode) {
+for (varname in var_code) {
     year_mean <- data.table() # define clean object
 
     for (i in seq_along(path_stringB)) {
