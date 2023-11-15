@@ -16,8 +16,7 @@ var_code <- c(
     "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
     "rental", "financ", "pvpens", "pvtran", "income",
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace",
-    "SA0100", "HW0010.x"
+    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
 )
 
 ## LEVEL 1: ITERATE AMONG VARIABLES
@@ -43,7 +42,7 @@ for (varname in var_code) {
     }
     # tidy and export the result
     colnames(year_mean) <- path_year %>% as.character()
-    fwrite(year_mean, paste0("saves/", varname, ".csv"))
+    fwrite(year_mean, paste0("saves/MEANS/", varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 
