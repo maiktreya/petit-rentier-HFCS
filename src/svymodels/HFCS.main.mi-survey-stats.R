@@ -7,6 +7,7 @@ library(mitools)
 
 # Clean and define hardcoded global variables
 rm(list = ls())
+start_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_5", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
@@ -43,9 +44,11 @@ for (varname in var_code) {
     }
     # tidy and export the result
     colnames(year_mean) <- path_year %>% as.character()
-    year_mean %>% print()
     fwrite(year_mean, paste0("saves/", varname, ".csv"))
+    paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.")
 
     # clean enviroment for next iteration in loop
     rm(list = c("hfcs", "pre", "country_mean", "year_mean"))
+
+    #
 }
