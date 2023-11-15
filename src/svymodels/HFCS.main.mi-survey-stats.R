@@ -20,7 +20,6 @@ var_code <- c(
     "SA0100", "HW0010.x"
 )
 
-
 ## LEVEL 1: ITERATE AMONG VARIABLES
 for (varname in var_code) {
     year_mean <- data.table() # define clean object
@@ -49,6 +48,4 @@ for (varname in var_code) {
 
     # clean enviroment for next iteration in loop
     rm(list = c("hfcs", "pre", "country_mean", "year_mean"))
-
-    #
 }
