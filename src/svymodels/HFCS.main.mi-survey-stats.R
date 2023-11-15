@@ -27,7 +27,7 @@ for (varname in var_code) {
     # LEVEL 2: ITERATE AMONG ANNUAL WAVES
     for (i in seq_along(path_stringB)) {
         country_mean <- c() # define clean object
-        path_string <- paste0(path_stringA, path_stringB[i], "_ASCII/")
+        path_string <- paste0(path_stringA, path_stringB[i], "_ASCII/") # dynamic working folder
 
         # LEVEL 3: ITERATE AMONG COUNTRIES
         for (selected in country_code) {
