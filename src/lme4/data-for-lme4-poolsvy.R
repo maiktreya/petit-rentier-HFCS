@@ -23,7 +23,9 @@ class <- outcomeT$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 tenan <- outcomeT$tenan %>%
     as.numeric() %>%
-    round()
+    round() %>%
+    factor(levels = c(1, 3), labels = c("Owner", "Tenant"))
+
 tenan[tenan == 2] <- 1
 tenan <- as.factor(tenan)
 outcome <- outcomeT$rentsbi
