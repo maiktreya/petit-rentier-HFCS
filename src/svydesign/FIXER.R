@@ -23,7 +23,7 @@ for (r in 1:5) colnames(imp[[r]]) <- colnames(imp[[r]]) %>% tolower()
 for (l in 1:5) fwrite(imp[[l]], paste0("saves/HFCS_UDB_1_6_ASCII/p", l, ".csv"))
 
 for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))
-for (s in 1:5) colnames(impD[[a]]) <- colnames(impD[[s]]) %>% tolower()
+for (s in 1:5) colnames(impD[[s]]) <- colnames(impD[[s]]) %>% tolower()
 for (m in 1:5) fwrite(impD[[m]], paste0("saves/HFCS_UDB_1_6_ASCII/d", m, ".csv"))
 
 for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))
