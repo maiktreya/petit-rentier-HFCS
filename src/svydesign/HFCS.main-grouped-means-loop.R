@@ -72,7 +72,7 @@ for (varname in var_code) {
 
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
-            for (i in 1:5) ind_country[i] <- svymean(~income, designs[[i]], family = quasibinomial())[1] %>% unname()
+            for (i in 1:5) ind_country[i] <- svymean(~income, designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             country_mean[n] <- mean(ind_country)
