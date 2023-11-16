@@ -8,9 +8,15 @@ rm(list = ls())
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
-
-
-for (wave in path_stringB) {
+selnames <- c("pe0200", "pe0300", "pe0400")
+selnamesD <- c(
+    "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
+    "di1300", "di1400", "di1520", "di1700", "di2000",
+    "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000"
+)
+selnamesH <- c("hd0210", "hb2900", "hb2410")
+common <- c("sa0010", "sa0100", "im0100")
+for (wave in path_stringB[1:2]) {
     path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
     mean_of_means <- c()
 
@@ -18,9 +24,9 @@ for (wave in path_stringB) {
     imp <- impH <- impD <- designs <- list()
 
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))
-    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))
-    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))
+    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[, .SD, .SDcols = c(selnames, common)]
+    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[, .SD, .SDcols = c(selnamesD, common, "hw0010")]
+    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[, .SD, .SDcols = c(selnamesH, common, "hw0010")]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
     for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
     for (i in 1:5) {
@@ -54,6 +60,7 @@ for (wave in path_stringB) {
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
         imp[[i]] <- transf
     }
-    fwrite(rbindlist(imp), paste0(".datasets/HFCSgz/", wave, ".gz"))
+    imp <- rbindlist(imp)
+    fwrite(imp, paste0(".datasets/HFCSgz/", wave, ".gz"))
     rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "wave")))
 }

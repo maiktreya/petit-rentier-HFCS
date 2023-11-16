@@ -6,12 +6,16 @@ library(lme4)
 
 rm(list = ls())
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread("saves/MEANS/rentsbi.csv", header = TRUE)
+outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+outcomeB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
+outcomeT <- rbind(outcomeA, outcomeB)
 
-group <- rep(countries, 4)
-time <- as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15)))
-outcome <- as.vector(unlist(outcome))
-
+group <- outcomeT$sa0100
+time <- outcomeT$wave
+outcome <- outcomeT$rentsbi
 dataset <- data.table(group, time, outcome)
+
+rm(list = c("outcomeA", "outcomeB", "outcomeT"))
+
 model <- lmer(outcome ~ time + (1 | group), data = dataset)
 print(model)
