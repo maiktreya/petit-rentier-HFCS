@@ -6,12 +6,11 @@ library(lme4)
 
 rm(list = ls())
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread("saves/MEANS/income.csv", header = TRUE)
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
 
-for (wave in path_stringB[1]) {
+for (wave in path_stringB) {
     path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
     mean_of_means <- c()
 
@@ -55,5 +54,6 @@ for (wave in path_stringB[1]) {
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
         imp[[i]] <- transf
     }
+    rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "wave")))
+    fwrite(rbindlist(imp), paste0(".datasets/HFCSgz/", wave, ".gz"))
 }
-fwrite(file = rbindlist(imp), paste0(".datasets/HFCSgz/", path_stringB, ".gz"))
