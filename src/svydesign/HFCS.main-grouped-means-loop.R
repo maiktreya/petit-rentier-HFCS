@@ -34,7 +34,6 @@ for (varname in var_code) {
             for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
             for (i in 1:5) {
                 transf <- imp[[i]]
-                colnames(transf) <- colnames(transf) %>% toupper()
                 setnames(transf,
                     old = c(
                         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
@@ -50,7 +49,7 @@ for (varname in var_code) {
                     )
                 )
                 transf <- transf[
-                    RA0010 == DHIDH1,
+                    ra0010 == dhidh1,
                     c(
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
@@ -67,7 +66,7 @@ for (varname in var_code) {
                 # Create the svydesign object for the i-th imputation
                 designs[[i]] <- svydesign(
                     ids = ~1,
-                    weights = ~HW0010.x,
+                    weights = ~hw0010.x,
                     data = imp[[i]]
                 )
             }
