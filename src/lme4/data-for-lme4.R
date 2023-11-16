@@ -24,8 +24,8 @@ for (wave in path_stringB[1:2]) {
     imp <- impH <- impD <- designs <- list()
 
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[, .SD, .SDcols = c(selnames, common)]
-    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[, .SD, .SDcols = c(selnamesD, common, "hw0010")]
+    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[, .SD, .SDcols = c(selnames, common, "ra0010")]
+    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[, .SD, .SDcols = c(selnamesD, common, "hw0010", "dhidh1")]
     for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[, .SD, .SDcols = c(selnamesH, common, "hw0010")]
     for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
     for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
