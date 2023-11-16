@@ -11,15 +11,15 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rentsbi", "income", "net_we")
+var_code <- c("income", "net_we")
 
 # Initialize a vector to store the means from each imputed dataset
 
-for (varname in var_code) {
-    year_mean <- data.table(0)
+for (varname in var_code[1]) {
+    year_mean <- data.table()
 
-    for (wave in path_stringB) {
-        for (n in country_code) {
+    for (wave in path_stringB[2:4]) {
+        for (n in seq_along(country_code[1])) {
             designs <- list()
             ind_country <- c()
             country_mean <- c()
@@ -27,13 +27,13 @@ for (varname in var_code) {
             path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
 
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-            for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == n]
-            for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[sa0100 == n]
-            for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == n]
+            for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == country_code[n]]
+            for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[sa0100 == country_code[n]]
+            for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == country_code[n]]
             for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
             for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
-            for (i in 1:5) {
-                transf <- imp[[i]]
+            for (m in 1:5) {
+                transf <- imp[[m]]
                 setnames(transf,
                     old = c(
                         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
@@ -58,21 +58,21 @@ for (varname in var_code) {
                     )
                 ]
                 transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
-                imp[[i]] <- transf
+                imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
-            for (i in 1:5) {
+            for (r in 1:5) {
                 # Create the svydesign object for the i-th imputation
-                designs[[i]] <- svydesign(
+                designs[[r]] <- svydesign(
                     ids = ~1,
                     weights = ~hw0010.x,
-                    data = imp[[i]]
+                    data = imp[[r]]
                 )
             }
 
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
-            for (i in 1:5) ind_country[i] <- svymean(~income, designs[[i]], na.rm = TRUE)[1] %>% unname()
+            for (j in 1:5) ind_country[j] <- svymean(~income, designs[[j]])[1] %>% unname()
 
             # Calculate the average mean across all imputations
             country_mean[n] <- mean(ind_country)
