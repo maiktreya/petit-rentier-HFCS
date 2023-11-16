@@ -83,7 +83,7 @@ for (varname in var_code) {
             mean_of_means[n] <- mean(means) %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
-        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years")))
+        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year")))
     }
     colnames(mean_of_years) <- path_year %>% as.character()
     fwrite(mean_of_years, paste0("saves/MEANS/", varname, ".csv"))
