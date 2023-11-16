@@ -58,7 +58,7 @@ for (wave in path_stringB) {
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
-        imp[[i]] <- transf
+        imp[[i]] <- transf[, implicate := i]
     }
     imp <- rbindlist(imp)
     fwrite(imp, paste0(".datasets/HFCSgz/", wave, ".gz"))
