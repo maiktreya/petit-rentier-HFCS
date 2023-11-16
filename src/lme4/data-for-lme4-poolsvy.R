@@ -20,8 +20,9 @@ time <- outcomeT$wave
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
 dataset <- data.table(group, time, outcome, weights)
+dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-model <- lmer(outcome ~ time + (1 | group), data = dataset, weights = weights)
+model <- lmer(outcome ~ time + avg_time + (1 | group), data = dataset)
 print(model)
