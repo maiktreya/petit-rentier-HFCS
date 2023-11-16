@@ -51,11 +51,9 @@ for (varname in var_code) {
                 transf <- transf[
                     ra0010 == dhidh1,
                     c(
-                        "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-                        "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace",
-                        "sa0100", "hw0010.x"
+                        "num_bs", "val_op", "num_op"
                     )
                 ]
                 transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
