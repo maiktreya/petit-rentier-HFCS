@@ -52,7 +52,7 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace",
-                "sa0100", "hw0010.x"
+                "sa0100", "sa0010", "hw0010.x"
             )
         ]
         # fix germany character values in income series.
