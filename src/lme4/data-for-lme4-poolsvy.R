@@ -23,11 +23,9 @@ class <- outcomeT$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 tenan <- outcomeT$tenan %>%
     as.numeric() %>%
-    round() %>%
-    factor(levels = c(1, 3), labels = c("Owner", "Tenant"))
-
+    round()
 tenan[tenan == 2] <- 1
-tenan <- as.factor(tenan)
+tenan <- tenan %>% factor(levels = c(1, 3), labels = c("Owner", "Tenant"))
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
 dataset <- data.table(group, time, outcome, weights, class)
@@ -35,14 +33,14 @@ dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-modelA <- glmer(outcome ~ time + (1 | group), data = dataset, family = binomial)
+modelA <- glmer(outcome ~ time + tenan + (1 | group), data = dataset, family = binomial)
 summary(modelA) %>% print()
 
 # test the mixed model
-modelB <- glmer(outcome ~ time + (0 + time | group), data = dataset, family = binomial)
+modelB <- glmer(outcome ~ time + tenan + (0 + time | group), data = dataset, family = binomial)
 summary(modelA) %>% print()
 
 # test the alternative specification
-modelC <- glmer(outcome ~ time + (1 + time | group), data = dataset, family = binomial)
+modelC <- glmer(outcome ~ time + tenan + (1 + time | group), data = dataset, family = binomial)
 summary(modelB) %>% print()
 ranef(modelC)$group %>% print()
