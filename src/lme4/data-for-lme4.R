@@ -9,7 +9,7 @@ countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL",
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
-for (wave in path_stringB]) {
+for (wave in path_stringB) {
     path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
     selnames <- c("pe0200", "pe0300", "pe0400")
     selnamesD <- c(
