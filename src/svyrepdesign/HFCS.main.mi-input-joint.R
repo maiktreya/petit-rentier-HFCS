@@ -11,7 +11,8 @@ path_stringA <- ".datasets/HFCS/csv/"
 path_stringB <- "HFCS_UDB_2_5_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "DE", "FI", "FR", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-
+path_year <- c(2011, 2013, 2017, 2020)
+var_code <- c("income", "net_we")
 for (n in country_code) {
     imp <- impH <- impD <- list()
 
