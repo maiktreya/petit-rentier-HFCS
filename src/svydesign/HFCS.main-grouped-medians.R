@@ -88,7 +88,7 @@ for (varname in var_code) {
         rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time")))
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("saves/MEANS/", varname, ".csv"))
+    fwrite(mean_of_years, paste0("saves/MEDIANS/", varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
