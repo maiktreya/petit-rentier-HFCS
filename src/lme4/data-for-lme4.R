@@ -54,6 +54,6 @@ for (wave in path_stringB) {
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
         imp[[i]] <- transf
     }
-    rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "wave")))
     fwrite(rbindlist(imp), paste0(".datasets/HFCSgz/", wave, ".gz"))
+    rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "wave")))
 }
