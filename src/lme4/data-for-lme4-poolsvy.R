@@ -24,5 +24,7 @@ dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-model <- lmer(outcome ~ time + avg_time + (1 | group), data = dataset)
+# model <- lmer(outcome ~ time * group + (1 + time | group), data = dataset)
+model <- lmer(outcome ~ time + (1 | group), data = dataset)
 print(model)
+ranef(model)$group %>% print()
