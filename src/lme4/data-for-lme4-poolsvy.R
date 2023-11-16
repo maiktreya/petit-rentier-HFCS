@@ -17,14 +17,18 @@ outcomeT <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
 # simplify and  clean to avoid RAM bottlenecks
 group <- outcomeT$sa0100
 time <- outcomeT$wave
+class <- outcomeT$employm
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
-dataset <- data.table(group, time, outcome, weights)
+dataset <- data.table(group, time, outcome, weights, class)
 dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
 # model <- lmer(outcome ~ time * group + (1 + time | group), data = dataset)
-model <- lmer(outcome ~ time + (1 | group), data = dataset)
+model <- lmer(outcome ~ time + class + (0 + time | group), data = dataset)
 print(model)
 ranef(model)$group %>% print()
+ols <- lmer(outcome ~ time + class + (1 + time | group), data = dataset)
+print(ols)
+ranef(ols)$group %>% print()
