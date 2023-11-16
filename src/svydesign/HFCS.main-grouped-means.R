@@ -16,7 +16,7 @@ var_code <- c("income", "net_we")
 for (varname in var_code) {
     mean_of_years <- data.table()
 
-    for (wave in path_stringB[2]) {
+    for (wave in path_stringB) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
         mean_of_means <- c()
 
@@ -83,7 +83,7 @@ for (varname in var_code) {
             mean_of_means[n] <- mean(means) %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
-        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year")))
+        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time")))
     }
     colnames(mean_of_years) <- path_year %>% as.character()
     fwrite(mean_of_years, paste0("saves/MEANS/", varname, ".csv"))
