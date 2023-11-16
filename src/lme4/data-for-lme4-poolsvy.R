@@ -20,7 +20,7 @@ time <- outcomeT$wave
 class <- outcomeT$employm %>%
     as.numeric() %>%
     round() %>%
-    as.factor()
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
 dataset <- data.table(group, time, outcome, weights, class)
@@ -35,3 +35,10 @@ ranef(model)$group %>% print()
 ols <- lmer(outcome ~ time + class + (1 + time | group), data = dataset)
 print(ols)
 ranef(ols)$group %>% print()
+
+
+1 - Employee
+2 - Self - employed
+3 - Unemployed
+4 - Retired
+5 - Other
