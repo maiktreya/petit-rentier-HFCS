@@ -5,15 +5,23 @@ library(data.table)
 library(lme4)
 
 rm(list = ls())
-outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+path_stringA <- ".datasets/HFCSgz/merged/HFCS_UDB_"
+path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
-# Assuming outcomeA is already a data.table
-# Identify the columns for averaging (excluding 'sa0010' and 'implicate')
-columns_to_average <- setdiff(names(outcomeA), c("sa0010", "implicate"))
+for (wave in path_stringB) {
+    outcomeA <- fread(paste0(".datasets/HFCSgz/", wave, ".gz"), header = TRUE)[, wave := 1]
 
-# Calculate the mean for each variable for each 'sa0010', using base::mean to handle character types
-averaged_outcomeA <- outcomeA[, lapply(.SD, function(x) if (is.numeric(x)) mean(x, na.rm = TRUE) else x[1]), by = .(sa0010), .SDcols = columns_to_average]
+    # Assuming outcomeA is already a data.table
+    # Identify the columns for averaging (excluding 'sa0010' and 'implicate')
+    columns_to_average <- setdiff(names(outcomeA), c("sa0010", "implicate"))
 
+    # Calculate the mean for each variable for each 'sa0010', using base::mean to handle character types
+    averaged_outcomeA <- outcomeA[, lapply(.SD, function(x) if (is.numeric(x)) mean(x, na.rm = TRUE) else x[1]), by = .(sa0010), .SDcols = columns_to_average]
+
+
+    fwrite(averaged_outcomeA, paste0(".datasets/HFCSgz/merged/", wave, ".gz"))
+    rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "wave")))
+}
 
 ## B. ALTERNATIVE APPROACH USING MELT
 # rm(list = ls())
