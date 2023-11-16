@@ -7,11 +7,53 @@ library(lme4)
 rm(list = ls())
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 outcome <- fread("saves/MEANS/income.csv", header = TRUE)
+path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
+path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
-group <- rep(countries, 4)
-time <- as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15)))
-outcome <- as.vector(unlist(outcome))
 
-dataset <- data.table(group, time, outcome)
-model <- lmer(outcome ~ time + (1 | group), data = dataset)
-print(model)
+for (wave in path_stringB[1]) {
+    path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
+    mean_of_means <- c()
+
+    # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
+    imp <- impH <- impD <- designs <- list()
+
+    # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
+    for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))
+    for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))
+    for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))
+    for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
+    for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
+    for (i in 1:5) {
+        transf <- imp[[i]]
+        setnames(transf,
+            c(
+                "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
+                "di1300", "di1400", "di1520", "di1700", "di2000",
+                "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
+                "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
+            ),
+            new = c(
+                "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
+                "rental", "financ", "pvpens", "pvtran", "income",
+                "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
+                "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
+            )
+        )
+        transf <- transf[
+            ra0010 == dhidh1,
+            c(
+                "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
+                "rental", "financ", "pvpens", "pvtran", "income",
+                "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
+                "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace",
+                "sa0100", "hw0010.x"
+            )
+        ]
+        # fix germany character values in income series.
+        transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
+        transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
+        imp[[i]] <- transf
+    }
+}
+fwrite(file = rbindlist(imp), paste0(".datasets/HFCSgz/", path_stringB, ".gz"))
