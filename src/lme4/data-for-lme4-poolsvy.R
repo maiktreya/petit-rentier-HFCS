@@ -34,9 +34,9 @@ rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
 # model <- glmer(outcome ~ time * group + (1 + time | group), data = dataset, family = binomial)
-model <- glmer(outcome ~ time + class + tenan + (0 + time | group), data = dataset, family = binomial)
+model <- glmer(outcome ~ time + (0 + time | group), data = dataset, family = binomial)
 summary(model) %>% print()
 ranef(model)$group %>% print()
-ols <- glmer(outcome ~ time + class + tenan + (1 + time | group), data = dataset, family = binomial)
+ols <- glmer(outcome ~ time + (1 + time | group), data = dataset, family = binomial)
 summary(ols) %>% print()
 ranef(ols)$group %>% print()
