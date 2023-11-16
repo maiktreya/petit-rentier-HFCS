@@ -17,7 +17,10 @@ outcomeT <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
 # simplify and  clean to avoid RAM bottlenecks
 group <- outcomeT$sa0100
 time <- outcomeT$wave
-class <- outcomeT$employm
+class <- outcomeT$employm %>%
+    as.numeric() %>%
+    round() %>%
+    as.factor()
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
 dataset <- data.table(group, time, outcome, weights, class)
@@ -29,6 +32,6 @@ rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 model <- lmer(outcome ~ time + class + (0 + time | group), data = dataset)
 print(model)
 ranef(model)$group %>% print()
-ols <- lmer(outcome ~ time + class + (1 + time | group), data = dataset)
+ols <- lmer(outcome ~ class + (1 + time | group), data = dataset)
 print(ols)
 ranef(ols)$group %>% print()
