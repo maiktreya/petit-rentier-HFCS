@@ -18,9 +18,10 @@ outcomeT <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
 group <- outcomeT$sa0100
 time <- outcomeT$wave
 outcome <- outcomeT$rentsbi
-dataset <- data.table(group, time, outcome)
+weights <- outcomeT$hw0010.x
+dataset <- data.table(group, time, outcome, weights)
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-model <- lmer(outcome ~ time + (1 | group), data = dataset)
+model <- lmer(outcome ~ time + (1 | group), data = dataset, weights = weights)
 print(model)
