@@ -11,7 +11,7 @@ path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 mean_of_years <- data.table()
 
-for (wave in path_stringB[4]) {
+for (wave in path_stringB[2]) {
     path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
 
     for (n in seq_along(country_code)) {
