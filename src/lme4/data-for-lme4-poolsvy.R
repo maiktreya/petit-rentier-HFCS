@@ -21,6 +21,11 @@ class <- outcomeT$employm %>%
     as.numeric() %>%
     round() %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
+tenan <- outcomeT$tenan %>%
+    as.numeric() %>%
+    round()
+tenan[tenan == 2] <- 1
+tenan <- as.factor(tenan)
 outcome <- outcomeT$rentsbi
 weights <- outcomeT$hw0010.x
 dataset <- data.table(group, time, outcome, weights, class)
@@ -29,9 +34,9 @@ rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
 # model <- lmer(outcome ~ time * group + (1 + time | group), data = dataset)
-model <- lmer(outcome ~ time + class + (0 + time | group), data = dataset)
+model <- lmer(outcome ~ time + class + tenan + (0 + time | group), data = dataset)
 summary(model) %>% print()
 ranef(model)$group %>% print()
-ols <- lmer(outcome ~ time + class + (1 + time | group), data = dataset)
+ols <- lmer(outcome ~ time + class + tenan + (1 + time | group), data = dataset)
 summary(ols) %>% print()
 ranef(ols)$group %>% print()
