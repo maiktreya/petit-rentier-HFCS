@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("finan")
+var_code <- c("financ", "rental")
 
 for (varname in var_code) {
     mean_of_years <- data.table()
@@ -60,7 +60,8 @@ for (varname in var_code) {
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
                 transf[tenan != 1 & tenan != 2, tenan := 0][tenan == 2, tenan := 1]
-                transf[finan > 0, finan := 1]
+                transf[financ > 0, financ := 1]
+                transf[rental > 0, rental := 1]
                 imp[[i]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
