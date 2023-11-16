@@ -35,10 +35,3 @@ ranef(model)$group %>% print()
 ols <- lmer(outcome ~ time + class + (1 + time | group), data = dataset)
 print(ols)
 ranef(ols)$group %>% print()
-
-
-1 - Employee
-2 - Self - employed
-3 - Unemployed
-4 - Retired
-5 - Other
