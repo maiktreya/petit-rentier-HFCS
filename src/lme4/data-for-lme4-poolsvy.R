@@ -43,4 +43,4 @@ summary(modelA) %>% print()
 # test the alternative specification
 modelC <- glmer(outcome ~ time + (1 + time | group), data = dataset, family = binomial)
 summary(modelB) %>% print()
-ranef(modelB)$group %>% print()
+ranef(modelC)$group %>% print()
