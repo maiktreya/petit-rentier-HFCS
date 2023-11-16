@@ -41,7 +41,7 @@ for (varname in var_code) {
     }
     # tidy and export the result
     colnames(year_mean) <- path_year %>% as.character()
-    fwrite(year_mean, paste0("saves/MEANS/", varname, ".csv"))
+    fwrite(year_mean, paste0("output/MEANS/", varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 
