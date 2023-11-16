@@ -15,17 +15,17 @@ columns_to_average <- setdiff(names(outcomeA), c("sa0010", "implicate"))
 averaged_outcomeA <- outcomeA[, lapply(.SD, function(x) if (is.numeric(x)) mean(x, na.rm = TRUE) else x[1]), by = .(sa0010), .SDcols = columns_to_average]
 
 
-
-rm(list = ls())
-
-# Load the data.table package
-outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
-
-# Convert outcomeA to long format
-long_outcomeA <- melt(outcomeA, id.vars = c("sa0010", "implicate"), variable.name = "variable")
-
-# Calculate the mean for numeric variables and handle non-numeric variables
-averaged_long_outcomeA <- long_outcomeA[, .(implicate_mean = if (is.numeric(value)) mean(value, na.rm = TRUE) else value[1]), by = .(sa0010, variable)]
-
-# Convert back to wide format
-averaged_outcomeAA <- dcast(averaged_long_outcomeA, sa0010 ~ variable, value.var = "implicate_mean")
+## B. ALTERNATIVE APPROACH USING MELT
+# rm(list = ls())
+#
+# # Load the data.table package
+# outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+#
+# # Convert outcomeA to long format
+# long_outcomeA <- melt(outcomeA, id.vars = c("sa0010", "implicate"), variable.name = "variable")
+#
+# # Calculate the mean for numeric variables and handle non-numeric variables
+# averaged_long_outcomeA <- long_outcomeA[, .(implicate_mean = if (is.numeric(value)) mean(value, na.rm = TRUE) else value[1]), by = .(sa0010, variable)]
+#
+# # Convert back to wide format
+# averaged_outcomeAA <- dcast(averaged_long_outcomeA, sa0010 ~ variable, value.var = "implicate_mean")
