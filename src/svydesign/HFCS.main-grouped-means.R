@@ -18,11 +18,11 @@ for (varname in var_code) {
 
     for (wave in path_stringB[2]) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
+        mean_of_means <- c()
 
         for (n in seq_along(country_code)) {
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
             imp <- impH <- impD <- designs <- list()
-            mean_of_means <- c()
 
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
             for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == country_code[n]]
