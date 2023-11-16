@@ -60,7 +60,7 @@ for (varname in var_code) {
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
                 transf[tenan != 1 & tenan != 2, tenan := 0][tenan == 2, tenan := 1]
-                transf[finan > 0, finna := 1]
+                transf[finan > 0, finan := 1]
                 imp[[i]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
