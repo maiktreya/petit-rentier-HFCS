@@ -17,7 +17,7 @@ var_code <- c(
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
     "num_bs", "val_op", "num_op"
 )
-var_code <- c("rentsbi", "income", "net_we")
+var_code <- c("rentsbi", "rentsbi2", "rentsbi5")
 
 ## LEVEL 1: ITERATE AMONG VARIABLES
 for (varname in var_code) {
