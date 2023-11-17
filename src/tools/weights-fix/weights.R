@@ -33,4 +33,4 @@ if (length(wr_cols) > 0) {
 }
 
 # export fixed implicated weigths to I/O folder
-fwrite(W, paste0(path_string, "W-fixed.csv"))
+fwrite(W, paste0(path_string, "w-fixed.csv"))

@@ -56,7 +56,7 @@ for (n in country_code) {
 
     ######## survey management
 
-    W <- fread(paste0(path_string, "W-fixed.csv"))[SA0100 == n] %>% data.frame()
+    W <- fread(paste0(path_string, "w-fixed.csv"))[SA0100 == n] %>% data.frame()
     repweg <- dplyr::select(W, "wr0001":"wr1000")
     hfcs <- svrepdesign(
         repweights = repweg,

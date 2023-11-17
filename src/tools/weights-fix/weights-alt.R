@@ -18,4 +18,4 @@ for (col in names(W)[4:ncol(W)]) W[is.na(get(col)), (col) := hw0010]
 W[is.na(W)] <- 0
 
 # Export fixed imputated weigths to I/O folder
-fwrite(W, paste0(path_string, "W-fixed.csv"))
+fwrite(W, paste0(path_string, "w-fixed.csv"))
