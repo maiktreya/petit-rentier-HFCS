@@ -8,7 +8,7 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/"
-path_stringB <- "HFCS_UDB_2_5_ASCII"
+path_stringB <- "HFCS_UDB_1_6_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "DE", "FI", "FR", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 path_year <- c(2011, 2013, 2017, 2020)
@@ -51,13 +51,13 @@ for (n in country_code) {
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi := 1]
-        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi2 := 1]
         imp[[m]] <- transf
     }
 
     ######## survey management
-    w <- fread(paste0(path_string, "W-fixed.csv"))[sa0100 == n] %>% data.frame()
+    w <- fread(paste0(path_string, "w-fixed.csv"))[sa0100 == n] %>% data.frame()
     repweg <- dplyr::select(w, "wr0001":"wr1000")
     hfcs <- svrepdesign(
         repweights = repweg,

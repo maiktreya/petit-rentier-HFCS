@@ -58,6 +58,8 @@ for (wave in path_stringB) {
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi2 := 1]
         imp[[i]] <- transf[, implicate := i]
     }
     imp <- rbindlist(imp)

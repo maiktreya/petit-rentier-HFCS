@@ -47,7 +47,10 @@ for (n in country_code) {
                 "SA0100", "HW0010.x"
             )
         ]
-        transf[, rentsbi := 0][as.numeric(income) > 0 & (as.numeric(financ) / as.numeric(income)) > 0.1, rentsbi := 1]
+        transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
+        transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi2 := 1]
         imp[[i]] <- transf
     }
 
