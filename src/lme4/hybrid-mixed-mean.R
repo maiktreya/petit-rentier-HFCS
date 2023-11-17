@@ -22,11 +22,13 @@ group <- rep(countries, 4)
 time <- as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15)))
 
 dataset <- data.table(group, time, outcome)
-modelA <- lmer(outcome ~ time + tenan + (1 + time | group), data = dataset)
-modelB <- lmer(outcome ~ time + tenan + (0 + time | group), data = dataset)
-modelC <- lmer(outcome ~ time + tenan + rental_share + finan_share + (1 + time | group), data = dataset)
-modelD <- lmer(outcome ~ time + tenan + rental_share + finan_share + (0 + time | group), data = dataset)
+modelA <- lmer(outcome ~ time + (1 | group), data = dataset)
+modelB <- lmer(outcome ~ time + (1 + time | group), data = dataset)
+modelC <- lmer(outcome ~ time + (0 + time | group), data = dataset)
+
 summary(modelA) %>% print()
-summary(modelB) %>% print()
+summary(modelB) %>% print() # best
 summary(modelC) %>% print()
-summary(modelD) %>% print()
+
+# report country values for random coefficients
+ranef(modelB)$group %>% print()

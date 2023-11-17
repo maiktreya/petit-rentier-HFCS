@@ -39,3 +39,7 @@ summary(modelA) %>% print()
 # test the mixed model
 modelB <- glmer(outcome ~ time + (0 + time | group), data = dataset, family = binomial)
 summary(modelB) %>% print()
+
+# test the mixed model
+modelC <- glmer(outcome ~ time + (time | group), data = dataset, family = binomial)
+summary(modelC) %>% print()
