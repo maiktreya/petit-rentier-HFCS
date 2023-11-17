@@ -51,6 +51,8 @@ for (n in country_code) {
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
         transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi := 1]
+        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi := 1]
         imp[[m]] <- transf
     }
 
