@@ -29,8 +29,8 @@ time <- as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15)))
 
 dataset <- data.table(group, time, outcome, outcome2, outcome5)
 modelA <- lmer(outcome ~ time + (1 + time | group), data = dataset)
-modelB <- lmer(outcome2 ~ time + (1 + time | group), data = dataset)
-modelC <- lmer(outcome5 ~ time + (0 + time | group), data = dataset)
+modelB <- lmer(outcome5 ~ time + (1 + time | group), data = dataset)
+modelC <- lmer(outcome2 ~ time + (0 + time | group), data = dataset)
 
 summary(modelA) %>% print()
 summary(modelB) %>% print() # best
