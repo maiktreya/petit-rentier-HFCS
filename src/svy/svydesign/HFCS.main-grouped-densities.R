@@ -10,8 +10,7 @@ start_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
-# country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-country_code <- c("AT", "BE", "CY", "FI", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK")
+country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
 var_code <- c("income")
 
@@ -21,7 +20,7 @@ for (varname in var_code) {
     for (wave in path_stringB) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
 
-        for (n in seq_along(country_code)) {
+        for (n in 5) { # Fr and Spain Fails
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
             imp <- impH <- impD <- designs <- list()
 
@@ -79,7 +78,10 @@ for (varname in var_code) {
 
             # Loop through each svydesign object and calculate the mean of HB0100
             for (i in 1:5) p99[[i]] <- svyquantile(as.formula(paste0("~", varname)), design = designs[[i]], quantiles = .95, na.rm = TRUE)
-            for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = subset(designs[[i]], rentsbi <= as.numeric(unlist(p99[[i]]))[1]))
+            for (i in 1:5) {
+                means[[i]] <- svyhist(as.formula(paste0("~", varname)), breaks = 150, design = subset(designs[[i]], rentsbi <= as.numeric(unlist(p99[[i]]))[1])) %>%
+                    plot()
+            }
         }
         mean_of_years[[wave]] <- means
         rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "means", "mean_of_years", "path_year", "varname", "start_time")))
