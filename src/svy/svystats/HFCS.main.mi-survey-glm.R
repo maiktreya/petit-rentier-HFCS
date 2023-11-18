@@ -7,7 +7,7 @@ library(mitools)
 # Clean and define hardcoded global variables
 rm(list = ls())
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
-path_stringB <- c("1_5", "2_5", "3_3", "4_0")
+path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 # country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
@@ -21,7 +21,7 @@ for (i in 1:4) {
         hfcs <- readRDS(paste0("saves/HFCS_UDB_", path_stringB[i], "_ASCII/", selected, "hfcs.RDS"))
 
         # Combine the mean results from all imputed datasets using Rubin's rules
-        pre <- with(hfcs, svyglm(rentsbi ~ income, family = quasibinomial())) %>% MIcombine()
+        pre <- with(hfcs, svyglm(rentsbi ~ factor(status), family = quasibinomial())) %>% MIcombine()
         country_mean[[selected]] <- pre$coefficients
     }
     # Print the combined mean estimate and its associated standard error

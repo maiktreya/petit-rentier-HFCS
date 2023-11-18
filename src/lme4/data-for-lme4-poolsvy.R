@@ -14,7 +14,7 @@ outcomeC <- fread(".datasets/HFCSgz/merged/3_3.gz", header = TRUE)[, wave := 3]
 outcomeD <- fread(".datasets/HFCSgz/merged/4_0.gz", header = TRUE)[, wave := 4]
 outcomeT <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
 
-# simplify and  clean to avoid RAM bottlenecks
+# Data tidy and preparation
 group <- outcomeT$sa0100
 time <- outcomeT$wave
 class <- outcomeT$employm %>%
@@ -25,21 +25,27 @@ tenan <- outcomeT$tenan %>%
     as.numeric() %>%
     round()
 tenan[tenan == 2] <- 1
+breaks <- c(0, 30, 40, 50, 65, Inf) # 'Inf' for ages above 65
+labels <- c("0-29", "30-39", "40-49", "50-65", "65+")
+
+# Variable declaration
 tenan <- tenan %>% factor(levels = c(1, 3), labels = c("Owner", "Tenant"))
+age <- cut(outcomeT$age_ref, breaks = breaks, labels = labels, right = FALSE)
 outcome <- outcomeT$rentsbi
-weights <- outcomeT$hw0010.x
-dataset <- data.table(group, time, outcome, weights, class)
+outcome2 <- outcomeT$rentsbi2
+outcome5 <- outcomeT$rentsbi5
+dataset <- data.table(group, time, outcome, outcome2, outcome5, age, class)
 dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-modelA <- glmer(outcome ~ time + (1 | group), data = dataset, family = binomial)
+modelA <- glmer(outcome ~ age + class + (1 | group), data = dataset, family = binomial)
 summary(modelA) %>% print()
 
 # test the mixed model
-modelB <- glmer(outcome ~ time + (0 + time | group), data = dataset, family = binomial)
+modelB <- glmer(outcome2 ~ age + class + (1 | group), data = dataset, family = binomial)
 summary(modelB) %>% print()
 
 # test the mixed model
-modelC <- glmer(outcome ~ time + (time | group), data = dataset, family = binomial)
+modelC <- glmer(outcome5 ~ age + class + (1 | group), data = dataset, family = binomial)
 summary(modelC) %>% print()

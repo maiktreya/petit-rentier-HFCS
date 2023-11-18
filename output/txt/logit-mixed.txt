@@ -1,0 +1,152 @@
+
+r$> source("/home/other/sambashare/R PROJECTS/HOUSING SPAIN/EFF/src/lme4/data-for-lme4-poolsvy.R", encoding = "UTF-8")
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: outcome ~ age + class + (1 | group)
+   Data: dataset
+
+     AIC      BIC   logLik deviance df.resid
+ 83981.1  84084.9 -41980.6  83961.1   236765
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-0.9476 -0.2674 -0.1657 -0.0977 22.1088
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ group  (Intercept) 0.8236   0.9075
+Number of obs: 236775, groups:  group, 24
+
+Fixed effects:
+                   Estimate Std. Error z value             Pr(>|z|)
+(Intercept)        -5.04594    0.20186 -24.998 < 0.0000000000000002 ***
+age30-39           -0.07664    0.06856  -1.118                0.264
+age40-49            0.38151    0.06207   6.147       0.000000000792 ***
+age50-65            0.75802    0.05899  12.851 < 0.0000000000000002 ***
+age65+              1.24475    0.06435  19.344 < 0.0000000000000002 ***
+classSelf-employed  1.28568    0.02880  44.641 < 0.0000000000000002 ***
+classUnemployed     0.25214    0.05519   4.569       0.000004910843 ***
+classRetired        0.40110    0.03478  11.533 < 0.0000000000000002 ***
+classOther          0.55279    0.04842  11.418 < 0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) a30-39 a40-49 a50-65 age65+ clssS- clssUn clssRt
+age30-39    -0.236
+age40-49    -0.261  0.750
+age50-65    -0.276  0.784  0.870
+age65+      -0.252  0.713  0.794  0.878
+clssSlf-mpl -0.036 -0.037 -0.053 -0.080 -0.111
+clssUnmplyd -0.038  0.022  0.030  0.022  0.017  0.210
+classRetird -0.020  0.017  0.009 -0.095 -0.406  0.410  0.176
+classOther  -0.065  0.128  0.140  0.101  0.042  0.250  0.127  0.293
+optimizer (Nelder_Mead) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.252852 (tol = 0.002, component 1)
+
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: outcome ~ age + class + (0 + time | group)
+   Data: dataset
+
+     AIC      BIC   logLik deviance df.resid
+ 84421.5  84525.2 -42200.7  84401.5   236765
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-1.1218 -0.2586 -0.1736 -0.1015 25.3154
+
+Random effects:
+ Groups Name Variance Std.Dev.
+ group  time 0.2059   0.4537
+Number of obs: 236775, groups:  group, 24
+
+Fixed effects:
+                   Estimate Std. Error z value             Pr(>|z|)
+(Intercept)        -3.89539    0.06006 -64.862 < 0.0000000000000002 ***
+age30-39           -0.07820    0.06580  -1.188                0.235
+age40-49            0.38419    0.05924   6.485      0.0000000000887 ***
+age50-65            0.74913    0.05600  13.378 < 0.0000000000000002 ***
+age65+              1.23523    0.06184  19.974 < 0.0000000000000002 ***
+classSelf-employed  1.33603    0.02860  46.718 < 0.0000000000000002 ***
+classUnemployed     0.34557    0.05416   6.381      0.0000000001762 ***
+classRetired        0.42414    0.03476  12.203 < 0.0000000000000002 ***
+classOther          0.58856    0.04751  12.388 < 0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) a30-39 a40-49 a50-65 age65+ clssS- clssUn clssRt
+age30-39    -0.714
+age40-49    -0.801  0.728
+age50-65    -0.834  0.765  0.858
+age65+      -0.721  0.689  0.774  0.865
+clssSlf-mpl -0.134 -0.041 -0.059 -0.082 -0.114
+clssUnmplyd -0.110  0.007  0.014  0.005  0.004  0.203
+classRetird -0.132  0.013  0.005 -0.102 -0.429  0.403  0.169
+classOther  -0.218  0.110  0.124  0.084  0.023  0.247  0.121  0.289
+optimizer (Nelder_Mead) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.419575 (tol = 0.002, component 1)
+
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: outcome ~ age + class + (time | group)
+   Data: dataset
+
+     AIC      BIC   logLik deviance df.resid
+ 83824.0  83948.5 -41900.0  83800.0   236763
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-0.9618 -0.2619 -0.1622 -0.0971 24.0544
+
+Random effects:
+ Groups Name        Variance Std.Dev. Corr
+ group  (Intercept) 0.3312   0.5755
+        time        0.1447   0.3804   -0.51
+Number of obs: 236775, groups:  group, 24
+
+Fixed effects:
+                   Estimate Std. Error z value             Pr(>|z|)
+(Intercept)        -4.56051    0.15302 -29.804 < 0.0000000000000002 ***
+age30-39           -0.03100    0.06773  -0.458                0.647
+age40-49            0.43479    0.06127   7.097     0.00000000000128 ***
+age50-65            0.81638    0.05837  13.986 < 0.0000000000000002 ***
+age65+              1.28177    0.06408  20.004 < 0.0000000000000002 ***
+classSelf-employed  1.29063    0.02878  44.841 < 0.0000000000000002 ***
+classUnemployed     0.27477    0.05484   5.010     0.00000054367317 ***
+classRetired        0.40699    0.03496  11.641 < 0.0000000000000002 ***
+classOther          0.56764    0.04825  11.765 < 0.0000000000000002 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) a30-39 a40-49 a50-65 age65+ clssS- clssUn clssRt
+age30-39    -0.285
+age40-49    -0.316  0.745
+age50-65    -0.331  0.780  0.867
+age65+      -0.296  0.706  0.788  0.874
+clssSlf-mpl -0.042 -0.039 -0.055 -0.079 -0.110
+clssUnmplyd -0.045  0.015  0.023  0.016  0.012  0.208
+classRetird -0.038  0.015  0.007 -0.098 -0.416  0.401  0.172
+classOther  -0.086  0.122  0.134  0.095  0.031  0.247  0.123  0.297
+optimizer (Nelder_Mead) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.770491 (tol = 0.002, component 1)
+
+Warning messages:
+1: In factor(., levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed",  :
+  NAs introduced by coercion
+2: In outcomeT$tenan %>% as.numeric() %>% round() :
+  NAs introduced by coercion
+3: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+4: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.252852 (tol = 0.002, component 1)
+5: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+6: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.419575 (tol = 0.002, component 1)
+7: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+8: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.770491 (tol = 0.002, component 1)
