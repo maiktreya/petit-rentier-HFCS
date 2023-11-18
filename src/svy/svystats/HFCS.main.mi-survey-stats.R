@@ -34,6 +34,7 @@ for (varname in var_code) {
 
             # Combine the mean results from all imputed datasets using Rubin's rules
             pre <- with(hfcs, svymean(as.formula(paste0("~", varname)))) %>% MIcombine()
+            combined_smooth <- with(hfcs, svysmooth(as.formula(paste0("~", varname)))) %>% MIcombine()
             country_mean[selected] <- pre$coefficients
         }
         # Print the combined mean estimate and its associated standard error
@@ -46,5 +47,5 @@ for (varname in var_code) {
         print()
 
     # clean enviroment for next iteration in loop
-    rm(list = c("hfcs", "pre", "country_mean", "year_mean"))
+    rm(list = c("hfcs", "pre", "country_mean", "year_mean0", "combined_smooth"))
 }

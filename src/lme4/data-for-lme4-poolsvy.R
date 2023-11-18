@@ -39,13 +39,13 @@ dataset[, avg_time := mean(time, na.rm = TRUE), by = group]
 rm(list = c("outcomeA", "outcomeB", "outcomeC", "outcomeD", "outcomeT"))
 
 # test the mixed model
-modelA <- glmer(outcome ~ age + class + (1 | group), data = dataset, family = binomial)
+modelA <- glmer(outcome ~ time + age + class + (1 | group), data = dataset, family = binomial)
 summary(modelA) %>% print()
 
 # test the mixed model
-modelB <- glmer(outcome2 ~ age + class + (1 | group), data = dataset, family = binomial)
+modelB <- glmer(outcome2 ~ time + age + class + (1 | group), data = dataset, family = binomial)
 summary(modelB) %>% print()
 
 # test the mixed model
-modelC <- glmer(outcome5 ~ age + class + (1 | group), data = dataset, family = binomial)
+modelC <- glmer(outcome5 ~ time + age + class + (1 | group), data = dataset, family = binomial)
 summary(modelC) %>% print()
