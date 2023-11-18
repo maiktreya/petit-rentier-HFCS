@@ -10,7 +10,9 @@ start_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
-country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+# country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+country_code <- c("AT", "BE", "CY", "FI", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK")
+
 var_code <- c("income")
 
 for (varname in var_code) {
@@ -76,7 +78,7 @@ for (varname in var_code) {
             means <- p99 <- list()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) p99[[i]] <- svyquantile(as.formula(paste0("~", varname)), design = designs[[i]], quantiles = .99, na.rm = TRUE)
+            for (i in 1:5) p99[[i]] <- svyquantile(as.formula(paste0("~", varname)), design = designs[[i]], quantiles = .95, na.rm = TRUE)
             for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = subset(designs[[i]], rentsbi <= as.numeric(unlist(p99[[i]]))[1]))
         }
         mean_of_years[[wave]] <- means
