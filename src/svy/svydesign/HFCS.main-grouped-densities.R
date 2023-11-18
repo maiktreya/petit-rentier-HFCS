@@ -72,13 +72,14 @@ for (varname in var_code) {
                 )
             }
 
-            # Initialize a vector to store the means from each imputed dataset
-            means <- list()
+            # Initialize a vector to store the means from ea ch imputed dataset
+            means <- p99 <- list()
 
 
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
-            for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = designs[[i]])
+            for (i in 1:5) p99[[i]] <- svyquantile(as.formula(paste0("~", varname)), design = designs[[i]], quantiles = .99, na.rm = TRUE)
+            for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = subset(designs[[i]], rentsbi <= p99[[i]]))
         }
         mean_of_years[[wave]] <- means
         rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "means", "mean_of_years", "path_year", "varname", "start_time")))
