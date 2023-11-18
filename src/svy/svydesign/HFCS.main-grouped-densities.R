@@ -81,6 +81,6 @@ for (varname in var_code) {
             for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = designs[[i]])
         }
         mean_of_years[[wave]] <- means
-        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "means", "path_year", "varname", "start_time")))
+        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "means", "mean_of_years", "path_year", "varname", "start_time")))
     }
 }
