@@ -19,7 +19,7 @@ for (varname in var_code) {
     for (wave in path_stringB) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
 
-        for (n in seq_along(country_code[1:4])) {
+        for (n in seq_along(country_code)) {
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
             imp <- impH <- impD <- designs <- list()
 
