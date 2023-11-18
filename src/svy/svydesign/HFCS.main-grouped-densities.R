@@ -19,7 +19,7 @@ for (varname in var_code) {
     for (wave in path_stringB) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
 
-        for (n in seq_along(country_code)) {
+        for (n in seq_along(country_code[1:4])) {
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
             imp <- impH <- impD <- designs <- list()
 
@@ -81,6 +81,6 @@ for (varname in var_code) {
             for (i in 1:5) means[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = designs[[i]])
         }
         mean_of_years[[wave]] <- means
-        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time")))
+        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "means", "path_year", "varname", "start_time")))
     }
 }
