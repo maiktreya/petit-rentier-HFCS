@@ -47,5 +47,5 @@ for (varname in var_code) {
         print()
 
     # clean enviroment for next iteration in loop
-    rm(list = c("hfcs", "pre", "country_mean", "year_mean0", "combined_smooth"))
+    rm(list = c("hfcs", "pre", "country_mean", "year_mean", "combined_smooth"))
 }
