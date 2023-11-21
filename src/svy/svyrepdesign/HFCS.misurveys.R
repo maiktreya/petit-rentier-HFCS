@@ -26,14 +26,16 @@ for (n in country_code) {
         transf <- imp[[m]]
         setnames(transf,
             old = c(
+                "hg0510", "hg0610", "hg0620",
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                 "di1300", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                 "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
             ),
             new = c(
+                "profit", "Kgains", "kgainsi",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
-                "rental", "financ", "pvpens", "pvtran", "income",
+                "rental", "financ", "pensions", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
             )
@@ -50,9 +52,9 @@ for (n in country_code) {
         ]
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
-        transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
-        transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
+        transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
         imp[[m]] <- transf
     }
 

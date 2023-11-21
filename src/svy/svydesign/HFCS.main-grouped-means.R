@@ -61,7 +61,7 @@ for (varname in var_code) {
                 transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
                 transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
-                imp[[m]] <- transf
+                imp[[i]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
             for (i in 1:5) {
@@ -80,7 +80,7 @@ for (varname in var_code) {
 
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]])[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
