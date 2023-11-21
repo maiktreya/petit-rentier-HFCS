@@ -72,11 +72,10 @@ for (varname in var_code) {
                 )
             }
             # Loop through each svydesign object and calculate the mean of HB0100
-            # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
             cdf <- list()
             for (i in 1:5) {
-                limit <- as.numeric(unlist(svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .90))[1])
-                cdf[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = subset(designs[[i]], get(varname) < limit))
+                limit <- as.numeric(unlist(svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .99))[1])
+                cdf[[i]] <- svysmooth(as.formula(paste0("~", varname)), design = subset(designs[[i]], get(varname) < limit & get(varname) > 0), gridsize = 30)
             }
 
             # Initialize lists to store x and y values
@@ -89,20 +88,16 @@ for (varname in var_code) {
                 y_values_list[[i]] <- cdf[[i]][[1]]$y
             }
 
-            # Calculate the average y values
             # Ensure that the lengths of y_values are the same before averaging
             avg_y_values <- rowMeans(do.call("cbind", y_values_list))
 
-            # Assuming the x values are the same for all svysmooth objects
-            # Use the x values from the first object for plotting
+            # Assuming the x values are the same for all svysmooth objects Use the x values from the first object for plotting
             common_x_values <- x_values_list[[1]]
 
             # Plotting
-            jpeg(paste0("output/jpg/", wave, "_", varname, ".jpg"))
+            jpeg(paste0("output/jpg/", wave, "_", country_code[n], "_", varname, ".jpg"))
             plot(common_x_values, avg_y_values, type = "l") # Basic line plot
             dev.off()
-
-
 
             # Calculate the average mean across all imputations
         }
