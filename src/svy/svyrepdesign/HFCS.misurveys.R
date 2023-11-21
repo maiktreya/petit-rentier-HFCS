@@ -80,7 +80,7 @@ for (path_stringB in waves) {
             combined.weights = TRUE
         )
         (Sys.time() - init_time) %>% print()
-        saveRDS(hfcs, file = paste0("saves/", path_stringB, "/", n, "hfcs.RDS"))
+        saveRDS(hfcs, file = paste0("saves/HFCS_UDB_", path_stringB, "_ASCII/", n, "hfcs.RDS"))
         (Sys.time() - init_time) %>% print()
         rm(list = setdiff(ls(), c("init_time", "country_code", "path_stringA", "path_stringB")))
     }
