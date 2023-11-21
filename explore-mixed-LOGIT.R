@@ -20,6 +20,21 @@ varnames - c(
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
     "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
 )
+dataset$status <- dataset$status %>%
+    as.numeric() %>%
+    round() %>%
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
+
+dataset$head_gendr <- dataset$head_gendr %>%
+    as.numeric() %>%
+    round() %>%
+    factor(levels = c(1, 2), labels = c("Man", "Woman"))
+
+dataset$edu_ref <- dataset$edu_ref %>%
+    as.numeric() %>%
+    round() %>%
+    factor(levels = c(1, 2, 3, 4, 5), labels = c(""))
+
 pdataset <- pdata.frame(dataset, index = c("sa0010", "wave"))
 
 equation <- rentsbi ~ hsize + head_gendr + age_ref + income.q + edu_ref + status + wave

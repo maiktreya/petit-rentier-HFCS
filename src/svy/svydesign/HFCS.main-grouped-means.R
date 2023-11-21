@@ -13,6 +13,7 @@ path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 var_code <- c("rentsbi", "rentsbi2", "rentsbi5")
 prefix <- "rent-fin-pro.svy/"
+count <- 0
 
 for (varname in var_code) {
     mean_of_years <- data.table()
@@ -84,16 +85,16 @@ for (varname in var_code) {
             # Initialize a vector to store the means from each imputed dataset
             means <- c()
 
-
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
             for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
+            count <- (count + 1) %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
-        rm(list = setdiff(ls(), c("path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
+        rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
     }
     colnames(mean_of_years) <- path_year %>% as.character()
     fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, ".csv"))
