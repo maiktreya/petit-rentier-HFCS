@@ -19,7 +19,6 @@ for (path_stringB in waves) {
     for (n in country_code) {
         imp <- impH <- impD <- list()
 
-
         # joint matrix pre summing imputations (year-wave)
         for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == n]
         for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[sa0100 == n]
@@ -82,6 +81,6 @@ for (path_stringB in waves) {
         (Sys.time() - init_time) %>% print()
         saveRDS(hfcs, file = paste0("saves/HFCS_UDB_", path_stringB, "_ASCII/", n, "hfcs.RDS"))
         (Sys.time() - init_time) %>% print()
-        rm(list = setdiff(ls(), c("init_time", "country_code", "path_stringA", "path_stringB")))
+        rm(list = setdiff(ls(), c("init_time", "country_code", "path_stringA", "path_stringB", "path_string")))
     }
 }
