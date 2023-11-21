@@ -8,7 +8,7 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/"
-path_stringB <- "HFCS_UDB_1_6_ASCII"
+path_stringB <- "HFCS_UDB_4_0_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "DE", "FI", "FR", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 path_year <- c(2011, 2013, 2017, 2020)
@@ -26,16 +26,16 @@ for (n in country_code) {
         transf <- imp[[m]]
         setnames(transf,
             old = c(
-                "hg0510", "hg0610", "hg0620",
+                "hg0510", "hg0610",
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                 "di1300", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                 "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
             ),
             new = c(
-                "profit", "Kgains", "kgainsi",
+                "profit", "Kgains",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
-                "rental", "financ", "pensions", "pvtran", "income",
+                "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
             )
@@ -43,6 +43,7 @@ for (n in country_code) {
         transf <- transf[
             ra0010 == dhidh1,
             c(
+                "profit", "Kgains",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",

@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rental", "financ")
+var_code <- c("profit", "rental", "financ")
 
 for (varname in var_code) {
     mean_of_years <- data.table()
@@ -30,16 +30,18 @@ for (varname in var_code) {
             for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == country_code[n]]
             for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
             for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
-            for (i in 1:5) {
-                transf <- imp[[i]]
+            for (m in 1:5) {
+                transf <- imp[[m]]
                 setnames(transf,
-                    c(
+                    old = c(
+                        "hg0510", "hg0610",
                         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                         "di1300", "di1400", "di1520", "di1700", "di2000",
                         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                         "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
                     ),
                     new = c(
+                        "profit", "Kgains",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -49,6 +51,7 @@ for (varname in var_code) {
                 transf <- transf[
                     ra0010 == dhidh1,
                     c(
+                        "profit", "Kgains",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -58,10 +61,13 @@ for (varname in var_code) {
                 ]
                 # fix germany character values in income series.
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
-                transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
-                transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
-                transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
-                imp[[i]] <- transf
+                transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
+                transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
+                transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
+                transf[, rentsbi := 0][income > 0 & ((financ + profit + rental) / income) > 0.1, rentsbi := 1]
+                transf[, rentsbi5 := 0][income > 0 & ((financ + profit + rental) / income) > 0.05, rentsbi5 := 1]
+                transf[, rentsbi2 := 0][income > 0 & ((financ + profit + rental) / income) > 0.02, rentsbi2 := 1]
+                imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
             for (i in 1:5) {

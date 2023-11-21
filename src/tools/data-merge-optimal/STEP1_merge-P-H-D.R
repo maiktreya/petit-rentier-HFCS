@@ -17,7 +17,7 @@ for (wave in path_stringB) {
         "di1300", "di1400", "di1520", "di1700", "di2000",
         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000"
     )
-    selnamesH <- c("hd0210", "hb2900", "hb2410")
+    selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0610")
     common <- c("sa0010", "sa0100", "im0100")
 
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
@@ -33,12 +33,14 @@ for (wave in path_stringB) {
         transf <- imp[[i]]
         setnames(transf,
             c(
+                "hg0510", "hg0610",
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                 "di1300", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                 "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
             ),
             new = c(
+                "profit", "Kgains",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -48,6 +50,7 @@ for (wave in path_stringB) {
         transf <- transf[
             ra0010 == dhidh1,
             c(
+                "profit", "Kgains",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -56,10 +59,11 @@ for (wave in path_stringB) {
             )
         ]
         # fix germany character values in income series.
+        # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
-        transf[, rentsbi := 0][income > 0 & (as.numeric(financ) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & (as.numeric(financ) / income) > 0.05, rentsbi5 := 1]
-        transf[, rentsbi2 := 0][income > 0 & (as.numeric(financ) / income) > 0.02, rentsbi2 := 1]
+        transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
         imp[[i]] <- transf[, implicate := i]
     }
     imp <- rbindlist(imp)
