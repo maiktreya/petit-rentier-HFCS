@@ -12,7 +12,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("net_we")
+var_code <- c("rentsbi", "rentsbi2", "rentsbi5")
 prefix <- "rent-fin-pro/"
 
 ## LEVEL 1: ITERATE AMONG VARIABLES
@@ -30,7 +30,6 @@ for (varname in var_code) {
 
             # Combine the mean results from all imputed datasets using Rubin's rules
             pre <- with(hfcs, svymean(as.formula(paste0("~", varname)))) %>% MIcombine()
-
             country_mean[selected] <- pre$coefficients
         }
         # Print the combined mean estimate and its associated standard error
@@ -39,10 +38,9 @@ for (varname in var_code) {
     # tidy and export the result
     colnames(year_mean) <- path_year %>% as.character()
     fwrite(year_mean, paste0("output/MEANS/", prefix, varname, ".csv"))
-
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 
     # clean enviroment for next iteration in loop
-    rm(list = c("hfcs", "pre", "country_mean", "year_mean", "combined_smooth"))
+    rm(list = c("hfcs", "pre", "country_mean", "year_mean"))
 }

@@ -11,12 +11,11 @@ path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 var_code <- c(
-    "profit", "Kgains",
+    "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
     "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
     "rental", "financ", "pvpens", "pvtran", "income",
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace",
-    "sa0100", "hw0010.x"
+    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
 )
 country_mean <- list()
 
@@ -25,9 +24,9 @@ for (i in 1:4) {
     for (selected in country_code) {
         # Import and measure performance of survey with multiple imputations
         hfcs <- readRDS(paste0("saves/HFCS_UDB_", path_stringB[i], "_ASCII/", selected, "hfcs.RDS"))
-        equation - svyglm(rentsbi ~ factor(status), family = quasibinomial())
+        equation <- rentsbi ~ hsize + head_gendr + age_ref + quintile.gincome + edu_ref + status
         # Combine the mean results from all imputed datasets using Rubin's rules
-        pre <- with(hfcs, equation) %>% MIcombine()
+        pre <- with(hfcs, svyglm(equation, family = quasibinomial())) %>% MIcombine()
         country_mean[[selected]] <- pre$coefficients
     }
     # Print the combined mean estimate and its associated standard error
