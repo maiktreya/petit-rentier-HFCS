@@ -92,7 +92,7 @@ for (varname in var_code) {
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
             count <- count + 1
-            paste0("Estimados ", count, "/60 estadisticos poblacionles.")%>% print()
+            paste0("Estimados ", count, "/60 estadisticos poblacionles.") %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
         rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
