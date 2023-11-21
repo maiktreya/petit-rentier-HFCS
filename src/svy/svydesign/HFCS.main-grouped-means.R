@@ -62,13 +62,10 @@ for (varname in var_code) {
                     )
                 ]
                 # fix germany character values in income series.
-                transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, as.numeric(income))]
+                transf[, Kgains := suppressWarnings(as.numeric(Kgains))][, Kgains := ifelse(is.na(Kgains), 0, as.numeric(Kgains))]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, as.numeric(financ))]
                 transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, as.numeric(profit))]
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, as.numeric(rental))]
-                transf[, rentsbi := 0][income > 0 & ((financ + profit + rental) / income) > 0.1, rentsbi := 1]
-                transf[, rentsbi5 := 0][income > 0 & ((financ + profit + rental) / income) > 0.05, rentsbi5 := 1]
-                transf[, rentsbi2 := 0][income > 0 & ((financ + profit + rental) / income) > 0.02, rentsbi2 := 1]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
@@ -86,7 +83,6 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            # for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
             for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
