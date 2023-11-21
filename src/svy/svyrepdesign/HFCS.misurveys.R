@@ -8,7 +8,7 @@ library(mitools)
 rm(list = ls())
 init_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/"
-path_stringB <- "HFCS_UDB_4_0_ASCII"
+path_stringB <- "HFCS_UDB_3_3_ASCII"
 path_string <- paste0(path_stringA, path_stringB, "/")
 country_code <- c("AT", "BE", "CY", "DE", "FI", "FR", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 path_year <- c(2011, 2013, 2017, 2020)
@@ -28,7 +28,7 @@ for (n in country_code) {
             old = c(
                 "hg0510", "hg0610",
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
-                "di1300", "di1400", "di1520", "di1700", "di2000",
+                "hg0310", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                 "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400"
             ),
@@ -52,10 +52,13 @@ for (n in country_code) {
             )
         ]
         # fix germany character values in income series.
-        transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
-        transf[, rentsbi := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.05, rentsbi5 := 1]
-        transf[, rentsbi2 := 0][income > 0 & ((as.numeric(financ) + as.numeric(profit) + as.numeric(rental)) / income) > 0.02, rentsbi2 := 1]
+        transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, as.numeric(income))]
+        transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, as.numeric(financ))]
+        transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, as.numeric(profit))]
+        transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, as.numeric(rental))]
+        transf[, rentsbi := 0][income > 0 & ((financ + profit + rental) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & ((financ + profit + rental) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & ((financ + profit + rental) / income) > 0.02, rentsbi2 := 1]
         imp[[m]] <- transf
     }
 
