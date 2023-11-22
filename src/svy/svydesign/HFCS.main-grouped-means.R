@@ -62,10 +62,7 @@ for (varname in var_code) {
                     )
                 ]
                 # fix germany character values in income series.
-                transf[, Kgains := suppressWarnings(as.numeric(Kgains))][, Kgains := ifelse(is.na(Kgains), 0, as.numeric(Kgains))]
-                transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, as.numeric(financ))]
-                transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, as.numeric(profit))]
-                transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, as.numeric(rental))]
+                transf[, varname := suppressWarnings(as.numeric(varname))][, rental := ifelse(is.na(varname), 0, varname)]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
@@ -88,7 +85,7 @@ for (varname in var_code) {
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
             count <- count + 1
-            paste0("Estimados ", count, "/", length(var_code) * 60, "estadisticos poblacionles.") %>% print()
+            paste0("Estimados ", count, "/", length(var_code) * length(country_code) * length(path_stringB), " estadisticos poblacionles.") %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
         rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
