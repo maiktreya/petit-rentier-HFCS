@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rental")
+var_code <- c("income")
 prefix <- ""
 count <- 0
 
@@ -61,8 +61,7 @@ for (varname in var_code) {
                         "sa0100", "hw0010.x"
                     )
                 ]
-                # fix germany character values in income series.
-                transf[, varname := suppressWarnings(as.numeric(varname))][, varname := ifelse(is.na(varname), 0, varname)]
+                transf[, varname := suppressWarnings(as.numeric(varname))][, varname := ifelse(is.na(varname), 0, income)]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
@@ -88,7 +87,7 @@ for (varname in var_code) {
             paste0("Estimados ", count, "/", length(var_code) * length(country_code) * length(path_stringB), " estadisticos poblacionles.") %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
-        rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
+        rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "var_code", "mean_of_years", "path_year", "varname", "start_time", "prefix", "wave")))
     }
     colnames(mean_of_years) <- path_year %>% as.character()
     fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, ".csv"))
