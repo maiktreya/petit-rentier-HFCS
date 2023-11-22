@@ -21,7 +21,7 @@ dataset$class <- dataset$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
-    factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_Sec", "low-ter", "high-ter"))
+    factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter"))
 
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", femalw))
