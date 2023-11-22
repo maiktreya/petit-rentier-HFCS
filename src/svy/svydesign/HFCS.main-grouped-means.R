@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("profit", "Kgains", "rental", "financ")
+var_code <- c("rental")
 prefix <- ""
 count <- 0
 
@@ -88,7 +88,7 @@ for (varname in var_code) {
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
             count <- count + 1
-            paste0("Estimados ", count, "/60 estadisticos poblacionles.") %>% print()
+            paste0("Estimados ", count, "/", length(var_code) * 60, "estadisticos poblacionles.") %>% print()
         }
         mean_of_years <- cbind(mean_of_years, mean_of_means)
         rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "mean_of_years", "path_year", "varname", "start_time", "prefix")))
