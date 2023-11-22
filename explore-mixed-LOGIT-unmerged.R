@@ -15,26 +15,27 @@ datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
 datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 rm(list = setdiff(ls(), "dataset"))
+model <- list()
 
-var_code <- c(
-    "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
-    "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
-    "rental", "financ", "pvpens", "pvtran", "income",
-    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
-)
 dataset$class <- dataset$employm %>%
-    as.numeric() %>%
-    round() %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 
+dataset$edu_ref <- dataset$edu_ref %>%
+    factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_Sec", "low-ter", "high-ter"))
+
+dataset$head_gendr <- dataset$head_gendr %>%
+    factor(levels = c(1, 2), labels = c("male", femalw))
+
+
+############################################################################################### 3
 # STEP 1: Isolate implicate and test the mixed model
 
 for (i in 1:5) {
+    start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(rentsbi ~ wave + age_ref + class + (1 | sa0100), data = dataset_s, family = binomial)
+    model[[i]] <- glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + (1 | sa0100), data = dataset_s, family = binomial)
+    (start_time - Sys.time()) %>% print()
 }
-
 # STEP 2: pool, estimations
 pool_model <- mice::pool(model)
 
@@ -43,8 +44,7 @@ pool_model <- mice::pool(model)
 # Predict probabilities
 predicted_probs <- predict(pool_model, type = "response")
 
-# Ensure that the weights are appropriately scaled
-# Often survey weights need to be scaled to sum to the sample size or the population size
+# Ensure that the weights are appropriately scaled (ften survey weights need to be scaled to sum to the sample size or the population size)
 weights_scaled <- dataset$weights / sum(dataset$weights)
 
 # Calculate the weighted average of predictions
