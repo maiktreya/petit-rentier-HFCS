@@ -8,6 +8,7 @@ library(mice)
 
 # clean enviroment
 rm(list = ls())
+amplified <- FALSE
 # import and merrge multicountry HFCS waves
 datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
 datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
@@ -24,7 +25,7 @@ dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter"))
 
 dataset$head_gendr <- dataset$head_gendr %>%
-    factor(levels = c(1, 2), labels = c("male", femalw))
+    factor(levels = c(1, 2), labels = c("male", "female"))
 
 
 ############################################################################################### 3
@@ -36,16 +37,20 @@ for (i in 1:5) {
     model[[i]] <- glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + (1 | sa0100), data = dataset_s, family = binomial)
     (start_time - Sys.time()) %>% print()
 }
-# STEP 2: pool, estimations
-pool_model <- mice::pool(model)
 
-# STEP 3: perform post-stratification applying survey weights
 
-# Predict probabilities
-predicted_probs <- predict(pool_model, type = "response")
+if (amplified == TRUE) {
+    # STEP 2: pool, estimations
+    pool_model <- mice::pool(model)
 
-# Ensure that the weights are appropriately scaled (ften survey weights need to be scaled to sum to the sample size or the population size)
-weights_scaled <- dataset$weights / sum(dataset$weights)
+    # STEP 3: perform post-stratification applying survey weights
 
-# Calculate the weighted average of predictions
-weighted_prediction <- sum(predicted_probs * weights_scaled)
+    # Predict probabilities
+    predicted_probs <- predict(pool_model, type = "response")
+
+    # Ensure that the weights are appropriately scaled (ften survey weights need to be scaled to sum to the sample size or the population size)
+    weights_scaled <- dataset$weights / sum(dataset$weights)
+
+    # Calculate the weighted average of predictions
+    weighted_prediction <- sum(predicted_probs * weights_scaled)
+}
