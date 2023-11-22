@@ -61,7 +61,7 @@ for (varname in var_code) {
                         "sa0100", "hw0010.x"
                     )
                 ]
-                transf[, varname := suppressWarnings(as.numeric(varname))][, varname := ifelse(is.na(varname), 0, income)]
+                transf[, (varname) := suppressWarnings(as.numeric(get(varname)))][, (varname) := ifelse(is.na(get(varname)), 0, get(varname))]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
@@ -85,9 +85,9 @@ for (varname in var_code) {
             mean_of_means[n] <- mean(means) %>% print()
             count <- count + 1
             paste0("Estimados ", count, "/", length(var_code) * length(country_code) * length(path_stringB), " estadisticos poblacionles.") %>% print()
+            rm(list = c("designs", "transf", "imp", "impD", "impH"))
         }
-        mean_of_years <- cbind(mean_of_years, mean_of_means)
-        rm(list = setdiff(ls(), c("count", "path_stringA", "path_stringB", "country_code", "var_code", "mean_of_years", "path_year", "varname", "start_time", "prefix", "wave")))
+        mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
     fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, ".csv"))

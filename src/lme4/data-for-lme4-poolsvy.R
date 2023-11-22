@@ -49,3 +49,19 @@ summary(modelB) %>% print()
 # test the mixed model
 modelC <- glmer(outcome5 ~ time + age + class + (1 | group), data = dataset, family = binomial)
 summary(modelC) %>% print()
+
+
+######################################################
+
+
+# Fit your mixed model
+model <- glmer(outcome ~ time + age + class + (1 | group), data = dataset, family = binomial)
+
+# Predict probabilities
+predicted_probs <- predict(model, type = "response")
+# Ensure that the weights are appropriately scaled
+# Often survey weights need to be scaled to sum to the sample size or the population size
+weights_scaled <- dataset$weights / sum(dataset$weights)
+
+# Calculate the weighted average of predictions
+weighted_prediction <- sum(predicted_probs * weights_scaled)
