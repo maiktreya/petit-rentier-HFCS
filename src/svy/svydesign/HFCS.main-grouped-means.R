@@ -62,7 +62,7 @@ for (varname in var_code) {
                     )
                 ]
                 # fix germany character values in income series.
-                transf[, varname := suppressWarnings(as.numeric(varname))][, rental := ifelse(is.na(varname), 0, varname)]
+                transf[, varname := suppressWarnings(as.numeric(varname))][, varname := ifelse(is.na(varname), 0, varname)]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
