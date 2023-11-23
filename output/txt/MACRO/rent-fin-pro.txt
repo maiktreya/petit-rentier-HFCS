@@ -1,0 +1,180 @@
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome ~ as.numeric(time), data = pdataset, effect = "individual",
+    model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+       Min.     1st Qu.      Median     3rd Qu.        Max.
+-0.04280080 -0.00812852 -0.00043111  0.01081233  0.02570852
+
+Coefficients:
+                   Estimate Std. Error t-value Pr(>|t|)
+as.numeric(time) -0.0043783  0.0018890 -2.3178  0.02517 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.013214
+Residual Sum of Squares: 0.011776
+R-Squared:      0.10881
+Adj. R-Squared: -0.19501
+F-statistic: 5.37199 on 1 and 44 DF, p-value: 0.025175
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome2 ~ as.numeric(time), data = pdataset, effect = "individual",
+    model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max.
+-0.0851398 -0.0213788 -0.0053521  0.0265574  0.0930060
+
+Coefficients:
+                   Estimate Std. Error t-value  Pr(>|t|)
+as.numeric(time) -0.0206921  0.0045357  -4.562 4.035e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.1
+Residual Sum of Squares: 0.06789
+R-Squared:      0.32112
+Adj. R-Squared: 0.089677
+F-statistic: 20.8122 on 1 and 44 DF, p-value: 4.0346e-05
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome5 ~ as.numeric(time), data = pdataset, effect = "individual",
+    model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max.
+-0.0454267 -0.0143871 -0.0035269  0.0162796  0.0516927
+
+Coefficients:
+                   Estimate Std. Error t-value Pr(>|t|)
+as.numeric(time) -0.0094861  0.0027979 -3.3904 0.001483 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.032582
+Residual Sum of Squares: 0.025833
+R-Squared:      0.20714
+Adj. R-Squared: -0.063159
+F-statistic: 11.495 on 1 and 44 DF, p-value: 0.0014832
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome ~ as.numeric(time) + as.numeric(time) *
+    group, data = pdataset, effect = "individual", model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+       Min.     1st Qu.      Median     3rd Qu.        Max.
+-0.03807321 -0.00488519  0.00035174  0.00529870  0.02337839
+
+Coefficients:
+                           Estimate Std. Error t-value Pr(>|t|)
+as.numeric(time)         -0.0085817  0.0059485 -1.4427  0.15947
+as.numeric(time):groupBE  0.0012776  0.0084125  0.1519  0.88031
+as.numeric(time):groupCY  0.0136586  0.0084125  1.6236  0.11492
+as.numeric(time):groupDE  0.0029721  0.0084125  0.3533  0.72634
+as.numeric(time):groupES  0.0113895  0.0084125  1.3539  0.18589
+as.numeric(time):groupFI  0.0159134  0.0084125  1.8917  0.06823 .
+as.numeric(time):groupFR -0.0086545  0.0084125 -1.0288  0.31181
+as.numeric(time):groupGR  0.0126571  0.0084125  1.5046  0.14289
+as.numeric(time):groupIT  0.0081663  0.0084125  0.9707  0.33944
+as.numeric(time):groupLU  0.0161968  0.0084125  1.9253  0.06371 .
+as.numeric(time):groupMT -0.0133353  0.0084125 -1.5852  0.12341
+as.numeric(time):groupNL -0.0071941  0.0084125 -0.8552  0.39924
+as.numeric(time):groupPT  0.0040663  0.0084125  0.4834  0.63234
+as.numeric(time):groupSI -0.0057154  0.0084125 -0.6794  0.50209
+as.numeric(time):groupSK  0.0116525  0.0084125  1.3851  0.17622
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.013214
+Residual Sum of Squares: 0.0053077
+R-Squared:      0.59832
+Adj. R-Squared: 0.21002
+F-statistic: 2.97905 on 15 and 30 DF, p-value: 0.0053079
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome2 ~ as.numeric(time) + as.numeric(time) *
+    group, data = pdataset, effect = "individual", model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max.
+-0.0484575 -0.0107620  0.0024097  0.0092258  0.0706710
+
+Coefficients:
+                            Estimate  Std. Error t-value Pr(>|t|)
+as.numeric(time)         -0.03262603  0.01270574 -2.5678  0.01546 *
+as.numeric(time):groupBE  0.01878486  0.01796863  1.0454  0.30418
+as.numeric(time):groupCY  0.00595041  0.01796863  0.3312  0.74283
+as.numeric(time):groupDE  0.01193869  0.01796863  0.6644  0.51150
+as.numeric(time):groupES  0.02333842  0.01796863  1.2988  0.20389
+as.numeric(time):groupFI  0.04207958  0.01796863  2.3418  0.02602 *
+as.numeric(time):groupFR -0.00528566  0.01796863 -0.2942  0.77066
+as.numeric(time):groupGR  0.03170249  0.01796863  1.7643  0.08786 .
+as.numeric(time):groupIT  0.02449961  0.01796863  1.3635  0.18288
+as.numeric(time):groupLU  0.03361458  0.01796863  1.8707  0.07117 .
+as.numeric(time):groupMT -0.04812999  0.01796863 -2.6786  0.01188 *
+as.numeric(time):groupNL -0.02385677  0.01796863 -1.3277  0.19430
+as.numeric(time):groupPT  0.01909756  0.01796863  1.0628  0.29634
+as.numeric(time):groupSI  0.00042677  0.01796863  0.0238  0.98121
+as.numeric(time):groupSK  0.04484804  0.01796863  2.4959  0.01829 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.1
+Residual Sum of Squares: 0.024215
+R-Squared:      0.75785
+Adj. R-Squared: 0.52378
+F-statistic: 6.25942 on 15 and 30 DF, p-value: 1.0605e-05
+Oneway (individual) effect Within Model
+
+Call:
+plm(formula = outcome5 ~ as.numeric(time) + as.numeric(time) *
+    group, data = pdataset, effect = "individual", model = "within")
+
+Balanced Panel: n = 15, T = 4, N = 60
+
+Residuals:
+      Min.    1st Qu.     Median    3rd Qu.       Max.
+-0.0466726 -0.0084721  0.0017254  0.0070114  0.0379000
+
+Coefficients:
+                           Estimate Std. Error t-value Pr(>|t|)
+as.numeric(time)         -0.0139508  0.0085383 -1.6339  0.11273
+as.numeric(time):groupBE  0.0061961  0.0120750  0.5131  0.61161
+as.numeric(time):groupCY  0.0019728  0.0120750  0.1634  0.87132
+as.numeric(time):groupDE  0.0054656  0.0120750  0.4526  0.65407
+as.numeric(time):groupES  0.0146424  0.0120750  1.2126  0.23474
+as.numeric(time):groupFI  0.0231622  0.0120750  1.9182  0.06465 .
+as.numeric(time):groupFR -0.0099370  0.0120750 -0.8229  0.41704
+as.numeric(time):groupGR  0.0177803  0.0120750  1.4725  0.15130
+as.numeric(time):groupIT  0.0129954  0.0120750  1.0762  0.29041
+as.numeric(time):groupLU  0.0183912  0.0120750  1.5231  0.13821
+as.numeric(time):groupMT -0.0281855  0.0120750 -2.3342  0.02647 *
+as.numeric(time):groupNL -0.0145682  0.0120750 -1.2065  0.23706
+as.numeric(time):groupPT  0.0057442  0.0120750  0.4757  0.63772
+as.numeric(time):groupSI -0.0075799  0.0120750 -0.6277  0.53493
+as.numeric(time):groupSK  0.0208907  0.0120750  1.7301  0.09389 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Total Sum of Squares:    0.032582
+Residual Sum of Squares: 0.010935
+R-Squared:      0.66438
+Adj. R-Squared: 0.33994
+F-statistic: 3.95904 on 15 and 30 DF, p-value: 0.00065549

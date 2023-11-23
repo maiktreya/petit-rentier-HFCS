@@ -10,11 +10,10 @@ library(mitools)
 # clean enviroment
 rm(list = ls())
 # import and merge  complete multicountry HFCS waves
-countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1][sa0100 %in% countries]
-datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2][sa0100 %in% countries]
-datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3][sa0100 %in% countries]
-datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4][sa0100 %in% countries]
+datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
+datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
+datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 rm(list = setdiff(ls(), "dataset"))
 model <- dataset_s <- list()
@@ -45,13 +44,13 @@ dataset$age <- dataset$age %>%
     factor(levels = c(1, 2, 3, 4), labels = c("0-29", "30-49", "50-69", "+70"))
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(5, 2, 3, 4, 1), labels = c("Other", "Self-employed", "Capitalist", "Manager", "Worker"))
+    factor(levels = c(2, 1, 3, 4, 5), labels = c("Self-employed", "Worker", "Capitalist", "Manager", "Inactive"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
 
 dataset$head_gendr <- dataset$head_gendr %>%
-    factor(levels = c(1, 2), labels = c("male", "female"))
+    factor(levels = c(2, 1), labels = c("female", "male"))
 
 dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
     factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
@@ -64,6 +63,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age + edu_ref + class + quintile.gwealth + quintile.gincome + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
+
     (start_time - Sys.time()) %>% print()
 }
 
@@ -85,7 +85,7 @@ between_var <- sapply(seq_along(coef_estimates[[1]]), function(j) {
 # Total variance for each coefficient
 total_variance <- within_var + (1 + 1 / n_imputations) * between_var
 
-# Standard errors for the combined estimates
+# Standard errors for the combined estimatesMany
 combined_se <- sqrt(total_variance)
 
 # T-Statistics
