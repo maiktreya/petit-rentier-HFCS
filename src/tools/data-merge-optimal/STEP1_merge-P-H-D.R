@@ -11,7 +11,7 @@ path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
 for (wave in path_stringB) {
     path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
-    selnames <- c("pe0200", "pe0300", "pe0400", "pe0270", "pe0370")
+    selnames <- c("pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300")
     selnamesD <- c(
         "dhaq01ea", "dhiq01ea",
         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
@@ -38,7 +38,7 @@ for (wave in path_stringB) {
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                 "hg0310", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
-                "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "pe0270", "pe0370"
+                "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300"
             ),
             new = c(
                 "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
