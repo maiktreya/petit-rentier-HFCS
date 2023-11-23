@@ -41,16 +41,16 @@ dataset[edu_ref %in% c(2, 3, 4), edu_ref := 2][edu_ref %in% c(5, 6), edu_ref := 
 
 
 dataset$age <- dataset$age %>%
-    factor(levels = c(1, 2, 3, 4), labels = c("0-29", "30-49", "50-69", "+70"))
+    factor(levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(2, 1, 3, 4, 5), labels = c("Self-employed", "Worker", "Capitalist", "Manager", "Inactive"))
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Self-employed", "Capitalist", "Manager", "Inactive"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
-    factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
+    factor(levels = c(2, 1, 3), labels = c("secondary", "primary", "tertiary"))
 
 dataset$head_gendr <- dataset$head_gendr %>%
-    factor(levels = c(2, 1), labels = c("female", "male"))
+    factor(levels = c(1, 2), labels = c("male", "female"))
 
 dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
     factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
