@@ -25,6 +25,8 @@ dataset[employm == 1 & d_isco == 10, employm := 5] # manager
 dataset[employm %in% c(4, 5), employm := 4] # retired/other
 dataset[status == 2 & employm == 3, employm := 2] # self-employed
 dataset[status == 2 & employm == 2, employm := 3] # capitalist
+dataset[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] # top wealth quintile
+dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, quintile.gincome := 2] # top income quintile
 
 dataset$class <- dataset$employm %>%
     factor(levels = c(4, 2, 3, 1, 5), labels = c("Other", "Self-employed", "Capitalist", "Worker", "Manager"))
@@ -35,10 +37,10 @@ dataset$edu_ref <- dataset$edu_ref %>%
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 
-dataset$quintile.gwealth <- dataset[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] %>%
+dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
     factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
 
-dataset$quintile.gincome <- dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, quintile.gincome := 2] %>%
+dataset$quintile.gincome <- dataset$quintile.gincome %>%
     factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
 
