@@ -30,10 +30,11 @@ dataset$edu_ref <- dataset$edu_ref %>%
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 
+quintile.gwealth <- dataset$quintile.gwealth %>% as.factor()
+quintile.gincome <- dataset$quintile.gincome %>% as.factor()
 for (i in 1:5) dataset_s[[i]] <- dataset[implicate == i]
 dataset_s <- imputationList(dataset_s)
-model <- with(dataset_s, glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + (1 | sa0100), family = binomial))
-
+model <- with(dataset_s, glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + quintile.gwealth + quintile.gincome + (1 | sa0100), family = binomial))
 ############################################################################################### 3
 # STEP 1: Mix implicates following Rubin's Rule
 
