@@ -27,7 +27,7 @@ dataset[status == 2 & employm == 3, employm := 2] # self-employed
 dataset[status == 2 & employm == 2, employm := 3] # capitalist
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(1, 2, 3, 4, 5), labels = c("worker", "Self-employed", "employer", "retired", "manager"))
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter"))
@@ -35,10 +35,14 @@ dataset$edu_ref <- dataset$edu_ref %>%
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 
+dataset$quintile.gwealth <- dataset$quintile.gwealth %>% as.factor()
+dataset$quintile.gincome <- dataset$quintile.gincome %>% as.factor()
+
+
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + edu_ref + head_gendr + (1 | sa0100), family = binomial, data = dataset_s)
+    model[[i]] <- glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + quintile.gwealth + quintile.gincome + (1 | sa0100), family = binomial, data = dataset_s)
     (start_time - Sys.time()) %>% print()
 }
 
@@ -71,5 +75,6 @@ p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 
 # Combined results with t-stats and p-values
 (Sys.time() - start_time) %>% print()
-combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
+combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
+
 fwrite(combined_results, "output/MODELS/MICRO/logit_model_alt.csv")
