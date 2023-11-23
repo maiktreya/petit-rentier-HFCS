@@ -32,6 +32,18 @@ time <- as.numeric(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15
 
 dataset <- data.table(group, time, outcome, outcome2, outcome5, rental_share, finan_share, tenan)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
-plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual") %>%
-    summary() %>%
-    print()
+
+model <- plm(outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+model2 <- plm(outcome2 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+model5 <- plm(outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+c_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+c_model2 <- plm(outcome2 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+c_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+
+
+fwrite(model, "output/MODELS/MACRO/macro.csv")
+fwrite(model2, "output/MODELS/MACRO/macro2.csv")
+fwrite(model5, "output/MODELS/MACRO/macro5.csv")
+fwrite(c_model, "output/MODELS/MACRO/c_macro.csv")
+fwrite(c_model2, "output/MODELS/MACRO/c_macro2.csv")
+fwrite(c_model5, "output/MODELS/MACRO/c_macro5.csv")
