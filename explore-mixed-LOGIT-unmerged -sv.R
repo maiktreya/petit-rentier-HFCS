@@ -27,7 +27,7 @@ dataset[status == 2 & employm == 3, employm := 2] # self-employed
 dataset[status == 2 & employm == 2, employm := 3] # capitalist
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
+    factor(levels = c(4, 2, 3, 1, 5), labels = c("Other", "Self-employed", "Capitalist", "Worker", "Manager"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(1, 2, 3, 4, 5, 6), labels = c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter"))
@@ -35,8 +35,11 @@ dataset$edu_ref <- dataset$edu_ref %>%
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 
-dataset$quintile.gwealth <- dataset$quintile.gwealth %>% as.factor()
-dataset$quintile.gincome <- dataset$quintile.gincome %>% as.factor()
+dataset$quintile.gwealth <- dataset[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] %>%
+    factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
+
+dataset$quintile.gincome <- dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, quintile.gincome := 2] %>%
+    factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
 
 for (i in 1:5) {
