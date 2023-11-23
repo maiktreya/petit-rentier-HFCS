@@ -21,16 +21,25 @@ model <- dataset_s <- list()
 amplified <- FALSE
 n_imputations <- 5
 
+
 dataset[employm %in% c(1, 3), employm := 1] # worker
 dataset[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
 dataset[status == 2 & employm == 3, employm := 2] # self-employed
 dataset[status == 2 & employm == 2, employm := 3] # capitalist
 dataset[status == 1 & d_isco %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
-dataset[!(employm %in% c(1, 2, 3, 4)), employm := 5] # retired/other
+dataset[!(employm %in% c(1, 2, 3, 4)), employm := 5] # inactive/other
+dataset[retired_status == 1, employm := 1] # worker
+dataset[retired_status == 2, employm := 2] # self-employed
+dataset[retired_status == 3, employm := 3] # capitalist
+dataset[retired_isco08 %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
+
 dataset[age_ref < 30, age := 1][age_ref >= 30 & age_ref < 50, age := 2][age_ref >= 50 & age_ref < 70, age := 3][age_ref >= 70, age := 4]
+
 dataset[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] # top wealth quintile
 dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, quintile.gincome := 2] # top income quintile
+
 dataset[edu_ref %in% c(2, 3, 4), edu_ref := 2][edu_ref %in% c(5, 6), edu_ref := 3] # c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter")
+
 
 dataset$age <- dataset$age %>%
     factor(levels = c(1, 2, 3, 4), labels = c("0-29", "30-49", "50-69", "+70"))
