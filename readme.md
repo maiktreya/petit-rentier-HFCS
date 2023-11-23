@@ -26,3 +26,22 @@ new <- c(
     "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
 )
 ```
+
+## MISSING CATEGORIES TO INTERPRET
+
+### ISCO
+
+2 character ISCO-08 code
+dataset[employm == 1 & d_isco %in% c(1,10:19)], employm := 5] # manager
+dataset[employm %in% c(4, 5)], employm := 4] # retired/other
+dataset[employm %in% c(1, 3)], employm := 4] # employee
+dataset[status == 2  & employm == 3 , employm := 2] # self-employed
+dataset[status == 2  & employm == 2 , employm := 3] # capitalist
+
+-> PE0200 (status in employment)
+1 - Employee
+2 - Self-employed - with employees
+3 - Self-employed - without employees
+4 - Unpaid family worker
+
+### DNACE
