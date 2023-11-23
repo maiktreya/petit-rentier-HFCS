@@ -18,6 +18,8 @@ dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 rm(list = setdiff(ls(), "dataset"))
 model <- dataset_s <- list()
 amplified <- FALSE
+n_imputations <- 5
+start_time <- Sys.time()
 
 dataset$class <- dataset$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Employee", "Self-employed", "Unemployed", "Retired", "Other"))
@@ -28,27 +30,40 @@ dataset$edu_ref <- dataset$edu_ref %>%
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 
-dataset <- dataset[, list(rentsbi, wave, hsize, head_gendr, age_ref, sa0100, implicate)]
-
 for (i in 1:5) dataset_s[[i]] <- dataset[implicate == i]
-dataset <- imputationList(dataset)
-model <- with(dataset_s, glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + (1 | sa0100), family = binomial))
+dataset_s <- imputationList(dataset_s)
+model <- with(dataset_s, glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + (1 | sa0100), family = binomial))
 
 ############################################################################################### 3
-# STEP 1: Isolate implicate and test the mixed model
+# STEP 1: Mix implicates following Rubin's Rule
 
-if (amplified == TRUE) {
-    # STEP 2: pool, estimations
-    pool_model <- mice::pool(model)
+coef_estimates <- lapply(model, function(m) fixef(m))
+se_estimates <- lapply(model, function(m) sqrt(diag(vcov(m))))
 
-    # STEP 3: perform post-stratification applying survey weights
+# Calculate mean of estimates
+mean_estimates <- Reduce("+", coef_estimates) / n_imputations
 
-    # Predict probabilities
-    predicted_probs <- predict(pool_model, type = "response")
+# Calculate within-imputation variance (average of the variances)
+within_var <- Reduce("+", lapply(se_estimates, function(se) se^2)) / n_imputations
 
-    # Ensure that the weights are appropriately scaled (ften survey weights need to be scaled to sum to the sample size or the population size)
-    weights_scaled <- dataset$weights / sum(dataset$weights)
+# Calculate between-imputation variance
+between_var <- sapply(seq_along(coef_estimates[[1]]), function(j) {
+    var(sapply(coef_estimates, function(ce) ce[j]))
+})
 
-    # Calculate the weighted average of predictions
-    weighted_prediction <- sum(predicted_probs * weights_scaled)
-}
+# Total variance for each coefficient
+total_variance <- within_var + (1 + 1 / n_imputations) * between_var
+
+# Standard errors for the combined estimates
+combined_se <- sqrt(total_variance)
+
+# T-Statistics
+t_stats <- mean_estimates / combined_se
+
+# P-Values (two-tailed test)
+p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
+
+# Combined results with t-stats and p-values
+(Sys.time() - start_time) %>% print()
+combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
+fwrite(combined_results, "output/MODELS/MACRO/macro.csv")
