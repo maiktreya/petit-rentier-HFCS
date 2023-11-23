@@ -9,11 +9,12 @@ library(mitools)
 
 # clean enviroment
 rm(list = ls())
-# import and merrge multicountry HFCS waves
-datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
-datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
-datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
-datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
+# import and merge  complete multicountry HFCS waves
+countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1][sa0100 %in% countries]
+datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2][sa0100 %in% countries]
+datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3][sa0100 %in% countries]
+datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4][sa0100 %in% countries]
 dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 rm(list = setdiff(ls(), "dataset"))
 model <- dataset_s <- list()
@@ -47,7 +48,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(rentsbi ~ wave + hsize + head_gendr + age_ref + class + edu_ref + quintile.gwealth + quintile.gincome + (1 | sa0100), family = binomial, data = dataset_s)
+    model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age_ref + class + edu_ref + quintile.gwealth + quintile.gincome + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
     (start_time - Sys.time()) %>% print()
 }
 
