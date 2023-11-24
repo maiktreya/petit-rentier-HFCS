@@ -1,0 +1,225 @@
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+155436.2 155562.6 -77706.1 155412.2   276940
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.0125 -0.3136 -0.1898 -0.1264 17.3612
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.36491  0.6041
+ wave   (Intercept) 0.01638  0.1280
+Number of obs: 276952, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.348084   0.143167 -23.386  < 2e-16 ***
+hsize                      -0.236796   0.006758 -35.038  < 2e-16 ***
+head_gendrfemale            0.016426   0.014361   1.144   0.2527
+age0-29                    -0.112020   0.047392  -2.364   0.0181 *
+age50-69                    0.421671   0.018210  23.156  < 2e-16 ***
+age+70                      0.950166   0.021756  43.674  < 2e-16 ***
+edu_refprimary             -0.114355   0.022673  -5.044 4.57e-07 ***
+edu_reftertiary            -0.001112   0.015443  -0.072   0.9426
+quintile.gwealthtop-wealth  2.164023   0.016859 128.357  < 2e-16 ***
+quintile.gincometop-income  0.414809   0.016915  24.524  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfp ed_rft qntl.gw-
+hsize       -0.124
+hed_gndrfml -0.059  0.165
+age0-29     -0.057  0.136  0.024
+age50-69    -0.108  0.306  0.050  0.265
+age+70      -0.117  0.411  0.079  0.255  0.670
+edu_rfprmry -0.019 -0.015 -0.025  0.035 -0.067 -0.192
+edu_rftrtry -0.036  0.037 -0.053  0.006  0.081  0.071  0.258
+qntl.gwlth- -0.022 -0.124  0.059  0.082 -0.107 -0.098  0.140 -0.125
+qntl.gncmt-  0.014 -0.212  0.078  0.033 -0.063  0.008  0.032 -0.258 -0.295
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+155517.6 155644.0 -77746.8 155493.6   276946
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.0120 -0.3135 -0.1905 -0.1266 17.3015
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.36263  0.6022
+ wave   (Intercept) 0.01651  0.1285
+Number of obs: 276958, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.356943   0.145222 -23.116  < 2e-16 ***
+hsize                      -0.233668   0.006751 -34.612  < 2e-16 ***
+head_gendrfemale            0.018766   0.014360   1.307  0.19125
+age0-29                    -0.143392   0.047937  -2.991  0.00278 **
+age50-69                    0.431759   0.018224  23.692  < 2e-16 ***
+age+70                      0.961420   0.021778  44.147  < 2e-16 ***
+edu_refprimary             -0.114850   0.022676  -5.065 4.09e-07 ***
+edu_reftertiary             0.002654   0.015437   0.172  0.86347
+quintile.gwealthtop-wealth  2.166696   0.016848 128.599  < 2e-16 ***
+quintile.gincometop-income  0.408303   0.016896  24.165  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfp ed_rft qntl.gw-
+hsize       -0.125
+hed_gndrfml -0.063  0.165
+age0-29     -0.055  0.134  0.023
+age50-69    -0.110  0.307  0.050  0.261
+age+70      -0.117  0.412  0.079  0.251  0.671
+edu_rfprmry -0.020 -0.014 -0.024  0.035 -0.066 -0.192
+edu_rftrtry -0.037  0.038 -0.053  0.007  0.082  0.072  0.257
+qntl.gwlth- -0.021 -0.123  0.060  0.080 -0.106 -0.098  0.141 -0.126
+qntl.gncmt-  0.012 -0.211  0.079  0.034 -0.062  0.009  0.032 -0.256 -0.294
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+155257.2 155383.5 -77616.6 155233.2   276944
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.0241 -0.3134 -0.1890 -0.1261 17.3357
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.36599  0.6050
+ wave   (Intercept) 0.01674  0.1294
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                             Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.3534665  0.1458179 -22.998  < 2e-16 ***
+hsize                      -0.2357905  0.0067636 -34.862  < 2e-16 ***
+head_gendrfemale            0.0218431  0.0143624   1.521   0.1283
+age0-29                    -0.1192316  0.0476952  -2.500   0.0124 *
+age50-69                    0.4224312  0.0182496  23.147  < 2e-16 ***
+age+70                      0.9591786  0.0218089  43.981  < 2e-16 ***
+edu_refprimary             -0.1172807  0.0227106  -5.164 2.42e-07 ***
+edu_reftertiary             0.0002519  0.0154538   0.016   0.9870
+quintile.gwealthtop-wealth  2.1632307  0.0168771 128.176  < 2e-16 ***
+quintile.gincometop-income  0.4199380  0.0169114  24.832  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfp ed_rft qntl.gw-
+hsize       -0.124
+hed_gndrfml -0.060  0.163
+age0-29     -0.052  0.136  0.022
+age50-69    -0.108  0.307  0.050  0.266
+age+70      -0.117  0.412  0.079  0.255  0.671
+edu_rfprmry -0.020 -0.014 -0.025  0.034 -0.067 -0.193
+edu_rftrtry -0.039  0.038 -0.052  0.006  0.081  0.072  0.258
+qntl.gwlth- -0.019 -0.123  0.060  0.081 -0.108 -0.098  0.141 -0.126
+qntl.gncmt-  0.011 -0.212  0.079  0.033 -0.062  0.009  0.032 -0.257 -0.294
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+155521.8 155648.2 -77748.9 155497.8   276951
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.0129 -0.3138 -0.1903 -0.1272 17.3431
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.35615  0.5968
+ wave   (Intercept) 0.01665  0.1290
+Number of obs: 276963, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                             Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.3365300  0.1444229 -23.103  < 2e-16 ***
+hsize                      -0.2364092  0.0067567 -34.989  < 2e-16 ***
+head_gendrfemale            0.0144191  0.0143573   1.004  0.31523
+age0-29                    -0.1370989  0.0477526  -2.871  0.00409 **
+age50-69                    0.4199619  0.0182123  23.059  < 2e-16 ***
+age+70                      0.9485845  0.0217582  43.597  < 2e-16 ***
+edu_refprimary             -0.1193600  0.0226873  -5.261 1.43e-07 ***
+edu_reftertiary            -0.0002085  0.0154370  -0.014  0.98922
+quintile.gwealthtop-wealth  2.1624476  0.0168414 128.401  < 2e-16 ***
+quintile.gincometop-income  0.4169079  0.0169079  24.658  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfp ed_rft qntl.gw-
+hsize       -0.127
+hed_gndrfml -0.061  0.163
+age0-29     -0.055  0.136  0.023
+age50-69    -0.110  0.307  0.050  0.263
+age+70      -0.118  0.412  0.078  0.253  0.670
+edu_rfprmry -0.023 -0.013 -0.024  0.035 -0.066 -0.192
+edu_rftrtry -0.039  0.039 -0.053  0.007  0.082  0.072  0.257
+qntl.gwlth- -0.021 -0.123  0.059  0.081 -0.108 -0.098  0.138 -0.126
+qntl.gncmt-  0.014 -0.213  0.078  0.032 -0.064  0.007  0.033 -0.257 -0.294
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+155281.4 155407.7 -77628.7 155257.4   276944
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.0159 -0.3129 -0.1897 -0.1263 17.3447
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.36295  0.6024
+ wave   (Intercept) 0.01661  0.1289
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.354310   0.144085 -23.280  < 2e-16 ***
+hsize                      -0.235020   0.006755 -34.791  < 2e-16 ***
+head_gendrfemale            0.014377   0.014359   1.001  0.31670
+age0-29                    -0.133243   0.047706  -2.793  0.00522 **
+age50-69                    0.425368   0.018221  23.345  < 2e-16 ***
+age+70                      0.954596   0.021777  43.836  < 2e-16 ***
+edu_refprimary             -0.124001   0.022709  -5.460 4.75e-08 ***
+edu_reftertiary            -0.002378   0.015443  -0.154  0.87764
+quintile.gwealthtop-wealth  2.168157   0.016869 128.526  < 2e-16 ***
+quintile.gincometop-income  0.414739   0.016901  24.540  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfp ed_rft qntl.gw-
+hsize       -0.124
+hed_gndrfml -0.060  0.163
+age0-29     -0.056  0.135  0.023
+age50-69    -0.108  0.306  0.049  0.263
+age+70      -0.116  0.411  0.078  0.253  0.670
+edu_rfprmry -0.016 -0.014 -0.024  0.034 -0.066 -0.192
+edu_rftrtry -0.035  0.038 -0.052  0.006  0.082  0.072  0.256
+qntl.gwlth- -0.020 -0.124  0.059  0.080 -0.107 -0.098  0.139 -0.127
+qntl.gncmt-  0.012 -0.212  0.078  0.032 -0.063  0.008  0.033 -0.257 -0.294

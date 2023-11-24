@@ -81,35 +81,32 @@ Number of obs: 276958, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                            Estimate Std. Error
-(Intercept)                -3.43458    0.14305
-hsize                      -0.20799    0.00684
-head_gendrfemale            0.02751    0.01441
-age0-29                    -0.16251    0.04811
-age50-69                    0.29009    0.01918
-age+70                      0.57954    0.02651
-edu_refprimary             -0.14852    0.02272
-edu_reftertiary             0.02399    0.01553
-classSelf-employed          0.76854    0.14224
-classCapitalist             0.72574    0.15556
-classManager               -0.26044    0.02536
-classInactive               0.40852    0.01970
-quintile.gwealthtop-wealth  2.16673    0.01692
-quintile.gincometop-income  0.45580    0.01711
+(Intercept)                -3.43458    0.14305 -24.009  < 2e
+hsize                      -0.20799    0.00684 -30.407  < 2e
+head_gendrfemale            0.02751    0.01441   1.909  0.05 620
+age0-29                    -0.16251    0.04811  -3.378  0.00 073
+age50-69                    0.29009    0.01918  15.126  < 2e
+age+70                      0.57954    0.02651  21.858  < 2e
+edu_refprimary             -0.14852    0.02272  -6.536 6.31e
+edu_reftertiary             0.02399    0.01553   1.545  0.12 241
+classSelf-employed          0.76854    0.14224   5.403 6.54e
+classCapitalist             0.72574    0.15556   4.665 3.08e
+classManager               -0.26044    0.02536 -10.270  < 2e
+classInactive               0.40852    0.01970  20.734  < 2e
+quintile.gwealthtop-wealth  2.16673    0.01692 128.020  < 2e
+quintile.gincometop-income  0.45580    0.01711  26.635  < 2e
                            z value Pr(>|z|)
-(Intercept)                -24.009  < 2e-16 ***
-hsize                      -30.407  < 2e-16 ***
-head_gendrfemale             1.909  0.05620 .
-age0-29                     -3.378  0.00073 ***
-age50-69                    15.126  < 2e-16 ***
-age+70                      21.858  < 2e-16 ***
-edu_refprimary              -6.536 6.31e-11 ***
-edu_reftertiary              1.545  0.12241
-classSelf-employed           5.403 6.54e-08 ***
-classCapitalist              4.665 3.08e-06 ***
-classManager               -10.270  < 2e-16 ***
-classInactive               20.734  < 2e-16 ***
-quintile.gwealthtop-wealth 128.020  < 2e-16 ***
-quintile.gincometop-income  26.635  < 2e-16 ***
+(Intercept)
+hsize
+head_gendrfemale           -29                    -69
+age+70
+edu_refprimary
+edu_reftertiary
+classCapitalist
+classManager
+classInactive
+quintile.gwealthtop-wealth
+quintile.gincometop-income
 ---
 Signif. codes:
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

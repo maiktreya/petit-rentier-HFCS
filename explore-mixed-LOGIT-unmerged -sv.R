@@ -47,7 +47,7 @@ dataset$class <- dataset$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Self-employed", "Capitalist", "Manager", "Inactive"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
-    factor(levels = c(2, 1, 3), labels = c("secondary", "primary", "tertiary"))
+    factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
 
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
@@ -62,7 +62,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
+    model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
 
     (start_time - Sys.time()) %>% print()
 }
