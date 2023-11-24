@@ -11,8 +11,8 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("financ", "profit", "rental", "pvpens")
-prefix <- ""
+var_code <- c("rentsbi", "rentsbi2", "rentsbi5")
+prefix <- "ren-fin-pro-pens/"
 count <- 0
 
 for (varname in var_code) {
@@ -61,7 +61,14 @@ for (varname in var_code) {
                         "sa0100", "hw0010.x"
                     )
                 ]
-                transf[, (varname) := suppressWarnings(as.numeric(get(varname)))][, (varname) := ifelse(is.na(get(varname)), 0, get(varname))]
+                transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
+                transf[, pvpens := suppressWarnings(as.numeric(pvpens))][, pvpens := ifelse(is.na(pvpens), 0, pvpens)]
+                transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
+                transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
+                transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
+                transf[, rentsbi := 0][income > 0 & ((financ + profit + rental + pvpens) / income) > 0.1, rentsbi := 1]
+                transf[, rentsbi5 := 0][income > 0 & ((financ + profit + rental + pvpens) / income) > 0.05, rentsbi5 := 1]
+                transf[, rentsbi2 := 0][income > 0 & ((financ + profit + rental + pvpens) / income) > 0.02, rentsbi2 := 1]
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects

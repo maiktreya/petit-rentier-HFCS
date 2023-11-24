@@ -33,6 +33,45 @@ new <-  c(
 "rental", "financ", "profit", "pvpens", "kgains"
 "hg0310", "di1400", "hg0510", "", "hg0610", di1520
 
+HG0610=DI1800
+gross income from other income sources
+What was the total gross amount received over (the last 12 months / the last
+calendar year)?
+
+### HG0310=DI1300
+
+gross rental income from real estate property
+
+### DI1420 = HG0510
+
+Income from private business other than self-employment
+
+### DI1410 = HG0410
+
+Income from financial assets, gross of interest payments
+
+### DI1400 = DI1410 + DI1420
+
+Income from financial assets
+
+### DI1420 = HG0510
+
+Income from private business other than self-employment
+
+### DI1520 = Sum of PG0410 for household members
+
+Income from occupational and private pensions
+
+### PG0410
+
+It includes:
+
+- Income received from occupational pension schemes
+Old age, survivors, sickness, disability and unemployment pensions received as
+interest or dividends from individual insurance private plans.
+It excludes:
+- Pensions from public pension schemes (under PG0300)
+
 ## MISSING CATEGORIES TO INTERPRET
 
 ### ISCO
