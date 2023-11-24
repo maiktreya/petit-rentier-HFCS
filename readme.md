@@ -27,6 +27,12 @@ new <-  c(
     )
 ```
 
+## CONSTRUCTION OF RENTSBI VARIABLE
+
+- CURRENT:
+"rental", "financ", "profit", "pvpens", "kgains"
+"hg0310", "di1400", "hg0510", "", "hg0610", di1520
+
 ## MISSING CATEGORIES TO INTERPRET
 
 ### ISCO
