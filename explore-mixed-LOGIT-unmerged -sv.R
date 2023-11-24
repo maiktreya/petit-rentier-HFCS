@@ -62,7 +62,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age + edu_ref + class + quintile.gwealth + quintile.gincome + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
+    model[[i]] <- glmer(rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) + (1 | wave), family = binomial, data = dataset_s)
 
     (start_time - Sys.time()) %>% print()
 }
