@@ -64,9 +64,9 @@ for (wave in path_stringB) {
         transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
         transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
         transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
-        transf[, rentsbi := 0][income > 0 & ((financ + profit + rental) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & ((financ + profit + rental) / income) > 0.05, rentsbi5 := 1]
-        transf[, rentsbi2 := 0][income > 0 & ((financ + profit + rental) / income) > 0.02, rentsbi2 := 1]
+        transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi5 := 0][income > 0 & ((financ + rental) / income) > 0.05, rentsbi5 := 1]
+        transf[, rentsbi2 := 0][income > 0 & ((financ + rental) / income) > 0.02, rentsbi2 := 1]
         imp[[m]] <- transf[, implicate := m]
     }
     imp <- rbindlist(imp)
