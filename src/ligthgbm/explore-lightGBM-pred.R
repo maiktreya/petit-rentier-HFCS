@@ -42,14 +42,15 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 
 ################################################################################################################ 3
 # Splitting into training and test sets
-train_indices <- sample(1:nrow(dataset), size = 0.7 * nrow(dataset))
-train_data <- dataset[train_indices, ]
-test_data <- dataset[-train_indices, ]
+
 
 # Assuming 'train_data' and 'test_data' are data.tables
 
 # List of categorical features
 categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.gwealth", "quintile.gincome", "class", "edu_ref", "age")
+train_indices <- sample(1:nrow(dataset), size = 0.7 * nrow(dataset))
+train_data <- dataset[train_indices, ]
+test_data <- dataset[-train_indices, ]
 
 # Convert categorical features to factors
 train_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical_features]
@@ -60,16 +61,15 @@ test_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical
 
 # Creating LightGBM dataset
 dtrain <- lgb.Dataset(
-    data = data.matrix(train_data), label = train_data$rentsbi,
+    data = data.matrix(train_data[, !c("rentsbi")]), label = train_data$rentsbi,
     categorical_feature = categorical_features
 )
 
-dtest <- lgb.Dataset.create.valid(data = data.matrix(test_data), dataset = dtrain)
 # Parameters (same as before)
 params_alt <- list(
     objective = "binary",
     metric = "binary_logloss",
-    num_leaves = 31,
+    num_leaves = 10,
     learning_rate = 0.05,
     feature_fraction = 0.9,
     bagging_fraction = 0.8,
@@ -78,11 +78,11 @@ params_alt <- list(
 )
 
 # Training the model
-lgb_model <- lgb.train(params = params_alt, data = dtrain, nrounds = 100)
+lgb_model <- lgb.train(params = params_alt, data = dtrain, nrounds = 5)
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
 
 # Predicting probabilities
-predictions_lgb <- predict(lgb_model, data.matrix(test_data))
+predictions_lgb <- predict(lgb_model, data.matrix(train_data[, !c("rentsbi")]))
 
 # Converting probabilities to binary outcomes using 0.5 as threshold
 predicted_classes_lgb <- ifelse(predictions_lgb > 0.5, 1, 0)
