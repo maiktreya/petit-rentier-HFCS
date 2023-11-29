@@ -1,39 +1,25 @@
-[LightGBM] [Info] Number of positive: 213439, number of negative: 933308
-[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.057810 seconds.
+## LightGBM output for all waves/countries/implications joint.
+
+[LightGBM] [Info] Number of positive: 213239, number of negative: 933508
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.013154 seconds.
 You can set `force_row_wise=true` to remove the overhead.
 And if memory is not enough, you can set `force_col_wise=true`.
-[LightGBM] [Info] Total Bins 4700
-[LightGBM] [Info] Number of data points in the train set: 1146747, number of used features: 40
-[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.186126 -> initscore=-1.475384
-[LightGBM] [Info] Start training from score -1.475384
-[1] "LightGBM Accuracy: 0.695601558146653"
-             Feature         Gain        Cover    Frequency
- 1:          rentsbi 8.901937e-01 3.582333e-01 0.0306666667
- 2:         rentsbi5 9.119085e-02 2.751927e-01 0.0283333333
- 3:           income 5.525401e-03 5.606397e-02 0.2790000000
- 4:           rental 5.187163e-03 8.482194e-02 0.2206666667
- 5:           financ 4.128530e-03 8.966720e-02 0.2470000000
- 6:           pvpens 3.771489e-03 1.008327e-01 0.1436666667
- 7: quintile.gincome 1.230577e-06 3.196666e-03 0.0103333333
- 8:          age_ref 6.035966e-07 2.051120e-03 0.0040000000
- 9:            other 2.817390e-07 3.791271e-04 0.0050000000
-10:         hw0010.x 2.638386e-07 8.854121e-04 0.0030000000
-11:           net_fi 1.816043e-07 8.581039e-04 0.0076666667
-12:           profit 1.299006e-07 1.405298e-04 0.0023333333
-13:   retired_status 4.581746e-08 7.553769e-06 0.0006666667
-14:         rentsbi2 3.424185e-08 2.533588e-02 0.0026666667
-15:           d_isco 1.390383e-08 3.909670e-04 0.0026666667
-16:           sa0010 1.319568e-08 1.302189e-03 0.0053333333
-17:       total_real 1.279564e-08 8.225545e-05 0.0013333333
-18:        bussiness 5.506364e-09 7.935701e-07 0.0003333333
-19:            hsize 2.031710e-09 7.519395e-05 0.0006666667
-20:           status 6.700777e-10 3.189982e-05 0.0020000000
-21:             real 1.034435e-11 4.206219e-04 0.0013333333
-22:             main 1.942805e-13 2.249156e-07 0.0003333333
-23:           d_nace 1.586298e-13 1.216666e-05 0.0003333333
-24:           Kgains 1.522251e-13 5.958141e-06 0.0003333333
-25:          edu_ref 1.181695e-13 1.150040e-05 0.0003333333
-             Feature         Gain        Cover    Frequency
-Warning message:
-In predicted_classes_lgb == train_data$rentsbi :
-  longer object length is not a multiple of shorter object length
+[LightGBM] [Info] Total Bins 68
+[LightGBM] [Info] Number of data points in the train set: 1146747, number of used features: 9
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.185951 -> initscore=-1.476536
+[LightGBM] [Info] Start training from score -1.476536
+
+
+[1] "LightGBM Accuracy: 0.875630806097596"
+
+
+            Feature        Gain       Cover  Frequency
+1:           sa0100 0.345692876 0.375867568 0.31878788
+2: quintile.gwealth 0.275818339 0.155274601 0.06878788
+3:            class 0.199058396 0.085234413 0.07757576
+4:              age 0.095562926 0.133890781 0.13666667
+5:            hsize 0.032172365 0.102658507 0.13939394
+6: quintile.gincome 0.024345242 0.050328319 0.06969697
+7:          edu_ref 0.017420683 0.059056254 0.08909091
+8:             wave 0.006343394 0.029257822 0.06333333
+9:       head_gendr 0.003585780 0.008431734 0.03666667

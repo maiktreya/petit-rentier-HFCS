@@ -41,23 +41,15 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
     factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
 ################################################################################################################ 3
-# Splitting into training and test sets
-
-
-# Assuming 'train_data' and 'test_data' are data.tables
-
-# List of categorical features
+# Splitting into training and test sets and List of categorical features
 categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.gwealth", "quintile.gincome", "class", "edu_ref", "age")
-train_indices <- sample(1:nrow(dataset), size = 0.7 * nrow(dataset))
+total_features <- c(categorical_features, "hsize", "rentsbi")
+dataset <- dataset[, ..total_features]
+train_indices <- sample(seq_len(nrow(dataset)), size = 0.7 * nrow(dataset))
 train_data <- dataset[train_indices, ]
 test_data <- dataset[-train_indices, ]
-
-# Convert categorical features to factors
 train_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical_features]
 test_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical_features]
-
-# Rest of the code remains the same...
-
 
 # Creating LightGBM dataset
 dtrain <- lgb.Dataset(
@@ -69,7 +61,7 @@ dtrain <- lgb.Dataset(
 params_alt <- list(
     objective = "binary",
     metric = "binary_logloss",
-    num_leaves = 10,
+    num_leaves = 34,
     learning_rate = 0.05,
     feature_fraction = 0.9,
     bagging_fraction = 0.8,
@@ -78,7 +70,7 @@ params_alt <- list(
 )
 
 # Training the model
-lgb_model <- lgb.train(params = params_alt, data = dtrain, nrounds = 5)
+lgb_model <- lgb.train(params = params_alt, data = dtrain, nrounds = 100)
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
 
 # Predicting probabilities
