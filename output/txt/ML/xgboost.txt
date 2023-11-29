@@ -1,0 +1,40 @@
+r$> source("/home/other/sambashare/R PROJECTS/HOUSING SPAIN/EFF/explore-XGBoost.R", encoding = "UTF
+    -8")
+            Feature        Gain      Cover  Frequency
+1:           sa0100 0.331189523 0.25073375 0.21842496
+2: quintile.gwealth 0.294848643 0.12849452 0.09231055
+3:            class 0.142342672 0.08240046 0.08153789
+4:              age 0.096550280 0.24829588 0.25204309
+5: quintile.gincome 0.063789385 0.06514571 0.09453938
+6:            hsize 0.041852464 0.08959056 0.08915305
+7:          edu_ref 0.013352667 0.06791790 0.07392273
+8:             wave 0.009231306 0.03995591 0.06054978
+9:       head_gendr 0.006843060 0.02746532 0.03751857
+
+r$> source("/home/other/sambashare/R PROJECTS/HOUSING SPAIN/EFF/explore-XGBoost-pred.R", encoding =
+     "UTF-8")
+Loading required package: ggplot2
+Loading required package: lattice
+Type 'citation("pROC")' for a citation.
+
+Attaching package: ‘pROC’
+
+The following objects are masked from ‘package:stats’:
+
+    cov, smooth, var
+
+Setting levels: control = 0, case = 1
+Setting direction: controls < cases
+            Feature        Gain      Cover  Frequency
+1:           sa0100 0.332422381 0.23961970 0.22037345
+2: quintile.gwealth 0.296265734 0.12930610 0.09114439
+3:            class 0.142705425 0.09952174 0.07801812
+4:              age 0.097640265 0.25917052 0.23793677
+5: quintile.gincome 0.062418200 0.06790796 0.10149750
+6:            hsize 0.039064566 0.08529567 0.08985025
+7:          edu_ref 0.013897228 0.05941996 0.08245517
+8:             wave 0.009151493 0.03787394 0.05934554
+9:       head_gendr 0.006434707 0.02188442 0.03937881
+[1] 0.8852208
+
+r$>
