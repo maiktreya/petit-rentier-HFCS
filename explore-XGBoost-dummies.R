@@ -18,7 +18,6 @@ dataset <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
 # Encoding categorical variables as numeric factors
 dataset[, hsize := as.numeric(hsize)]
 dataset[, head_gendr := as.numeric(as.factor(head_gendr))]
-dataset[, age := as.factor(age)] # Converted to factor for dummy variable creation
 dataset[, edu_ref := as.factor(edu_ref)] # Converted to factor for dummy variable creation
 dataset[, class := as.factor(employm)] # Converted to factor for dummy variable creation
 dataset[, quintile.gwealth := as.numeric(as.factor(quintile.gwealth))]
@@ -27,18 +26,21 @@ dataset[, wave := as.numeric(as.factor(wave))]
 dataset[, sa0100 := as.numeric(as.factor(sa0100))]
 
 # Create dummy variables for 'class', 'age', and 'edu_ref'
-dummy_vars <- c("class", "age", "edu_ref")
-dummies <- dataset[, c(.SD, lapply(.SD, function(x) as.numeric(factor(x, levels = unique(x))))), .SDcols = dummy_vars]
-dummies <- dummies[, lapply(.SD, function(x) x - 1)] # Convert to 0/1 encoding
+dataset[, class := as.factor(class)]
+dataset[, edu_ref := as.factor(edu_ref)]
 
-# Names of dummy variables
-dummy_names <- setdiff(names(dummies), dummy_vars)
+# Create dummy variables using model.matrix
+dummy_vars <- model.matrix(~ class + edu_ref - 1, data = dataset)
+dummy_var_names <- colnames(dummy_vars)
 
 # Merge dummy variables back to the dataset
-dataset <- cbind(dataset, dummies)
+dataset <- cbind(dataset, dummy_vars)
 
-# Prepare data for XGBoost including dummy variables
-data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", dummy_names)]), label = dataset$rentsbi)
+# Update the list of variables for XGBoost
+all_columns_for_model <- c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", dummy_var_names)
+
+# Prepare data for XGBoost
+data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, ..all_columns_for_model]), label = dataset$rentsbi)
 
 # XGBoost parameters
 params <- list(
