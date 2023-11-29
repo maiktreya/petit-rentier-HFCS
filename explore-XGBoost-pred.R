@@ -33,8 +33,16 @@ dataset$quintile.gincome <- as.numeric(as.factor(dataset$quintile.gincome))
 dataset$wave <- as.numeric(as.factor(dataset$wave))
 dataset$sa0100 <- as.numeric(as.factor(dataset$sa0100))
 
+
+# split into training and test
+sample_indices <- sample(1:nrow(dataset), size = 0.6 * nrow(dataset))
+train_data <- dataset[sample_indices, ]
+test_data <- dataset[-sample_indices, ]
+
+
 # Prepare data for XGBoost including 'wave' and 'sa0100'
-data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = dataset$rentsbi)
+train_matrix <- xgb.DMatrix(data = as.matrix(train_data[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = train_data$rentsbi)
+test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = test_data$rentsbi)
 
 # XGBoost parameters
 params <- list(
@@ -51,8 +59,28 @@ params <- list(
 nrounds <- 100
 
 # Train the model
-xgb_model <- xgb.train(params = params, data = data_matrix, nrounds = nrounds)
+xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = nrounds)
 
 # Feature importance
-importance_matrix <- xgb.importance(feature_names = colnames(data_matrix), model = xgb_model)
+importance_matrix <- xgb.importance(feature_names = colnames(train_matrix), model = xgb_model)
+# Predicting on the test set
+test_predictions <- predict(xgb_model, test_matrix)
+
+# Converting predictions to binary using a threshold (e.g., 0.5)
+test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
+
+# Calculating accuracy
+accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
+
+# Confusion Matrix and related metrics
+library(caret)
+confusionMatrix(factor(test_predictions_binary), factor(test_data$rentsbi))
+
+# ROC and AUC
+library(pROC)
+roc_obj <- roc(test_data$rentsbi, test_predictions)
+auc(roc_obj)
+plot(roc_obj)
+
 print(importance_matrix)
+print(accuracy)
