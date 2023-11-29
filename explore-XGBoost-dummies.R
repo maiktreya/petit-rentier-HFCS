@@ -64,9 +64,8 @@ dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
 dataset2$rentsbi <- dataset$rentsbi
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
-dataset2$sa0100 <- as.numeric(as.factor(dataset2$sa0100))
 dataset2$hsize <- as.numeric(dataset2$hsize)
-dataset2 <- fastDummies::dummy_cols(dataset2, c("class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
+dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
 
 
 # Prepare data for XGBoost including 'wave' and 'sa0100'
