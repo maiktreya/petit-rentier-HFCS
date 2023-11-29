@@ -7,7 +7,7 @@ library(Matrix)
 rm(list = ls())
 
 # Import and merge multi-country HFCS waves
-outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1][sa0100 != "E1"] # Spain wrong 2008, must be dropped
 outcomeB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
 outcomeC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
 outcomeD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
