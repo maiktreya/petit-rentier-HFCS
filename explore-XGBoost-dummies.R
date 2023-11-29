@@ -22,8 +22,8 @@ varnames <- c(
 )
 dataset[employm %in% c(1, 3), employm := 1] # worker
 dataset[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
-dataset[status == 2 & employm == 3, employm := 2] # self-employed
-dataset[status == 2 & employm == 2, employm := 3] # capitalist
+dataset[status == 2 & employm == 2, employm := 2] # capitalist
+dataset[status == 3 & employm == 2, employm := 3] # self-employed
 dataset[status == 1 & d_isco %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
 dataset[!(employm %in% c(1, 2, 3, 4)), employm := 5] # inactive/other
 dataset[retired_status == 1, employm := 1] # worker
@@ -43,7 +43,7 @@ dataset$age <- dataset$age %>%
     factor(levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "self-employed", "Capitalist", "Manager", "Inactive"))
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(2, 1, 3), labels = c("secondary", "primary", "tertiary"))

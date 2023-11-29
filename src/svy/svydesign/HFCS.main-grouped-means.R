@@ -70,15 +70,16 @@ for (varname in var_code) {
                 transf[, rentsbi2 := 0][income > 0 & ((financ + rental) / income) > 0.02, rentsbi2 := 1]
                 transf[employm %in% c(1, 3), employm := 1] # worker
                 transf[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
-                transf[status == 2 & employm == 3, employm := 2] # self-employed
-                transf[status == 2 & employm == 2, employm := 3] # capitalist
+                transf[status == 2 & employm == 2, employm := 2] # capitalist
+                transf[status == 3 & employm == 2, employm := 3] # self-employed
                 transf[status == 1 & d_isco %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
                 transf[!(employm %in% c(1, 2, 3, 4)), employm := 5] # inactive/other
                 transf[retired_status == 1, employm := 1] # worker
-                transf[retired_status == 2, employm := 2] # self-employed
-                transf[retired_status == 3, employm := 3] # capitalist
+                transf[retired_status == 2, employm := 2] # capitalist
+                transf[retired_status == 3, employm := 3] # self_employed
                 transf[retired_isco08 %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
-                transf$class <- transf$employm %>% factor(levels = c(5, 2, 3, 4, 1), labels = c("Other", "Self-employed", "Capitalist", "Manager", "Worker"))
+                transf$class <- transf$employm %>%
+                    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
