@@ -54,8 +54,14 @@ dataset2$hsize <- as.numeric(dataset2$hsize)
 # proper model fitting after variable transformation
 dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
 
+# split into training and test
+sample_indices <- sample(seq_len(nrow(dataset2)), size = 0.6 * nrow(dataset2))
+train_data <- dataset[sample_indices, ]
+test_data <- dataset[-sample_indices, ]
+
 # Prepare data for XGBoost including 'wave' and 'sa0100'
-data_matrix <- xgb.DMatrix(data = as.matrix(dataset2[, !c("rentsbi")]), label = dataset2$rentsbi)
+data_matrix <- xgb.DMatrix(data = as.matrix(train_data[, !c("rentsbi")]), label = train_data$rentsbi)
+test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = test_data$rentsbi)
 
 # XGBoost parameters
 params <- list(
@@ -68,12 +74,19 @@ params <- list(
     subsample = 1,
     colsample_bytree = 1
 )
-# Number of rounds for training
-nrounds <- 100
 
 # Train the model
-xgb_model <- xgb.train(params = params, data = data_matrix, nrounds = nrounds)
+xgb_model <- xgb.train(params = params, data = data_matrix, nrounds = 100)
 
 # Feature importance
 importance_matrix <- xgb.importance(feature_names = colnames(data_matrix), model = xgb_model)
 print(importance_matrix)
+
+# Predicting on the test set
+test_predictions <- predict(xgb_model, test_matrix)
+
+# Converting predictions to binary using a threshold (e.g., 0.5)
+test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
+
+# Calculating accuracy
+accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
