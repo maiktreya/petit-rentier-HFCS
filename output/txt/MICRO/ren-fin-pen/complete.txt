@@ -1,0 +1,214 @@
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
+    quintile.gwealth + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+188340.2 188508.7 -94154.1 188308.2   276936
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.141 -0.394 -0.214 -0.088 31.815
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.78005  0.8832
+ wave   (Intercept) 0.01254  0.1120
+Number of obs: 276952, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.400999   0.184958 -23.795  < 2e-16 ***
+hsize                      -0.187899   0.006165 -30.480  < 2e-16 ***
+head_gendrfemale            0.037243   0.012630   2.949  0.00319 **
+age0-29                    -1.031117   0.045690 -22.568  < 2e-16 ***
+age50-69                    0.801876   0.017691  45.327  < 2e-16 ***
+age+70                      1.178543   0.023451  50.256  < 2e-16 ***
+edu_refsecondary            0.719264   0.020864  34.474  < 2e-16 ***
+edu_reftertiary             0.730798   0.022261  32.828  < 2e-16 ***
+quintile.gincometop-income  0.244542   0.015700  15.575  < 2e-16 ***
+quintile.gwealthtop-wealth  1.652344   0.014484 114.080  < 2e-16 ***
+classEmployer               1.089183   0.136684   7.969 1.60e-15 ***
+classSelf-Employed          1.080498   0.143095   7.551 4.32e-14 ***
+classManager                0.424955   0.024333  17.464  < 2e-16 ***
+classInactive               1.219724   0.017290  70.544  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 14 > 12.
+Use print(summary(model[[i]]), correlation=TRUE)  or
+    vcov(summary(model[[i]]))        if you need it
+
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
+    quintile.gwealth + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+188295.4 188463.9 -94131.7 188263.4   276942
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.164 -0.394 -0.215 -0.089 31.971
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.77207  0.8787
+ wave   (Intercept) 0.01301  0.1141
+Number of obs: 276958, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.410580   0.199554 -22.102  < 2e-16 ***
+hsize                      -0.185421   0.006164 -30.079  < 2e-16 ***
+head_gendrfemale            0.040721   0.012632   3.224  0.00127 **
+age0-29                    -1.065950   0.046417 -22.964  < 2e-16 ***
+age50-69                    0.810536   0.017728  45.722  < 2e-16 ***
+age+70                      1.188668   0.023496  50.591  < 2e-16 ***
+edu_refsecondary            0.720887   0.020905  34.484  < 2e-16 ***
+edu_reftertiary             0.731183   0.022301  32.787  < 2e-16 ***
+quintile.gincometop-income  0.244430   0.015691  15.578  < 2e-16 ***
+quintile.gwealthtop-wealth  1.657430   0.014486 114.417  < 2e-16 ***
+classEmployer               1.163828   0.149336   7.793 6.53e-15 ***
+classSelf-Employed          0.972314   0.146469   6.638 3.17e-11 ***
+classManager                0.424241   0.024368  17.410  < 2e-16 ***
+classInactive               1.221400   0.017322  70.513  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 14 > 12.
+Use print(summary(model[[i]]), correlation=TRUE)  or
+    vcov(summary(model[[i]]))        if you need it
+
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
+    quintile.gwealth + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+187858.7 188027.2 -93913.3 187826.7   276940
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.188 -0.393 -0.213 -0.088 32.453
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.78138  0.8840
+ wave   (Intercept) 0.01282  0.1132
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.428639   0.193755 -22.857  < 2e-16 ***
+hsize                      -0.186130   0.006173 -30.152  < 2e-16 ***
+head_gendrfemale            0.043880   0.012641   3.471 0.000518 ***
+age0-29                    -1.041215   0.045941 -22.664  < 2e-16 ***
+age50-69                    0.806775   0.017742  45.472  < 2e-16 ***
+age+70                      1.193066   0.023510  50.747  < 2e-16 ***
+edu_refsecondary            0.727201   0.020919  34.762  < 2e-16 ***
+edu_reftertiary             0.738852   0.022299  33.133  < 2e-16 ***
+quintile.gincometop-income  0.250701   0.015709  15.959  < 2e-16 ***
+quintile.gwealthtop-wealth  1.656010   0.014495 114.244  < 2e-16 ***
+classEmployer               1.118646   0.139391   8.025 1.01e-15 ***
+classSelf-Employed          1.075522   0.149231   7.207 5.72e-13 ***
+classManager                0.432473   0.024367  17.748  < 2e-16 ***
+classInactive               1.225828   0.017323  70.763  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 14 > 12.
+Use print(summary(model[[i]]), correlation=TRUE)  or
+    vcov(summary(model[[i]]))        if you need it
+
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
+    quintile.gwealth + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+188313.7 188482.2 -94140.9 188281.7   276947
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.165 -0.393 -0.215 -0.089 32.217
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.76935  0.8771
+ wave   (Intercept) 0.01338  0.1157
+Number of obs: 276963, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.401595   0.203405 -21.640  < 2e-16 ***
+hsize                      -0.188248   0.006171 -30.508  < 2e-16 ***
+head_gendrfemale            0.035794   0.012631   2.834   0.0046 **
+age0-29                    -1.060039   0.046149 -22.970  < 2e-16 ***
+age50-69                    0.804531   0.017719  45.405  < 2e-16 ***
+age+70                      1.179845   0.023469  50.273  < 2e-16 ***
+edu_refsecondary            0.723387   0.020914  34.589  < 2e-16 ***
+edu_reftertiary             0.736575   0.022298  33.033  < 2e-16 ***
+quintile.gincometop-income  0.253691   0.015695  16.164  < 2e-16 ***
+quintile.gwealthtop-wealth  1.649154   0.014466 114.002  < 2e-16 ***
+classEmployer               1.023909   0.143095   7.155 8.34e-13 ***
+classSelf-Employed          1.001999   0.149188   6.716 1.86e-11 ***
+classManager                0.428903   0.024370  17.600  < 2e-16 ***
+classInactive               1.223157   0.017298  70.710  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 14 > 12.
+Use print(summary(model[[i]]), correlation=TRUE)  or
+    vcov(summary(model[[i]]))        if you need it
+
+Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
+    quintile.gwealth + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+
+     AIC      BIC   logLik deviance df.resid
+188076.5 188245.0 -94022.3 188044.5   276940
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.173 -0.393 -0.214 -0.088 32.350
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.78213  0.8844
+ wave   (Intercept) 0.01314  0.1146
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.424373   0.190098 -23.274  < 2e-16 ***
+hsize                      -0.186224   0.006164 -30.211  < 2e-16 ***
+head_gendrfemale            0.039180   0.012631   3.102  0.00192 **
+age0-29                    -1.059430   0.046158 -22.952  < 2e-16 ***
+age50-69                    0.806440   0.017714  45.526  < 2e-16 ***
+age+70                      1.187071   0.023479  50.559  < 2e-16 ***
+edu_refsecondary            0.728086   0.020910  34.820  < 2e-16 ***
+edu_reftertiary             0.740081   0.022287  33.207  < 2e-16 ***
+quintile.gincometop-income  0.251589   0.015696  16.029  < 2e-16 ***
+quintile.gwealthtop-wealth  1.651556   0.014482 114.042  < 2e-16 ***
+classEmployer               1.024894   0.135060   7.588 3.24e-14 ***
+classSelf-Employed          0.980994   0.144500   6.789 1.13e-11 ***
+classManager                0.427333   0.024363  17.540  < 2e-16 ***
+classInactive               1.223836   0.017307  70.712  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 14 > 12.
+Use print(summary(model[[i]]), correlation=TRUE)  or
+    vcov(summary(model[[i]]))        if you need it
