@@ -10,7 +10,8 @@ library(mitools)
 # clean enviroment
 rm(list = ls())
 # import and merrge multicountry HFCS waves
-datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1][sa0100 != "E1"]
+
 datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
 datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
 datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
