@@ -80,7 +80,6 @@ xgb_model <- xgb.train(params = params, data = data_matrix, nrounds = 100)
 
 # Feature importance
 importance_matrix <- xgb.importance(feature_names = colnames(data_matrix), model = xgb_model)
-print(importance_matrix)
 
 # Predicting on the test set
 test_predictions <- predict(xgb_model, test_matrix)
@@ -90,3 +89,7 @@ test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
 
 # Calculating accuracy
 accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
+
+# print results
+print(accuracy)
+print(importance_matrix)
