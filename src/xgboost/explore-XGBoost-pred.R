@@ -55,11 +55,9 @@ params <- list(
     subsample = 1,
     colsample_bytree = 1
 )
-# Number of rounds for training
-nrounds <- 100
 
 # Train the model
-xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = nrounds)
+xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = 100)
 
 # Feature importance
 importance_matrix <- xgb.importance(feature_names = colnames(train_matrix), model = xgb_model)
