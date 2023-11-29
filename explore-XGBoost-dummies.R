@@ -1,46 +1,82 @@
-# HFCS correlated effects mixed hybrid model (Bell & Jones, 2015) pooled waves
+# HFCS  correlated efects mixed hybrid model (Bell & Jones, 2015) pooled waves
 
 library(magrittr)
 library(data.table)
 library(xgboost)
 library(Matrix)
 
-# Clean environment
+# clean enviroment
 rm(list = ls())
-
-# Import and merge multicountry HFCS waves
-outcomeA <- fread(".datasets/HFCSgz/merged/1_6.gz", header = TRUE)[, wave := 1]
-outcomeB <- fread(".datasets/HFCSgz/merged/2_5.gz", header = TRUE)[, wave := 2]
-outcomeC <- fread(".datasets/HFCSgz/merged/3_3.gz", header = TRUE)[, wave := 3]
-outcomeD <- fread(".datasets/HFCSgz/merged/4_0.gz", header = TRUE)[, wave := 4]
+# import and merrge multicountry HFCS waves
+outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+outcomeB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
+outcomeC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
+outcomeD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
+varnames <- c(
+    "profit", "Kgains",
+    "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
+    "rental", "financ", "pvpens", "pvtran", "income",
+    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
+    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
+)
+dataset[employm %in% c(1, 3), employm := 1] # worker
+dataset[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
+dataset[status == 2 & employm == 3, employm := 2] # self-employed
+dataset[status == 2 & employm == 2, employm := 3] # capitalist
+dataset[status == 1 & d_isco %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
+dataset[!(employm %in% c(1, 2, 3, 4)), employm := 5] # inactive/other
+dataset[retired_status == 1, employm := 1] # worker
+dataset[retired_status == 2, employm := 2] # self-employed
+dataset[retired_status == 3, employm := 3] # capitalist
+dataset[retired_isco08 %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
 
-# Encoding categorical variables as numeric factors
-dataset[, hsize := as.numeric(hsize)]
-dataset[, head_gendr := as.numeric(as.factor(head_gendr))]
-dataset[, edu_ref := as.factor(edu_ref)] # Converted to factor for dummy variable creation
-dataset[, class := as.factor(employm)] # Converted to factor for dummy variable creation
-dataset[, quintile.gwealth := as.numeric(as.factor(quintile.gwealth))]
-dataset[, quintile.gincome := as.numeric(as.factor(quintile.gincome))]
-dataset[, wave := as.numeric(as.factor(wave))]
-dataset[, sa0100 := as.numeric(as.factor(sa0100))]
+dataset[age_ref < 30, age := 1][age_ref >= 30 & age_ref < 50, age := 2][age_ref >= 50 & age_ref < 70, age := 3][age_ref >= 70, age := 4]
 
-# Create dummy variables for 'class', 'age', and 'edu_ref'
-dataset[, class := as.factor(class)]
-dataset[, edu_ref := as.factor(edu_ref)]
+dataset[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] # top wealth quintile
+dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, quintile.gincome := 2] # top income quintile
 
-# Create dummy variables using model.matrix
-dummy_vars <- model.matrix(~ class + edu_ref - 1, data = dataset)
-dummy_var_names <- colnames(dummy_vars)
+dataset[edu_ref %in% c(2, 3, 4), edu_ref := 2][edu_ref %in% c(5, 6), edu_ref := 3] # c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter")
+# dataset[employm %in% c(2, 3), employm := 3]
 
-# Merge dummy variables back to the dataset
-dataset <- cbind(dataset, dummy_vars)
+dataset$age <- dataset$age %>%
+    factor(levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))
 
-# Update the list of variables for XGBoost
-all_columns_for_model <- c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", dummy_var_names)
+dataset$class <- dataset$employm %>%
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "self-employed", "Capitalist", "Manager", "Inactive"))
 
-# Prepare data for XGBoost
-data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, ..all_columns_for_model]), label = dataset$rentsbi)
+dataset$edu_ref <- dataset$edu_ref %>%
+    factor(levels = c(2, 1, 3), labels = c("secondary", "primary", "tertiary"))
+
+dataset$head_gendr <- dataset$head_gendr %>%
+    factor(levels = c(1, 2), labels = c("male", "female"))
+
+dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
+
+dataset$quintile.gincome <- dataset$quintile.gincome %>%
+    factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
+
+### prepare as numeric dummies for XGboost
+
+dataset2 <- dataset[, c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", "rentsbi")]
+dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
+dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
+dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
+dataset2$rentsbi <- dataset$rentsbi
+dataset2$wave <- as.numeric(as.factor(dataset2$wave))
+dataset2$sa0100 <- as.numeric(as.factor(dataset2$sa0100))
+dataset2$hsize <- as.numeric(dataset2$hsize)
+class_dummies <- fastDummies::dummy_cols(dataset$class, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
+edu_dummies <- fastDummies::dummy_cols(dataset$edu_ref, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
+age_dummies <- fastDummies::dummy_cols(dataset$age, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
+dataset2 <- cbind(dataset2, class_dummies, edu_dummies, age_dummies)
+
+
+
+
+# Prepare data for XGBoost including 'wave' and 'sa0100'
+data_matrix <- xgb.DMatrix(data = as.matrix(dataset2), label = dataset2$rentsbi)
 
 # XGBoost parameters
 params <- list(
@@ -53,7 +89,6 @@ params <- list(
     subsample = 1,
     colsample_bytree = 1
 )
-
 # Number of rounds for training
 nrounds <- 100
 
