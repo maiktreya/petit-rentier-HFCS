@@ -1,40 +1,44 @@
-# HFCS  correlated efects mixed hybrid model (Bell & Jones, 2015) pooled waves
+# HFCS correlated effects mixed hybrid model (Bell & Jones, 2015) pooled waves
 
 library(magrittr)
 library(data.table)
 library(xgboost)
 library(Matrix)
 
-# clean enviroment
+# Clean environment
 rm(list = ls())
-# import and merrge multicountry HFCS waves
+
+# Import and merge multicountry HFCS waves
 outcomeA <- fread(".datasets/HFCSgz/merged/1_6.gz", header = TRUE)[, wave := 1]
 outcomeB <- fread(".datasets/HFCSgz/merged/2_5.gz", header = TRUE)[, wave := 2]
 outcomeC <- fread(".datasets/HFCSgz/merged/3_3.gz", header = TRUE)[, wave := 3]
 outcomeD <- fread(".datasets/HFCSgz/merged/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
-varnames <- c(
-    "profit", "Kgains",
-    "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
-    "rental", "financ", "pvpens", "pvtran", "income",
-    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
-)
-
 
 # Encoding categorical variables as numeric factors
-dataset$hsize <- as.numeric(dataset$hsize)
-dataset$head_gendr <- as.numeric(as.factor(dataset$head_gendr))
-dataset$age <- as.numeric(as.factor(dataset$age))
-dataset$edu_ref <- as.numeric(as.factor(dataset$edu_ref))
-dataset$class <- as.numeric(as.factor(dataset$employm))
-dataset$quintile.gwealth <- as.numeric(as.factor(dataset$quintile.gwealth))
-dataset$quintile.gincome <- as.numeric(as.factor(dataset$quintile.gincome))
-dataset$wave <- as.numeric(as.factor(dataset$wave))
-dataset$sa0100 <- as.numeric(as.factor(dataset$sa0100))
+dataset[, hsize := as.numeric(hsize)]
+dataset[, head_gendr := as.numeric(as.factor(head_gendr))]
+dataset[, age := as.factor(age)] # Converted to factor for dummy variable creation
+dataset[, edu_ref := as.factor(edu_ref)] # Converted to factor for dummy variable creation
+dataset[, class := as.factor(employm)] # Converted to factor for dummy variable creation
+dataset[, quintile.gwealth := as.numeric(as.factor(quintile.gwealth))]
+dataset[, quintile.gincome := as.numeric(as.factor(quintile.gincome))]
+dataset[, wave := as.numeric(as.factor(wave))]
+dataset[, sa0100 := as.numeric(as.factor(sa0100))]
 
-# Prepare data for XGBoost including 'wave' and 'sa0100'
-data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = dataset$rentsbi)
+# Create dummy variables for 'class', 'age', and 'edu_ref'
+dummy_vars <- c("class", "age", "edu_ref")
+dummies <- dataset[, c(.SD, lapply(.SD, function(x) as.numeric(factor(x, levels = unique(x))))), .SDcols = dummy_vars]
+dummies <- dummies[, lapply(.SD, function(x) x - 1)] # Convert to 0/1 encoding
+
+# Names of dummy variables
+dummy_names <- setdiff(names(dummies), dummy_vars)
+
+# Merge dummy variables back to the dataset
+dataset <- cbind(dataset, dummies)
+
+# Prepare data for XGBoost including dummy variables
+data_matrix <- xgb.DMatrix(data = as.matrix(dataset[, c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", dummy_names)]), label = dataset$rentsbi)
 
 # XGBoost parameters
 params <- list(
@@ -47,6 +51,7 @@ params <- list(
     subsample = 1,
     colsample_bytree = 1
 )
+
 # Number of rounds for training
 nrounds <- 100
 
