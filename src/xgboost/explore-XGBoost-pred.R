@@ -13,15 +13,6 @@ outcomeB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
 outcomeC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
 outcomeD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(outcomeA, outcomeB, outcomeC, outcomeD)
-varnames <- c(
-    "profit", "Kgains",
-    "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
-    "rental", "financ", "pvpens", "pvtran", "income",
-    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
-)
-
-
 # Encoding categorical variables as numeric factors
 dataset$hsize <- as.numeric(dataset$hsize)
 dataset$head_gendr <- as.numeric(as.factor(dataset$head_gendr))
@@ -34,11 +25,13 @@ dataset$wave <- as.numeric(as.factor(dataset$wave))
 dataset$sa0100 <- as.numeric(as.factor(dataset$sa0100))
 
 
+#################################################################################################################################
+# proper model fitting after variable transformation
+
 # split into training and test
-sample_indices <- sample(1:nrow(dataset), size = 0.6 * nrow(dataset))
+sample_indices <- sample(seq_len(nrow(dataset)), size = 0.6 * nrow(dataset))
 train_data <- dataset[sample_indices, ]
 test_data <- dataset[-sample_indices, ]
-
 
 # Prepare data for XGBoost including 'wave' and 'sa0100'
 train_matrix <- xgb.DMatrix(data = as.matrix(train_data[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = train_data$rentsbi)
@@ -61,6 +54,7 @@ xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = 100)
 
 # Feature importance
 importance_matrix <- xgb.importance(feature_names = colnames(train_matrix), model = xgb_model)
+
 # Predicting on the test set
 test_predictions <- predict(xgb_model, test_matrix)
 
