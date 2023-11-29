@@ -21,7 +21,6 @@ varnames <- c(
     "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace"
 )
 
-
 # Encoding categorical variables as numeric factors
 dataset$hsize <- as.numeric(dataset$hsize)
 dataset$head_gendr <- as.numeric(as.factor(dataset$head_gendr))
