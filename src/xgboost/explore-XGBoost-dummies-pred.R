@@ -45,7 +45,7 @@ dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gweal
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
-dataset2$rentsbi <- dataset$rentsbi
+dataset2$rentsbi <- dataset2$rentsbi
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$hsize <- as.numeric(dataset2$hsize)
 
@@ -56,12 +56,12 @@ dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "a
 
 # split into training and test
 sample_indices <- sample(seq_len(nrow(dataset2)), size = 0.6 * nrow(dataset2))
-train_data <- dataset[sample_indices, ]
-test_data <- dataset[-sample_indices, ]
+train_data <- dataset2[sample_indices, ]
+test_data <- dataset2[-sample_indices, ]
 
 # Prepare data for XGBoost including 'wave' and 'sa0100'
 data_matrix <- xgb.DMatrix(data = as.matrix(train_data[, !c("rentsbi")]), label = train_data$rentsbi)
-test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, c("hsize", "head_gendr", "age", "edu_ref", "class", "quintile.gwealth", "quintile.gincome", "wave", "sa0100")]), label = test_data$rentsbi)
+test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, !c("rentsbi")]), label = test_data$rentsbi)
 
 # XGBoost parameters
 params <- list(
