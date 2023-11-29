@@ -58,8 +58,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
     factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
 ### prepare as numeric dummies for XGboost
-
-dataset2 <- dataset[, c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", "rentsbi")]
+dataset2 <- dataset[, c("hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "wave", "sa0100", "rentsbi", "class", "edu_ref", "age")]
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
@@ -67,12 +66,7 @@ dataset2$rentsbi <- dataset$rentsbi
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$sa0100 <- as.numeric(as.factor(dataset2$sa0100))
 dataset2$hsize <- as.numeric(dataset2$hsize)
-class_dummies <- fastDummies::dummy_cols(dataset$class, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
-edu_dummies <- fastDummies::dummy_cols(dataset$edu_ref, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
-age_dummies <- fastDummies::dummy_cols(dataset$age, remove_selected_columns = TRUE, ignore_na = TRUE, omit_colname_prefix = TRUE)
-dataset2 <- cbind(dataset2, class_dummies, edu_dummies, age_dummies)
-
-
+dataset2 <- fastDummies::dummy_cols(dataset, c("class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
 
 
 # Prepare data for XGBoost including 'wave' and 'sa0100'
