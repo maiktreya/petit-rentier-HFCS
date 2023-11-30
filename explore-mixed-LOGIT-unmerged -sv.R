@@ -48,7 +48,7 @@ dataset$age <- dataset$age %>%
     factor(levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))
 
 dataset$class <- dataset$employm %>%
-    factor(levels = c(5, 2, 3, 4, 1), labels = c("Inactive", "Employer", "Self-Employed", "Manager", "Worker"))
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
 
 dataset$edu_ref <- dataset$edu_ref %>%
     factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
