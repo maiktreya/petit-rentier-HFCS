@@ -2,8 +2,10 @@
 
 library(magrittr)
 library(data.table)
-library(xgboost)
-library(Matrix)
+library(xgboost) # gradient boost algorithm
+library(caret) # for confusion matrix
+library(Matrix) # dataset tidy for ml models
+
 
 # clean enviroment
 rm(list = ls())
@@ -89,7 +91,9 @@ test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
 
 # Calculating accuracy
 accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
+confusion <- confusionMatrix(xgb_model, test_matrix)
 
 # print results
 print(accuracy)
 print(importance_matrix)
+print(confusion)
