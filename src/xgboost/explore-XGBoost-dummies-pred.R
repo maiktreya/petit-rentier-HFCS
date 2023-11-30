@@ -87,13 +87,13 @@ importance_matrix <- xgb.importance(feature_names = colnames(data_matrix), model
 test_predictions <- predict(xgb_model, test_matrix)
 
 # Converting predictions to binary using a threshold (e.g., 0.5)
-test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
+test_predictions_binary <- ifelse(test_predictions > 0.7, 1, 0)
 
 # Calculating accuracy
-accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
-confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor(test_data$rentsbi))
+accuracy_xgb <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
+confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor(test_data$rentsbi), positive = "1")
 
 # print results
-print(accuracy)
 print(importance_matrix)
+print(paste("XGBoost Accuracy:", accuracy_xgb))
 print(confusion)
