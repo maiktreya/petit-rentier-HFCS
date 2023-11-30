@@ -91,7 +91,7 @@ test_predictions_binary <- ifelse(test_predictions > 0.5, 1, 0)
 
 # Calculating accuracy
 accuracy <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
-confusion <- confusionMatrix(xgb_model, test_matrix)
+confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor(test_data$rentsbi))
 
 # print results
 print(accuracy)
