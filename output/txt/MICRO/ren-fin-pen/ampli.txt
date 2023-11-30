@@ -1,14 +1,67 @@
+        Time difference of -7.98361 mins
+Time difference of -8.098795 mins
+Time difference of -7.913302 mins
+Time difference of -12.87229 mins
+Time difference of -11.71281 mins
+Time difference of 11.713 mins
+                           names                        mean_estimates        combined_se
+(Intercept)                "(Intercept)"                "-3.06127728598695"   "0.215955099772929"
+hsize                      "hsize"                      "-0.186727221509793"  "0.00631789891271604"
+head_gendrfemale           "head_gendrfemale"           "0.0394415491298856"  "0.01309424545531"
+age0-29                    "age0-29"                    "-1.05130141761526"   "0.0487564272716034"
+age50-69                   "age50-69"                   "0.807100079891075"   "0.0181073806833238"
+age+70                     "age+70"                     "1.18591002915058"    "0.0244186876842744"
+edu_refsecondary           "edu_refsecondary"           "0.725185058769896"   "0.0213888168556877"
+edu_reftertiary            "edu_reftertiary"            "0.737148086464221"   "0.0228420218920103"
+quintile.gincometop-income "quintile.gincometop-income" "0.249174202186435"   "0.0163966582731486"
+quintile.gwealthtop-wealth "quintile.gwealthtop-wealth" "1.65330750759227"    "0.0149341859304103"
+classEmployer              "classEmployer"              "0.0462438433088299"  "0.357662104537444"
+classSelf-Employed         "classSelf-Employed"         "-0.594913060144955"  "0.401409082343912"
+classManager               "classManager"               "-0.177069194313274"  "0.0995252582518448"
+classWorker                "classWorker"                "-1.22344030892811"   "0.0330701838646337"
+classInactive:wave         "classInactive:wave"         "-0.052882827750725"  "0.0397832847021928"
+classEmployer:wave         "classEmployer:wave"         "-0.119908745512566"  "0.12253540717834"
+classSelf-Employed:wave    "classSelf-Employed:wave"    "0.0878277293979058"  "0.135938579322963"
+classManager:wave          "classManager:wave"          "-0.303844692800692"  "0.0548425771622506"
+classWorker:wave           "classWorker:wave"           "-0.0528376907660281" "0.039982454272158"
+                           t_stats             p_values
+(Intercept)                "-14.1755267146078" "0.000143787699454891"
+hsize                      "-29.5552721069922" "7.80376376461198e-06"
+head_gendrfemale           "3.01212843951166"  "0.0394675905880516"
+age0-29                    "-21.5623144772045" "2.73632664687123e-05"
+age50-69                   "44.5729889930674"  "1.51498495474921e-06"
+age+70                     "48.5656741461295"  "1.07549160424111e-06"
+edu_refsecondary           "33.9048701787848"  "4.51427945990546e-06"
+edu_reftertiary            "32.2715777941734"  "5.49661738705384e-06"
+quintile.gincometop-income "15.1966454405216"  "0.000109326664978954"
+quintile.gwealthtop-wealth "110.706235699507"  "3.99233259297301e-08"
+classEmployer              "0.129294780526542" "0.903365164031964"
+classSelf-Employed         "-1.48206178263614" "0.212456232463537"
+classManager               "-1.77913825518752" "0.14983468654472"
+classWorker                "-36.99526781998"   "3.18752841265885e-06"
+classInactive:wave         "-1.32927253610636" "0.254505610318461"
+classEmployer:wave         "-0.97856405975824" "0.383202865268055"
+classSelf-Employed:wave    "0.646083914039183" "0.553423362882162"
+classManager:wave          "-5.5403066107155"  "0.00518947183085682"
+classWorker:wave           "-1.32152194576064" "0.256845079248128"
 x being coerced from class: matrix to data.table
 Warning messages:
 1: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
-  Model failed to converge with max|grad| = 0.00214801 (tol = 0.002, component 1)
+  Model failed to converge with max|grad| = 0.0027005 (tol = 0.002, component 1)
 2: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
-  Model failed to converge with max|grad| = 0.00295302 (tol = 0.002, component 1)
+  Model failed to converge with max|grad| = 0.00395087 (tol = 0.002, component 1)
 3: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
-  Model failed to converge with max|grad| = 0.0037531 (tol = 0.002, component 1)
-  Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+  Model failed to converge with max|grad| = 0.00279644 (tol = 0.002, component 1)
+4: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.00223139 (tol = 0.002, component 1)
+
+
+
+
+
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
  Family: binomial  ( logit )
-Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class * wave + (1 | sa0100) + (1 | wave)
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class + class:wave + (1 | sa0100) + (1 |      wave)
    Data: dataset_s
 
      AIC      BIC   logLik deviance df.resid
@@ -20,60 +73,60 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.777000 0.88148
- wave   (Intercept) 0.007723 0.08788
+ sa0100 (Intercept) 0.776989 0.88147
+ wave   (Intercept) 0.007724 0.08788
 Number of obs: 276952, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.052699   0.210413 -14.508  < 2e-16 ***
-hsize                      -0.187843   0.006169 -30.450  < 2e-16 ***
-head_gendrfemale            0.037273   0.012631   2.951  0.00317 **
-age0-29                    -1.030954   0.045622 -22.598  < 2e-16 ***
-age50-69                    0.802812   0.017720  45.305  < 2e-16 ***
-age+70                      1.179000   0.023453  50.272  < 2e-16 ***
-edu_refsecondary            0.720886   0.020906  34.482  < 2e-16 ***
-edu_reftertiary             0.732592   0.022273  32.892  < 2e-16 ***
+(Intercept)                -3.052822   0.214485 -14.233  < 2e-16 ***
+hsize                      -0.187844   0.006169 -30.450  < 2e-16 ***
+head_gendrfemale            0.037272   0.012635   2.950  0.00318 **
+age0-29                    -1.030955   0.045659 -22.579  < 2e-16 ***
+age50-69                    0.802817   0.017717  45.313  < 2e-16 ***
+age+70                      1.179005   0.023451  50.276  < 2e-16 ***
+edu_refsecondary            0.720876   0.020924  34.452  < 2e-16 ***
+edu_reftertiary             0.732585   0.022298  32.854  < 2e-16 ***
 quintile.gincometop-income  0.244662   0.015702  15.581  < 2e-16 ***
-quintile.gwealthtop-wealth  1.652367   0.014480 114.115  < 2e-16 ***
-classEmployer               0.088532   0.294112   0.301  0.76340
-classSelf-Employed         -0.506512   0.296234  -1.710  0.08730 .
-classManager               -0.189077   0.098910  -1.912  0.05593 .
-classWorker                -1.224384   0.032215 -38.007  < 2e-16 ***
-wave                       -0.052655   0.039402  -1.336  0.18143
-classEmployer:wave         -0.079758   0.103746  -0.769  0.44203
-classSelf-Employed:wave     0.131119   0.102019   1.285  0.19871
-classManager:wave          -0.245932   0.039094  -6.291 3.16e-10 ***
-classWorker:wave            0.001667   0.010860   0.153  0.87801
+quintile.gwealthtop-wealth  1.652366   0.014481 114.109  < 2e-16 ***
+classEmployer               0.088674   0.275066   0.322  0.74717
+classSelf-Employed         -0.506370   0.296105  -1.710  0.08725 .
+classManager               -0.189000   0.098530  -1.918  0.05508 .
+classWorker                -1.224383   0.032206 -38.017  < 2e-16 ***
+classInactive:wave         -0.052627   0.039164  -1.344  0.17903
+classEmployer:wave         -0.132441   0.105008  -1.261  0.20722
+classSelf-Employed:wave     0.078433   0.110450   0.710  0.47763
+classManager:wave          -0.298589   0.054087  -5.521 3.38e-08 ***
+classWorker:wave           -0.050959   0.039361  -1.295  0.19543
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr wave   clssE: clS-E: clssM:
-hsize       -0.070
-hed_gndrfml -0.034  0.177
-age0-29     -0.043  0.137  0.023
-age50-69    -0.086  0.253  0.043  0.293
-age+70      -0.095  0.253  0.048  0.271  0.724
-ed_rfscndry -0.059  0.011  0.034 -0.020  0.009  0.108
-edu_rftrtry -0.052  0.035 -0.005 -0.003  0.048  0.125  0.798
-qntl.gncmt-  0.012 -0.210  0.082  0.026 -0.070 -0.051 -0.009 -0.155
-qntl.gwlth-  0.001 -0.116  0.053  0.026 -0.060 -0.051 -0.079 -0.159 -0.314
-classEmplyr  0.029 -0.012 -0.002  0.008 -0.003  0.005 -0.009 -0.011 -0.005   -0.001
-clssSlf-Emp -0.035  0.001  0.004  0.017  0.013  0.015 -0.005 -0.006 -0.003    0.000    0.031
-classManagr -0.018 -0.023 -0.002  0.011  0.060  0.088 -0.014 -0.019 -0.016   -0.002    0.025  0.023
-classWorker -0.066 -0.063 -0.017  0.053  0.160  0.250 -0.072 -0.072 -0.089   -0.033    0.027  0.031  0.118
-wave        -0.414 -0.001 -0.004  0.003 -0.004 -0.015 -0.026 -0.029  0.001    0.001   -0.015  0.010  0.029  0.101
-clssEmplyr: -0.028  0.002  0.003 -0.006  0.009  0.013  0.009  0.011  0.000   -0.005   -0.880 -0.029 -0.020 -0.018  0.012
-clssSlf-Em:  0.033 -0.005 -0.002 -0.015 -0.004  0.003  0.007  0.006 -0.004   -0.002   -0.029 -0.877 -0.018 -0.024 -0.013  0.031
-clssMngr:wv  0.014 -0.001 -0.003  0.001 -0.012  0.001 -0.005 -0.007 -0.004   -0.004   -0.021 -0.020 -0.968 -0.071 -0.031  0.021  0.019
-clssWrkr:wv  0.054 -0.001 -0.002 -0.009 -0.037  0.006  0.068  0.052  0.011   -0.002   -0.020 -0.025 -0.087 -0.844 -0.124  0.028  0.034  0.092
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr clssI: clssE: clS-E: clssM:
+hsize       -0.071
+hed_gndrfml -0.037  0.178
+age0-29     -0.039  0.136  0.022
+age50-69    -0.083  0.253  0.043  0.293
+age+70      -0.092  0.253  0.048  0.271  0.724
+ed_rfscndry -0.066  0.011  0.034 -0.022  0.008  0.107
+edu_rftrtry -0.060  0.036 -0.005 -0.005  0.047  0.124  0.799
+qntl.gncmt-  0.015 -0.210  0.082  0.027 -0.070 -0.051 -0.010 -0.156
+qntl.gwlth-  0.003 -0.116  0.053  0.025 -0.061 -0.052 -0.079 -0.159 -0.314
+classEmplyr -0.045 -0.004 -0.001  0.003  0.010  0.017 -0.007 -0.009 -0.011    0.000
+clssSlf-Emp  0.001 -0.003  0.003  0.004  0.000  0.000 -0.005 -0.006  0.000   -0.001    0.010
+classManagr -0.024 -0.022 -0.003  0.012  0.060  0.087 -0.018 -0.022 -0.016   -0.002    0.022  0.001
+classWorker -0.055 -0.063 -0.018  0.054  0.160  0.250 -0.073 -0.074 -0.089   -0.033    0.040  0.023  0.122
+clssInctv:w -0.410 -0.001 -0.002  0.004 -0.004 -0.016 -0.024 -0.027  0.001    0.001    0.019  0.003  0.039  0.097
+clssEmplyr: -0.117 -0.006  0.002  0.002 -0.004 -0.002 -0.003 -0.002  0.005   -0.006   -0.802 -0.009 -0.001  0.009  0.354
+clssSlf-Em: -0.146 -0.001 -0.002  0.000  0.006  0.010 -0.003 -0.004 -0.006   -0.001   -0.009 -0.825  0.017  0.018  0.347  0.140
+clssMngr:wv -0.282 -0.002 -0.003  0.003 -0.012 -0.010 -0.018 -0.022 -0.002   -0.002    0.001  0.003 -0.668  0.017  0.694  0.257  0.240
+clssWrkr:wv -0.396 -0.001 -0.003  0.001 -0.014 -0.014 -0.004 -0.012  0.003    0.001    0.010 -0.004  0.014 -0.136  0.962  0.350  0.342  0.686
 optimizer (Nelder_Mead) convergence code: 0 (OK)
-Model failed to converge with max|grad| = 0.00214801 (tol = 0.002, component 1)
+Model failed to converge with max|grad| = 0.0027005 (tol = 0.002, component 1)
 
 Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
  Family: binomial  ( logit )
-Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class * wave + (1 | sa0100) + (1 | wave)
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class + class:wave + (1 | sa0100) + (1 |      wave)
    Data: dataset_s
 
      AIC      BIC   logLik deviance df.resid
@@ -85,57 +138,60 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.768948 0.87690
- wave   (Intercept) 0.007911 0.08894
+ sa0100 (Intercept) 0.76901  0.87693
+ wave   (Intercept) 0.00791  0.08894
 Number of obs: 276958, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.061307   0.207933 -14.723  < 2e-16 ***
-hsize                      -0.185336   0.006164 -30.068  < 2e-16 ***
-head_gendrfemale            0.040835   0.012637   3.231  0.00123 **
-age0-29                    -1.065537   0.046314 -23.007  < 2e-16 ***
-age50-69                    0.811822   0.017732  45.784  < 2e-16 ***
-age+70                      1.189136   0.023474  50.658  < 2e-16 ***
-edu_refsecondary            0.721942   0.020929  34.494  < 2e-16 ***
-edu_reftertiary             0.732512   0.022303  32.844  < 2e-16 ***
-quintile.gincometop-income  0.244575   0.015694  15.584  < 2e-16 ***
-quintile.gwealthtop-wealth  1.657444   0.014481 114.459  < 2e-16 ***
-classEmployer               0.157692   0.298361   0.529  0.59713
-classSelf-Employed         -0.604941   0.328438  -1.842  0.06549 .
-classManager               -0.172392   0.098021  -1.759  0.07863 .
-classWorker                -1.215515   0.032234 -37.710  < 2e-16 ***
-wave                       -0.052311   0.039650  -1.319  0.18707
-classEmployer:wave         -0.078356   0.105219  -0.745  0.45645
-classSelf-Employed:wave     0.127026   0.110825   1.146  0.25172
-classManager:wave          -0.253595   0.038738  -6.546 5.89e-11 ***
-classWorker:wave           -0.002584   0.010868  -0.238  0.81209
+(Intercept)                -3.061347   0.208451 -14.686  < 2e-16 ***
+hsize                      -0.185335   0.006164 -30.069  < 2e-16 ***
+head_gendrfemale            0.040833   0.012634   3.232  0.00123 **
+age0-29                    -1.065531   0.046137 -23.095  < 2e-16 ***
+age50-69                    0.811826   0.017730  45.789  < 2e-16 ***
+age+70                      1.189137   0.023484  50.636  < 2e-16 ***
+edu_refsecondary            0.721922   0.020945  34.468  < 2e-16 ***
+edu_reftertiary             0.732497   0.022310  32.832  < 2e-16 ***
+quintile.gincometop-income  0.244578   0.015700  15.578  < 2e-16 ***
+quintile.gwealthtop-wealth  1.657443   0.014479 114.473  < 2e-16 ***
+classEmployer               0.157633   0.310906   0.507  0.61215
+classSelf-Employed         -0.605394   0.295786  -2.047  0.04068 *
+classManager               -0.172372   0.099058  -1.740  0.08184 .
+classWorker                -1.215520   0.032271 -37.666  < 2e-16 ***
+classInactive:wave         -0.052271   0.039419  -1.326  0.18483
+classEmployer:wave         -0.130600   0.112599  -1.160  0.24610
+classSelf-Employed:wave     0.074901   0.108638   0.689  0.49054
+classManager:wave          -0.305876   0.054444  -5.618 1.93e-08 ***
+classWorker:wave           -0.054853   0.039583  -1.386  0.16582
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr wave   clssE: clS-E: clssM:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr clssI: clssE: clS-E: clssM:
 hsize       -0.068
-hed_gndrfml -0.037  0.177
-age0-29     -0.039  0.134  0.021
-age50-69    -0.080  0.253  0.043  0.289
-age+70      -0.089  0.253  0.048  0.268  0.725
-ed_rfscndry -0.063  0.010  0.034 -0.019  0.007  0.107
-edu_rftrtry -0.056  0.035 -0.005 -0.003  0.047  0.124  0.799
-qntl.gncmt-  0.013 -0.210  0.083  0.025 -0.071 -0.052 -0.008 -0.154
-qntl.gwlth-  0.001 -0.115  0.053  0.026 -0.059 -0.050 -0.080 -0.160 -0.313
-classEmplyr -0.019 -0.006 -0.003  0.003  0.002  0.010  0.000  0.001 -0.010   -0.005
-clssSlf-Emp  0.020 -0.011  0.002 -0.010 -0.008 -0.006 -0.011 -0.013  0.006   -0.007   -0.044
-classManagr -0.013 -0.021 -0.002  0.018  0.064  0.091 -0.017 -0.021 -0.018   -0.001    0.048  0.000
-classWorker -0.055 -0.063 -0.017  0.055  0.161  0.251 -0.072 -0.072 -0.089   -0.032    0.031  0.015  0.122
-wave        -0.406 -0.003 -0.003  0.002 -0.009 -0.020 -0.026 -0.029  0.001    0.002    0.005  0.003  0.024  0.096
-clssEmplyr:  0.019 -0.003  0.004 -0.002  0.004  0.009  0.001  0.000  0.005   -0.001   -0.880  0.035 -0.041 -0.021 -0.009
-clssSlf-Em: -0.020  0.006 -0.001  0.011  0.015  0.022  0.010  0.012 -0.011    0.004    0.038 -0.900  0.005 -0.010 -0.005 -0.027
-clssMngr:wv  0.009 -0.003 -0.003 -0.006 -0.015 -0.001 -0.003 -0.005 -0.002   -0.005   -0.043  0.002 -0.967 -0.074 -0.026  0.040 -0.003
-clssWrkr:wv  0.045  0.000 -0.003 -0.011 -0.038  0.005  0.069  0.053  0.010   -0.003   -0.024 -0.015 -0.090 -0.843 -0.119  0.031  0.023  0.095
+hed_gndrfml -0.035  0.177
+age0-29     -0.042  0.134  0.022
+age50-69    -0.087  0.253  0.043  0.289
+age+70      -0.099  0.253  0.048  0.267  0.725
+ed_rfscndry -0.065  0.010  0.034 -0.020  0.008  0.108
+edu_rftrtry -0.059  0.036 -0.005 -0.004  0.048  0.125  0.799
+qntl.gncmt-  0.016 -0.210  0.082  0.026 -0.071 -0.052 -0.009 -0.154
+qntl.gwlth-  0.003 -0.115  0.053  0.025 -0.060 -0.050 -0.080 -0.160 -0.313
+classEmplyr -0.056 -0.004 -0.001  0.003  0.009  0.019 -0.001 -0.001 -0.013   -0.004
+clssSlf-Emp -0.007 -0.004  0.005 -0.003  0.000  0.005 -0.009 -0.012 -0.002    0.001   -0.051
+classManagr -0.037 -0.021 -0.002  0.016  0.063  0.090 -0.015 -0.020 -0.016   -0.002    0.022 -0.005
+classWorker -0.066 -0.063 -0.016  0.054  0.162  0.251 -0.072 -0.073 -0.089   -0.033    0.037  0.021  0.122
+clssInctv:w -0.415 -0.002 -0.004  0.005 -0.002 -0.012 -0.026 -0.029  0.001    0.001    0.068  0.030  0.038  0.101
+clssEmplyr: -0.095 -0.006  0.002  0.000 -0.004 -0.005 -0.008 -0.009  0.008   -0.001   -0.828  0.054 -0.003  0.009  0.284
+clssSlf-Em: -0.144 -0.001 -0.005  0.006  0.007  0.008 -0.001 -0.001 -0.004   -0.003    0.065 -0.821  0.021  0.022  0.331  0.060
+clssMngr:wv -0.278 -0.004 -0.005  0.000 -0.012 -0.010 -0.022 -0.025 -0.002   -0.002    0.037  0.028 -0.668  0.020  0.696  0.206  0.225
+clssWrkr:wv -0.399 -0.002 -0.005  0.002 -0.012 -0.011 -0.007 -0.014  0.004    0.000    0.060  0.025  0.013 -0.131  0.962  0.280  0.324  0.687
+optimizer (Nelder_Mead) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.00395087 (tol = 0.002, component 1)
+
 Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
  Family: binomial  ( logit )
-Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class * wave + (1 | sa0100) + (1 | wave)
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class + class:wave + (1 | sa0100) + (1 |      wave)
    Data: dataset_s
 
      AIC      BIC   logLik deviance df.resid
@@ -147,57 +203,60 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.778255 0.88219
- wave   (Intercept) 0.007701 0.08775
+ sa0100 (Intercept) 0.778265 0.88219
+ wave   (Intercept) 0.007702 0.08776
 Number of obs: 276956, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.076313   0.222201 -13.845  < 2e-16 ***
-hsize                      -0.186079   0.006177 -30.123  < 2e-16 ***
-head_gendrfemale            0.043935   0.012647   3.474 0.000513 ***
-age0-29                    -1.040853   0.045967 -22.643  < 2e-16 ***
-age50-69                    0.807977   0.017777  45.450  < 2e-16 ***
-age+70                      1.193436   0.023541  50.696  < 2e-16 ***
-edu_refsecondary            0.728140   0.020976  34.713  < 2e-16 ***
-edu_reftertiary             0.740068   0.022345  33.119  < 2e-16 ***
-quintile.gincometop-income  0.250827   0.015717  15.959  < 2e-16 ***
-quintile.gwealthtop-wealth  1.655934   0.014495 114.242  < 2e-16 ***
-classEmployer               0.233209   0.279090   0.836 0.403377
-classSelf-Employed         -0.281349   0.378046  -0.744 0.456744
-classManager               -0.174021   0.100800  -1.726 0.084276 .
-classWorker                -1.218416   0.032360 -37.652  < 2e-16 ***
-wave                       -0.051604   0.039687  -1.300 0.193507
-classEmployer:wave         -0.124668   0.099189  -1.257 0.208801
-classSelf-Employed:wave     0.047602   0.127554   0.373 0.709004
-classManager:wave          -0.251444   0.039782  -6.321 2.61e-10 ***
-classWorker:wave           -0.003169   0.010903  -0.291 0.771342
+(Intercept)                -3.076332   0.211065 -14.575  < 2e-16 ***
+hsize                      -0.186078   0.006176 -30.130  < 2e-16 ***
+head_gendrfemale            0.043934   0.012643   3.475 0.000511 ***
+age0-29                    -1.040848   0.045978 -22.638  < 2e-16 ***
+age50-69                    0.807982   0.017763  45.486  < 2e-16 ***
+age+70                      1.193441   0.023523  50.734  < 2e-16 ***
+edu_refsecondary            0.728127   0.020967  34.728  < 2e-16 ***
+edu_reftertiary             0.740056   0.022333  33.137  < 2e-16 ***
+quintile.gincometop-income  0.250829   0.015713  15.963  < 2e-16 ***
+quintile.gwealthtop-wealth  1.655934   0.014491 114.270  < 2e-16 ***
+classEmployer               0.232986   0.321509   0.725 0.468658
+classSelf-Employed         -0.281187   0.339028  -0.829 0.406883
+classManager               -0.173971   0.099750  -1.744 0.081146 .
+classWorker                -1.218412   0.032308 -37.712  < 2e-16 ***
+classInactive:wave         -0.051580   0.038945  -1.324 0.185355
+classEmployer:wave         -0.176181   0.118715  -1.484 0.137792
+classSelf-Employed:wave    -0.004043   0.120942  -0.033 0.973330
+classManager:wave          -0.303043   0.054373  -5.573  2.5e-08 ***
+classWorker:wave           -0.054750   0.039141  -1.399 0.161874
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr wave   clssE: clS-E: clssM:
-hsize       -0.073
-hed_gndrfml -0.041  0.176
-age0-29     -0.039  0.136  0.022
-age50-69    -0.088  0.254  0.044  0.293
-age+70      -0.099  0.254  0.050  0.272  0.726
-ed_rfscndry -0.068  0.011  0.034 -0.020  0.009  0.108
-edu_rftrtry -0.061  0.035 -0.004 -0.003  0.048  0.125  0.799
-qntl.gncmt-  0.015 -0.210  0.082  0.026 -0.070 -0.052 -0.008 -0.154
-qntl.gwlth-  0.000 -0.115  0.053  0.025 -0.060 -0.049 -0.080 -0.159 -0.313
-classEmplyr -0.013 -0.011 -0.002 -0.004 -0.003  0.006 -0.006 -0.008 -0.010   -0.001
-clssSlf-Emp  0.026 -0.005  0.005  0.001  0.003  0.009 -0.013 -0.015 -0.003   -0.004    0.049
-classManagr -0.027 -0.021 -0.001  0.017  0.065  0.093 -0.015 -0.020 -0.016   -0.004    0.032  0.065
-classWorker -0.065 -0.062 -0.016  0.053  0.162  0.252 -0.072 -0.072 -0.091   -0.032    0.040  0.043  0.128
-wave        -0.429  0.001 -0.001  0.003 -0.001 -0.010 -0.021 -0.024 -0.001    0.001    0.012 -0.001  0.039  0.105
-clssEmplyr:  0.016  0.000  0.004  0.005  0.009  0.012  0.007  0.009  0.004   -0.006   -0.868 -0.046 -0.026 -0.029 -0.015
-clssSlf-Em: -0.026  0.002 -0.005  0.001  0.004  0.006  0.014  0.015 -0.004    0.002   -0.053 -0.919 -0.060 -0.037 -0.001  0.052
-clssMngr:wv  0.023 -0.002 -0.003 -0.005 -0.017 -0.006 -0.004 -0.005 -0.003   -0.002   -0.029 -0.060 -0.969 -0.080 -0.041  0.026  0.058
-clssWrkr:wv  0.053 -0.001 -0.003 -0.009 -0.039  0.003  0.068  0.052  0.011   -0.002   -0.032 -0.037 -0.096 -0.844 -0.126  0.040  0.043  0.100
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr clssI: clssE: clS-E: clssM:
+hsize       -0.069
+hed_gndrfml -0.038  0.176
+age0-29     -0.035  0.136  0.022
+age50-69    -0.080  0.253  0.044  0.293
+age+70      -0.090  0.254  0.049  0.272  0.725
+ed_rfscndry -0.068  0.010  0.034 -0.021  0.008  0.108
+edu_rftrtry -0.061  0.035 -0.004 -0.004  0.047  0.125  0.799
+qntl.gncmt-  0.009 -0.210  0.082  0.027 -0.069 -0.051 -0.008 -0.154
+qntl.gwlth-  0.006 -0.115  0.053  0.025 -0.060 -0.050 -0.079 -0.159 -0.312
+classEmplyr  0.050 -0.014 -0.006 -0.006 -0.011 -0.002 -0.012 -0.012 -0.011    0.000
+clssSlf-Emp -0.048  0.003  0.004  0.011  0.018  0.023  0.004  0.001 -0.004   -0.003   -0.070
+classManagr -0.016 -0.023 -0.003  0.021  0.063  0.091 -0.015 -0.020 -0.017   -0.001    0.017  0.052
+classWorker -0.053 -0.063 -0.016  0.053  0.161  0.250 -0.072 -0.072 -0.090   -0.033    0.030  0.035  0.124
+clssInctv:w -0.412 -0.001 -0.003  0.000 -0.006 -0.017 -0.023 -0.026  0.002    0.000   -0.009  0.043  0.035  0.098
+clssEmplyr: -0.178  0.004  0.006  0.006  0.013  0.011  0.005  0.004  0.006   -0.006   -0.851  0.076 -0.001  0.011  0.331
+clssSlf-Em: -0.090 -0.006 -0.005 -0.008 -0.011 -0.010 -0.009 -0.008 -0.003    0.000    0.062 -0.853 -0.033  0.005  0.279  0.038
+clssMngr:wv -0.286 -0.002 -0.003 -0.006 -0.015 -0.014 -0.019 -0.023  0.000   -0.004   -0.017 -0.004 -0.677  0.015  0.690  0.238  0.222
+clssWrkr:wv -0.398 -0.001 -0.003 -0.002 -0.017 -0.016 -0.004 -0.011  0.005   -0.001   -0.016  0.035  0.009 -0.137  0.961  0.327  0.276  0.681
+optimizer (Nelder_Mead) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.00279644 (tol = 0.002, component 1)
+
 Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
  Family: binomial  ( logit )
-Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class * wave + (1 | sa0100) + (1 | wave)
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class + class:wave + (1 | sa0100) + (1 |      wave)
    Data: dataset_s
 
      AIC      BIC   logLik deviance df.resid
@@ -209,60 +268,60 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.766234 0.8753
- wave   (Intercept) 0.008464 0.0920
+ sa0100 (Intercept) 0.766334 0.87540
+ wave   (Intercept) 0.008465 0.09201
 Number of obs: 276963, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.048939   0.203008 -15.019  < 2e-16 ***
-hsize                      -0.188226   0.006167 -30.522  < 2e-16 ***
-head_gendrfemale            0.035907   0.012627   2.844  0.00446 **
-age0-29                    -1.059935   0.046145 -22.970  < 2e-16 ***
-age50-69                    0.805497   0.017713  45.474  < 2e-16 ***
-age+70                      1.180336   0.023451  50.331  < 2e-16 ***
-edu_refsecondary            0.725028   0.020968  34.578  < 2e-16 ***
-edu_reftertiary             0.738423   0.022335  33.061  < 2e-16 ***
-quintile.gincometop-income  0.253936   0.015701  16.173  < 2e-16 ***
-quintile.gwealthtop-wealth  1.649232   0.014464 114.027  < 2e-16 ***
-classEmployer              -0.132936   0.278717  -0.477  0.63339
-classSelf-Employed         -0.848575   0.328132  -2.586  0.00971 **
-classManager               -0.179520   0.100727  -1.782  0.07471 .
-classWorker                -1.226549   0.032222 -38.066  < 2e-16 ***
-wave                       -0.053085   0.040802  -1.301  0.19324
-classEmployer:wave         -0.023256   0.099350  -0.234  0.81492
-classSelf-Employed:wave     0.224242   0.112031   2.002  0.04533 *
-classManager:wave          -0.249582   0.039764  -6.277 3.46e-10 ***
-classWorker:wave            0.001144   0.010862   0.105  0.91613
+(Intercept)                -3.048907   0.235159 -12.965  < 2e-16 ***
+hsize                      -0.188225   0.006172 -30.496  < 2e-16 ***
+head_gendrfemale            0.035911   0.012635   2.842  0.00448 **
+age0-29                    -1.059936   0.046172 -22.956  < 2e-16 ***
+age50-69                    0.805500   0.017746  45.391  < 2e-16 ***
+age+70                      1.180340   0.023497  50.235  < 2e-16 ***
+edu_refsecondary            0.725034   0.021003  34.520  < 2e-16 ***
+edu_reftertiary             0.738426   0.022363  33.020  < 2e-16 ***
+quintile.gincometop-income  0.253928   0.015708  16.165  < 2e-16 ***
+quintile.gwealthtop-wealth  1.649235   0.014471 113.967  < 2e-16 ***
+classEmployer              -0.133062   0.366887  -0.363  0.71685
+classSelf-Employed         -0.848601   0.354523  -2.394  0.01668 *
+classManager               -0.179539   0.100651  -1.784  0.07446 .
+classWorker                -1.226538   0.032287 -37.989  < 2e-16 ***
+classInactive:wave         -0.053091   0.041767  -1.271  0.20369
+classEmployer:wave         -0.076315   0.132387  -0.576  0.56431
+classSelf-Employed:wave     0.171154   0.123502   1.386  0.16579
+classManager:wave          -0.302665   0.056424  -5.364 8.13e-08 ***
+classWorker:wave           -0.051948   0.041895  -1.240  0.21499
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr wave   clssE: clS-E: clssM:
-hsize       -0.063
-hed_gndrfml -0.034  0.176
-age0-29     -0.024  0.134  0.022
-age50-69    -0.073  0.253  0.043  0.289
-age+70      -0.083  0.253  0.048  0.268  0.724
-ed_rfscndry -0.062  0.010  0.033 -0.021  0.007  0.107
-edu_rftrtry -0.055  0.035 -0.006 -0.004  0.047  0.124  0.799
-qntl.gncmt-  0.012 -0.211  0.082  0.026 -0.070 -0.052 -0.009 -0.155
-qntl.gwlth-  0.002 -0.116  0.053  0.025 -0.061 -0.051 -0.078 -0.158 -0.312
-classEmplyr -0.008 -0.008 -0.005  0.002 -0.001  0.010 -0.006 -0.008 -0.009   -0.006
-clssSlf-Emp  0.013 -0.001  0.000  0.005  0.000  0.002 -0.004 -0.008 -0.004   -0.003    0.108
-classManagr -0.026 -0.023 -0.002  0.016  0.061  0.089 -0.016 -0.022 -0.016    0.001    0.013  0.026
-classWorker -0.055 -0.063 -0.016  0.053  0.161  0.250 -0.073 -0.074 -0.090   -0.032    0.034  0.014  0.125
-wave        -0.414 -0.006 -0.005 -0.004 -0.010 -0.020 -0.026 -0.029  0.002    0.001    0.009 -0.005  0.034  0.094
-clssEmplyr:  0.009 -0.003  0.008 -0.001  0.006  0.009  0.005  0.007  0.004   -0.001   -0.863 -0.099 -0.008 -0.024 -0.011
-clssSlf-Em: -0.012 -0.004  0.000 -0.003  0.006  0.014  0.005  0.007 -0.002    0.000   -0.094 -0.896 -0.020 -0.008  0.003  0.089
-clssMngr:wv  0.022  0.000 -0.003 -0.004 -0.014 -0.001 -0.003 -0.004 -0.003   -0.006   -0.009 -0.023 -0.969 -0.078 -0.036  0.009  0.021
-clssWrkr:wv  0.045  0.000 -0.003 -0.009 -0.037  0.006  0.069  0.054  0.010   -0.002   -0.025 -0.012 -0.094 -0.844 -0.117  0.032  0.021  0.098
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr clssI: clssE: clS-E: clssM:
+hsize       -0.074
+hed_gndrfml -0.039  0.177
+age0-29     -0.027  0.135  0.022
+age50-69    -0.086  0.254  0.043  0.289
+age+70      -0.096  0.254  0.049  0.268  0.725
+ed_rfscndry -0.074  0.011  0.034 -0.021  0.009  0.109
+edu_rftrtry -0.066  0.036 -0.005 -0.004  0.049  0.126  0.800
+qntl.gncmt-  0.016 -0.211  0.082  0.025 -0.071 -0.053 -0.010 -0.156
+qntl.gwlth-  0.003 -0.116  0.053  0.025 -0.061 -0.051 -0.078 -0.158 -0.312
+classEmplyr  0.042 -0.008 -0.003  0.010  0.008  0.019  0.001 -0.001 -0.013   -0.009
+clssSlf-Emp -0.051 -0.001  0.007 -0.001 -0.006 -0.003 -0.002 -0.007 -0.004    0.001   -0.053
+classManagr -0.031 -0.022 -0.001  0.011  0.062  0.090 -0.013 -0.019 -0.018   -0.001    0.040  0.016
+classWorker -0.062 -0.062 -0.016  0.053  0.162  0.251 -0.072 -0.072 -0.090   -0.033    0.039  0.024  0.125
+clssInctv:w -0.466  0.003  0.000 -0.005 -0.002 -0.012 -0.017 -0.022  0.000    0.001   -0.030  0.067  0.040  0.097
+clssEmplyr: -0.180  0.000  0.005 -0.010 -0.005 -0.008 -0.007 -0.006  0.008    0.004   -0.872  0.072 -0.021  0.001  0.335
+clssSlf-Em: -0.114 -0.002 -0.005  0.001  0.011  0.013 -0.002  0.000 -0.001   -0.003    0.031 -0.852  0.001  0.015  0.276  0.055
+clssMngr:wv -0.326  0.001 -0.003 -0.003 -0.011 -0.010 -0.017 -0.021 -0.001   -0.002   -0.047  0.040 -0.652  0.017  0.711  0.262  0.204
+clssWrkr:wv -0.451  0.003 -0.001 -0.007 -0.012 -0.010  0.001 -0.008  0.003    0.001   -0.037  0.061  0.016 -0.123  0.966  0.333  0.272  0.704
 optimizer (Nelder_Mead) convergence code: 0 (OK)
-Model failed to converge with max|grad| = 0.00295302 (tol = 0.002, component 1)
+Model failed to converge with max|grad| = 0.00223139 (tol = 0.002, component 1)
 
 Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
  Family: binomial  ( logit )
-Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class * wave + (1 | sa0100) + (1 | wave)
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +      quintile.gwealth + class + class:wave + (1 | sa0100) + (1 |      wave)
    Data: dataset_s
 
      AIC      BIC   logLik deviance df.resid
@@ -274,53 +333,51 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.778934 0.88257
- wave   (Intercept) 0.008059 0.08977
+ sa0100 (Intercept) 0.778991 0.88260
+ wave   (Intercept) 0.008058 0.08977
 Number of obs: 276956, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.066906   0.207212 -14.801  < 2e-16 ***
-hsize                      -0.186154   0.006166 -30.189  < 2e-16 ***
-head_gendrfemale            0.039260   0.012635   3.107  0.00189 **
-age0-29                    -1.059237   0.046314 -22.871  < 2e-16 ***
-age50-69                    0.807374   0.017746  45.496  < 2e-16 ***
-age+70                      1.187626   0.023500  50.537  < 2e-16 ***
-edu_refsecondary            0.729968   0.020987  34.783  < 2e-16 ***
-edu_reftertiary             0.742179   0.022349  33.209  < 2e-16 ***
-quintile.gincometop-income  0.251879   0.015707  16.037  < 2e-16 ***
-quintile.gwealthtop-wealth  1.651556   0.014486 114.013  < 2e-16 ***
-classEmployer              -0.115069   0.295930  -0.389  0.69740
-classSelf-Employed         -0.732857   0.332659  -2.203  0.02759 *
-classManager               -0.170446   0.100169  -1.702  0.08883 .
-classWorker                -1.232351   0.032236 -38.229  < 2e-16 ***
-wave                       -0.054878   0.039966  -1.373  0.16972
-classEmployer:wave         -0.029160   0.103139  -0.283  0.77739
-classSelf-Employed:wave     0.173498   0.111976   1.549  0.12128
-classManager:wave          -0.254215   0.039561  -6.426 1.31e-10 ***
-classWorker:wave            0.003167   0.010866   0.292  0.77067
+(Intercept)                -3.066979   0.207734 -14.764  < 2e-16 ***
+hsize                      -0.186154   0.006167 -30.188  < 2e-16 ***
+head_gendrfemale            0.039258   0.012632   3.108  0.00189 **
+age0-29                    -1.059238   0.046172 -22.941  < 2e-16 ***
+age50-69                    0.807376   0.017736  45.523  < 2e-16 ***
+age+70                      1.187627   0.023480  50.581  < 2e-16 ***
+edu_refsecondary            0.729965   0.020954  34.836  < 2e-16 ***
+edu_reftertiary             0.742176   0.022321  33.250  < 2e-16 ***
+quintile.gincometop-income  0.251873   0.015696  16.047  < 2e-16 ***
+quintile.gwealthtop-wealth  1.651560   0.014478 114.073  < 2e-16 ***
+classEmployer              -0.115012   0.261652  -0.440  0.66026
+classSelf-Employed         -0.733013   0.324265  -2.261  0.02379 *
+classManager               -0.170463   0.097925  -1.741  0.08173 .
+classWorker                -1.232348   0.032194 -38.279  < 2e-16 ***
+classInactive:wave         -0.054845   0.039441  -1.391  0.16435
+classEmployer:wave         -0.084007   0.099039  -0.848  0.39632
+classSelf-Employed:wave     0.118694   0.116738   1.017  0.30927
+classManager:wave          -0.309051   0.054014  -5.722 1.05e-08 ***
+classWorker:wave           -0.051678   0.039619  -1.304  0.19210
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
-            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr wave   clssE: clS-E: clssM:
-hsize       -0.067
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn- qntl.gw- clssEm clsS-E clssMn clssWr clssI: clssE: clS-E: clssM:
+hsize       -0.070
 hed_gndrfml -0.034  0.176
-age0-29     -0.018  0.134  0.021
-age50-69    -0.076  0.253  0.043  0.289
-age+70      -0.086  0.253  0.048  0.268  0.725
-ed_rfscndry -0.067  0.010  0.034 -0.021  0.008  0.107
-edu_rftrtry -0.063  0.036 -0.005 -0.004  0.047  0.125  0.800
-qntl.gncmt-  0.020 -0.210  0.082  0.026 -0.070 -0.052 -0.009 -0.155
-qntl.gwlth-  0.002 -0.116  0.053  0.025 -0.061 -0.051 -0.079 -0.159 -0.313
-classEmplyr -0.025 -0.004 -0.002  0.006  0.007  0.017 -0.010 -0.012 -0.011   -0.004
-clssSlf-Emp  0.018 -0.005  0.004  0.009  0.007  0.010 -0.011 -0.012 -0.006    0.002   -0.006
-classManagr -0.010 -0.024 -0.003  0.013  0.062  0.089 -0.016 -0.021 -0.017    0.000    0.010  0.055
-classWorker -0.058 -0.063 -0.017  0.053  0.161  0.250 -0.073 -0.073 -0.089   -0.033    0.043  0.034  0.121
-wave        -0.408 -0.003 -0.005 -0.007 -0.009 -0.019 -0.025 -0.027 -0.002    0.002    0.027  0.005  0.025  0.097
-clssEmplyr:  0.027 -0.006  0.003 -0.005 -0.002  0.000  0.009  0.010  0.007   -0.003   -0.887  0.006 -0.008 -0.034 -0.029
-clssSlf-Em: -0.019  0.001 -0.002 -0.007  0.002  0.008  0.012  0.012 -0.001   -0.004   -0.001 -0.902 -0.047 -0.028 -0.006  0.004
-clssMngr:wv  0.006  0.000 -0.002 -0.002 -0.015 -0.001 -0.003 -0.005 -0.002   -0.005   -0.005 -0.051 -0.968 -0.074 -0.027  0.007  0.046
-clssWrkr:wv  0.048  0.000 -0.003 -0.009 -0.037  0.006  0.070  0.054  0.009   -0.002   -0.033 -0.029 -0.090 -0.843 -0.120  0.041  0.037  0.094
-optimizer (Nelder_Mead) convergence code: 0 (OK)
-Model failed to converge with max|grad| = 0.0037531 (tol = 0.002, component 1)
+age0-29     -0.038  0.135  0.022
+age50-69    -0.088  0.253  0.043  0.290
+age+70      -0.098  0.254  0.048  0.269  0.725
+ed_rfscndry -0.065  0.010  0.034 -0.020  0.008  0.108
+edu_rftrtry -0.059  0.035 -0.005 -0.004  0.047  0.125  0.799
+qntl.gncmt-  0.016 -0.210  0.082  0.026 -0.069 -0.051 -0.008 -0.155
+qntl.gwlth-  0.002 -0.116  0.053  0.026 -0.061 -0.050 -0.079 -0.159 -0.313
+classEmplyr -0.008 -0.008 -0.003 -0.009  0.000  0.009 -0.007 -0.006 -0.007   -0.006
+clssSlf-Emp  0.023 -0.007  0.004 -0.006  0.002  0.005 -0.009 -0.013 -0.001    0.003   -0.025
+classManagr -0.044 -0.020 -0.002  0.015  0.063  0.090 -0.013 -0.018 -0.016   -0.002    0.033  0.012
+classWorker -0.061 -0.063 -0.017  0.053  0.160  0.249 -0.072 -0.072 -0.089   -0.033    0.028  0.019  0.122
+clssInctv:w -0.404 -0.002 -0.006  0.002 -0.004 -0.015 -0.024 -0.027  0.000    0.001    0.044 -0.015  0.043  0.099
+clssEmplyr: -0.152 -0.004  0.001  0.009  0.003  0.003 -0.003 -0.005  0.002   -0.001   -0.788  0.014 -0.007  0.022  0.352
+clssSlf-Em: -0.156  0.002 -0.004  0.008  0.005  0.007  0.002  0.003 -0.005   -0.004    0.038 -0.848  0.008  0.020  0.344  0.106
+clssMngr:wv -0.267 -0.005 -0.006 -0.001 -0.013 -0.011 -0.022 -0.025 -0.002   -0.002    0.011 -0.017 -0.662  0.019  0.698  0.263  0.245
+clssWrkr:wv -0.389 -0.002 -0.006 -0.001 -0.014 -0.013 -0.005 -0.012  0.002    0.000    0.038 -0.019  0.018 -0.133  0.962  0.345  0.337  0.689
