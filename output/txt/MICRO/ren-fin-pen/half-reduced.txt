@@ -1,4 +1,4 @@
-Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
  Family: binomial  ( logit )
 Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
     quintile.gwealth + (1 | sa0100) + (1 | wave)
@@ -13,37 +13,37 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.75574  0.8693
+ sa0100 (Intercept) 0.75565  0.8693
  wave   (Intercept) 0.01025  0.1012
 Number of obs: 276952, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.900143   0.189564 -20.574  < 2e-16 ***
-hsize                      -0.245225   0.006038 -40.613  < 2e-16 ***
-head_gendrfemale            0.006027   0.012441   0.484    0.628
-age0-29                    -0.838392   0.044506 -18.838  < 2e-16 ***
-age50-69                    1.110969   0.016671  66.640  < 2e-16 ***
-age+70                      2.037898   0.019729 103.292  < 2e-16 ***
-edu_refsecondary            0.678976   0.020709  32.786  < 2e-16 ***
-edu_reftertiary             0.649212   0.021981  29.535  < 2e-16 ***
-quintile.gincometop-income  0.092293   0.015188   6.077 1.23e-09 ***
-quintile.gwealthtop-wealth  1.633483   0.014232 114.779  < 2e-16 ***
+(Intercept)                -3.900174   0.187347 -20.818  < 2e-16 ***
+hsize                      -0.245224   0.006039 -40.607  < 2e-16 ***
+head_gendrfemale            0.006029   0.012440   0.485    0.628
+age0-29                    -0.838395   0.044661 -18.772  < 2e-16 ***
+age50-69                    1.110967   0.016686  66.579  < 2e-16 ***
+age+70                      2.037897   0.019754 103.162  < 2e-16 ***
+edu_refsecondary            0.678976   0.020709  32.787  < 2e-16 ***
+edu_reftertiary             0.649211   0.021980  29.537  < 2e-16 ***
+quintile.gincometop-income  0.092294   0.015191   6.075 1.24e-09 ***
+quintile.gwealthtop-wealth  1.633483   0.014229 114.798  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
             (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn-
-hsize       -0.079
-hed_gndrfml -0.041  0.172
-age0-29     -0.028  0.135  0.026
-age50-69    -0.078  0.275  0.042  0.276
-age+70      -0.096  0.360  0.069  0.260  0.704
-ed_rfscndry -0.084  0.002  0.032 -0.016  0.023  0.165
-edu_rftrtry -0.080  0.025 -0.008 -0.002  0.069  0.202  0.802
-qntl.gncmt-  0.013 -0.231  0.081  0.035 -0.042  0.019 -0.013 -0.165
-qntl.gwlth- -0.005 -0.127  0.052  0.034 -0.047 -0.025 -0.079 -0.160 -0.328
-Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+hsize       -0.075
+hed_gndrfml -0.039  0.172
+age0-29     -0.017  0.135  0.026
+age50-69    -0.072  0.275  0.042  0.278
+age+70      -0.090  0.360  0.069  0.261  0.704
+ed_rfscndry -0.083  0.002  0.033 -0.015  0.023  0.165
+edu_rftrtry -0.078  0.025 -0.008 -0.001  0.069  0.202  0.802
+qntl.gncmt-  0.010 -0.231  0.081  0.036 -0.042  0.019 -0.013 -0.164
+qntl.gwlth- -0.002 -0.127  0.052  0.033 -0.047 -0.025 -0.079 -0.160 -0.328
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
  Family: binomial  ( logit )
 Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
     quintile.gwealth + (1 | sa0100) + (1 | wave)
@@ -58,37 +58,37 @@ Scaled residuals:
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.74829  0.8650
+ sa0100 (Intercept) 0.74831  0.8651
  wave   (Intercept) 0.01077  0.1038
 Number of obs: 276958, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.909303   0.194147 -20.136  < 2e-16 ***
-hsize                      -0.242805   0.006036 -40.225  < 2e-16 ***
-head_gendrfemale            0.010083   0.012449   0.810    0.418
-age0-29                    -0.872150   0.045282 -19.260  < 2e-16 ***
-age50-69                    1.119893   0.016696  67.075  < 2e-16 ***
-age+70                      2.049327   0.019768 103.671  < 2e-16 ***
-edu_refsecondary            0.680404   0.020752  32.787  < 2e-16 ***
-edu_reftertiary             0.649473   0.022032  29.479  < 2e-16 ***
-quintile.gincometop-income  0.091942   0.015190   6.053 1.42e-09 ***
-quintile.gwealthtop-wealth  1.638622   0.014238 115.091  < 2e-16 ***
+(Intercept)                -3.909307   0.177555 -22.017  < 2e-16 ***
+hsize                      -0.242805   0.006035 -40.234  < 2e-16 ***
+head_gendrfemale            0.010080   0.012443   0.810    0.418
+age0-29                    -0.872148   0.045289 -19.258  < 2e-16 ***
+age50-69                    1.119893   0.016709  67.021  < 2e-16 ***
+age+70                      2.049325   0.019781 103.601  < 2e-16 ***
+edu_refsecondary            0.680400   0.020726  32.829  < 2e-16 ***
+edu_reftertiary             0.649467   0.022010  29.508  < 2e-16 ***
+quintile.gincometop-income  0.091941   0.015185   6.055 1.41e-09 ***
+quintile.gwealthtop-wealth  1.638624   0.014233 115.131  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
             (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn-
-hsize       -0.080
-hed_gndrfml -0.042  0.172
-age0-29     -0.027  0.133  0.027
-age50-69    -0.079  0.276  0.042  0.272
-age+70      -0.097  0.361  0.069  0.256  0.705
-ed_rfscndry -0.089  0.002  0.032 -0.014  0.024  0.166
-edu_rftrtry -0.085  0.026 -0.008 -0.001  0.070  0.203  0.803
-qntl.gncmt-  0.012 -0.231  0.082  0.035 -0.042  0.018 -0.014 -0.164
-qntl.gwlth-  0.001 -0.127  0.052  0.033 -0.046 -0.024 -0.080 -0.161 -0.328
-Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+hsize       -0.075
+hed_gndrfml -0.040  0.171
+age0-29     -0.026  0.134  0.025
+age50-69    -0.077  0.276  0.042  0.274
+age+70      -0.095  0.361  0.069  0.258  0.705
+ed_rfscndry -0.078  0.001  0.032 -0.016  0.022  0.165
+edu_rftrtry -0.074  0.025 -0.008 -0.001  0.069  0.202  0.802
+qntl.gncmt-  0.008 -0.231  0.082  0.034 -0.042  0.018 -0.013 -0.164
+qntl.gwlth-  0.001 -0.127  0.052  0.034 -0.046 -0.024 -0.080 -0.161 -0.328
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
  Family: binomial  ( logit )
 Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
     quintile.gwealth + (1 | sa0100) + (1 | wave)
@@ -99,41 +99,41 @@ Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--3.5859 -0.3956 -0.2142 -0.0947 26.9060
+-3.5859 -0.3956 -0.2142 -0.0947 26.9059
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.75670  0.8699
+ sa0100 (Intercept) 0.75666  0.8699
  wave   (Intercept) 0.01058  0.1029
 Number of obs: 276956, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.924440   0.193307 -20.302  < 2e-16 ***
-hsize                      -0.243438   0.006046 -40.264  < 2e-16 ***
-head_gendrfemale            0.013563   0.012455   1.089    0.276
-age0-29                    -0.847110   0.044936 -18.852  < 2e-16 ***
-age50-69                    1.116155   0.016727  66.727  < 2e-16 ***
-age+70                      2.054489   0.019804 103.741  < 2e-16 ***
-edu_refsecondary            0.686569   0.020795  33.016  < 2e-16 ***
-edu_reftertiary             0.657285   0.022070  29.782  < 2e-16 ***
-quintile.gincometop-income  0.096464   0.015198   6.347 2.19e-10 ***
-quintile.gwealthtop-wealth  1.638036   0.014248 114.968  < 2e-16 ***
+(Intercept)                -3.924451   0.195466 -20.077  < 2e-16 ***
+hsize                      -0.243438   0.006047 -40.256  < 2e-16 ***
+head_gendrfemale            0.013560   0.012449   1.089    0.276
+age0-29                    -0.847109   0.044901 -18.866  < 2e-16 ***
+age50-69                    1.116156   0.016737  66.686  < 2e-16 ***
+age+70                      2.054491   0.019812 103.702  < 2e-16 ***
+edu_refsecondary            0.686568   0.020774  33.049  < 2e-16 ***
+edu_reftertiary             0.657284   0.022048  29.811  < 2e-16 ***
+quintile.gincometop-income  0.096465   0.015200   6.346  2.2e-10 ***
+quintile.gwealthtop-wealth  1.638037   0.014247 114.976  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
             (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn-
-hsize       -0.080
-hed_gndrfml -0.041  0.171
-age0-29     -0.030  0.135  0.025
-age50-69    -0.081  0.276  0.042  0.277
-age+70      -0.099  0.361  0.069  0.260  0.705
-ed_rfscndry -0.086  0.002  0.033 -0.014  0.023  0.167
-edu_rftrtry -0.083  0.026 -0.006 -0.001  0.070  0.203  0.803
-qntl.gncmt-  0.008 -0.231  0.081  0.035 -0.041  0.019 -0.012 -0.163
-qntl.gwlth-  0.002 -0.127  0.052  0.033 -0.047 -0.024 -0.080 -0.161 -0.327
-Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+hsize       -0.083
+hed_gndrfml -0.040  0.170
+age0-29     -0.040  0.135  0.026
+age50-69    -0.086  0.276  0.042  0.277
+age+70      -0.105  0.361  0.070  0.261  0.705
+ed_rfscndry -0.077  0.002  0.033 -0.014  0.023  0.166
+edu_rftrtry -0.072  0.025 -0.007  0.000  0.069  0.202  0.803
+qntl.gncmt-  0.008 -0.231  0.081  0.035 -0.041  0.019 -0.012 -0.164
+qntl.gwlth- -0.002 -0.126  0.053  0.034 -0.047 -0.023 -0.080 -0.161 -0.327
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
  Family: binomial  ( logit )
 Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
     quintile.gwealth + (1 | sa0100) + (1 | wave)
@@ -144,41 +144,41 @@ Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--3.5680 -0.3961 -0.2156 -0.0955 26.7222
+-3.5681 -0.3961 -0.2156 -0.0955 26.7222
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.74476  0.8630
+ sa0100 (Intercept) 0.74471  0.8630
  wave   (Intercept) 0.01077  0.1038
 Number of obs: 276963, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
-                            Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.899274   0.189285 -20.600  < 2e-16 ***
-hsize                      -0.245289   0.006042 -40.598  < 2e-16 ***
-head_gendrfemale            0.004979   0.012442   0.400    0.689
-age0-29                    -0.866309   0.045108 -19.205  < 2e-16 ***
-age50-69                    1.114440   0.016703  66.720  < 2e-16 ***
-age+70                      2.041191   0.019786 103.165  < 2e-16 ***
-edu_refsecondary            0.682170   0.020780  32.829  < 2e-16 ***
-edu_reftertiary             0.654314   0.022047  29.678  < 2e-16 ***
-quintile.gincometop-income  0.098983   0.015192   6.516 7.24e-11 ***
-quintile.gwealthtop-wealth  1.631595   0.014225 114.699  < 2e-16 ***
+                           Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -3.89928    0.17792 -21.916  < 2e-16 ***
+hsize                      -0.24529    0.00604 -40.613  < 2e-16 ***
+head_gendrfemale            0.00498    0.01244   0.400    0.689
+age0-29                    -0.86631    0.04519 -19.170  < 2e-16 ***
+age50-69                    1.11444    0.01670  66.729  < 2e-16 ***
+age+70                      2.04119    0.01977 103.247  < 2e-16 ***
+edu_refsecondary            0.68217    0.02074  32.888  < 2e-16 ***
+edu_reftertiary             0.65432    0.02201  29.732  < 2e-16 ***
+quintile.gincometop-income  0.09899    0.01519   6.518 7.14e-11 ***
+quintile.gwealthtop-wealth  1.63159    0.01422 114.741  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
             (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn-
-hsize       -0.080
-hed_gndrfml -0.045  0.171
-age0-29     -0.030  0.134  0.026
-age50-69    -0.081  0.276  0.042  0.275
-age+70      -0.102  0.362  0.069  0.259  0.705
-ed_rfscndry -0.091  0.003  0.033 -0.014  0.024  0.166
-edu_rftrtry -0.086  0.026 -0.007 -0.001  0.070  0.203  0.803
-qntl.gncmt-  0.009 -0.232  0.081  0.036 -0.042  0.019 -0.014 -0.165
-qntl.gwlth-  0.000 -0.127  0.052  0.033 -0.048 -0.026 -0.078 -0.160 -0.326
-Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+hsize       -0.078
+hed_gndrfml -0.040  0.171
+age0-29     -0.037  0.135  0.026
+age50-69    -0.082  0.276  0.042  0.275
+age+70      -0.100  0.361  0.069  0.259  0.705
+ed_rfscndry -0.083  0.002  0.032 -0.015  0.023  0.166
+edu_rftrtry -0.079  0.025 -0.008 -0.001  0.070  0.202  0.803
+qntl.gncmt-  0.008 -0.232  0.081  0.034 -0.042  0.019 -0.013 -0.164
+qntl.gwlth-  0.001 -0.127  0.052  0.033 -0.048 -0.026 -0.079 -0.160 -0.327
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [glmerMod]
  Family: binomial  ( logit )
 Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
     quintile.gwealth + (1 | sa0100) + (1 | wave)
@@ -189,37 +189,37 @@ Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome +
 
 Scaled residuals:
     Min      1Q  Median      3Q     Max
--3.5758 -0.3959 -0.2149 -0.0943 26.7981
+-3.5758 -0.3959 -0.2149 -0.0943 26.7986
 
 Random effects:
  Groups Name        Variance Std.Dev.
- sa0100 (Intercept) 0.7563   0.8696
+ sa0100 (Intercept) 0.7562   0.8696
  wave   (Intercept) 0.0108   0.1039
 Number of obs: 276956, groups:  sa0100, 20; wave, 4
 
 Fixed effects:
                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                -3.921285   0.217180 -18.055  < 2e-16 ***
-hsize                      -0.243526   0.006046 -40.280  < 2e-16 ***
-head_gendrfemale            0.008261   0.012452   0.663    0.507
-age0-29                    -0.864305   0.045410 -19.033  < 2e-16 ***
-age50-69                    1.116067   0.016736  66.685  < 2e-16 ***
-age+70                      2.048576   0.019831 103.299  < 2e-16 ***
-edu_refsecondary            0.687050   0.020824  32.993  < 2e-16 ***
-edu_reftertiary             0.658105   0.022100  29.778  < 2e-16 ***
-quintile.gincometop-income  0.097222   0.015196   6.398 1.58e-10 ***
-quintile.gwealthtop-wealth  1.633751   0.014247 114.669  < 2e-16 ***
+(Intercept)                -3.921253   0.185472 -21.142  < 2e-16 ***
+hsize                      -0.243528   0.006037 -40.339  < 2e-16 ***
+head_gendrfemale            0.008264   0.012443   0.664    0.507
+age0-29                    -0.864337   0.045246 -19.103  < 2e-16 ***
+age50-69                    1.116060   0.016699  66.832  < 2e-16 ***
+age+70                      2.048573   0.019764 103.650  < 2e-16 ***
+edu_refsecondary            0.687068   0.020778  33.068  < 2e-16 ***
+edu_reftertiary             0.658124   0.022048  29.850  < 2e-16 ***
+quintile.gincometop-income  0.097226   0.015185   6.403 1.52e-10 ***
+quintile.gwealthtop-wealth  1.633748   0.014239 114.737  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Correlation of Fixed Effects:
             (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gn-
-hsize       -0.090
-hed_gndrfml -0.045  0.171
-age0-29     -0.037  0.135  0.027
-age50-69    -0.088  0.278  0.043  0.277
-age+70      -0.111  0.363  0.070  0.260  0.705
-ed_rfscndry -0.096  0.004  0.034 -0.014  0.024  0.168
-edu_rftrtry -0.092  0.027 -0.006 -0.001  0.071  0.204  0.804
-qntl.gncmt-  0.015 -0.231  0.081  0.034 -0.041  0.019 -0.013 -0.164
-qntl.gwlth- -0.004 -0.127  0.052  0.034 -0.047 -0.024 -0.080 -0.160 -0.328
+hsize       -0.076
+hed_gndrfml -0.040  0.170
+age0-29     -0.030  0.134  0.025
+age50-69    -0.077  0.275  0.042  0.274
+age+70      -0.095  0.360  0.069  0.258  0.704
+ed_rfscndry -0.084  0.002  0.032 -0.014  0.023  0.166
+edu_rftrtry -0.079  0.025 -0.007 -0.001  0.069  0.203  0.803
+qntl.gncmt-  0.009 -0.231  0.081  0.034 -0.041  0.020 -0.013 -0.164
+qntl.gwlth- -0.001 -0.127  0.052  0.035 -0.047 -0.024 -0.079 -0.161 -0.327
