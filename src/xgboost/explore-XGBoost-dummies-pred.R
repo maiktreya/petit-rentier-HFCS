@@ -87,7 +87,7 @@ importance_matrix <- xgb.importance(feature_names = colnames(data_matrix), model
 test_predictions <- predict(xgb_model, test_matrix)
 
 # Converting predictions to binary using a threshold (e.g., 0.5)
-test_predictions_binary <- ifelse(test_predictions > 0.25, 1, 0)
+test_predictions_binary <- ifelse(test_predictions > 0.2, 1, 0)
 
 # Calculating accuracy
 accuracy_xgb <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
