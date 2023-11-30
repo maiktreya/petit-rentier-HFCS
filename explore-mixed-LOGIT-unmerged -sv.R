@@ -14,6 +14,10 @@ rm(list = ls())
 # source prepared joint dataset
 source("src/tools/prepare-vars/import-join.R")
 
+# hardcoded variables
+model <- dataset_s <- list()
+n_imputations <- 5
+
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
 for (i in 1:5) {

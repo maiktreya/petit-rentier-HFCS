@@ -19,11 +19,6 @@ dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 # remove unneeded so we avoid out of memory problems with large datasets
 rm(list = setdiff(ls(), "dataset"))
 
-# hardcoded variables
-model <- dataset_s <- list()
-amplified <- FALSE
-n_imputations <- 5
-
 # create and modify custom multilevel categorical variables
 dataset[employm %in% c(1, 3), employm := 1] # worker
 dataset[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
