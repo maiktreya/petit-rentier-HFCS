@@ -3,10 +3,8 @@
 ### PPREPARATION
 library(magrittr)
 library(data.table)
-library(lme4)
-library(survey)
-library(mice)
-library(mitools)
+library(WeMix)
+
 
 # clean enviroment
 rm(list = ls())
@@ -22,12 +20,12 @@ n_imputations <- 5
 # estimate an individual model for each implicate, merge afterwards
 for (i in 1:5) {
     start_time <- Sys.time()
-    dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(
+    dataset_s <- dataset[implicate == i][, unw := 1]
+    model[[i]] <- mix(
         rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome + quintile.gwealth + class + (1 | sa0100) + (1 | wave),
-        family = binomial,
-        data = dataset_s,
-        weights = weights
+        family = binomial(),
+        data = data.frame(dataset_s),
+        weights = c("hw0010.x", "unw", "unw")
     )
 
     (start_time - Sys.time()) %>% print()

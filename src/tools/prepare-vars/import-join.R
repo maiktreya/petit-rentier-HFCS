@@ -20,6 +20,9 @@ dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 rm(list = setdiff(ls(), "dataset"))
 
 # create and modify custom multilevel categorical variables
+dataset[, sumw := sum(hw0010.x) / length(hw0010.x), by = sa0100] # worker
+dataset[, weights := hw0010.x / sumw] # worker
+
 dataset[employm %in% c(1, 3), employm := 1] # worker
 dataset[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
 dataset[status == 2 & employm == 2, employm := 2] # capitalist
