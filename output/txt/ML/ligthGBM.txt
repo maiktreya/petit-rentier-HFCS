@@ -1,25 +1,44 @@
-## LightGBM output for all waves/countries/implications joint.
-
-[LightGBM] [Info] Number of positive: 213239, number of negative: 933508
-[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.013154 seconds.
-You can set `force_row_wise=true` to remove the overhead.
-And if memory is not enough, you can set `force_col_wise=true`.
-[LightGBM] [Info] Total Bins 68
-[LightGBM] [Info] Number of data points in the train set: 1146747, number of used features: 9
-[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.185951 -> initscore=-1.476536
-[LightGBM] [Info] Start training from score -1.476536
-
-
-[1] "LightGBM Accuracy: 0.875630806097596"
-
-
+[LightGBM] [Info] Number of positive: 209030, number of negative: 916027
+[LightGBM] [Warning] Auto-choosing col-wise multi-threading, the overhead of testing was 0.155971 seconds.
+You can set `force_col_wise=true` to remove the overhead.
+[LightGBM] [Info] Total Bins 66
+[LightGBM] [Info] Number of data points in the train set: 1125057, number of used features: 9
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.185795 -> initscore=-1.477568
+[LightGBM] [Info] Start training from score -1.477568
+[1] "LightGBM Accuracy: 0.876836462508122"
             Feature        Gain       Cover  Frequency
-1:           sa0100 0.345692876 0.375867568 0.31878788
-2: quintile.gwealth 0.275818339 0.155274601 0.06878788
-3:            class 0.199058396 0.085234413 0.07757576
-4:              age 0.095562926 0.133890781 0.13666667
-5:            hsize 0.032172365 0.102658507 0.13939394
-6: quintile.gincome 0.024345242 0.050328319 0.06969697
-7:          edu_ref 0.017420683 0.059056254 0.08909091
-8:             wave 0.006343394 0.029257822 0.06333333
-9:       head_gendr 0.003585780 0.008431734 0.03666667
+1:           sa0100 0.346982324 0.373243569 0.32121212
+2: quintile.gwealth 0.277899598 0.155113812 0.06060606
+3:            class 0.199023247 0.084017750 0.07242424
+4:              age 0.095119999 0.132828994 0.13969697
+5:            hsize 0.031913710 0.105259966 0.14666667
+6: quintile.gincome 0.025008183 0.049299634 0.07575758
+7:          edu_ref 0.015246828 0.054509155 0.08454545
+8:             wave 0.005369558 0.037028534 0.06303030
+9:       head_gendr 0.003436553 0.008698585 0.03606061
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 889216 111755
+         1  26811  97275
+
+               Accuracy : 0.8768
+                 95% CI : (0.8762, 0.8774)
+    No Information Rate : 0.8142
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.5172
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.9707
+            Specificity : 0.4654
+         Pos Pred Value : 0.8884
+         Neg Pred Value : 0.7839
+             Prevalence : 0.8142
+         Detection Rate : 0.7904
+   Detection Prevalence : 0.8897
+      Balanced Accuracy : 0.7180
+
+       'Positive' Class : 0

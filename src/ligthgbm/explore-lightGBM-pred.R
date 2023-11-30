@@ -81,8 +81,9 @@ predicted_classes_lgb <- ifelse(predictions_lgb > 0.5, 1, 0)
 
 # Evaluating model performance on test data
 accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi)
-confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(test_data$rentsbi))
+confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(train_data$rentsbi))
 
+# print results
 print(paste("LightGBM Accuracy:", accuracy_lgb))
 print(importance_matrix)
 print(confusion)
