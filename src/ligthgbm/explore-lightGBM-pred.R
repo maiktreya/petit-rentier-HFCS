@@ -77,7 +77,7 @@ importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
 predictions_lgb <- predict(lgb_model, data.matrix(train_data[, !c("rentsbi")]))
 
 # Converting probabilities to binary outcomes using 0.5 as threshold
-predicted_classes_lgb <- ifelse(predictions_lgb > 0.5, 1, 0)
+predicted_classes_lgb <- ifelse(predictions_lgb > 0.3, 1, 0)
 
 # Evaluating model performance on test data
 accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi)
