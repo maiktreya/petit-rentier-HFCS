@@ -45,3 +45,16 @@
 40:      class_Employer 0.0001860801 0.012531601 0.003133568
 41:           sa0100_HR 0.0001399675 0.019476273 0.002741872
                 Feature         Gain       Cover   Frequency
+
+
+     Feature            Gain
+---------------------------
+quintile.gwealth    0.285669
+sa0100              0.272472
+class               0.229770
+age                 0.107606
+hsize               0.042514
+quintile.gincome    0.025613
+edu                 0.016283
+wave                0.012943
+head                0.007130
