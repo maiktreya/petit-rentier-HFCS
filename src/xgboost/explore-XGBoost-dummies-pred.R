@@ -1,7 +1,7 @@
 # HFCS  correlated efects mixed hybrid model (Bell & Jones, 2015) pooled waves
 
-library(magrittr)
-library(data.table)
+library(magrittr) # for piping without dplyr
+library(data.table) # for fast and concise data wrangling
 library(xgboost) # gradient boost algorithm
 library(caret) # for confusion matrix
 library(Matrix) # dataset tidy for ml models
@@ -22,8 +22,8 @@ dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$hsize <- as.numeric(dataset2$hsize)
 dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
 
-#################################################################################################################################
-# proper model fitting after variable transformation
+################################# MODEL FITTING ###################################################
+
 # split into training and test
 sample_indices <- sample(seq_len(nrow(dataset2)), size = 0.6 * nrow(dataset2))
 train_data <- dataset2[sample_indices, ]

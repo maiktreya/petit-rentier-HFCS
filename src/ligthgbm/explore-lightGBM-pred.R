@@ -9,7 +9,8 @@ rm(list = ls())
 # source prepared joint dataset
 source("src/tools/prepare-vars/import-join.R")
 
-################################################################################################################ 3
+################################# MODEL FITTING ###################################################
+
 # Splitting into training and test sets and List of categorical features
 categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.gwealth", "quintile.gincome", "class", "edu_ref", "age")
 total_features <- c(categorical_features, "hsize", "rentsbi")
