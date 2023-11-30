@@ -1,6 +1,96 @@
 ############## THRESHOLD 0.25 ##################
+[LightGBM] [Info] Number of positive: 209415, number of negative: 915642
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.008500 seconds.
+You can set `force_row_wise=true` to remove the overhead.
+And if memory is not enough, you can set `force_col_wise=true`.
+[LightGBM] [Info] Total Bins 66
+[LightGBM] [Info] Number of data points in the train set: 1125057, number of used features: 9
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.186137 -> initscore=-1.475308
+[LightGBM] [Info] Start training from score -1.475308
+            Feature        Gain       Cover  Frequency
+1:           sa0100 0.345621314 0.376615781 0.31303030
+2: quintile.gwealth 0.279510043 0.158981672 0.06666667
+3:            class 0.200445861 0.091236026 0.07454545
+4:              age 0.094434381 0.133990113 0.14181818
+5:            hsize 0.032068847 0.102585686 0.14454545
+6: quintile.gincome 0.023620154 0.050454617 0.07515152
+7:          edu_ref 0.015432035 0.050564529 0.08636364
+8:             wave 0.005612058 0.028239093 0.06515152
+9:       head_gendr 0.003255307 0.007332483 0.03272727
+[1] "LightGBM Accuracy: 0.846064688278016"
+Confusion Matrix and Statistics
 
+          Reference
+Prediction      0      1
+         0 807180  64724
+         1 108462 144691
+
+               Accuracy : 0.8461
+                 95% CI : (0.8454, 0.8467)
+    No Information Rate : 0.8139
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.5298
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.6909
+            Specificity : 0.8815
+         Pos Pred Value : 0.5716
+         Neg Pred Value : 0.9258
+             Prevalence : 0.1861
+         Detection Rate : 0.1286
+   Detection Prevalence : 0.2250
+      Balanced Accuracy : 0.7862
+
+       'Positive' Class : 1
 
 
 
 ############## THRESHOLD 0.3 ##################
+
+[LightGBM] [Info] Number of positive: 209650, number of negative: 915407
+[LightGBM] [Warning] Auto-choosing row-wise multi-threading, the overhead of testing was 0.018287 seconds.
+You can set `force_row_wise=true` to remove the overhead.
+And if memory is not enough, you can set `force_col_wise=true`.
+[LightGBM] [Info] Total Bins 66
+[LightGBM] [Info] Number of data points in the train set: 1125057, number of used features: 9
+[LightGBM] [Info] [binary:BoostFromScore]: pavg=0.186346 -> initscore=-1.473929
+[LightGBM] [Info] Start training from score -1.473929
+            Feature        Gain       Cover  Frequency
+1:           sa0100 0.340480389 0.378101331 0.31696970
+2: quintile.gwealth 0.283211697 0.156468117 0.06515152
+3:            class 0.200787178 0.085341757 0.07696970
+4:              age 0.094637797 0.136930348 0.13666667
+5:            hsize 0.031838203 0.099883288 0.13484848
+6: quintile.gincome 0.024095911 0.050363547 0.07515152
+7:          edu_ref 0.016067898 0.055398260 0.09000000
+8:             wave 0.005628158 0.028840437 0.06818182
+9:       head_gendr 0.003252769 0.008672915 0.03606061
+[1] "LightGBM Accuracy: 0.859638222774491"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 831657  74165
+         1  83750 135485
+
+               Accuracy : 0.8596
+                 95% CI : (0.859, 0.8603)
+    No Information Rate : 0.8137
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.5451
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.6462
+            Specificity : 0.9085
+         Pos Pred Value : 0.6180
+         Neg Pred Value : 0.9181
+             Prevalence : 0.1863
+         Detection Rate : 0.1204
+   Detection Prevalence : 0.1949
+      Balanced Accuracy : 0.7774
+
+       'Positive' Class : 1
