@@ -4,9 +4,6 @@
 library(magrittr)
 library(data.table)
 library(lme4)
-library(survey)
-library(mice)
-library(mitools)
 
 # clean enviroment
 rm(list = ls())
@@ -20,18 +17,20 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:5) {
+for (i in 1:1) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome + quintile.gwealth + (1 | sa0100) + (1 | wave),
-        family = binomial,
+        rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) + (1 | wave),
+        family = quasibinomial,
         data = dataset_s,
-        weights = weights
+        weights = weights,
+        control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
     )
-
     (start_time - Sys.time()) %>% print()
 }
+
+# Get coefficients and standard errors
 coef_estimates <- lapply(model, function(m) fixef(m))
 se_estimates <- lapply(model, function(m) sqrt(diag(vcov(m))))
 
