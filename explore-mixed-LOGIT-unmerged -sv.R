@@ -93,4 +93,4 @@ p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 (Sys.time() - start_time) %>% print()
 combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
 
-fwrite(combined_results, "output/MODELS/MICRO/logit_model_alt.csv")
+fwrite(combined_results, "output/MODELS/MICRO/complete.csv")
