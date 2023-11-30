@@ -1,8 +1,8 @@
 library(magrittr)
 library(data.table)
-library(lightgbm)
-library(Matrix)
-
+library(lightgbm) # gradient boost algorithm
+library(caret) # for confusion matrix
+library(Matrix) # dataset tidy for ml models
 # Clean environment
 rm(list = ls())
 
@@ -81,5 +81,8 @@ predicted_classes_lgb <- ifelse(predictions_lgb > 0.5, 1, 0)
 
 # Evaluating model performance on test data
 accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi)
+confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(test_data$rentsbi))
+
 print(paste("LightGBM Accuracy:", accuracy_lgb))
 print(importance_matrix)
+print(confusion)
