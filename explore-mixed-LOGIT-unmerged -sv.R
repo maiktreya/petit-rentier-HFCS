@@ -17,7 +17,7 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:5) {
+for (i in 1:1) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
@@ -26,7 +26,7 @@ for (i in 1:5) {
         data = dataset_s,
         weights = weights,
         control = glmerControl(
-            optimizer = "Nelder_Mead", # bobyka, Nelder_Mead, nloptwrap, nlminb, optim
+            optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb'
             optCtrl = list(maxfun = 2e5),
             standardize.X = FALSE
         ),
