@@ -17,7 +17,7 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:1) {
+for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
