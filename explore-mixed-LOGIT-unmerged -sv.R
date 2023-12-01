@@ -27,11 +27,10 @@ for (i in 1:5) {
         weights = weights,
         control = glmerControl(
             optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb'
-            optCtrl = list(maxfun = 2e5),
-            standardize.X = FALSE
+            optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        nAGQ = 0
     )
     (start_time - Sys.time()) %>% print()
 }
@@ -64,8 +63,7 @@ t_stats <- mean_estimates / combined_se
 p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 
 # Combined results with t-stats and p-values
-(Sys.time() - start_time) %>% print()
 combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
 
 # Export joint results to csv
-fwrite(combined_results, "output/MODELS/MICRO/ren-fin-pen/w-complete.csv")
+fwrite(combined_results, "output/MODELS/MICRO/ren-fin-pen/w-complete-simp.csv")
