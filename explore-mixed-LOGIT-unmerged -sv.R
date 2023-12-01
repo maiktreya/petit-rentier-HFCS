@@ -21,7 +21,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome + quintile.gwealth + class + (1 | sa0100) + (1 | wave),
+        rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) + (1 | wave),
         family = binomial,
         data = dataset_s,
         weights = weights,
@@ -30,7 +30,7 @@ for (i in 1:5) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 0
+        nAGQ = 1
     )
     (start_time - Sys.time()) %>% print()
 }
@@ -66,4 +66,4 @@ p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
 
 # Export joint results to csv
-fwrite(combined_results, "output/MODELS/MICRO/ren-fin-pen/w-complete-simp.csv")
+fwrite(combined_results, "output/MODELS/MICRO/ren-fin-pen/w-reduced.csv")
