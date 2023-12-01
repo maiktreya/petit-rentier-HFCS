@@ -32,7 +32,7 @@ for (i in 1:5) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        nAGQ = 0
     )
     (start_time - Sys.time()) %>% print()
 }
