@@ -1,0 +1,227 @@
+Warning messages:
+1: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+2: In checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.00282655 (tol = 0.002, component 1)
+3: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+4: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+5: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+6: In eval(family$initialize, rho) :
+  non-integer #successes in a binomial glm!
+
+  Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) +      (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+167899.9 168006.0 -83939.9 167879.9   300640
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-3.919 -0.346 -0.186 -0.080 41.903
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 1.043602 1.02157
+ wave   (Intercept) 0.007169 0.08467
+Number of obs: 300650, groups:  sa0100, 22; wave, 4
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      -4.387383   0.225107 -19.490  < 2e-16 ***
+hsize            -0.066279   0.006281 -10.552  < 2e-16 ***
+head_gendrfemale -0.038614   0.013288  -2.906  0.00366 **
+age0-29          -0.945994   0.038292 -24.705  < 2e-16 ***
+age50-69          1.326483   0.018001  73.688  < 2e-16 ***
+age+70            2.231908   0.020589 108.404  < 2e-16 ***
+edu_refsecondary  0.820131   0.021637  37.904  < 2e-16 ***
+edu_reftertiary   1.077109   0.023608  45.624  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs
+hsize       -0.083
+hed_gndrfml -0.042  0.230
+age0-29     -0.035  0.144  0.015
+age50-69    -0.079  0.226  0.018  0.326
+age+70      -0.100  0.351 -0.006  0.306  0.687
+ed_rfscndry -0.089 -0.021  0.039  0.001  0.023  0.177
+edu_rftrtry -0.086 -0.042  0.008  0.021  0.089  0.254  0.791
+optimizer (bobyqa) convergence code: 0 (OK)
+Model failed to converge with max|grad| = 0.00282655 (tol = 0.002, component 1)
+
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) +      (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+167395.2 167501.3 -83687.6 167375.2   300645
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-3.949 -0.345 -0.185 -0.080 42.791
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 1.055174 1.02722
+ wave   (Intercept) 0.006891 0.08301
+Number of obs: 300655, groups:  sa0100, 22; wave, 4
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      -4.405914   0.222891 -19.767  < 2e-16 ***
+hsize            -0.066955   0.006296 -10.634  < 2e-16 ***
+head_gendrfemale -0.049580   0.013320  -3.722 0.000198 ***
+age0-29          -0.963784   0.038742 -24.877  < 2e-16 ***
+age50-69          1.344262   0.018064  74.416  < 2e-16 ***
+age+70            2.253895   0.020650 109.149  < 2e-16 ***
+edu_refsecondary  0.827266   0.021673  38.170  < 2e-16 ***
+edu_reftertiary   1.085207   0.023654  45.879  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs
+hsize       -0.081
+hed_gndrfml -0.041  0.231
+age0-29     -0.033  0.142  0.015
+age50-69    -0.077  0.225  0.018  0.324
+age+70      -0.098  0.349 -0.007  0.304  0.689
+ed_rfscndry -0.087 -0.022  0.038  0.001  0.021  0.176
+edu_rftrtry -0.085 -0.043  0.008  0.021  0.088  0.253  0.791
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) +      (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+167137.8 167244.0 -83558.9 167117.8   300644
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-3.943 -0.345 -0.185 -0.080 42.114
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 1.047762 1.0236
+ wave   (Intercept) 0.007482 0.0865
+Number of obs: 300654, groups:  sa0100, 22; wave, 4
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      -4.422221   0.223504 -19.786  < 2e-16 ***
+hsize            -0.064971   0.006303 -10.308  < 2e-16 ***
+head_gendrfemale -0.038617   0.013321  -2.899  0.00374 **
+age0-29          -0.923674   0.038260 -24.142  < 2e-16 ***
+age50-69          1.344909   0.018104  74.288  < 2e-16 ***
+age+70            2.259520   0.020694 109.185  < 2e-16 ***
+edu_refsecondary  0.826965   0.021711  38.090  < 2e-16 ***
+edu_reftertiary   1.088697   0.023688  45.960  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs
+hsize       -0.082
+hed_gndrfml -0.041  0.230
+age0-29     -0.034  0.145  0.015
+age50-69    -0.078  0.227  0.018  0.329
+age+70      -0.099  0.351 -0.006  0.308  0.689
+ed_rfscndry -0.088 -0.021  0.039  0.000  0.021  0.175
+edu_rftrtry -0.085 -0.042  0.009  0.021  0.088  0.253  0.792
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) +      (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+167513.7 167619.8 -83746.8 167493.7   300651
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-3.941 -0.345 -0.185 -0.080 42.294
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 1.02946  1.01462
+ wave   (Intercept) 0.00747  0.08643
+Number of obs: 300661, groups:  sa0100, 22; wave, 4
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      -4.380803   0.222641 -19.677  < 2e-16 ***
+hsize            -0.069998   0.006303 -11.106  < 2e-16 ***
+head_gendrfemale -0.054200   0.013314  -4.071 4.68e-05 ***
+age0-29          -0.938907   0.038397 -24.453  < 2e-16 ***
+age50-69          1.346423   0.018069  74.514  < 2e-16 ***
+age+70            2.243594   0.020651 108.645  < 2e-16 ***
+edu_refsecondary  0.816717   0.021692  37.651  < 2e-16 ***
+edu_reftertiary   1.081178   0.023657  45.702  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs
+hsize       -0.082
+hed_gndrfml -0.041  0.230
+age0-29     -0.034  0.144  0.016
+age50-69    -0.079  0.225  0.017  0.327
+age+70      -0.100  0.348 -0.007  0.307  0.689
+ed_rfscndry -0.089 -0.022  0.038  0.000  0.021  0.174
+edu_rftrtry -0.087 -0.043  0.007  0.021  0.088  0.252  0.792
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) +      (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+167700.7 167806.8 -83840.3 167680.7   300643
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-3.947 -0.346 -0.185 -0.080 41.909
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 1.058855 1.02901
+ wave   (Intercept) 0.007956 0.08919
+Number of obs: 300653, groups:  sa0100, 22; wave, 4
+
+Fixed effects:
+                  Estimate Std. Error z value Pr(>|z|)
+(Intercept)      -4.405704   0.224550 -19.620  < 2e-16 ***
+hsize            -0.067294   0.006286 -10.706  < 2e-16 ***
+head_gendrfemale -0.048689   0.013295  -3.662  0.00025 ***
+age0-29          -0.957920   0.038587 -24.825  < 2e-16 ***
+age50-69          1.346028   0.018035  74.636  < 2e-16 ***
+age+70            2.246435   0.020624 108.924  < 2e-16 ***
+edu_refsecondary  0.826678   0.021677  38.137  < 2e-16 ***
+edu_reftertiary   1.090073   0.023642  46.108  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs
+hsize       -0.081
+hed_gndrfml -0.040  0.229
+age0-29     -0.033  0.143  0.015
+age50-69    -0.077  0.225  0.017  0.324
+age+70      -0.097  0.349 -0.007  0.304  0.689
+ed_rfscndry -0.086 -0.021  0.039  0.000  0.022  0.175
+edu_rftrtry -0.084 -0.042  0.008  0.021  0.089  0.253  0.792
