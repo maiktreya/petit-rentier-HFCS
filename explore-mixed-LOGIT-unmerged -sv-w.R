@@ -5,7 +5,6 @@ library(magrittr)
 library(data.table)
 library(WeMix)
 
-
 # clean enviroment
 rm(list = ls())
 
@@ -25,9 +24,9 @@ for (i in 1:5) {
         rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome + quintile.gwealth + class + (1 | sa0100) + (1 | wave),
         family = binomial(),
         data = data.frame(dataset_s),
-        weights = c("hw0010.x", "unw", "unw")
+        weights = c("hw0010.x", "unw", "unw"),
+        center_group = list("sa0100" = ~wave)
     )
-
     (start_time - Sys.time()) %>% print()
 }
 coef_estimates <- lapply(model, function(m) fixef(m))

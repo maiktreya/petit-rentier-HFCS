@@ -17,15 +17,21 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:1) {
+for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ hsize + head_gendr + age + edu_ref + (1 | sa0100) + (1 | wave),
-        family = quasibinomial,
+        rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gincome + quintile.gwealth + class + (1 | sa0100) + (1 | wave),
+        family = binomial,
         data = dataset_s,
-        weights = weights,
-        control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+        weights = hw0010.x,
+        control = glmerControl(
+            optimizer = "Nelder_Mead", # bobyka, Nelder_Mead, nloptwrap, nlminb, optim
+            optCtrl = list(maxfun = 2e5),
+            standardize.X = FALSE
+        ),
+        verbose = TRUE,
+        nAGQ = 0
     )
     (start_time - Sys.time()) %>% print()
 }
