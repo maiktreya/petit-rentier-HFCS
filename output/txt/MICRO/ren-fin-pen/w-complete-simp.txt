@@ -1,0 +1,280 @@
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = TRUE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+142848.4 143016.9 -71408.2 142816.4   276936
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-5.860 -0.320 -0.160 -0.063 58.092
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.81685  0.9038
+ wave   (Intercept) 0.01871  0.1368
+Number of obs: 276952, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.663074   0.216383 -21.550  < 2e-16 ***
+hsize                      -0.144302   0.006979 -20.677  < 2e-16 ***
+head_gendrfemale            0.064332   0.013625   4.722 2.34e-06 ***
+age0-29                    -1.083203   0.040663 -26.639  < 2e-16 ***
+age50-69                    0.830453   0.019557  42.464  < 2e-16 ***
+age+70                      1.258848   0.025227  49.902  < 2e-16 ***
+edu_refsecondary            0.698466   0.021686  32.208  < 2e-16 ***
+edu_reftertiary             0.691997   0.024335  28.437  < 2e-16 ***
+quintile.gwealthtop-wealth  1.672883   0.016769  99.761  < 2e-16 ***
+quintile.gincometop-income  0.021231   0.019127   1.110    0.267
+classEmployer               0.889434   0.203049   4.380 1.18e-05 ***
+classSelf-Employed          1.050656   0.173137   6.068 1.29e-09 ***
+classManager                0.770529   0.027958  27.560  < 2e-16 ***
+classInactive               1.301853   0.019323  67.374  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gw- qntl.gn- clssEm clsS-E clssMn
+hsize       -0.090
+hed_gndrfml -0.046  0.182
+age0-29     -0.033  0.125  0.020
+age50-69    -0.073  0.215  0.024  0.341
+age+70      -0.072  0.222  0.002  0.323  0.726
+ed_rfscndry -0.089  0.003  0.036 -0.007  0.013  0.118
+edu_rftrtry -0.085  0.037 -0.011  0.009  0.062  0.145  0.770
+qntl.gwlth- -0.002 -0.122  0.057  0.013 -0.074 -0.052 -0.078 -0.159
+qntl.gncmt-  0.006 -0.244  0.071  0.032 -0.057 -0.043  0.005 -0.135 -0.294
+classEmplyr -0.003 -0.006  0.006 -0.005 -0.011 -0.013 -0.001  0.008 -0.010    0.007
+clssSlf-Emp -0.005  0.005  0.008 -0.006 -0.009 -0.017  0.001  0.002 -0.002    0.004    0.012
+classManagr -0.023 -0.033 -0.007 -0.015  0.027  0.025 -0.075 -0.071  0.019    0.036    0.025  0.035
+classInactv -0.040  0.102  0.017 -0.116 -0.285 -0.497  0.014  0.053  0.055    0.139    0.048  0.059  0.334
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = TRUE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+142309.7 142478.2 -71138.9 142277.7   276942
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-5.782 -0.318 -0.159 -0.063 59.648
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.81368  0.9020
+ wave   (Intercept) 0.01778  0.1334
+Number of obs: 276958, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.690345   0.215496 -21.765  < 2e-16 ***
+hsize                      -0.142377   0.006988 -20.375  < 2e-16 ***
+head_gendrfemale            0.055183   0.013658   4.040 5.34e-05 ***
+age0-29                    -1.100382   0.041144 -26.745  < 2e-16 ***
+age50-69                    0.847154   0.019632  43.151  < 2e-16 ***
+age+70                      1.284206   0.025309  50.741  < 2e-16 ***
+edu_refsecondary            0.704786   0.021733  32.429  < 2e-16 ***
+edu_reftertiary             0.696318   0.024384  28.556  < 2e-16 ***
+quintile.gwealthtop-wealth  1.673325   0.016779  99.726  < 2e-16 ***
+quintile.gincometop-income  0.023175   0.019136   1.211    0.226
+classEmployer               1.005697   0.208380   4.826 1.39e-06 ***
+classSelf-Employed          1.002186   0.167571   5.981 2.22e-09 ***
+classManager                0.777445   0.027999  27.767  < 2e-16 ***
+classInactive               1.306683   0.019375  67.440  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gw- qntl.gn- clssEm clsS-E clssMn
+hsize       -0.091
+hed_gndrfml -0.046  0.182
+age0-29     -0.033  0.124  0.020
+age50-69    -0.074  0.216  0.023  0.340
+age+70      -0.073  0.223  0.002  0.322  0.727
+ed_rfscndry -0.089  0.002  0.035 -0.007  0.012  0.118
+edu_rftrtry -0.086  0.036 -0.012  0.009  0.061  0.145  0.771
+qntl.gwlth- -0.002 -0.121  0.055  0.014 -0.072 -0.049 -0.077 -0.159
+qntl.gncmt-  0.006 -0.244  0.073  0.030 -0.058 -0.044  0.005 -0.133 -0.294
+classEmplyr -0.003 -0.009  0.005 -0.006 -0.014 -0.013 -0.001  0.007 -0.009    0.007
+clssSlf-Emp -0.005  0.006  0.008 -0.004 -0.008 -0.016  0.002  0.004 -0.008    0.006    0.012
+classManagr -0.024 -0.033 -0.009 -0.016  0.027  0.025 -0.074 -0.071  0.018    0.037    0.025  0.035
+classInactv -0.041  0.101  0.016 -0.116 -0.284 -0.495  0.014  0.052  0.054    0.141    0.045  0.061  0.335
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = TRUE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+142043.0 142211.5 -71005.5 142011.0   276940
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-5.863 -0.318 -0.159 -0.063 58.686
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.81363  0.9020
+ wave   (Intercept) 0.01976  0.1406
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.702831   0.216639 -21.708  < 2e-16 ***
+hsize                      -0.141545   0.007001 -20.219  < 2e-16 ***
+head_gendrfemale            0.066497   0.013658   4.869 1.12e-06 ***
+age0-29                    -1.065438   0.040686 -26.187  < 2e-16 ***
+age50-69                    0.842397   0.019663  42.841  < 2e-16 ***
+age+70                      1.281250   0.025326  50.590  < 2e-16 ***
+edu_refsecondary            0.703894   0.021767  32.338  < 2e-16 ***
+edu_reftertiary             0.701390   0.024414  28.729  < 2e-16 ***
+quintile.gwealthtop-wealth  1.674433   0.016798  99.683  < 2e-16 ***
+quintile.gincometop-income  0.025644   0.019159   1.338    0.181
+classEmployer               1.088851   0.192702   5.650 1.60e-08 ***
+classSelf-Employed          1.003223   0.175318   5.722 1.05e-08 ***
+classManager                0.778940   0.028067  27.753  < 2e-16 ***
+classInactive               1.315172   0.019387  67.838  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gw- qntl.gn- clssEm clsS-E clssMn
+hsize       -0.090
+hed_gndrfml -0.046  0.181
+age0-29     -0.034  0.126  0.020
+age50-69    -0.073  0.216  0.024  0.344
+age+70      -0.072  0.224  0.003  0.326  0.727
+ed_rfscndry -0.089  0.002  0.036 -0.008  0.012  0.117
+edu_rftrtry -0.085  0.035 -0.010  0.009  0.060  0.144  0.771
+qntl.gwlth- -0.002 -0.121  0.057  0.014 -0.073 -0.049 -0.078 -0.160
+qntl.gncmt-  0.005 -0.244  0.071  0.031 -0.057 -0.043  0.006 -0.132 -0.293
+classEmplyr -0.003 -0.009  0.004 -0.005 -0.014 -0.015  0.000  0.009 -0.011    0.010
+clssSlf-Emp -0.005  0.006  0.004 -0.005 -0.006 -0.014  0.003  0.003 -0.004    0.002    0.013
+classManagr -0.023 -0.033 -0.008 -0.016  0.027  0.025 -0.075 -0.071  0.018    0.036    0.026  0.034
+classInactv -0.041  0.101  0.016 -0.116 -0.283 -0.494  0.014  0.053  0.053    0.142    0.051  0.058  0.335
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = TRUE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+142513.1 142681.6 -71240.5 142481.1   276947
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-5.770 -0.319 -0.160 -0.063 41.244
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.79733  0.8929
+ wave   (Intercept) 0.01933  0.1390
+Number of obs: 276963, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.664135   0.214480 -21.746  < 2e-16 ***
+hsize                      -0.147184   0.006997 -21.037  < 2e-16 ***
+head_gendrfemale            0.051115   0.013644   3.746 0.000179 ***
+age0-29                    -1.084834   0.040870 -26.544  < 2e-16 ***
+age50-69                    0.845909   0.019617  43.122  < 2e-16 ***
+age+70                      1.271065   0.025273  50.294  < 2e-16 ***
+edu_refsecondary            0.701268   0.021750  32.242  < 2e-16 ***
+edu_reftertiary             0.699263   0.024384  28.677  < 2e-16 ***
+quintile.gwealthtop-wealth  1.663567   0.016762  99.248  < 2e-16 ***
+quintile.gincometop-income  0.031686   0.019143   1.655 0.097877 .
+classEmployer               0.830479   0.214520   3.871 0.000108 ***
+classSelf-Employed          0.961235   0.177750   5.408 6.38e-08 ***
+classManager                0.779898   0.028029  27.825  < 2e-16 ***
+classInactive               1.305136   0.019335  67.503  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gw- qntl.gn- clssEm clsS-E clssMn
+hsize       -0.091
+hed_gndrfml -0.046  0.181
+age0-29     -0.034  0.125  0.020
+age50-69    -0.074  0.215  0.023  0.341
+age+70      -0.073  0.223  0.002  0.323  0.727
+ed_rfscndry -0.090  0.002  0.036 -0.008  0.011  0.116
+edu_rftrtry -0.086  0.036 -0.012  0.009  0.061  0.144  0.771
+qntl.gwlth- -0.002 -0.123  0.055  0.013 -0.074 -0.051 -0.076 -0.157
+qntl.gncmt-  0.006 -0.244  0.073  0.031 -0.057 -0.043  0.005 -0.135 -0.293
+classEmplyr -0.003 -0.009  0.005 -0.005 -0.014 -0.013 -0.001  0.007 -0.011    0.008
+clssSlf-Emp -0.005  0.004  0.005 -0.004 -0.005 -0.013  0.002  0.003 -0.006    0.004    0.011
+classManagr -0.024 -0.033 -0.008 -0.016  0.027  0.025 -0.075 -0.071  0.019    0.036    0.024  0.033
+classInactv -0.041  0.101  0.015 -0.115 -0.283 -0.495  0.015  0.054  0.053    0.141    0.045  0.055  0.335
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ hsize + head_gendr + age + edu_ref + quintile.gwealth +
+    quintile.gincome + class + (1 | sa0100) + (1 | wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = TRUE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+142552.6 142721.1 -71260.3 142520.6   276940
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-5.826 -0.319 -0.160 -0.063 58.368
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ sa0100 (Intercept) 0.82193  0.9066
+ wave   (Intercept) 0.02011  0.1418
+Number of obs: 276956, groups:  sa0100, 20; wave, 4
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                -4.683383   0.217789 -21.504  < 2e-16 ***
+hsize                      -0.145974   0.006986 -20.894  < 2e-16 ***
+head_gendrfemale            0.056139   0.013633   4.118 3.82e-05 ***
+age0-29                    -1.098626   0.040995 -26.799  < 2e-16 ***
+age50-69                    0.844704   0.019594  43.110  < 2e-16 ***
+age+70                      1.271767   0.025266  50.335  < 2e-16 ***
+edu_refsecondary            0.704901   0.021738  32.426  < 2e-16 ***
+edu_reftertiary             0.700351   0.024378  28.728  < 2e-16 ***
+quintile.gwealthtop-wealth  1.667799   0.016768  99.465  < 2e-16 ***
+quintile.gincometop-income  0.031171   0.019111   1.631    0.103
+classEmployer               0.950870   0.199455   4.767 1.87e-06 ***
+classSelf-Employed          1.084772   0.164684   6.587 4.49e-11 ***
+classManager                0.786911   0.027971  28.134  < 2e-16 ***
+classInactive               1.310857   0.019352  67.738  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) hsize  hd_gnd ag0-29 a50-69 age+70 ed_rfs ed_rft qntl.gw- qntl.gn- clssEm clsS-E clssMn
+hsize       -0.089
+hed_gndrfml -0.045  0.180
+age0-29     -0.033  0.124  0.020
+age50-69    -0.073  0.215  0.023  0.340
+age+70      -0.072  0.222  0.002  0.322  0.727
+ed_rfscndry -0.088  0.002  0.036 -0.007  0.012  0.117
+edu_rftrtry -0.085  0.036 -0.011  0.009  0.061  0.144  0.771
+qntl.gwlth- -0.001 -0.123  0.055  0.013 -0.074 -0.050 -0.078 -0.159
+qntl.gncmt-  0.005 -0.243  0.071  0.031 -0.055 -0.042  0.005 -0.134 -0.293
+classEmplyr -0.003 -0.009  0.006 -0.007 -0.019 -0.021 -0.001  0.008 -0.011    0.012
+clssSlf-Emp -0.005  0.004  0.006 -0.005 -0.006 -0.013  0.001  0.004 -0.005    0.005    0.013
+classManagr -0.023 -0.033 -0.008 -0.016  0.027  0.025 -0.074 -0.070  0.018    0.036    0.025  0.036
+classInactv -0.040  0.101  0.016 -0.116 -0.283 -0.495  0.014  0.053  0.054    0.140    0.052  0.060  0.336

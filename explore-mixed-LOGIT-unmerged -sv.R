@@ -32,7 +32,7 @@ for (i in 1:5) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 0
+        nAGQ = 1
     )
     (start_time - Sys.time()) %>% print()
 }
@@ -68,4 +68,4 @@ p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
 
 # Export joint results to csv
-fwrite(combined_results, "output/MODELS/MICRO/ren-fin/w-complete.csv")
+fwrite(combined_results, "output/MODELS/MICRO/ren-fin-pen/w-complete.csv")
