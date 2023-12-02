@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("income")
+var_code <- c("profit", "interests")
 prefix <- ""
 count <- 0
 
@@ -36,14 +36,14 @@ for (varname in var_code) {
                 transf <- imp[[m]]
                 setnames(transf,
                     old = c(
-                        "hg0510", "hg0610", "dhaq01ea", "dhiq01ea",
+                        "hg0510", "hg0410", "hg0610", "dhaq01ea", "dhiq01ea",
                         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                         "hg0310", "di1400", "di1520", "di1700", "di2000",
                         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
                         "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300"
                     ),
                     new = c(
-                        "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
+                        "profit", "interests", "Kgains", "quintile.gwealth", "quintile.gincome",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -53,7 +53,7 @@ for (varname in var_code) {
                 transf <- transf[
                     ra0010 == dhidh1,
                     c(
-                        "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
+                        "profit", "interests", "Kgains", "quintile.gwealth", "quintile.gincome",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
