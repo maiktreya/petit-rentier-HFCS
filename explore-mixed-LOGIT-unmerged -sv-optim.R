@@ -1,9 +1,8 @@
 # HFCS  correlated efects mixed hybrid model (Bell & Jones, 2015) pooled waves
-
 ### PPREPARATION
-library(magrittr)
-library(data.table)
-library(lme4)
+library(magrittr) # piping no dependencies
+library(data.table) # king of data wrangling
+library(lme4) # mixed models enviroment
 
 # clean enviroment
 rm(list = ls())
@@ -21,7 +20,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ wave + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class +
+        rentsbi ~ wave + hsize + head_gendr + age + edu_ref + quantile.gwealth + quantile.gincome + class +
             (1 | sa0100) + (1 | wave) + (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
