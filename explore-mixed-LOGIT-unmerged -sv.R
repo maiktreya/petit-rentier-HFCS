@@ -26,13 +26,14 @@ for (i in 1:5) {
         data = dataset_s,
         weights = weights,
         control = glmerControl(
-            optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb'
+            optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb',
+            standardize.X = FALSE,
             boundary.tol = 1e-5,
-            calc.derivs = TRUE,
+            calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        # nAGQ = 1
     )
     (start_time - Sys.time()) %>% print()
 }
