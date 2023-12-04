@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("profit", "profit2")
+var_code <- c("pvpens")
 prefix <- ""
 count <- 0
 
@@ -53,7 +53,7 @@ for (varname in var_code) {
                 transf <- transf[
                     ra0010 == dhidh1,
                     c(
-                        "profit","profit2", "Kgains", "interests",
+                        "profit", "profit2", "Kgains", "interests",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
@@ -61,6 +61,8 @@ for (varname in var_code) {
                         "sa0100", "hw0010.x"
                     )
                 ]
+                transf[, interests := suppressWarnings(as.numeric(interests))][, interests := ifelse(is.na(interests), 0, interests)]
+                transf[, income := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, pvpens := suppressWarnings(as.numeric(pvpens))][, pvpens := ifelse(is.na(pvpens), 0, pvpens)]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]

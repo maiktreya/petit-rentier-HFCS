@@ -66,6 +66,10 @@ p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 
 # Combined results with t-stats and p-values
 combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
+eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
+    data.table() %>%
+    rowSums()
+combined_results <- rbind(combined_results, eval)
 
 # Export joint results to csv
 fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete.csv")

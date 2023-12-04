@@ -61,6 +61,8 @@ for (varname in var_code) {
                         "sa0010", "sa0100", "hw0010.x"
                     )
                 ]
+                transf[, interests := suppressWarnings(as.numeric(interests))][, interests := ifelse(is.na(interests), 0, interests)]
+                transf[, income := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
                 transf[, pvpens := suppressWarnings(as.numeric(pvpens))][, pvpens := ifelse(is.na(pvpens), 0, pvpens)]
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
