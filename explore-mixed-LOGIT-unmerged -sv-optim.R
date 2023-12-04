@@ -72,4 +72,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, eval)
 
 # Export joint results to csv
-fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete.csv")
+fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin-pen/w-complete.csv")
