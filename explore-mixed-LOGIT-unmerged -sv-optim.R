@@ -20,8 +20,8 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ as.factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class +
-            (1 | sa0100) + (1 | wave) + (1 | sa0100:wave),
+        rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class +
+            (1 | sa0100) + (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
         weights = weights,
@@ -65,7 +65,7 @@ t_stats <- mean_estimates / combined_se
 p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
 
 # Combined results with t-stats and p-values
-combined_results <- cbind(names = names(fixef(model[[1]])), mean_estimates, combined_se, t_stats, p_values) %>% print()
+combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
 
 # Export joint results to csv
-# write(combined_results, "output/MODELS/MICRO/ren-fin-fac/w-complete-fast-fact.csv")
+fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete.csv")
