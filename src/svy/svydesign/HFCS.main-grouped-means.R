@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("profit", "interests")
+var_code <- c("rentsbi", "rentsbi5", "rental", "financ", "pvpens")
 prefix <- ""
 count <- 0
 
@@ -62,14 +62,13 @@ for (varname in var_code) {
                     )
                 ]
                 transf[, interests := suppressWarnings(as.numeric(interests))][, interests := ifelse(is.na(interests), 0, interests)]
-                transf[, income := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
+                transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
                 transf[, pvpens := suppressWarnings(as.numeric(pvpens))][, pvpens := ifelse(is.na(pvpens), 0, pvpens)]
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
                 transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi5 := 0][income > 0 & ((financ + rental) / income) > 0.05, rentsbi5 := 1]
-                transf[, rentsbi2 := 0][income > 0 & ((financ + rental) / income) > 0.02, rentsbi2 := 1]
                 transf[employm %in% c(1, 3), employm := 1] # worker
                 transf[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
                 transf[status == 2 & employm == 2, employm := 2] # capitalist
@@ -80,6 +79,7 @@ for (varname in var_code) {
                 transf[retired_status == 2, employm := 2] # capitalist
                 transf[retired_status == 3, employm := 3] # self_employed
                 transf[retired_isco08 %in% c(10, 11, 12, 13, 14, 15, 16, 17, 18, 19), employm := 4] # manager
+                transf[quintile.gwealth != 5, quintile.gwealth := 1][quintile.gwealth == 5, quintile.gwealth := 2] # top wealth quintile
                 transf$class <- transf$employm %>%
                     factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
                 imp[[m]] <- transf
@@ -99,7 +99,7 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], employm == 1), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -110,7 +110,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("output/MEANS/class/", prefix, varname, ".csv"))
+    fwrite(mean_of_years, paste0("output/MEANS/wealthy/", prefix, varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
