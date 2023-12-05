@@ -37,7 +37,7 @@ model5 <- plm(outcome5 ~ as.numeric(time), data = pdataset, model = "within", ef
 c_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
 c_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
 
-print(summary(model))
-print(summary(model5))
-print(summary(c_model))
-print(summary(c_model5))
+print(coef(model))
+print(coef(model5))
+print(coef(c_model))
+print(coef(c_model5))

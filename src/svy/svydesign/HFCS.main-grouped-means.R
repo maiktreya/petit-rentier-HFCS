@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rentsbi", "rentsbi5", "rental", "financ", "pvpens")
+var_code <- c("iscapital", "isrental", "isfinanc")
 prefix <- ""
 count <- 0
 
@@ -67,6 +67,9 @@ for (varname in var_code) {
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
+                transf[, isrental := as.logical(rental)]
+                transf[, isfinanc := as.logical(financ)]
+                transf[, iscapital := rental + financ][, iscapital := as.logical(iscapital)]
                 transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi5 := 0][income > 0 & ((financ + rental) / income) > 0.05, rentsbi5 := 1]
                 transf[employm %in% c(1, 3), employm := 1] # worker
