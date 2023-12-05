@@ -53,6 +53,7 @@ c_model5 <- plm(c_outcome5 ~ as.numeric(time), data = pdataset, model = "within"
 cross_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
 cross_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
 
+
 results <- rbind(
     summary(model)$coefficients,
     summary(model5)$coefficients,
@@ -63,5 +64,18 @@ results <- rbind(
     summary(c_model)$coefficients,
     summary(c_model5)$coefficients
 )
+
+r_squared <- rbind(
+    summary(model)$r.squared,
+    summary(model5)$r.squared,
+    summary(w_model)$r.squared,
+    summary(w_model5)$r.squared,
+    summary(i_model)$r.squared,
+    summary(i_model5)$r.squared,
+    summary(c_model)$r.squared,
+    summary(c_model5)$r.squared
+)
+
+results <- cbind(results, r_squared)
 
 fwrite(results, "output/MODELS/MACRO/ren-fin/macro.csv")
