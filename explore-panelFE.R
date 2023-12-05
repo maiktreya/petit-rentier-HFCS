@@ -11,33 +11,57 @@ rm(list = ls())
 path_string <- "output/MEANS/"
 
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi.csv", header = TRUE)) %>%
+outcome <- fread(paste0(path_string, "ren-fin-pro/rentsbi.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-outcome5 <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi5.csv", header = TRUE)) %>%
+outcome5 <- fread(paste0(path_string, "ren-fin-pro/rentsbi5.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-tenan <- fread(paste0(path_string, "tenan.csv", header = TRUE)) %>%
+w_outcome <- fread(paste0(path_string, "wealthy/rentsbi.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-rental_share <- fread(paste0(path_string, "rental-share.csv", header = TRUE)) %>%
+w_outcome5 <- fread(paste0(path_string, "wealthy/rentsbi5.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-finan_share <- fread(paste0(path_string, "financ-share.csv", header = TRUE)) %>%
+i_outcome <- fread(paste0(path_string, "highincome/rentsbi.csv"), header = TRUE) %>%
+    unlist() %>%
+    as.vector()
+i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi5.csv"), header = TRUE) %>%
+    unlist() %>%
+    as.vector()
+c_outcome <- fread(paste0(path_string, "class/ren-fin-pro/rentsbi.csv"), header = TRUE) %>%
+    unlist() %>%
+    as.vector()
+c_outcome5 <- fread(paste0(path_string, "class/ren-fin-pro/rentsbi5.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
 group <- rep(countries, 4)
 time <- as.numeric(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15))))
 
-dataset <- data.table(group, time, outcome, outcome5, rental_share, finan_share, tenan)
+dataset <- data.table(group, time, outcome, outcome5, w_outcome, w_outcome5, i_outcome, i_outcome5, c_outcome, c_outcome5)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
 
 model <- plm(outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
 model5 <- plm(outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-c_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
-c_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+w_model <- plm(w_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+w_model5 <- plm(w_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+i_model <- plm(i_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+i_model5 <- plm(i_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+c_model <- plm(c_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+c_model5 <- plm(c_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
 
-print(coef(model))
-print(coef(model5))
-print(coef(c_model))
-print(coef(c_model5))
+cross_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+cross_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+
+results <- rbind(
+    summary(model)$coefficients,
+    summary(model5)$coefficients,
+    summary(w_model)$coefficients,
+    summary(w_model5)$coefficients,
+    summary(i_model)$coefficients,
+    summary(i_model5)$coefficients,
+    summary(c_model)$coefficients,
+    summary(c_model5)$coefficients
+)
+
+fwrite(results, "output/MODELS/MACRO/ren-fin/macro.csv")

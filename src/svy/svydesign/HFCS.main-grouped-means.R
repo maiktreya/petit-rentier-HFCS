@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("iscapital", "isrental", "isfinanc")
+var_code <- c("rentsbi", "rentsbi5")
 prefix <- ""
 count <- 0
 
@@ -70,8 +70,8 @@ for (varname in var_code) {
                 transf[, isrental := as.logical(rental)]
                 transf[, isfinanc := as.logical(financ)]
                 transf[, iscapital := rental + financ][, iscapital := as.logical(iscapital)]
-                transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
-                transf[, rentsbi5 := 0][income > 0 & ((financ + rental) / income) > 0.05, rentsbi5 := 1]
+                transf[, rentsbi := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi := 1]
+                transf[, rentsbi5 := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.05, rentsbi5 := 1]
                 transf[employm %in% c(1, 3), employm := 1] # worker
                 transf[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
                 transf[status == 2 & employm == 2, employm := 2] # capitalist
@@ -103,7 +103,7 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], employm == 1), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -114,7 +114,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("output/MEANS/class/", prefix, varname, ".csv"))
+    fwrite(mean_of_years, paste0("output/MEANS/wealthy/", prefix, varname, "-pens.csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
