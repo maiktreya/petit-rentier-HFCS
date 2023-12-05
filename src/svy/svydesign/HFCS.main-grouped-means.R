@@ -103,7 +103,7 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gincome == 2), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
