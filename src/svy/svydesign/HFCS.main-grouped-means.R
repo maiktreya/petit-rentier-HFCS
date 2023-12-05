@@ -103,7 +103,7 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], employm == 1), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -114,7 +114,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("output/MEANS/highincome/", prefix, varname, ".csv"))
+    fwrite(mean_of_years, paste0("output/MEANS/class/", prefix, varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
