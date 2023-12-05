@@ -11,28 +11,28 @@ rm(list = ls())
 path_string <- "output/MEANS/"
 
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread(paste0(path_string, "ren-fin-pro/rentsbi.csv"), header = TRUE) %>%
+outcome <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-outcome5 <- fread(paste0(path_string, "ren-fin-pro/rentsbi5.csv"), header = TRUE) %>%
+outcome5 <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi5.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-w_outcome <- fread(paste0(path_string, "wealthy/rentsbi.csv"), header = TRUE) %>%
+w_outcome <- fread(paste0(path_string, "wealthy/rentsbi-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-w_outcome5 <- fread(paste0(path_string, "wealthy/rentsbi5.csv"), header = TRUE) %>%
+w_outcome5 <- fread(paste0(path_string, "wealthy/rentsbi5-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-i_outcome <- fread(paste0(path_string, "highincome/rentsbi.csv"), header = TRUE) %>%
+i_outcome <- fread(paste0(path_string, "highincome/rentsbi-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi5.csv"), header = TRUE) %>%
+i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi5-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-c_outcome <- fread(paste0(path_string, "class/ren-fin-pro/rentsbi.csv"), header = TRUE) %>%
+c_outcome <- fread(paste0(path_string, "class/ren-fin-pro-pens/rentsbi.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-c_outcome5 <- fread(paste0(path_string, "class/ren-fin-pro/rentsbi5.csv"), header = TRUE) %>%
+c_outcome5 <- fread(paste0(path_string, "class/ren-fin-pro-pens/rentsbi5.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
 group <- rep(countries, 4)
@@ -78,4 +78,4 @@ r_squared <- rbind(
 
 results <- cbind(results, r_squared)
 
-fwrite(results, "output/MODELS/MACRO/ren-fin/macro.csv")
+fwrite(results, "output/MODELS/MACRO/ren-fin-pens/macro.csv")
