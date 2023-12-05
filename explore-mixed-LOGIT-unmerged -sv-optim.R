@@ -36,7 +36,6 @@ for (i in 1:5) {
     )
     (start_time - Sys.time()) %>% print()
 }
-
 # Get coefficients and standard errors
 coef_estimates <- lapply(model, function(m) fixef(m))
 se_estimates <- lapply(model, function(m) sqrt(diag(vcov(m))))
@@ -62,14 +61,16 @@ combined_se <- sqrt(total_variance)
 t_stats <- mean_estimates / combined_se
 
 # P-Values (two-tailed test)
-p_values <- 2 * pt(-abs(t_stats), df = (n_imputations - 1))
+p_values <- (1 - pnorm(abs(t_stats), 0, 1)) * 2
 
 # Combined results with t-stats and p-values
 combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
+random_part <- sapply(model, function(m) unlist(data.frame(summary(m)$varcor)[4:5])) %>%
+    rowSums() / 5
 eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
     data.table() %>%
-    rowSums()
-combined_results <- rbind(combined_results, eval)
+    rowSums() / 5
+combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
 fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin-pen/w-complete.csv")
