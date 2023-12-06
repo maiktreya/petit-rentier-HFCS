@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("iscapital")
+var_code <- c("ispvpens", "iscapitalpens")
 prefix <- ""
 count <- 0
 
@@ -69,7 +69,8 @@ for (varname in var_code) {
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
                 transf[, isrental := as.logical(rental)]
                 transf[, isfinanc := as.logical(financ)]
-                transf[, iscapital := rental + financ][, iscapital := as.logical(iscapital)]
+                transf[, ispvpens := as.logical(pvpens)]
+                transf[, iscapitalpens := rental + financ + pvpens][, iscapitalpens := as.logical(iscapitalpens)]
                 transf[, rentsbi := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi5 := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.05, rentsbi5 := 1]
                 transf[employm %in% c(1, 3), employm := 1] # worker
@@ -114,7 +115,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    # fwrite(mean_of_years, paste0("output/MEANS/highincome/", prefix, varname, "-pens.csv"))
+    fwrite(mean_of_years, paste0("output/MEANS/highincome/", prefix, varname, "-pens.csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }

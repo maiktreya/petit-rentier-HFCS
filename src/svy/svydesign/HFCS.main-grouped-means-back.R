@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("iscapital", "isrental", "isfinanc")
+var_code <- c("iscapitalpens")
 prefix <- ""
 count <- 0
 
@@ -70,8 +70,10 @@ for (varname in var_code) {
                 transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbialt := 1]
                 transf[, rentsbi5 := 0][income > 0 & ((financ + rental) / income) > 0.05, rentsbi5 := 1]
                 transf[, isrental := as.logical(rental)]
+                transf[, ispvpens := as.logical(pvpens)]
                 transf[, isfinanc := as.logical(financ)]
-                transf[, iscapital := rental + financ][, iscapital := as.logical(iscapital)]
+                transf[, iscapitalpens := rental + financ + pvpens][, iscapitalpens := as.logical(iscapitalpens)]
+
                 imp[[m]] <- transf
             }
             # Loop through each set of imputations and create svydesign objects
