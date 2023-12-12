@@ -36,22 +36,22 @@ c_outcome5 <- fread(paste0(path_string, "class/ren-fin-pro/rentsbi5.csv"), heade
     unlist() %>%
     as.vector()
 group <- rep(countries, 4)
-time <- as.numeric(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15))))
+time <- as.factor(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15))))
 
 dataset <- data.table(group, time, outcome, outcome5, w_outcome, w_outcome5, i_outcome, i_outcome5, c_outcome, c_outcome5)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
 
-model <- plm(outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-model5 <- plm(outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-w_model <- plm(w_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-w_model5 <- plm(w_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-i_model <- plm(i_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-i_model5 <- plm(i_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-c_model <- plm(c_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-c_model5 <- plm(c_outcome5 ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+model <- plm(outcome ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+model5 <- plm(outcome5 ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+w_model <- plm(w_outcome ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+w_model5 <- plm(w_outcome5 ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+i_model <- plm(i_outcome ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+i_model5 <- plm(i_outcome5 ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+c_model <- plm(c_outcome ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
+c_model5 <- plm(c_outcome5 ~ as.factor(time), data = pdataset, model = "within", effect = "individual")
 
-cross_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
-cross_model5 <- plm(outcome5 ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
+cross_model <- plm(outcome ~ as.factor(time) + as.factor(time) * group, data = pdataset, model = "within", effect = "individual")
+cross_model5 <- plm(outcome5 ~ as.factor(time) + as.factor(time) * group, data = pdataset, model = "within", effect = "individual")
 
 
 results <- rbind(
@@ -65,17 +65,17 @@ results <- rbind(
     summary(c_model5)$coefficients
 )
 
-r_squared <- rbind(
-    summary(model)$r.squared["rsq"],
-    summary(model5)$r.squared["rsq"],
-    summary(w_model)$r.squared["rsq"],
-    summary(w_model5)$r.squared["rsq"],
-    summary(i_model)$r.squared["rsq"],
-    summary(i_model5)$r.squared["rsq"],
-    summary(c_model)$r.squared["rsq"],
-    summary(c_model5)$r.squared["rsq"]
+r_squared <- c(
+    rep(summary(model)$r.squared["rsq"], 3),
+    rep(summary(model5)$r.squared["rsq"], 3),
+    rep(summary(w_model)$r.squared["rsq"], 3),
+    rep(summary(w_model5)$r.squared["rsq"], 3),
+    rep(summary(i_model)$r.squared["rsq"], 3),
+    rep(summary(i_model5)$r.squared["rsq"], 3),
+    rep(summary(c_model)$r.squared["rsq"], 3),
+    rep(summary(c_model5)$r.squared["rsq"], 3)
 )
 
 results <- cbind(results, r_squared)
 
-fwrite(results, "output/MODELS/MACRO/ren-fin/macro.csv")
+fwrite(results, "output/MODELS/MACRO/ren-fin/macro-factor.csv")
