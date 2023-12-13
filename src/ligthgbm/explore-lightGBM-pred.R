@@ -22,7 +22,8 @@ test_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical
 
 # Creating LightGBM dataset
 dtrain <- lgb.Dataset(
-    data = data.matrix(train_data[, !c("rentsbi")]), label = train_data$rentsbi,
+    data = data.matrix(train_data[, !c("rentsbi")]),
+    label = train_data$rentsbi,
     categorical_feature = categorical_features
 )
 
@@ -39,7 +40,9 @@ params_alt <- list(
 
 # Training the model
 lgb_model <- lgb.train(
-    params = params_alt, data = dtrain, nrounds = 100,
+    params = params_alt,
+    data = dtrain,
+    nrounds = 100,
     verbose = 5
 )
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
