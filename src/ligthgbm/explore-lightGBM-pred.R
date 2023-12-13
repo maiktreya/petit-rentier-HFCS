@@ -57,9 +57,11 @@ predicted_classes_lgb <- ifelse(predictions_lgb > 0.3, 1, 0)
 accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi)
 confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(train_data$rentsbi), positive = "1")
 
+# Descibe the last strong boosted tree after iterating 100 "weak models"
+tree_graph <- lgb.plot.tree(lgb_model, tree = 99)
+
 # print results
 print(importance_matrix)
 print(paste("LightGBM Accuracy:", accuracy_lgb))
 print(confusion)
-
-tree_graph <- lgb.plot.tree(lgb_model, tree = 99) %>% print()
+print(tree_graph)
