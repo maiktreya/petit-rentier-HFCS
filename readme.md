@@ -1,5 +1,11 @@
 
-# HFCS USAGE
+@author: Miguel Garcia-Duch
+
+## HFCS USAGE FOR CAPITAL INCOME ANALISIS
+
+- Project implementing distinct statistical methods on HFCS Survey data. Datasets are not available for privacy reasons but are available for free for research purposes under request. Link: <https://www.ecb.europa.eu/home/pdf/research/hfcn/access_form_leadresearchersurname_researchersurname.pdf>
+
+-----------------------------------------------------------------------------------------------------------------------
 
 ## JOINT COLNAMES (common for all countries and waves)
 
@@ -26,6 +32,8 @@ new <-  c(
         "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08"
     )
 ```
+
+-----------------------------------------------------------------------------------------------------------------------
 
 ## CONSTRUCTION OF RENTSBI VARIABLE
 
