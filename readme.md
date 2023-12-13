@@ -1,10 +1,25 @@
+# HFCS: Capital income analysis 2023
 
 @author: Miguel Garcia-Duch
+
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
 
 ## HFCS USAGE FOR CAPITAL INCOME ANALISIS
 
 - Project implementing distinct statistical methods on HFCS Survey data. Datasets are not available for privacy reasons but are available for free for research purposes under request. Link: <https://www.ecb.europa.eu/home/pdf/research/hfcn/access_form_leadresearchersurname_researchersurname.pdf>
 
+Within this project, distinct procedures are implemented in foler src for replicationg, broadly follows this tree structure:
+
+- lightGBM: ML training for binary classification implementations on full datasets.
+- XGBoost: ML training for binary classification implementations on full datasets.
+- lme4: (multilevel models) implementations.
+- svy (survey) survey methods computations (combining multiple imputations + accounting for sample weights).
+- tools (data.table) efficient data wrangling and manipulation into a single fast data.table containing all HFCS data.
+- main (production scripts) scripts implementing the final model versions used in Working Paper (2023), export result tables to output folder at root level.
+-
+
+-----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
 
 ## JOINT COLNAMES (common for all countries and waves)
@@ -33,6 +48,7 @@ new <-  c(
     )
 ```
 
+-----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
 
 ## CONSTRUCTION OF RENTSBI VARIABLE
@@ -98,3 +114,8 @@ dataset[status == 2  & employm == 2 , employm := 3] # capitalist
 4 - Unpaid family worker
 
 ### DNACE
+
+alternative classification of empoyment by NACE.2 3 digit groups
+
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
