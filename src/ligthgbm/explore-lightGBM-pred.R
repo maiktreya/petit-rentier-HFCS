@@ -3,11 +3,10 @@ library(data.table)
 library(lightgbm) # gradient boost algorithm
 library(caret) # for confusion matrix
 library(Matrix) # dataset tidy for ml models
-# Clean environment
-rm(list = ls())
 
-# source prepared joint dataset
-source("src/tools/prepare-vars/import-join.R")
+rm(list = ls()) # Clean environment
+source("src/tools/prepare-vars/import-join.R") # source prepared joint dataset
+source("lib/plot-lgbm.R") # function to plot a single LightGBM tree using DiagrammeR
 
 ################################# MODEL FITTING ###################################################
 
@@ -40,7 +39,7 @@ params_alt <- list(
 
 # Training the model
 lgb_model <- lgb.train(
-    params = params_alt, data = dtrain, nrounds = 1000,
+    params = params_alt, data = dtrain, nrounds = 100,
     verbose = 5
 )
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
@@ -59,3 +58,5 @@ confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(t
 print(importance_matrix)
 print(paste("LightGBM Accuracy:", accuracy_lgb))
 print(confusion)
+
+tree_graph <- lgb.plot.tree(lgb_model, tree = 1) %>% plot()
