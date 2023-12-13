@@ -62,4 +62,4 @@ print(importance_matrix)
 print(paste("LightGBM Accuracy:", accuracy_lgb))
 print(confusion)
 
-tree_graph <- lgb.plot.tree(lgb_model, tree = 100) %>% print()
+tree_graph <- lgb.plot.tree(lgb_model, tree = 99) %>% print()
