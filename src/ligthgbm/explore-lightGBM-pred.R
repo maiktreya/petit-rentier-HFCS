@@ -35,12 +35,14 @@ params_alt <- list(
     learning_rate = 0.05,
     feature_fraction = 0.9,
     bagging_fraction = 0.8,
-    bagging_freq = 5,
-    verbose = 0
+    bagging_freq = 5
 )
 
 # Training the model
-lgb_model <- lgb.train(params = params_alt, data = dtrain, nrounds = 100)
+lgb_model <- lgb.train(
+    params = params_alt, data = dtrain, nrounds = 1000,
+    verbose = 5
+)
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
 
 # Predicting probabilities
