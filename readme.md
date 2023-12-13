@@ -17,7 +17,6 @@ Within this project, distinct procedures are implemented in foler src for replic
 - svy (survey) survey methods computations (combining multiple imputations + accounting for sample weights).
 - tools (data.table) efficient data wrangling and manipulation into a single fast data.table containing all HFCS data.
 - main (production scripts) scripts implementing the final model versions used in Working Paper (2023), export result tables to output folder at root level.
--
 
 -----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
