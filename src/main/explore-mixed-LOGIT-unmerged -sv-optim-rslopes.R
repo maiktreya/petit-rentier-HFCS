@@ -78,3 +78,9 @@ combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
 write(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-rslopes.csv")
+
+
+test <- dataset[implicate == 1][wave == 1]
+test$sa0100 %>%
+    unique() %>%
+    length()

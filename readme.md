@@ -26,6 +26,11 @@ Within this project, distinct procedures are implemented in foler src for replic
 Needed or important variables and their original names:
 
 ```r
+
+household <- "SA0010"
+reference_person <-  "RA0100 == 1"
+country <- "SA0100"
+
 # new set names
 old <- c(
     "hg0510", "hg0610", "dhaq01ea", "dhiq01ea",
