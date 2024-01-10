@@ -11,7 +11,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("real", "net_fi")
+var_code <- c("net_fi", "real")
 prefix <- ""
 count <- 0
 
@@ -79,7 +79,7 @@ for (varname in var_code) {
             medians <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) medians[[i]] <- svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .8, na.rm = TRUE)[1]$real[1]
+            for (i in 1:5) medians[[i]] <- svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .8, na.rm = TRUE)[1][[1]]
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(unlist(medians)) %>% print()
