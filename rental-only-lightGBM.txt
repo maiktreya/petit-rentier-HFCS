@@ -1,0 +1,37 @@
+            Feature        Gain
+1: quintile.gwealth 0.669047200
+2:           sa0100 0.169378444
+3:            class 0.054878060
+4:              age 0.032407159
+5:            hsize 0.023654557
+6: quintile.gincome 0.021772515
+7:          edu_ref 0.016783788
+8:             wave 0.007204493
+9:       head_gendr 0.004873783
+[1] "LightGBM Accuracy: 0.931680794839728"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction       0       1
+         0 1029830   50462
+         1   26401   18364
+
+               Accuracy : 0.9317
+                 95% CI : (0.9312, 0.9321)
+    No Information Rate : 0.9388
+    P-Value [Acc > NIR] : 1
+
+                  Kappa : 0.2891
+
+ Mcnemar's Test P-Value : <2e-16
+
+            Sensitivity : 0.26682
+            Specificity : 0.97500
+         Pos Pred Value : 0.41023
+         Neg Pred Value : 0.95329
+             Prevalence : 0.06118
+         Detection Rate : 0.01632
+   Detection Prevalence : 0.03979
+      Balanced Accuracy : 0.62091
+
+       'Positive' Class : 1
