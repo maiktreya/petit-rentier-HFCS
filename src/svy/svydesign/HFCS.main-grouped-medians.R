@@ -11,14 +11,14 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("real")
+var_code <- c("real", "net_fi")
 prefix <- ""
 count <- 0
 
 for (varname in var_code) {
     mean_of_years <- data.table()
 
-    for (wave in path_stringB[1]) {
+    for (wave in path_stringB) {
         path_string <- paste0(path_stringA, wave, "_ASCII/") # dynamic working folder/file
         mean_of_means <- c()
 
@@ -75,14 +75,14 @@ for (varname in var_code) {
                 )
             }
 
-            # Initialize a vector to store the means from each imputed dataset
-            means <- c()
+            # Initialize a vector to store the medians from each imputed dataset
+            medians <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .8, na.rm = TRUE) %>% print()
+            for (i in 1:5) medians[[i]] <- svyquantile(as.formula(paste0("~", varname)), designs[[i]], quantiles = .8, na.rm = TRUE)[1]$real[1]
 
             # Calculate the average mean across all imputations
-            mean_of_means[n] <- mean(means) %>% print()
+            mean_of_means[n] <- mean(unlist(medians)) %>% print()
             count <- count + 1
             paste0("Estimados ", count, "/", length(var_code) * length(country_code) * length(path_stringB), " estadisticos poblacionles.") %>% print()
             rm(list = c("designs", "transf", "imp", "impD", "impH"))
@@ -90,7 +90,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    # fwrite(mean_of_years, paste0("output/MEDIANS/", prefix, varname, ".csv"))
-    # paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
-    #     print()
+    fwrite(mean_of_years, paste0("output/MEDIANS/", prefix, varname, ".csv"))
+    paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
+        print()
 }
