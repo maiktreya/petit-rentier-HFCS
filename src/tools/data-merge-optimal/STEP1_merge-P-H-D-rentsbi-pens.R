@@ -68,8 +68,8 @@ for (wave in path_stringB) {
             ind_median_fin <- medians_fin[[n, match(wave, path_stringB)]]
             transf[, real := suppressWarnings(as.numeric(real))][, real := ifelse(is.na(real), 0, real)]
             transf[, net_fi := suppressWarnings(as.numeric(net_fi))][, net_fi := ifelse(is.na(net_fi), 0, net_fi)]
-            transf[, quintile.rwealth := 1][sa0100 == country_code[n] & real >= ind_median_real, quintile.rwealth := 2]
-            transf[, quintile.fwealth := 1][sa0100 == country_code[n] & net_fi >= ind_median_fin, quintile.fwealth := 2]
+            transf[sa0100 == country_code[n], quintile.rwealth := 1][real >= ind_median_real, quintile.rwealth := 2]
+            transf[sa0100 == country_code[n], quintile.fwealth := 1][net_fi >= ind_median_fin, quintile.fwealth := 2]
         }
 
         # fix germany character values in income series.

@@ -1,0 +1,136 @@
+###############################################################################################################################
+INCLUDING PENSIONS
+
+
+[LightGBM] [Debug] Trained a tree with leaves = 34 and depth = 11
+             Feature        Gain      Cover  Frequency
+ 1:           sa0100 0.453399636 0.38244358 0.30545455
+ 2:            class 0.202616279 0.08405155 0.07484848
+ 3:              age 0.140528285 0.16910297 0.13787879
+ 4: quintile.gincome 0.113570232 0.10160704 0.10090909
+ 5:            hsize 0.031431542 0.07275546 0.10848485
+ 6:          edu_ref 0.025451454 0.09139398 0.08727273
+ 7: quintile.rwealth 0.013183424 0.03136234 0.04363636
+ 8: quintile.fwealth 0.009884426 0.02341318 0.04030303
+ 9:             wave 0.006522223 0.03373267 0.06939394
+10:       head_gendr 0.003412499 0.01013722 0.03181818
+[1] "LightGBM Accuracy: 0.851280424014072"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 835768  87447
+         1  79871 121971
+
+               Accuracy : 0.8513
+                 95% CI : (0.8506, 0.8519)
+    No Information Rate : 0.8139
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.5022
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.5824
+            Specificity : 0.9128
+         Pos Pred Value : 0.6043
+         Neg Pred Value : 0.9053
+             Prevalence : 0.1861
+         Detection Rate : 0.1084
+   Detection Prevalence : 0.1794
+      Balanced Accuracy : 0.7476
+
+       'Positive' Class : 1
+
+
+
+
+###############################################################################################################################
+EXCLUDING PENSIONS
+
+             Feature        Gain      Cover  Frequency
+ 1:           sa0100 0.460368433 0.37525509 0.28151515
+ 2: quintile.gincome 0.196623742 0.11473807 0.08454545
+ 3:            class 0.110351739 0.07364196 0.08393939
+ 4:              age 0.096310749 0.13493081 0.11757576
+ 5:          edu_ref 0.034289661 0.10862728 0.10393939
+ 6:            hsize 0.032577242 0.07464386 0.13121212
+ 7: quintile.rwealth 0.030544348 0.03212536 0.04151515
+ 8: quintile.fwealth 0.022899842 0.02629096 0.04363636
+ 9:             wave 0.013816251 0.04364961 0.08090909
+10:       head_gendr 0.002217994 0.01609700 0.03121212
+[1] "LightGBM Accuracy: 0.8842609752217"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 948340  87491
+         1  42722  46504
+
+               Accuracy : 0.8843
+                 95% CI : (0.8837, 0.8849)
+    No Information Rate : 0.8809
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.3553
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.34706
+            Specificity : 0.95689
+         Pos Pred Value : 0.52119
+         Neg Pred Value : 0.91554
+             Prevalence : 0.11910
+         Detection Rate : 0.04133
+   Detection Prevalence : 0.07931
+      Balanced Accuracy : 0.65198
+
+       'Positive' Class : 1
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +      quintile.rwealth + quintile.fwealth + quintile.gincome +
+    class + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+123072.9 123283.6 -61516.5 123032.9   276932
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.260 -0.297 -0.181 -0.105 34.172
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.06899  0.2627
+ sa0100      (Intercept) 0.38230  0.6183
+Number of obs: 276952, groups:  sa0100:wave, 67; sa0100, 20
+
+Fixed effects:
+                             Estimate Std. Error z value Pr(>|z|)
+(Intercept)                 -3.504437   0.161333 -21.722  < 2e-16 ***
+factor(wave)2               -0.218527   0.101730  -2.148 0.031705 *
+factor(wave)3               -0.289562   0.101543  -2.852 0.004350 **
+factor(wave)4               -0.264424   0.101374  -2.608 0.009097 **
+hsize                       -0.128478   0.007444 -17.260  < 2e-16 ***
+head_gendrfemale            -0.091119   0.015478  -5.887 3.94e-09 ***
+age0-29                     -0.436978   0.040617 -10.759  < 2e-16 ***
+age50-69                     0.522880   0.020808  25.129  < 2e-16 ***
+age+70                       0.797816   0.028667  27.830  < 2e-16 ***
+edu_refsecondary             0.325070   0.022715  14.311  < 2e-16 ***
+edu_reftertiary              0.623531   0.025137  24.805  < 2e-16 ***
+quintile.rwealthtop-rwealth  1.246125   0.057011  21.858  < 2e-16 ***
+quintile.fwealthtop-fwealth  0.550781   0.054211  10.160  < 2e-16 ***
+quintile.gincometop-income   0.985050   0.019477  50.576  < 2e-16 ***
+classEmployer                0.781046   0.206730   3.778 0.000158 ***
+classSelf-Employed           1.040531   0.172523   6.031 1.63e-09 ***
+classManager                -0.115842   0.031061  -3.729 0.000192 ***
+classInactive                0.372746   0.022625  16.475  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 18 > 12.
+Use print(x, correlation=TRUE)  or
+    vcov(x)        if you need it
