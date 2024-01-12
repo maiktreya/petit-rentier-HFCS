@@ -1,44 +1,90 @@
 ###############################################################################################################################
 INCLUDING PENSIONS
 
+Generalized linear mixed model fit by maximum likelihood (Adaptive
+  Gauss-Hermite Quadrature, nAGQ = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+    quintile.rwealth + quintile.fwealth + quintile.gincome +
+    class + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control:
+glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,
+    optCtrl = list(maxfun = 2e+05))
 
-[LightGBM] [Debug] Trained a tree with leaves = 34 and depth = 11
+     AIC      BIC   logLik deviance df.resid
+138991.8 139200.9 -69475.9 138951.8   256246
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.317 -0.338 -0.166 -0.056 65.897
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.06716  0.2592
+ sa0100      (Intercept) 0.62989  0.7937
+Number of obs: 256266, groups:  sa0100:wave, 67; sa0100, 20
+
+Fixed effects:
+                            Estimate Std. Error z value Pr(>|z|)
+(Intercept)                 -4.86749    0.19651 -24.769  < 2e-16 ***
+factor(wave)2               -0.37951    0.10049  -3.777 0.000159 ***
+factor(wave)3               -0.31839    0.10046  -3.169 0.001527 **
+factor(wave)4               -0.11100    0.10022  -1.108 0.268030
+hsize                       -0.15251    0.00715 -21.331  < 2e-16 ***
+head_gendrfemale             0.10405    0.01376   7.559 4.08e-14 ***
+age0-29                     -0.91842    0.04133 -22.224  < 2e-16 ***
+age50-69                     0.83225    0.01971  42.216  < 2e-16 ***
+age+70                       1.22619    0.02567  47.758  < 2e-16 ***
+edu_refsecondary             0.71726    0.02197  32.645  < 2e-16 ***
+edu_reftertiary              0.69469    0.02456  28.285  < 2e-16 ***
+quintile.rwealthtop-rwealth  0.80023    0.01577  50.754  < 2e-16 ***
+quintile.fwealthtop-fwealth  0.88013    0.01576  55.862  < 2e-16 ***
+quintile.gincometop-income   0.26795    0.01834  14.611  < 2e-16 ***
+classEmployer                1.20336    0.20513   5.866 4.46e-09 ***
+classSelf-Employed           1.12708    0.17506   6.438 1.21e-10 ***
+classManager                 1.00821    0.03139  32.116  < 2e-16 ***
+classInactive                1.40727    0.01981  71.053  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
              Feature        Gain      Cover  Frequency
- 1:           sa0100 0.453399636 0.38244358 0.30545455
- 2:            class 0.202616279 0.08405155 0.07484848
- 3:              age 0.140528285 0.16910297 0.13787879
- 4: quintile.gincome 0.113570232 0.10160704 0.10090909
- 5:            hsize 0.031431542 0.07275546 0.10848485
- 6:          edu_ref 0.025451454 0.09139398 0.08727273
- 7: quintile.rwealth 0.013183424 0.03136234 0.04363636
- 8: quintile.fwealth 0.009884426 0.02341318 0.04030303
- 9:             wave 0.006522223 0.03373267 0.06939394
-10:       head_gendr 0.003412499 0.01013722 0.03181818
-[1] "LightGBM Accuracy: 0.851280424014072"
+ 1:           sa0100 0.390162768 0.33700563 0.32121212
+ 2:            class 0.186484471 0.08358857 0.06848485
+ 3: quintile.fwealth 0.144276001 0.12254951 0.06363636
+ 4:              age 0.103359215 0.10460989 0.13969697
+ 5: quintile.rwealth 0.090049524 0.12449877 0.07878788
+ 6: quintile.gincome 0.044039523 0.06506963 0.08818182
+ 7:            hsize 0.027058383 0.09605294 0.10818182
+ 8:          edu_ref 0.007393527 0.02914152 0.05636364
+ 9:             wave 0.005079381 0.02589078 0.05000000
+10:       head_gendr 0.002097208 0.01159274 0.02545455
+[1] "LightGBM Accuracy: 0.850528462113475"
 Confusion Matrix and Statistics
 
           Reference
 Prediction      0      1
-         0 835768  87447
-         1  79871 121971
+         0 820581  73082
+         1  95082 136312
 
-               Accuracy : 0.8513
-                 95% CI : (0.8506, 0.8519)
+               Accuracy : 0.8505
+                 95% CI : (0.8499, 0.8512)
     No Information Rate : 0.8139
     P-Value [Acc > NIR] : < 2.2e-16
 
-                  Kappa : 0.5022
+                  Kappa : 0.5258
 
  Mcnemar's Test P-Value : < 2.2e-16
 
-            Sensitivity : 0.5824
-            Specificity : 0.9128
-         Pos Pred Value : 0.6043
-         Neg Pred Value : 0.9053
+            Sensitivity : 0.6510
+            Specificity : 0.8962
+         Pos Pred Value : 0.5891
+         Neg Pred Value : 0.9182
              Prevalence : 0.1861
-         Detection Rate : 0.1084
-   Detection Prevalence : 0.1794
-      Balanced Accuracy : 0.7476
+         Detection Rate : 0.1212
+   Detection Prevalence : 0.2057
+      Balanced Accuracy : 0.7736
 
        'Positive' Class : 1
 
@@ -47,90 +93,89 @@ Prediction      0      1
 
 ###############################################################################################################################
 EXCLUDING PENSIONS
+Generalized linear mixed model fit by maximum likelihood (Adaptive
+  Gauss-Hermite Quadrature, nAGQ = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+    quintile.rwealth + quintile.fwealth + quintile.gincome +
+    class + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control:
+glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,
+    optCtrl = list(maxfun = 2e+05))
 
-             Feature        Gain      Cover  Frequency
- 1:           sa0100 0.460368433 0.37525509 0.28151515
- 2: quintile.gincome 0.196623742 0.11473807 0.08454545
- 3:            class 0.110351739 0.07364196 0.08393939
- 4:              age 0.096310749 0.13493081 0.11757576
- 5:          edu_ref 0.034289661 0.10862728 0.10393939
- 6:            hsize 0.032577242 0.07464386 0.13121212
- 7: quintile.rwealth 0.030544348 0.03212536 0.04151515
- 8: quintile.fwealth 0.022899842 0.02629096 0.04363636
- 9:             wave 0.013816251 0.04364961 0.08090909
-10:       head_gendr 0.002217994 0.01609700 0.03121212
-[1] "LightGBM Accuracy: 0.8842609752217"
+     AIC      BIC   logLik deviance df.resid
+110742.0 110951.1 -55351.0 110702.0   256246
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.017 -0.293 -0.167 -0.083 61.659
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.08374  0.2894
+ sa0100      (Intercept) 0.28593  0.5347
+Number of obs: 256266, groups:  sa0100:wave, 67; sa0100, 20
+
+Fixed effects:
+                             Estimate Std. Error z value Pr(>|z|)
+(Intercept)                 -4.210788   0.151108 -27.866  < 2e-16 ***
+factor(wave)2               -0.182873   0.111424  -1.641  0.10075
+factor(wave)3               -0.205240   0.111811  -1.836  0.06642 .
+factor(wave)4               -0.130471   0.111599  -1.169  0.24236
+hsize                       -0.211004   0.008077 -26.125  < 2e-16 ***
+head_gendrfemale             0.032536   0.016090   2.022  0.04316 *
+age0-29                      0.016473   0.042515   0.387  0.69842
+age50-69                     0.304039   0.021829  13.928  < 2e-16 ***
+age+70                       0.488598   0.030282  16.135  < 2e-16 ***
+edu_refsecondary             0.044383   0.023820   1.863  0.06242 .
+edu_reftertiary              0.103357   0.026397   3.915 9.02e-05 ***
+quintile.rwealthtop-rwealth  1.144599   0.020141  56.830  < 2e-16 ***
+quintile.fwealthtop-fwealth  1.258519   0.020939  60.103  < 2e-16 ***
+quintile.gincometop-income   0.620321   0.019832  31.279  < 2e-16 ***
+classEmployer                0.651941   0.211161   3.087  0.00202 **
+classSelf-Employed           0.952966   0.181468   5.251 1.51e-07 ***
+classManager                -0.172325   0.032558  -5.293 1.20e-07 ***
+classInactive                0.370703   0.023735  15.618  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+             Feature        Gain       Cover  Frequency
+ 1: quintile.fwealth 0.332100731 0.149803329 0.03848485
+ 2:           sa0100 0.302754932 0.317806461 0.31757576
+ 3: quintile.rwealth 0.133969041 0.142550147 0.05818182
+ 4: quintile.gincome 0.071704578 0.083619522 0.11636364
+ 5:            class 0.065008121 0.057904740 0.08151515
+ 6:              age 0.045239137 0.071496971 0.09909091
+ 7:            hsize 0.030094818 0.088775100 0.12303030
+ 8:             wave 0.010974061 0.037659697 0.07787879
+ 9:          edu_ref 0.006917142 0.041463259 0.06848485
+10:       head_gendr 0.001237440 0.008920773 0.01939394
+[1] "LightGBM Accuracy: 0.878864804183255"
 Confusion Matrix and Statistics
 
           Reference
 Prediction      0      1
-         0 948340  87491
-         1  42722  46504
+         0 927751  73193
+         1  63091  61022
 
-               Accuracy : 0.8843
-                 95% CI : (0.8837, 0.8849)
-    No Information Rate : 0.8809
-    P-Value [Acc > NIR] : < 2.2e-16
+               Accuracy : 0.8789
+                 95% CI : (0.8783, 0.8795)
+    No Information Rate : 0.8807
+    P-Value [Acc > NIR] : 1
 
-                  Kappa : 0.3553
+                  Kappa : 0.4041
 
- Mcnemar's Test P-Value : < 2.2e-16
+ Mcnemar's Test P-Value : <2e-16
 
-            Sensitivity : 0.34706
-            Specificity : 0.95689
-         Pos Pred Value : 0.52119
-         Neg Pred Value : 0.91554
-             Prevalence : 0.11910
-         Detection Rate : 0.04133
-   Detection Prevalence : 0.07931
-      Balanced Accuracy : 0.65198
+            Sensitivity : 0.45466
+            Specificity : 0.93633
+         Pos Pred Value : 0.49166
+         Neg Pred Value : 0.92688
+             Prevalence : 0.11930
+         Detection Rate : 0.05424
+   Detection Prevalence : 0.11032
+      Balanced Accuracy : 0.69549
 
        'Positive' Class : 1
-
-Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
- Family: binomial  ( logit )
-Formula: rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +      quintile.rwealth + quintile.fwealth + quintile.gincome +
-    class + (1 | sa0100) + (1 | sa0100:wave)
-   Data: dataset_s
-Weights: weights
-Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
-
-     AIC      BIC   logLik deviance df.resid
-123072.9 123283.6 -61516.5 123032.9   276932
-
-Scaled residuals:
-   Min     1Q Median     3Q    Max
--4.260 -0.297 -0.181 -0.105 34.172
-
-Random effects:
- Groups      Name        Variance Std.Dev.
- sa0100:wave (Intercept) 0.06899  0.2627
- sa0100      (Intercept) 0.38230  0.6183
-Number of obs: 276952, groups:  sa0100:wave, 67; sa0100, 20
-
-Fixed effects:
-                             Estimate Std. Error z value Pr(>|z|)
-(Intercept)                 -3.504437   0.161333 -21.722  < 2e-16 ***
-factor(wave)2               -0.218527   0.101730  -2.148 0.031705 *
-factor(wave)3               -0.289562   0.101543  -2.852 0.004350 **
-factor(wave)4               -0.264424   0.101374  -2.608 0.009097 **
-hsize                       -0.128478   0.007444 -17.260  < 2e-16 ***
-head_gendrfemale            -0.091119   0.015478  -5.887 3.94e-09 ***
-age0-29                     -0.436978   0.040617 -10.759  < 2e-16 ***
-age50-69                     0.522880   0.020808  25.129  < 2e-16 ***
-age+70                       0.797816   0.028667  27.830  < 2e-16 ***
-edu_refsecondary             0.325070   0.022715  14.311  < 2e-16 ***
-edu_reftertiary              0.623531   0.025137  24.805  < 2e-16 ***
-quintile.rwealthtop-rwealth  1.246125   0.057011  21.858  < 2e-16 ***
-quintile.fwealthtop-fwealth  0.550781   0.054211  10.160  < 2e-16 ***
-quintile.gincometop-income   0.985050   0.019477  50.576  < 2e-16 ***
-classEmployer                0.781046   0.206730   3.778 0.000158 ***
-classSelf-Employed           1.040531   0.172523   6.031 1.63e-09 ***
-classManager                -0.115842   0.031061  -3.729 0.000192 ***
-classInactive                0.372746   0.022625  16.475  < 2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Correlation matrix not shown by default, as p = 18 > 12.
-Use print(x, correlation=TRUE)  or
-    vcov(x)        if you need it
