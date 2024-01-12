@@ -65,6 +65,10 @@ dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
     factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
+dataset$quintile.rwealth <- dataset$quintile.rwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-rwealth", "top-rwealth"))
+dataset$quintile.fwealth <- dataset$quintile.fwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))
 dataset$quintile.gincome <- dataset$quintile.gincome %>%
     factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
