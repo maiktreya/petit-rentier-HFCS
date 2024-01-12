@@ -1,0 +1,85 @@
+INCLUDING PENSIONS
+
+
+             Feature        Gain       Cover  Frequency
+ 1:           sa0100 0.401789871 0.336339868 0.33212121
+ 2:            class 0.187761492 0.083315961 0.07121212
+ 3: quintile.fwealth 0.120146170 0.116422765 0.05727273
+ 4:              age 0.109471473 0.112207557 0.12848485
+ 5: quintile.rwealth 0.072772160 0.124969666 0.07363636
+ 6: quintile.gincome 0.063820552 0.064376226 0.09090909
+ 7:            hsize 0.027585198 0.087771347 0.10636364
+ 8:          edu_ref 0.008981270 0.032537613 0.06121212
+ 9:             wave 0.005516537 0.032287839 0.05545455
+10:       head_gendr 0.002155278 0.009771159 0.02333333
+[1] "LightGBM Accuracy: 0.849452072206119"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 820846  74583
+         1  94792 134836
+
+               Accuracy : 0.8495
+                 95% CI : (0.8488, 0.8501)
+    No Information Rate : 0.8139
+    P-Value [Acc > NIR] : < 2.2e-16
+
+                  Kappa : 0.5209
+
+ Mcnemar's Test P-Value : < 2.2e-16
+
+            Sensitivity : 0.6439
+            Specificity : 0.8965
+         Pos Pred Value : 0.5872
+         Neg Pred Value : 0.9167
+             Prevalence : 0.1861
+         Detection Rate : 0.1198
+   Detection Prevalence : 0.2041
+      Balanced Accuracy : 0.7702
+
+       'Positive' Class : 1
+
+
+
+
+EXCLUDING PENSIONS
+
+            Feature        Gain      Cover  Frequency
+ 1: quintile.fwealth 0.337209423 0.14241706 0.03757576
+ 2:           sa0100 0.284164329 0.30722167 0.30787879
+ 3: quintile.rwealth 0.119325341 0.13766746 0.06121212
+ 4: quintile.gincome 0.090484352 0.08549440 0.10909091
+ 5:            class 0.061436969 0.05631889 0.07575758
+ 6:              age 0.051264250 0.08412489 0.09545455
+ 7:            hsize 0.032089297 0.09061714 0.12818182
+ 8:             wave 0.012346885 0.04026165 0.08242424
+ 9:          edu_ref 0.009940607 0.04379969 0.07848485
+10:       head_gendr 0.001738546 0.01207714 0.02393939
+[1] "LightGBM Accuracy: 0.876799131066248"
+Confusion Matrix and Statistics
+
+          Reference
+Prediction      0      1
+         0 927450  74905
+         1  63703  58999
+
+               Accuracy : 0.8768
+                 95% CI : (0.8762, 0.8774)
+    No Information Rate : 0.881
+    P-Value [Acc > NIR] : 1
+
+                  Kappa : 0.3905
+
+ Mcnemar's Test P-Value : <2e-16
+
+            Sensitivity : 0.44061
+            Specificity : 0.93573
+         Pos Pred Value : 0.48083
+         Neg Pred Value : 0.92527
+             Prevalence : 0.11902
+         Detection Rate : 0.05244
+   Detection Prevalence : 0.10906
+      Balanced Accuracy : 0.68817
+
+       'Positive' Class : 1

@@ -59,6 +59,19 @@ for (wave in path_stringB) {
                 "sa0010", "sa0100", "hw0010.x"
             )
         ]
+
+        country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+        medians_real <- fread("output/MEDIANS/real.csv", header = TRUE)
+        medians_fin <- fread("output/MEDIANS/net_fi.csv", header = TRUE)
+        for (n in seq_along(country_code)) {
+            ind_median_real <- medians_real[[n, match(wave, path_stringB)]]
+            ind_median_fin <- medians_fin[[n, match(wave, path_stringB)]]
+            transf[, real := suppressWarnings(as.numeric(real))][, real := ifelse(is.na(real), 0, real)]
+            transf[, net_fi := suppressWarnings(as.numeric(net_fi))][, net_fi := ifelse(is.na(net_fi), 0, net_fi)]
+            transf[sa0100 == n, quintile.rwealth := 1][real >= ind_median_real, quintile.rwealth := 2]
+            transf[sa0100 == n, quintile.fwealth := 1][net_fi >= ind_median_fin, quintile.fwealth := 2]
+        }
+
         # fix germany character values in income series.
         transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
         transf[, pvpens := suppressWarnings(as.numeric(pvpens))][, pvpens := ifelse(is.na(pvpens), 0, pvpens)]

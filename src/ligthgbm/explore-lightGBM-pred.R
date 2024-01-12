@@ -11,7 +11,7 @@ source("lib/plot-lgbm.R") # function to plot a single LightGBM tree using Diagra
 ################################# MODEL FITTING ###################################################
 
 # Splitting into training and test sets and List of categorical features
-categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.gwealth", "quintile.gincome", "class", "edu_ref", "age")
+categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.fwealth", "quintile.rwealth", "quintile.gincome", "class", "edu_ref", "age")
 total_features <- c(categorical_features, "hsize", "rentsbi")
 dataset <- dataset[, ..total_features]
 train_indices <- sample(seq_len(nrow(dataset)), size = 0.7 * nrow(dataset))
