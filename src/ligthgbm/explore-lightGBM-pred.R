@@ -12,7 +12,7 @@ source("lib/plot-lgbm.R") # function to plot a single LightGBM tree using Diagra
 
 # Splitting into training and test sets and List of categorical features
 categorical_features <- c("wave", "sa0100", "head_gendr", "quintile.fwealth", "quintile.rwealth", "quintile.gincome", "class", "edu_ref", "age")
-total_features <- c(categorical_features, "hsize", "rentsbi")
+total_features <- c(categorical_features, "hsize", "rentsbi20")
 dataset <- dataset[, ..total_features]
 train_indices <- sample(seq_len(nrow(dataset)), size = 0.7 * nrow(dataset))
 train_data <- dataset[train_indices, ]
@@ -22,8 +22,8 @@ test_data[, (categorical_features) := lapply(.SD, factor), .SDcols = categorical
 
 # Creating LightGBM dataset
 dtrain <- lgb.Dataset(
-    data = data.matrix(train_data[, !c("rentsbi")]),
-    label = train_data$rentsbi,
+    data = data.matrix(train_data[, !c("rentsbi20")]),
+    label = train_data$rentsbi20,
     categorical_feature = categorical_features
 )
 
@@ -48,14 +48,14 @@ lgb_model <- lgb.train(
 importance_matrix <- lgb.importance(model = lgb_model, percentage = TRUE)
 
 # Predicting probabilities
-predictions_lgb <- predict(lgb_model, data.matrix(train_data[, !c("rentsbi")]))
+predictions_lgb <- predict(lgb_model, data.matrix(train_data[, !c("rentsbi20")]))
 
 # Converting probabilities to binary outcomes using 0.5 as threshold
 predicted_classes_lgb <- ifelse(predictions_lgb > 0.3, 1, 0)
 
 # Evaluating model performance on test data
-accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi)
-confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(train_data$rentsbi), positive = "1")
+accuracy_lgb <- mean(predicted_classes_lgb == train_data$rentsbi20)
+confusion <- confusionMatrix(factor(predicted_classes_lgb), reference = factor(train_data$rentsbi20), positive = "1")
 
 # Descibe the last strong boosted tree after iterating 100 "weak models"
 tree_graph <- lgb.plot.tree(lgb_model, tree = 99)
