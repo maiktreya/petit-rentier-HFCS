@@ -38,14 +38,16 @@ for (wave in path_stringB) {
                 "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                 "hg0310", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
-                "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300"
+                "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300",
+                "da1110i", "da1121i", "da1122i", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900"
             ),
             new = c(
                 "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
                 "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-                "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08"
+                "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "other"
             )
         )
         transf <- transf[
@@ -56,6 +58,7 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "other",
                 "sa0010", "sa0100", "hw0010.x"
             )
         ]
@@ -78,9 +81,12 @@ for (wave in path_stringB) {
         transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
         transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
         transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
-        transf[, rentsbi := 0][income > 0 & ((rental + financ + pvpens) / income) > 0.1, rentsbi := 1]
-        transf[, rentsbi5 := 0][income > 0 & ((rental + financ + pvpens) / income) > 0.05, rentsbi5 := 1]
-        transf[, rentsbi20 := 0][income > 0 & ((rental + financ + pvpens) / income) > 0.2, rentsbi20 := 1]
+        transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
+        transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
+        transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
+        transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
+        transf[, rents_mean := (financ + rental)]
+        transf[, rents_mean_pens := (financ + rental + pvpens)]
         imp[[m]] <- transf[, implicate := m]
     }
     imp <- rbindlist(imp)

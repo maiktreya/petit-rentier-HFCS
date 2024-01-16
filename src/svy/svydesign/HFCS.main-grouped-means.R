@@ -11,8 +11,8 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rentsbi20")
-prefix <- "wealthy/"
+var_code <- c("rentsbi_pens", "rentsbi20_pens")
+prefix <- ""
 count <- 0
 
 for (varname in var_code) {
@@ -71,8 +71,12 @@ for (varname in var_code) {
                 transf[, isfinanc := as.logical(financ)]
                 transf[, ispvpens := as.logical(pvpens)]
                 transf[, iscapitalpens := rental + financ + pvpens][, iscapitalpens := as.logical(iscapitalpens)]
-                transf[, rentsbi := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi := 1]
-                transf[, rentsbi20 := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20 := 1]
+                transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
+                transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
+                transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
+                transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
+                transf[, rents_mean := (financ + rental)]
+                transf[, rents_mean_pens := (financ + rental + pvpens)]
                 transf[employm %in% c(1, 3), employm := 1] # worker
                 transf[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
                 transf[status == 2 & employm == 2, employm := 2] # capitalist
@@ -104,7 +108,8 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
+            # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], quintile.gwealth == 2), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -115,7 +120,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, "-pens.csv"))
+    fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
