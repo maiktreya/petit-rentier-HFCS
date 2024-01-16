@@ -77,11 +77,11 @@ dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "
 dataset[otherpB == 1, otherpN := 2][, otherpN := factor(otherpN, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
 
 # Financial-Assets covariates
-dataset[, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
-dataset[, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
-dataset[, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
-dataset[, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
-dataset[, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
+dataset[bonds != 1, bonds := 0][, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
+dataset[mutual != 1, mutual := 0][, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
+dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
+dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
+dataset[other != 1, other := 0][, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
 
 
 # remove any intermediate object and retur exclusively dataset when sourced
