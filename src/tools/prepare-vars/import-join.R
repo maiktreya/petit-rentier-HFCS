@@ -72,7 +72,7 @@ dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "
 dataset[otherpB == 1, otherpN := 2][, otherpN := factor(otherpN, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
 dataset[, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
 dataset[, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
-dataset[, shared := factor(shared, levels = c(0, 1), labels = c("non-owner", "has-shared"))]
+dataset[, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
 
