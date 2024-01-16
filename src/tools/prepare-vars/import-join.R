@@ -1,10 +1,11 @@
 # HFCS  cDATA PREPARATION each file contains previously: 1) merged  household + personal + derived files 2) rbinded 5 implicates
-varnames <- c(
+c(
     "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
     "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
     "rental", "financ", "pvpens", "pvtran", "income",
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
     "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
+    "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
     "sa0010", "sa0100", "hw0010.x"
 )
 countries_wave_1 <- c("BE", "DE", "ES", "FR", "PT", "SI", "LU", "MT", "GR", "NL", "CY", "IT", "SK", "AT", "FI")
@@ -81,7 +82,7 @@ dataset[bonds != 1, bonds := 0][, bonds := factor(bonds, levels = c(0, 1), label
 dataset[mutual != 1, mutual := 0][, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
 dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
-dataset[other != 1, other := 0][, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
+dataset[otherfin != 1, otherfin := 0][, otherfin := factor(otherfin, levels = c(0, 1), labels = c("non-owner", "has-otherfin"))]
 dataset[, haspvpens := 0][as.numeric(pvpens) > 0, haspvpens := 1][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
 
 # remove any intermediate object and retur exclusively dataset when sourced

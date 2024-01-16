@@ -48,7 +48,7 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "other"
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin"
             )
         )
         transf <- transf[
@@ -59,7 +59,7 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                 "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "other",
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
                 "sa0010", "sa0100", "hw0010.x"
             )
         ]
