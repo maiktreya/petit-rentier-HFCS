@@ -4,7 +4,7 @@ c(
     "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
     "rental", "financ", "pvpens", "pvtran", "income",
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-    "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
+    "num_bs", "val_op", "num_pr", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
     "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
     "sa0010", "sa0100", "hw0010.x"
 )
