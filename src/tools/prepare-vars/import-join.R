@@ -67,9 +67,11 @@ dataset[, quintile.gwealth := factor(quintile.rwealth, levels = c(1, 2), labels 
 dataset[, quintile.gwealth := factor(quintile.fwealth, levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))]
 dataset[, quintile.gwealth := factor(quintile.gincome, levels = c(1, 2), labels = c("non-top-income", "top-income"))]
 
-# Real State covariates
+# Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
 dataset[otherpB == 1, otherpN := 2][, otherpN := factor(otherpN, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
+
+# Financial-Assets covariates
 dataset[, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
 dataset[, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
 dataset[, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
