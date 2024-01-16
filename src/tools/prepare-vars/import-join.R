@@ -82,7 +82,7 @@ dataset[mutual != 1, mutual := 0][, mutual := factor(mutual, levels = c(0, 1), l
 dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[other != 1, other := 0][, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
-
+dataset[pvpens > 0, haspvpens := 1][haspvpens != 1, haspvpens := 0][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
 
 # remove any intermediate object and retur exclusively dataset when sourced
 rm(list = setdiff(ls(), "dataset"))
