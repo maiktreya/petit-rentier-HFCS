@@ -22,7 +22,7 @@ for (i in 1:5) {
     model[[i]] <- glmer(
         rentsbi_pens ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref +
             homeown + otherpN + quintile.rwealth +
-            bonds + mutual + shares + managed + other +
+            bonds + mutual + shares + managed + other + haspvpens +
             quintile.fwealth + quintile.gincome + class +
             (1 | sa0100) + (1 | sa0100:wave),
         # rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class + (1 + quintile.gwealth + quintile.gincome | sa0100) + (1 | sa0100:wave),
