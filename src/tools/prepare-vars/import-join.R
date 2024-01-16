@@ -60,7 +60,7 @@ dataset$age <- dataset$age %>%
 dataset$class <- dataset$employm %>%
     factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
 dataset$edu_ref <- dataset$edu_ref %>%
-    factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
+    factor(levels = c(2, 1, 3), labels = c("secondary", "primary", "tertiary"))
 dataset$head_gendr <- dataset$head_gendr %>%
     factor(levels = c(1, 2), labels = c("male", "female"))
 dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
@@ -74,7 +74,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 
 # Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
-dataset[otherpB == 1, otherpN := 2][, otherpN := factor(otherpN, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
+dataset[, otherp := 0][otherpB == 1, otherp := 2][otherpN == 1, otherp := 1][, otherp := factor(otherp, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
 
 # Financial-Assets covariates
 dataset[bonds != 1, bonds := 0][, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
