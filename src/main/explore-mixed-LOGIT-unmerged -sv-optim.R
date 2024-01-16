@@ -20,7 +20,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi20 ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref +
+        rentsbi_pens ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref +
             homeown + otherpN + quintile.rwealth +
             bonds + mutual + shares + managed + other +
             quintile.fwealth + quintile.gincome + class +
