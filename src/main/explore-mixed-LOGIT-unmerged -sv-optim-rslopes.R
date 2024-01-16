@@ -20,7 +20,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi20 ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.rwealth + quintile.fwealth + quintile.gincome + class +
+        rentsbi20 ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref + quintile.rwealth + quintile.fwealth + quintile.gincome + class +
             (1 + quintile.rwealth + quintile.fwealth + quintile.gincome | sa0100) + (1 | sa0100:wave),
         # rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class + (1 | sa0100) + (1 | sa0100:wave),
         family = binomial,

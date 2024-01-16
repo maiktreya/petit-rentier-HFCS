@@ -56,16 +56,16 @@ dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, qui
 dataset[edu_ref %in% c(2, 3, 4), edu_ref := 2][edu_ref %in% c(5, 6), edu_ref := 3] # c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter")
 
 # properly define levels and labels for final factor variables
-dataset[, quintile.gwealth := factor(age, levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))]
-dataset[, quintile.gwealth := factor(employm, levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))]
-dataset[, quintile.gwealth := factor(edu_ref, levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))]
-dataset[, quintile.gwealth := factor(head_gendr, levels = c(1, 2), labels = c("male", "female"))]
+dataset[, age_ref := factor(age_ref, levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))]
+dataset[, employm := factor(employm, levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))]
+dataset[, edu_ref := factor(edu_ref, levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))]
+dataset[, head_gendr := factor(head_gendr, levels = c(1, 2), labels = c("male", "female"))]
 
 # quintiles
 dataset[, quintile.gwealth := factor(quintile.gwealth, levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))]
-dataset[, quintile.gwealth := factor(quintile.rwealth, levels = c(1, 2), labels = c("non-top-rwealth", "top-rwealth"))]
-dataset[, quintile.gwealth := factor(quintile.fwealth, levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))]
-dataset[, quintile.gwealth := factor(quintile.gincome, levels = c(1, 2), labels = c("non-top-income", "top-income"))]
+dataset[, quintile.rwealth := factor(quintile.rwealth, levels = c(1, 2), labels = c("non-top-rwealth", "top-rwealth"))]
+dataset[, quintile.fwealth := factor(quintile.fwealth, levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))]
+dataset[, quintile.gincome := factor(quintile.gincome, levels = c(1, 2), labels = c("non-top-income", "top-income"))]
 
 # Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
