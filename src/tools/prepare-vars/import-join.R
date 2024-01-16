@@ -5,7 +5,6 @@ varnames <- c(
     "rental", "financ", "pvpens", "pvtran", "income",
     "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
     "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-    "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "other",
     "sa0010", "sa0100", "hw0010.x"
 )
 countries_wave_1 <- c("BE", "DE", "ES", "FR", "PT", "SI", "LU", "MT", "GR", "NL", "CY", "IT", "SK", "AT", "FI")
@@ -56,16 +55,22 @@ dataset[quintile.gincome != 5, quintile.gincome := 1][quintile.gincome == 5, qui
 dataset[edu_ref %in% c(2, 3, 4), edu_ref := 2][edu_ref %in% c(5, 6), edu_ref := 3] # c("primary", "low-sec", "mid-sec", "high_sec", "low-ter", "high-ter")
 
 # properly define levels and labels for final factor variables
-dataset[, age_ref := factor(age_ref, levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))]
-dataset[, employm := factor(employm, levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))]
-dataset[, edu_ref := factor(edu_ref, levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))]
-dataset[, head_gendr := factor(head_gendr, levels = c(1, 2), labels = c("male", "female"))]
-
-# quintiles
-dataset[, quintile.gwealth := factor(quintile.gwealth, levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))]
-dataset[, quintile.rwealth := factor(quintile.rwealth, levels = c(1, 2), labels = c("non-top-rwealth", "top-rwealth"))]
-dataset[, quintile.fwealth := factor(quintile.fwealth, levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))]
-dataset[, quintile.gincome := factor(quintile.gincome, levels = c(1, 2), labels = c("non-top-income", "top-income"))]
+dataset$age <- dataset$age %>%
+    factor(levels = c(2, 1, 3, 4), labels = c("30-49", "0-29", "50-69", "+70"))
+dataset$class <- dataset$employm %>%
+    factor(levels = c(1, 2, 3, 4, 5), labels = c("Worker", "Employer", "Self-Employed", "Manager", "Inactive"))
+dataset$edu_ref <- dataset$edu_ref %>%
+    factor(levels = c(1, 2, 3), labels = c("primary", "secondary", "tertiary"))
+dataset$head_gendr <- dataset$head_gendr %>%
+    factor(levels = c(1, 2), labels = c("male", "female"))
+dataset$quintile.gwealth <- dataset$quintile.gwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-wealth", "top-wealth"))
+dataset$quintile.rwealth <- dataset$quintile.rwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-rwealth", "top-rwealth"))
+dataset$quintile.fwealth <- dataset$quintile.fwealth %>%
+    factor(levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))
+dataset$quintile.gincome <- dataset$quintile.gincome %>%
+    factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
 
 # Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
@@ -73,9 +78,11 @@ dataset[otherpB == 1, otherpN := 2][, otherpN := factor(otherpN, levels = c(0, 1
 
 # Financial-Assets covariates
 dataset[, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
+dataset[, mutual := factor(mutual, levels = c(0, 1), labels = c("non-owner", "has-mutual"))]
 dataset[, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[, other := factor(other, levels = c(0, 1), labels = c("non-owner", "has-other"))]
+
 
 # remove any intermediate object and retur exclusively dataset when sourced
 rm(list = setdiff(ls(), "dataset"))
