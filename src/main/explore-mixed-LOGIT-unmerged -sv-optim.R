@@ -16,16 +16,16 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:5) {
+for (i in 1:1) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
         rentsbi_pens ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref +
-            homeown + otherpN + quintile.rwealth +
+            homeown + otherpN +
+            quintile.rwealth + quintile.fwealth + quintile.gincome +
             bonds + mutual + shares + managed + other + haspvpens +
-            quintile.fwealth + quintile.gincome + class +
+            class +
             (1 | sa0100) + (1 | sa0100:wave),
-        # rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class + (1 + quintile.gwealth + quintile.gincome | sa0100) + (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
         weights = weights,
