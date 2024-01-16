@@ -75,7 +75,8 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 
 # Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
-dataset[, otherp := 0][otherpB == 1, otherp := 2][otherpN == 1, otherp := 1][, otherp := factor(otherp, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
+dataset[, otherp_mul := 0][otherpB == 1, otherp_mul := 2][otherpN == 1, otherp_mul := 1][, otherp_mul := factor(otherp_mul, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
+dataset[, otherp := 0][otherpB == 1, otherp := 1][otherpN == 1, otherp := 1][, otherp := factor(otherp, levels = c(0, 1), labels = c("non-owner", "multiowner"))]
 
 # Financial-Assets covariates
 dataset[bonds != 1, bonds := 0][, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
@@ -83,7 +84,7 @@ dataset[mutual != 1, mutual := 0][, mutual := factor(mutual, levels = c(0, 1), l
 dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[otherfin != 1, otherfin := 0][, otherfin := factor(otherfin, levels = c(0, 1), labels = c("non-owner", "has-otherfin"))]
-dataset[, haspvpens := 0][as.numeric(pvpens) > 0, haspvpens := 1][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
+dataset[, haspvpens := 0][pvpens > 0, haspvpens := 1][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
 
 # remove any intermediate object and retur exclusively dataset when sourced
 rm(list = setdiff(ls(), "dataset"))
