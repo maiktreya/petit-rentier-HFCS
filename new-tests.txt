@@ -1,0 +1,55 @@
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ
+  = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi_pens ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+    homeown + otherp + bonds + mutual + shares + managed + otherfin +
+    haspvpens + class + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+ 99562.6  99823.1 -49756.3  99512.6   247376
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-14.319  -0.260  -0.145  -0.073  37.467
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.1024   0.3200
+ sa0100      (Intercept) 0.4397   0.6631
+Number of obs: 247401, groups:  sa0100:wave, 68; sa0100, 20
+
+Fixed effects:
+                      Estimate Std. Error z value Pr(>|z|)
+(Intercept)          -3.807396   0.178420 -21.340  < 2e-16 ***
+factor(wave)2        -0.263670   0.124706  -2.114 0.034487 *
+factor(wave)3        -0.271567   0.122901  -2.210 0.027130 *
+factor(wave)4        -0.335999   0.123519  -2.720 0.006524 **
+hsize                -0.149358   0.007919 -18.861  < 2e-16 ***
+head_gendrfemale      0.040720   0.017053   2.388 0.016948 *
+age0-29              -0.027945   0.045347  -0.616 0.537739
+age50-69              0.214422   0.022960   9.339  < 2e-16 ***
+age+70                0.427934   0.031906  13.412  < 2e-16 ***
+edu_refprimary       -0.212027   0.024880  -8.522  < 2e-16 ***
+edu_reftertiary       0.126667   0.019005   6.665 2.65e-11 ***
+homeownhomeowner      0.405185   0.021178  19.133  < 2e-16 ***
+otherpmultiowner      1.733229   0.017798  97.382  < 2e-16 ***
+bondshas-bonds        0.667907   0.035502  18.813  < 2e-16 ***
+mutualhas-mutual      0.430240   0.024433  17.609  < 2e-16 ***
+shareshas-shares      0.596947   0.023476  25.428  < 2e-16 ***
+managedhas-managed    0.477218   0.040797  11.697  < 2e-16 ***
+otherfinhas-otherfin  0.372291   0.035682  10.434  < 2e-16 ***
+haspvpenshas-pvpens   3.571268   0.036181  98.705  < 2e-16 ***
+classEmployer         0.801251   0.210699   3.803 0.000143 ***
+classSelf-Employed    0.700977   0.171435   4.089 4.33e-05 ***
+classManager         -0.170222   0.036519  -4.661 3.14e-06 ***
+classInactive         0.322627   0.024738  13.042  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 23 > 12.
+Use print(x, correlation=TRUE)  or
+    vcov(x)        if you need it
