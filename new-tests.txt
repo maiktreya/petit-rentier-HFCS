@@ -1,3 +1,64 @@
+############################## NO PENSIONS ##############################
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ
+  = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+    homeown + otherp + bonds + mutual + shares + managed + otherfin +
+    haspvpens + class + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+ 96245.7  96506.2 -48097.9  96195.7   247376
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.461 -0.259 -0.142 -0.076 41.512
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.1237   0.3516
+ sa0100      (Intercept) 0.4466   0.6683
+Number of obs: 247401, groups:  sa0100:wave, 68; sa0100, 20
+
+Fixed effects:
+                      Estimate Std. Error z value Pr(>|z|)
+(Intercept)          -3.936249   0.184378 -21.349  < 2e-16 ***
+factor(wave)2        -0.249403   0.136632  -1.825 0.067946 .
+factor(wave)3        -0.270668   0.134825  -2.008 0.044691 *
+factor(wave)4        -0.344682   0.135551  -2.543 0.010996 *
+hsize                -0.148696   0.008071 -18.424  < 2e-16 ***
+head_gendrfemale      0.038496   0.017414   2.211 0.027056 *
+age0-29               0.019216   0.045700   0.420 0.674134
+age50-69              0.204754   0.023327   8.778  < 2e-16 ***
+age+70                0.433244   0.032623  13.280  < 2e-16 ***
+edu_refprimary       -0.191489   0.025263  -7.580 3.46e-14 ***
+edu_reftertiary       0.144521   0.019253   7.506 6.08e-14 ***
+homeownhomeowner      0.460071   0.022013  20.900  < 2e-16 ***
+otherpmultiowner      1.785097   0.017858  99.959  < 2e-16 ***
+bondshas-bonds        0.701633   0.034975  20.061  < 2e-16 ***
+mutualhas-mutual      0.443006   0.024356  18.189  < 2e-16 ***
+shareshas-shares      0.599380   0.023266  25.762  < 2e-16 ***
+managedhas-managed    0.514027   0.040111  12.815  < 2e-16 ***
+otherfinhas-otherfin  0.371618   0.035177  10.564  < 2e-16 ***
+haspvpenshas-pvpens   0.221126   0.041919   5.275 1.33e-07 ***
+classEmployer         0.807262   0.214442   3.764 0.000167 ***
+classSelf-Employed    0.765477   0.177490   4.313 1.61e-05 ***
+classManager         -0.237657   0.036942  -6.433 1.25e-10 ***
+classInactive         0.282057   0.025446  11.085  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation matrix not shown by default, as p = 23 > 12.
+Use print(x, correlation=TRUE)  or
+    vcov(x)        if you need it
+
+
+############################## WITH PENSIONS ##############################
+
 Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ
   = 0) [glmerMod]
  Family: binomial  ( logit )
