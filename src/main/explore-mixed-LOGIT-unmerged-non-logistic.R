@@ -19,14 +19,13 @@ n_imputations <- 5
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(
+    model[[i]] <- lmer(
         rents ~ factor(wave) + hsize + head_gendr + age + edu_ref +
             homeown + otherp +
             bonds + mutual + shares + managed + otherfin +
             haspvpens +
             class +
             (1 | sa0100) + (1 | sa0100:wave),
-        family = gaussian,
         data = dataset_s,
         weights = weights,
         control = glmerControl(
@@ -35,8 +34,7 @@ for (i in 1:5) {
             calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
         ),
-        verbose = 2,
-        nAGQ = 0
+        verbose = 2
     )
     (start_time - Sys.time()) %>% print()
 }
@@ -80,4 +78,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-new.csv")
+# fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-new.csv")
