@@ -3,7 +3,7 @@ c(
     "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
     "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
     "rental", "financ", "pvpens", "pvtran", "income",
-    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
+    "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real", "haspvpens",
     "num_bs", "val_op", "num_pr", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
     "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
     "sa0010", "sa0100", "hw0010.x"
@@ -32,6 +32,17 @@ rm(list = setdiff(ls(), "dataset"))
 # create and modify custom multilevel categorical variables (needed for usage with lme4 models to set weights)
 dataset[, sumw := sum(hw0010.x) / length(hw0010.x), by = sa0100] # worker
 dataset[, weights := hw0010.x / sumw] # worker
+
+# define custom categorical class variable (4 tiers, no managers)
+dataset[, class_nomanager := employm]
+dataset[class_nomanager %in% c(1, 3), class_nomanager := 1] # worker
+dataset[!(class_nomanager %in% c(1, 2, 3)), class_nomanager := NA] # retired/other
+dataset[status == 2 & class_nomanager == 2, class_nomanager := 2] # capitalist
+dataset[status == 3 & class_nomanager == 2, class_nomanager := 3] # self-employed
+dataset[!(class_nomanager %in% c(1, 2, 3)), class_nomanager := 4] # inactive/other
+dataset[retired_status == 1, class_nomanager := 1] # worker
+dataset[retired_status == 2, class_nomanager := 2] # capitalist
+dataset[retired_status == 3, class_nomanager := 3] # self-employed
 
 # define custom categorical class variable (5 tiers)
 dataset[employm %in% c(1, 3), employm := 1] # worker
@@ -84,7 +95,7 @@ dataset[mutual != 1, mutual := 0][, mutual := factor(mutual, levels = c(0, 1), l
 dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), labels = c("non-owner", "has-shares"))]
 dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[otherfin != 1, otherfin := 0][, otherfin := factor(otherfin, levels = c(0, 1), labels = c("non-owner", "has-otherfin"))]
-dataset[, haspvpens := 0][pvpens > 0, haspvpens := 1][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
+dataset[haspvpens != 1, haspvpens := 0][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
 
 # remove any intermediate object and retur exclusively dataset when sourced
 rm(list = setdiff(ls(), "dataset"))

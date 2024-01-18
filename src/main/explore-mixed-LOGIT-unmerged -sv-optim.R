@@ -20,11 +20,11 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+        rentsbi_pens ~ factor(wave) + hsize + head_gendr + age + edu_ref +
             homeown + otherp +
             bonds + mutual + shares + managed + otherfin +
             haspvpens +
-            class +
+            class_nomanager +
             (1 | sa0100) + (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
@@ -80,4 +80,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-new.csv")
+# fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin-pen/w-complete-new.csv")

@@ -12,7 +12,7 @@ source("lib/plot-lgbm.R") # function to plot a single LightGBM tree using Diagra
 
 # Splitting into training and test sets and List of categorical features
 categorical_features <- c(
-    "wave", "sa0100", "head_gendr", "quintile.fwealth", "quintile.rwealth", "quintile.gincome", "class", "edu_ref", "age",
+    "wave", "sa0100", "head_gendr", "class", "edu_ref", "age",
     "homeown", "otherp",
     "bonds", "mutual", "shares", "managed", "otherfin", "haspvpens"
 )
