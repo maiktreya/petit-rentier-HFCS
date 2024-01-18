@@ -28,12 +28,6 @@ for (i in 1:5) {
             (1 | sa0100) + (1 | sa0100:wave),
         data = dataset_s,
         weights = weights,
-        control = glmerControl(
-            optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb',
-            boundary.tol = 1e-5,
-            calc.derivs = FALSE,
-            optCtrl = list(maxfun = 2e5)
-        ),
         verbose = 2
     )
     (start_time - Sys.time()) %>% print()
