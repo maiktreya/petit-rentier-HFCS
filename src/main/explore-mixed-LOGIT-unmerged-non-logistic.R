@@ -20,12 +20,13 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ factor(wave) + hsize + head_gendr + age_ref + edu_ref +
-            quintile.rwealth + quintile.fwealth + quintile.gincome + class +
-            (1 + quintile.rwealth + quintile.fwealth + quintile.gincome | sa0100) +
-            (1 | sa0100:wave),
-        # rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref + quintile.gwealth + quintile.gincome + class + (1 | sa0100) + (1 | sa0100:wave),
-        family = binomial,
+        rents ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+            homeown + otherp +
+            bonds + mutual + shares + managed + otherfin +
+            haspvpens +
+            class +
+            (1 | sa0100) + (1 | sa0100:wave),
+        family = gaussian,
         data = dataset_s,
         weights = weights,
         control = glmerControl(
@@ -79,10 +80,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-write(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-rslopes.csv")
-
-
-test <- dataset[implicate == 1][wave == 1]
-test$sa0100 %>%
-    unique() %>%
-    length()
+fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/ren-fin/w-complete-new.csv")
