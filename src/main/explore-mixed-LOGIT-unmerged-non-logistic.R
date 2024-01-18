@@ -19,8 +19,9 @@ n_imputations <- 5
 for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
+    dataset_s[, rent_share := 0][rents_mean > 0, rent_share := (rents_mean / income)]
     model[[i]] <- lmer(
-        rents_mean ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+        rent_share ~ factor(wave) + hsize + head_gendr + age + edu_ref +
             homeown + otherp +
             bonds + mutual + shares + managed + otherfin +
             haspvpens +
