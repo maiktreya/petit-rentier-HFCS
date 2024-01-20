@@ -1,0 +1,55 @@
+####### NO PENSIONS
+Generalized linear mixed model fit by maximum likelihood (Adaptive
+  Gauss-Hermite Quadrature, nAGQ = 0) [glmerMod]
+ Family: binomial  ( logit )
+Formula: rentsbi_pens ~ factor(wave) + hsize + head_gendr + age + edu_ref +
+    homeown + otherp + bonds + mutual + shares + managed + otherfin +
+    haspvpens + class_nomanager + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control:
+glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,
+    optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+108914.8 109164.9 -54433.4 108866.8   247377
+
+Scaled residuals:
+   Min     1Q Median     3Q    Max
+-4.917 -0.288 -0.157 -0.078 38.843
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.0925   0.3041
+ sa0100      (Intercept) 0.5598   0.7482
+Number of obs: 247401, groups:  sa0100:wave, 68; sa0100, 20
+
+Fixed effects:
+                      Estimate Std. Error z value Pr(>|z|)
+(Intercept)          -3.892097   0.192220 -20.248  < 2e-16 ***
+factor(wave)2        -0.246202   0.118344  -2.080   0.0375 *
+factor(wave)3        -0.224233   0.116882  -1.918   0.0551 .
+factor(wave)4        -0.202412   0.117454  -1.723   0.0848 .
+hsize                -0.140772   0.007614 -18.488  < 2e-16 ***
+head_gendrfemale      0.007299   0.016187   0.451   0.6520
+age0-29              -0.086638   0.044846  -1.932   0.0534 .
+age50-69              0.347249   0.022210  15.635  < 2e-16 ***
+age+70                0.718069   0.029957  23.970  < 2e-16 ***
+edu_refprimary       -0.339419   0.023786 -14.270  < 2e-16 ***
+edu_reftertiary       0.112775   0.017978   6.273 3.54e-10 ***
+homeownhomeowner      0.337538   0.019788  17.058  < 2e-16 ***
+otherpmultiowner      1.574960   0.016774  93.891  < 2e-16 ***
+bondshas-bonds        0.646548   0.033567  19.262  < 2e-16 ***
+mutualhas-mutual      0.363460   0.023051  15.768  < 2e-16 ***
+shareshas-shares      0.546084   0.022425  24.352  < 2e-16 ***
+managedhas-managed    0.431397   0.038573  11.184  < 2e-16 ***
+otherfinhas-otherfin  0.318282   0.033626   9.465  < 2e-16 ***
+haspvpenshas-pvpens   0.533385   0.017914  29.775  < 2e-16 ***
+class_nomanager2      0.794730   0.177216   4.485 7.31e-06 ***
+class_nomanager3      0.400575   0.159923   2.505   0.0123 *
+class_nomanager4      0.666198   0.022201  30.007  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+####### WITH PENSIONS
