@@ -21,10 +21,10 @@ for (i in 1:5) {
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
         rentsbi ~ factor(wave) + hsize + head_gendr + age + edu_ref +
-            homeown + otherp +
-            bonds + mutual + shares + managed + otherfin +
-            haspvpens +
-            class_nomanager +
+            # homeown + otherp +
+            # bonds + mutual + shares + managed + otherfin +
+            # haspvpens +
+            # class_nomanager +
             (1 | sa0100) + (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
