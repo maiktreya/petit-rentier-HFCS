@@ -31,7 +31,7 @@ i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi20-pens.csv"), header
     as.vector()
 
 group <- rep(countries, 4)
-time <- as.numeric(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15))))
+time <- as.factor(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15))))
 
 dataset <- data.table(group, time, outcome, outcome5, w_outcome, w_outcome5, i_outcome, i_outcome5)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
