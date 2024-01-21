@@ -12,6 +12,7 @@ source("src/tools/prepare-vars/import-join.R")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 data_implicate <- list()
 varname <- "rents_mean"
+dataset[, rents_mean_share := (rents_mean / income)]
 
 # convert to survey design to account for weights
 for (i in 1:5) {
@@ -22,11 +23,11 @@ for (i in 1:5) {
         weights = ~hw0010.x,
         strata = ~sa0100,
         data = prep_data
-    )
+    ) %>% convey::convey_prep()
 }
 
 # Start PNG device
-png("output/jpg/CDF/test-country_plots99.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/CDF/test-country_plots-sharerents.png", width = 2480, height = 3508, res = 300)
 
 cpi_prices <- fread("output/CPI.csv", header = TRUE)
 # Set up the plotting area for a 5x3 grid
@@ -38,14 +39,14 @@ for (n in country_code) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(~ (rents_mean / income), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(~ (rents_mean / income), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(~rents_mean_share, national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(~rents_mean_share, national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
     # Proceed only if there are enough valid points
     df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean > 0))
-    df_ecdf <- ecdf(subset(national_data2, rents_mean > 0)$variables[, rents_mean / income])
+    df_ecdf <- ecdf(subset(national_data2, rents_mean > 0)$variables[, rents_mean_share])
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
     lines(df_ecdf, col = "red")
 }
@@ -57,8 +58,5 @@ mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, out
 # Close the device
 dev.off()
 
-national_data1 <- convey::convey_prep(national_data1)
-convey::svygini(~ (rents_mean / income), national_data1, na.rm = TRUE)
-
-national_data2 <- convey::convey_prep(national_data2)
-convey::svygini(~ (rents_mean / income), national_data2, na.rm = TRUE)
+convey::svygini(~rents_mean_share, national_data1, na.rm = TRUE) %>% print()
+convey::svygini(~rents_mean_share, national_data2, na.rm = TRUE) %>% print()
