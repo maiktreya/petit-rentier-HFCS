@@ -12,7 +12,7 @@ path_string <- "output/MEANS/"
 
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
-outcomeA <- fread(paste0(path_string, "ren-fin-pro/rents_mean.csv"), header = TRUE)
+outcomeA <- fread(paste0(path_string, "ren-fin-pro/rents_mean_pens.csv"), header = TRUE)
 outcomeB <- fread(paste0(path_string, "ren-fin-pro/income.csv"), header = TRUE)
 w_outcomeA <- fread(paste0(path_string, "wealthy/rents_mean.csv"), header = TRUE)
 w_outcomeB <- fread(paste0(path_string, "wealthy/income.csv"), header = TRUE)
@@ -58,4 +58,4 @@ r_squared <- c(
 results <- cbind(results, r_squared)
 
 print(results)
-fwrite(results, "output/MODELS/MACRO/ren-fin/macro-new-sharerents.csv")
+fwrite(results, "output/MODELS/MACRO/ren-fin/macro-new-sharerents-pens.csv")
