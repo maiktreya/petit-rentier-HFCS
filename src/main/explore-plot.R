@@ -32,9 +32,11 @@ png("country_plots.png", width = 2480, height = 3508, res = 300)
 par(mfrow = c(5, 3))
 
 # Loop through each country and plot
-for (n in country_code[14]) {
+for (n in country_code) {
     national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1)
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
+    national_data1[is.na(national_data1)] <- 0
+    national_data2[is.na(national_data2)] <- 0
 
     # define limits to trim outliers
     upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
