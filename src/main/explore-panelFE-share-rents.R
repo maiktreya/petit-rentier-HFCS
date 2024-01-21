@@ -50,9 +50,9 @@ results <- rbind(
 )
 
 r_squared <- c(
-    rep(summary(model)$r.squared["rsq"], 3),
-    rep(summary(w_model)$r.squared["rsq"], 3),
-    rep(summary(i_model)$r.squared["rsq"], 3)
+    summary(model)$r.squared["rsq"],
+    summary(w_model)$r.squared["rsq"],
+    summary(i_model)$r.squared["rsq"]
 )
 
 results <- cbind(results, r_squared)
