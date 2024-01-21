@@ -27,7 +27,7 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("output/jpg/CDF/test-country_plots-sharerents.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/CDF/test-country_plots-sharerents-0.png", width = 2480, height = 3508, res = 300)
 
 cpi_prices <- fread("output/CPI.csv", header = TRUE)
 # Set up the plotting area for a 5x3 grid
@@ -45,8 +45,8 @@ for (n in country_code) {
     # Check and print the number of valid data points
 
     # Proceed only if there are enough valid points
-    df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean > 0))
-    df_ecdf <- ecdf(subset(national_data2, rents_mean > 0)$variables[, rents_mean_share])
+    df_cdf <- svycdf(~rents_mean, design = national_data1)
+    df_ecdf <- ecdf(national_data2$variables[, rents_mean_share])
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
     lines(df_ecdf, col = "red")
 }
