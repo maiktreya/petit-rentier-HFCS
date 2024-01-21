@@ -38,14 +38,14 @@ for (n in country_code) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(rents_mean / income, national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(rents_mean / income, national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
     # Proceed only if there are enough valid points
-    df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean > 0))
-    df_ecdf <- ecdf(subset(national_data2, rents_mean > 0)$variables[, rents_mean / income])
+    df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > 0))
+    df_ecdf <- ecdf(subset(national_data2, rents_mean < upper2 & rents_mean > 0)$variables[, get(varname)])
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
     lines(df_ecdf, col = "red")
 }
@@ -58,7 +58,7 @@ mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, out
 dev.off()
 
 national_data1 <- convey::convey_prep(national_data1)
-convey::svygini(rents_mean / income, national_data1, na.rm = TRUE)
+convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)
 
 national_data2 <- convey::convey_prep(national_data2)
-convey::svygini(rents_mean / income, national_data2, na.rm = TRUE)
+convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)
