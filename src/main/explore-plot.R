@@ -37,8 +37,8 @@ for (n in country_code) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .999, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .999, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
@@ -55,3 +55,9 @@ mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, out
 
 # Close the device
 dev.off()
+
+national_data1 <- convey::convey_prep(national_data1)
+convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)
+
+national_data2 <- convey::convey_prep(national_data2)
+convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)
