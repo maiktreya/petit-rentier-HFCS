@@ -58,4 +58,4 @@ r_squared <- c(
 results <- cbind(results, r_squared)
 
 print(results)
-# fwrite(results, "output/MODELS/MACRO/ren-fin/macro-new.csv")
+fwrite(results, "output/MODELS/MACRO/ren-fin/macro-new-sharerents.csv")
