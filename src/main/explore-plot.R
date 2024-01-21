@@ -47,8 +47,8 @@ for (n in country_code) {
     # Proceed only if there are enough valid points
     df_cdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1 & get(varname) > 0))
     df_ecdf <- ecdf(subset(national_data2, get(varname) < upper2 & get(varname) > 0)$variables[, get(varname)])
-    df_cdf[[1]] %>% plot(main = paste("Country:", n))
-    lines(df_ecdf, col = "red")
+    df_cdf[[1]] %>% plot(main = paste("Country:", n), lwd = 2)
+    lines(df_ecdf, col = "#33FFFF", type = "c", lwd = 2)
 }
 
 # Add a general title and subtitle in the outer margin
