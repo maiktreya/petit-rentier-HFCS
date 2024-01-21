@@ -52,4 +52,6 @@ chart <-
 chart %>% print()
 
 
-df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > 0))
+df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean < upper1))
+
+ecdf(national_data1$variables[, "rents_mean"]$rents_mean)
