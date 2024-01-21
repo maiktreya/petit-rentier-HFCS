@@ -32,18 +32,21 @@ for (n in country_code[1]) {
 }
 
 # define limits to trim outliers
-upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
+upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .90, na.rm = TRUE)[1][[1]][1]
 lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .5, na.rm = TRUE)[1][[1]][1]
-upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
+upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .90, na.rm = TRUE)[1][[1]][1]
 lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .5, na.rm = TRUE)[1][[1]][1]
 
 # get trimmed empirical distributions at first and last period
-df_time1 <- svysmooth(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > lower1))[[1]] %>% as.data.frame()
-df_time2 <- svysmooth(~rents_mean, design = subset(national_data2, rents_mean < upper2 & rents_mean > lower2))[[1]] %>% as.data.frame()
+df_time1 <- svysmooth(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > 0))[[1]] %>% as.data.frame()
+df_time2 <- svysmooth(~rents_mean, design = subset(national_data2, rents_mean < upper2 & rents_mean > 0))[[1]] %>% as.data.frame()
 
 # Plot using ggplot2
-ggplot() +
+chart <-
+    ggplot() +
     geom_step(data = df_time1, aes(x = x, y = y), color = "blue") +
     geom_step(data = df_time2, aes(x = x, y = y), color = "red") +
     labs(title = "Comparative ECDFs at Two Time Points", x = "Variable", y = "ECDF") +
     theme_minimal()
+
+chart %>% print()
