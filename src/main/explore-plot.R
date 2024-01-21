@@ -28,8 +28,8 @@ for (i in 1:5) {
 # Start PNG device
 png("country_plots.png", width = 2480, height = 3508, res = 300)
 
-# Set up the plotting area for a 5x3 grid
-par(mfrow = c(5, 3))
+# Adjust outer margins, then set up the plotting area for a 5x3 grid
+par(oma = c(5, 0, 0, 0), mfrow = c(5, 3)) # Reserve space at the bottom for the legend
 
 # Loop through each country and plot
 for (n in country_code) {
@@ -48,6 +48,13 @@ for (n in country_code) {
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
     lines(df_ecdf, col = "red")
 }
+
+# Add a legend in the outer margin
+par(xpd = NA) # Allow plotting outside the plot area
+legend("bottom",
+    inset = c(0, -0.3), legend = c("Distribution at Wave 1", "Distribution at Wave 4"),
+    col = c("black", "red"), lty = 1, cex = 1.2, horiz = TRUE, xpd = TRUE
+)
 
 # Close the plotting device
 dev.off()
