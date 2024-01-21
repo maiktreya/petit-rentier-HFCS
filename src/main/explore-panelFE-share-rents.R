@@ -14,15 +14,19 @@ countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL",
 
 outcomeA <- fread(paste0(path_string, "ren-fin-pro/rents_mean.csv"), header = TRUE)
 outcomeB <- fread(paste0(path_string, "ren-fin-pro/income.csv"), header = TRUE)
+w_outcomeA <- fread(paste0(path_string, "wealthy/rents_mean.csv"), header = TRUE)
+w_outcomeB <- fread(paste0(path_string, "wealthy/income.csv"), header = TRUE)
+i_outcomeA <- fread(paste0(path_string, "highincome/rents_mean.csv"), header = TRUE)
+i_outcomeB <- fread(paste0(path_string, "highincome/income.csv"), header = TRUE)
 
 outcome <- (outcomeA / outcomeB) %>%
     unlist() %>%
     as.vector()
 
-w_outcome <- fread(paste0(path_string, "wealthy/rents_mean.csv"), header = TRUE) %>%
+w_outcome <- (w_outcomeA / w_outcomeB) %>%
     unlist() %>%
     as.vector()
-i_outcome <- fread(paste0(path_string, "highincome/rents_mean.csv"), header = TRUE) %>%
+i_outcome <- (i_outcomeA / i_outcomeB) %>%
     unlist() %>%
     as.vector()
 
@@ -33,22 +37,22 @@ dataset <- data.table(group, time, outcome, w_outcome, i_outcome)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
 
 model <- plm(outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-# w_model <- plm(w_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
-# i_model <- plm(i_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+w_model <- plm(w_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
+i_model <- plm(i_outcome ~ as.numeric(time), data = pdataset, model = "within", effect = "individual")
 
 cross_model <- plm(outcome ~ as.numeric(time) + as.numeric(time) * group, data = pdataset, model = "within", effect = "individual")
 
 
 results <- rbind(
-    summary(model)$coefficients
-    # summary(w_model)$coefficients,
-    # summary(i_model)$coefficients
+    summary(model)$coefficients,
+    summary(w_model)$coefficients,
+    summary(i_model)$coefficients
 )
 
 r_squared <- c(
-    rep(summary(model)$r.squared["rsq"], 3)
-    # rep(summary(w_model)$r.squared["rsq"], 3),
-    # rep(summary(i_model)$r.squared["rsq"], 3)
+    rep(summary(model)$r.squared["rsq"], 3),
+    rep(summary(w_model)$r.squared["rsq"], 3),
+    rep(summary(i_model)$r.squared["rsq"], 3)
 )
 
 results <- cbind(results, r_squared)
