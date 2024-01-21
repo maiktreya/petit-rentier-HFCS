@@ -1,7 +1,6 @@
-# Get histograms and empirical distribution of  variables from weighted surveys
-rm(list = ls()) # clean enviroment
+rm(list = ls()) # clean environment
 
-# neeeded libraries
+# needed libraries
 library(data.table)
 library(magrittr)
 library(survey)
@@ -25,19 +24,30 @@ for (i in 1:5) {
     )
 }
 
-# select implicate and country
-for (n in country_code[1:4]) {
+# Start PNG device
+png("country_plots.png", width = 2480, height = 3508, res = 300)
+
+# Set up the plotting area for a 5x3 grid
+par(mfrow = c(5, 3))
+
+# Loop through each country and plot
+for (n in country_code) {
     national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1)
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
-
 
     # define limits to trim outliers
     upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
     upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
 
-    # STEP 2: Plot cumulative densities using standard library
+    # Plot cumulative densities
     df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > 0))
     df_ecdf <- ecdf(subset(national_data2, rents_mean < upper2 & rents_mean > 0)$variables[, "rents_mean"]$rents_mean)
-    df_cdf[[1]] %>% plot()
-    lines(df_ecdf, col.points = "red")
+    df_cdf[[1]] %>% plot(main = paste("Country:", n))
+    lines(df_ecdf, col = "red")
 }
+
+# Close the device
+dev.off()
+
+# For PDF output, replace the png() line with the following and re-run the script:
+# pdf("country_plots.pdf", width = 8.27, height = 11.69)
