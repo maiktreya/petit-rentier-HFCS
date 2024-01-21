@@ -42,7 +42,7 @@ for (n in country_code) {
     df_cdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) > 0))
     df_ecdf <- ecdf(subset(national_data2, get(varname) > 0)$variables[, get(varname)])
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
-    lines(df_ecdf, col = "red")
+    lines(df_ecdf, col = "grey")
 }
 
 # Add a general title and subtitle in the outer margin
