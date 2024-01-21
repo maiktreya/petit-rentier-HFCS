@@ -1,5 +1,4 @@
 # Get histograms and empirical distribution of  variables from weighted surveys
-
 rm(list = ls()) # clean enviroment
 
 # neeeded libraries
@@ -38,9 +37,9 @@ lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantile
 upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
 lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .5, na.rm = TRUE)[1][[1]][1]
 
+# get trimmed empirical distributions at first and last period
 df_time1 <- svysmooth(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > lower1))[[1]] %>% as.data.frame()
 df_time2 <- svysmooth(~rents_mean, design = subset(national_data2, rents_mean < upper2 & rents_mean > lower2))[[1]] %>% as.data.frame()
-
 
 # Plot using ggplot2
 ggplot() +
