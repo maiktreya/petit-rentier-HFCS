@@ -26,7 +26,7 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("output/jpg/CDF/country_plots.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/CDF/test-country_plots.png", width = 2480, height = 3508, res = 300)
 
 # Set up the plotting area for a 5x3 grid
 par(oma = c(0, 0, 4, 0), mfrow = c(5, 3), mar = c(5, 4, 2, 2) + 0.1)
@@ -37,8 +37,8 @@ for (n in country_code) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .999, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .999, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .975, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .975, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
