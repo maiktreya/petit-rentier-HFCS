@@ -26,10 +26,10 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("country_plots.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/CDF/country_plots.png", width = 2480, height = 3508, res = 300)
 
-# Adjust outer margins, then set up the plotting area for a 5x3 grid
-par(oma = c(5, 0, 0, 0), mfrow = c(5, 3)) # Reserve space at the bottom for the legend
+# Set up the plotting area for a 5x3 grid
+par(oma = c(0, 0, 4, 0), mfrow = c(5, 3), mar = c(5, 4, 2, 2) + 0.1)
 
 # Loop through each country and plot
 for (n in country_code) {
@@ -49,15 +49,9 @@ for (n in country_code) {
     lines(df_ecdf, col = "red")
 }
 
-# Add a legend in the outer margin
-par(xpd = NA) # Allow plotting outside the plot area
-legend("bottom",
-    inset = c(0, -0.3), legend = c("Distribution at Wave 1", "Distribution at Wave 4"),
-    col = c("black", "red"), lty = 1, cex = 1.2, horiz = TRUE, xpd = TRUE
-)
+# Add a general title and subtitle in the outer margin
+mtext("Comparative Analysis of Rent Distributions by Country", side = 3, line = 2, outer = TRUE, cex = 0.8)
+mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, outer = TRUE, cex = 0.6)
 
-# Close the plotting device
+# Close the device
 dev.off()
-
-# For PDF output, replace the png() line with the following and re-run the script:
-# pdf("country_plots.pdf", width = 8.27, height = 11.69)
