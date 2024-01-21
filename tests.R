@@ -26,15 +26,15 @@ for (i in 1:5) {
 }
 
 # select implicate and country
-for (n in country_code[1]) {
+for (n in country_code[6]) {
     national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1)
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 }
 
 # define limits to trim outliers
-upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .90, na.rm = TRUE)[1][[1]][1]
+upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
 lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .5, na.rm = TRUE)[1][[1]][1]
-upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .90, na.rm = TRUE)[1][[1]][1]
+upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
 lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .5, na.rm = TRUE)[1][[1]][1]
 
 # get trimmed empirical distributions at first and last period
@@ -50,3 +50,6 @@ chart <-
     theme_minimal()
 
 chart %>% print()
+
+
+df_cdf <- svycdf(~rents_mean, design = subset(national_data1, rents_mean < upper1 & rents_mean > 0))
