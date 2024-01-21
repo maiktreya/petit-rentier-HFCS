@@ -11,8 +11,8 @@ library(ggplot2)
 source("src/tools/prepare-vars/import-join.R")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 data_implicate <- list()
-varname <- "rents_mean"
 dataset[, rents_mean_share := (rents_mean / income)]
+varname <- "rents_mean_share"
 
 # convert to survey design to account for weights
 for (i in 1:5) {
@@ -27,9 +27,9 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("output/jpg/CDF/test-country_plots-sharerents-0.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/CDF/test-country_plots-sharerents99.png", width = 2480, height = 3508, res = 300)
 
-cpi_prices <- fread("output/CPI.csv", header = TRUE)
+cpi_prices <- fread("output/CPI.csv")
 # Set up the plotting area for a 5x3 grid
 par(oma = c(0, 0, 4, 0), mfrow = c(5, 3), mar = c(5, 4, 2, 2) + 0.1)
 
@@ -39,14 +39,14 @@ for (n in country_code) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(~rents_mean_share, national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(~rents_mean_share, national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
     # Proceed only if there are enough valid points
-    df_cdf <- svycdf(~rents_mean, design = national_data1)
-    df_ecdf <- ecdf(national_data2$variables[, rents_mean_share])
+    df_cdf <- svycdf(~rents_mean, design = subset(national_data1, get(varname) < upper1 & get(varname) > 0))
+    df_ecdf <- ecdf(subset(national_data2, get(varname) < upper2 & get(varname) > 0)$variables[, get(varname)])
     df_cdf[[1]] %>% plot(main = paste("Country:", n))
     lines(df_ecdf, col = "red")
 }
@@ -58,5 +58,5 @@ mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, out
 # Close the device
 dev.off()
 
-convey::svygini(~rents_mean_share, national_data1, na.rm = TRUE) %>% print()
-convey::svygini(~rents_mean_share, national_data2, na.rm = TRUE) %>% print()
+convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)
+convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)

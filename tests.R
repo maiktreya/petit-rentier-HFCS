@@ -1,24 +1,62 @@
-data(api)
-dstrat <- svydesign(
-    id = ~1, strata = ~stype, weights = ~pw, data = apistrat,
-    fpc = ~fpc
-)
-cdf.est <- svycdf(~ enroll + api00 + api99, dstrat)
-cdf.est
-## function
-cdf.est[[1]]
-## evaluate the function
-cdf.est[[1]](800)
-cdf.est[[2]](800)
+# Get histograms and empirical distribution of  variables from weighted surveys
+rm(list = ls()) # clean environment
 
-## compare to population and sample CDFs.
-opar <- par(mfrow = c(2, 1))
-cdf.pop <- ecdf(apipop$enroll)
-cdf.samp <- ecdf(apistrat$enroll)
-plot(cdf.pop, main = "Population vs sample", xlab = "Enrollment")
-lines(cdf.samp, col.points = "red")
+# needed libraries
+library(data.table)
+library(magrittr)
+library(survey)
+library(ggplot2)
 
-plot(cdf.pop, main = "Population vs estimate", xlab = "Enrollment")
-lines(cdf.est[[1]], col.points = "red")
+# source main dataset and define global variables
+source("src/tools/prepare-vars/import-join.R")
+country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+data_implicate <- list()
+varname <- "rents_mean"
+dataset[, rents_mean_share := (rents_mean / income)]
 
-par(opar)
+# convert to survey design to account for weights
+for (i in 1:5) {
+    # Create the svydesign object for the i-th imputation
+    prep_data <- dataset[implicate == i]
+    data_implicate[[i]] <- svydesign(
+        ids = ~1,
+        weights = ~hw0010.x,
+        strata = ~sa0100,
+        data = prep_data
+    ) %>% convey::convey_prep()
+}
+
+# Start PNG device
+png("output/jpg/CDF/test-country_plots-sharerents.png", width = 2480, height = 3508, res = 300)
+
+cpi_prices <- fread("output/CPI.csv", header = TRUE)
+# Set up the plotting area for a 5x3 grid
+par(oma = c(0, 0, 4, 0), mfrow = c(5, 3), mar = c(5, 4, 2, 2) + 0.1)
+
+# Loop through each country and plot
+for (n in country_code) {
+    national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1)
+    national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
+
+    # define limits to trim outliers
+    upper1 <- svyquantile(~rents_mean_share, national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(~rents_mean_share, national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+
+    # Check and print the number of valid data points
+
+    # Proceed only if there are enough valid points
+    df_cdf <- svycdf(~rents_mean_share, design = subset(national_data1, rents_mean_share > 0))
+    df_ecdf <- ecdf(subset(national_data2, rents_mean_share > 0)$variables[, rents_mean_share])
+    df_cdf[[1]] %>% plot(main = paste("Country:", n))
+    lines(df_ecdf, col = "red")
+}
+
+# Add a general title and subtitle in the outer margin
+mtext("Comparative Analysis of Rent Distributions by Country", side = 3, line = 2, outer = TRUE, cex = 0.8)
+mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, outer = TRUE, cex = 0.6)
+
+# Close the device
+dev.off()
+
+convey::svygini(~rents_mean_share, national_data1, na.rm = TRUE) %>% print()
+convey::svygini(~rents_mean_share, national_data2, na.rm = TRUE) %>% print()
