@@ -27,7 +27,7 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("output/jpg/CDF/test-country_plots-sharerents99.png", width = 2480, height = 3508, res = 300)
+png("test.png", width = 2480, height = 3508, res = 300)
 
 cpi_prices <- fread("output/CPI.csv")
 # Set up the plotting area for a 5x3 grid
