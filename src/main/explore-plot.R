@@ -11,7 +11,8 @@ library(ggplot2)
 source("src/tools/prepare-vars/import-join.R")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 data_implicate <- list()
-dataset[, rents_mean_share := (rents_mean / income)]
+dataset[, rents_mean_share := ((income - rents_mean) / income)]
+data
 varname <- "rents_mean_share"
 
 # convert to survey design to account for weights
@@ -27,7 +28,7 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("test.png", width = 2480, height = 3508, res = 300)
+png("test2.png", width = 2480, height = 3508, res = 300)
 
 cpi_prices <- fread("output/CPI.csv")
 # Set up the plotting area for a 5x3 grid

@@ -12,7 +12,7 @@ library(EnvStats)
 source("src/tools/prepare-vars/import-join.R")
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 data_implicate <- list()
-dataset[, rents_mean_share := (rents_mean / income)]
+dataset[, rents_mean_share := (rents_mean) / income]
 varname <- "rents_mean"
 
 # convert to survey design to account for weights
@@ -26,11 +26,10 @@ for (i in 1:5) {
         data = prep_data
     ) %>% convey::convey_prep()
 }
-
 # Start PNG device
 png("test.png", width = 2480, height = 3508, res = 300)
 
-cpi_prices <- fread("output/CPI.csv")
+
 # Set up the plotting area for a 5x3 grid
 par(oma = c(0, 0, 4, 0), mfrow = c(1, 1), mar = c(5, 4, 2, 2) + 0.1)
 # oma -> vector of the form c(bottom, left, top, right) giving the size of the outer margins in lines of text.
@@ -43,24 +42,25 @@ for (n in country_code[15]) {
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4 & get(varname) > 0)
 
     # define limits to trim outliers
-    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .90, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .90, na.rm = TRUE)[1][[1]][1]
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
 
-    lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .10, na.rm = TRUE)[1][[1]][1]
-    lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .10, na.rm = TRUE)[1][[1]][1]
+    lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .15, na.rm = TRUE)[1][[1]][1]
+    lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .15, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
     # Proceed only if there are enough valid points
-    edf_wave1 <- svysmooth(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1)) # & get(varname) > lower1
-    edf_wave2 <- svysmooth(as.formula(paste0("~", varname)), design = subset(national_data2, get(varname) < upper2)) # get(varname) > lower2
-    edf_wave1[[1]] %>% plot(main = paste("Country:", n), type = "l", lwd = 1)
+    edf_wave1 <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1)) # & get(varname) > lower1
+    edf_wave2 <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data2, get(varname) < upper2)) # get(varname) > lower2
+
+    # edf_wave1 <- ecdf(subset(national_data1, get(varname) < upper1)$variables[, get(varname)])
+    # edf_wave2 <- ecdf(subset(national_data2, get(varname) < upper2)$variables[, get(varname)])
+
+    plot(edf_wave1)
     lines(edf_wave2, col = "#9dc0c0")
 }
 
-# Add a general title and subtitle in the outer margin
-mtext("Comparative Analysis of Rent Distributions by Country", side = 3, line = 2, outer = TRUE, cex = 0.8)
-mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, outer = TRUE, cex = 0.6)
 
 # Close the device
 dev.off()
