@@ -54,9 +54,8 @@ for (n in country_code[15]) {
     # Proceed only if there are enough valid points
     edf_wave1 <- svysmooth(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1)) # & get(varname) > lower1
     edf_wave2 <- svysmooth(as.formula(paste0("~", varname)), design = subset(national_data2, get(varname) < upper2)) # get(varname) > lower2
-    edf_wave1[[1]] %>% plot(main = paste("Country:", n), lty = 1, lwd = 1)
-    axis(1, at = seq(0, 1, by = 0.2))
-    lines(edf_wave2, col = "#9dc0c0", lty = 1342, lwd = 2)
+    edf_wave1[[1]] %>% plot(main = paste("Country:", n), type = "l", lwd = 1)
+    lines(edf_wave2, col = "#9dc0c0")
 }
 
 # Add a general title and subtitle in the outer margin
