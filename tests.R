@@ -14,6 +14,7 @@ country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "N
 data_implicate <- list()
 dataset[, rents_mean_share := (rents_mean) / income]
 varname <- "rents_mean"
+cpi_prices <- fread("output/CPI.csv", header = TRUE)
 
 # convert to survey design to account for weights
 for (i in 1:5) {
@@ -41,12 +42,22 @@ for (n in country_code[15]) {
     national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1 & get(varname) > 0)
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4 & get(varname) > 0)
 
-    # define limits to trim outliers
-    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .95, na.rm = TRUE)[1][[1]][1]
-    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .95, na.rm = TRUE)[1][[1]][1]
+    realp1 <- national_data1$variables[, "rents_mean"]
+    realp2 <- national_data2$variables[, "rents_mean"]
 
-    lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .15, na.rm = TRUE)[1][[1]][1]
-    lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .15, na.rm = TRUE)[1][[1]][1]
+    price2010 <- as.numeric(unlist(cpi_prices[Code == n, "2010"] / 100))
+    price2021 <- as.numeric(unlist(cpi_prices[Code == n, "2021"] / 100))
+
+    national_data1$variables[, "rents_mean"] <- realp1 / price2010
+    national_data2$variables[, "rents_mean"] <- realp2 / price2021
+
+
+    # define limits to trim outliers
+    upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+    upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
+
+    lower1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .01, na.rm = TRUE)[1][[1]][1]
+    lower2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .01, na.rm = TRUE)[1][[1]][1]
 
     # Check and print the number of valid data points
 
@@ -57,8 +68,8 @@ for (n in country_code[15]) {
     # edf_wave1 <- ecdf(subset(national_data1, get(varname) < upper1)$variables[, get(varname)])
     # edf_wave2 <- ecdf(subset(national_data2, get(varname) < upper2)$variables[, get(varname)])
 
-    plot(edf_wave1)
-    lines(edf_wave2, col = "#9dc0c0")
+    edf_wave1[[1]] %>% plot(main = paste("Country:", n), lty = 1, lwd = 1)
+    lines(edf_wave2[[1]], col = "#9dc0c0")
 }
 
 
