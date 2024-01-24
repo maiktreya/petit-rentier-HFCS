@@ -8,10 +8,12 @@ c(
     "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
     "sa0010", "sa0100", "hw0010.x"
 )
-countries_wave_1 <- c("BE", "DE", "ES", "FR", "PT", "SI", "LU", "MT", "GR", "NL", "CY", "IT", "SK", "AT", "FI")
-countries_wave_2 <- c("DE", "ES", "FR", "PT", "IE", "NL", "CY", "IT", "SI", "MT", "PL", "LU", "AT", "SK", "EE", "FI", "GR", "LV", "HU", "BE")
+
+# "AT" "BE" "CY" "CZ" "DE" "EE" "ES" "FI" "FR" "GR" "HR" "HU" "IE" "IT" "LT" "LU" "LV" "MT" "NL" "PL" "PT" "SI" "SK"  / 23 Countries, CZ only in last, PL only in 3
+countries_wave_1 <- c("BE", "DE", "ES", "FR", "PT", "SI", "LU", "MT", "GR", "NL", "CY", "IT", "SK", "AT", "FI") # hr, hu, lt, lv, pl, ie
+countries_wave_2 <- c("DE", "ES", "FR", "PT", "IE", "NL", "CY", "IT", "SI", "MT", "PL", "LU", "AT", "SK", "EE", "FI", "GR", "LV", "HU", "BE") # hr, lt
 countries_wave_3 <- c("ES", "IE", "DE", "PT", "SI", "IT", "CY", "LT", "HR", "LU", "MT", "AT", "SK", "FI", "NL", "GR", "HU", "LV", "PL", "EE", "FR", "BE")
-countries_wave_4 <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "HR", "AT", "HU", "SK", "FI", "GR", "NL", "LU", "LV", "MT", "EE", "FR", "BE", "CZ")
+countries_wave_4 <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "HR", "AT", "HU", "SK", "FI", "GR", "NL", "LU", "LV", "MT", "EE", "FR", "BE", "CZ") # missing pl?
 # all has been previously optimized to gz files for storage and read spead with data.table
 
 library(magrittr) # for piping without dplyr
@@ -99,5 +101,29 @@ dataset[haspvpens != 1, haspvpens := 0][, haspvpens := factor(haspvpens, levels 
 
 housing_pr <- fread("output/housing_pr.csv", header = TRUE)
 soc_exp <- fread("output/soc_exp.csv", header = TRUE)
+country_code <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "AT", "HU", "SK", "FI", "GR", "NL", "LU", "LV", "MT", "EE", "FR", "BE", "CZ") # "HR",
+countries_wave_1 <- c("BE", "DE", "ES", "FR", "PT", "SI", "LU", "MT", "GR", "NL", "CY", "IT", "SK", "AT", "FI") # hr, hu, lt, lv, pl, ie
+countries_wave_2 <- c("DE", "ES", "FR", "PT", "IE", "NL", "CY", "IT", "SI", "MT", "PL", "LU", "AT", "SK", "EE", "FI", "GR", "LV", "HU", "BE") # hr, lt
+countries_wave_3 <- c("ES", "IE", "DE", "PT", "SI", "IT", "CY", "LT", "HR", "LU", "MT", "AT", "SK", "FI", "NL", "GR", "HU", "LV", "PL", "EE", "FR", "BE")
+countries_wave_4 <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "HR", "AT", "HU", "SK", "FI", "GR", "NL", "LU", "LV", "MT", "EE", "FR", "BE", "CZ") # missing pl?
+
+countries_wave <- list(countries_wave_1, countries_wave_2, countries_wave_3, countries_wave_4)
+# all has been previously optimized to gz files for storage and read spead with data.table
+for (i in country_code) {
+    for (n in c(1:4)) {
+        included_in_wave <- countries_wave[[n]]
+        if (i %in% included_in_wave) {
+            trans <- soc_exp[sa0100 == i & wave == n]
+            dataset[sa0100 == i & wave == n, soc_exp := trans$soc_exp]
+        }
+    }
+}
+
 # remove any intermediate object and retur exclusively dataset when sourced
 rm(list = setdiff(ls(), "dataset"))
+
+# "AT" "BE" "CY" "CZ" "DE" "EE" "ES" "FI" "FR" "GR" "HR" "HU" "IE" "IT" "LT" "LU" "LV" "MT" "NL" "PL" "PT" "SI" "SK"  / 23 Countries, CZ only in last, PL only in 3
+
+# "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "NO", "PL", "PT", "RO", "SE", "SI", "SK", "UK" # housing_pr
+# "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR", "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "NO", "PL", "PT", "RO", "SE", "SI", "SK", "UK" #soc_exp eurostat
+# "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "IE", "ES", "FI", "FR", "GR", "HR", "HU", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SL" #soc_exp ameco
