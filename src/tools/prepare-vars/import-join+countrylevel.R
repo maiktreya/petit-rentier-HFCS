@@ -126,4 +126,4 @@ rm(list = setdiff(ls(), "dataset"))
 
 # "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "NO", "PL", "PT", "RO", "SE", "SI", "SK", "UK" # housing_pr
 # "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES", "FI", "FR", "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "NO", "PL", "PT", "RO", "SE", "SI", "SK", "UK" #soc_exp eurostat
-# "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "IE", "ES", "FI", "FR", "GR", "HR", "HU", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SL" #soc_exp ameco
+# "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "IE", "ES", "FI", "FR", "GR", "HR", "HU", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI" #soc_exp ameco
