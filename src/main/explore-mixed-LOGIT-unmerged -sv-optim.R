@@ -16,18 +16,17 @@ n_imputations <- 5
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:5) {
+for (i in 5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi_pens ~ factor(wave) +
+        rentsbi ~ factor(wave) +
             hsize + head_gendr + age + edu_ref +
             homeown + otherp +
             bonds + mutual + shares + managed + otherfin +
             haspvpens +
             class_nomanager +
-            soc_exp +
-            (1 | sa0100) +
+            factor(sa0100) +
             (1 | sa0100:wave),
         family = binomial,
         data = dataset_s,
@@ -83,4 +82,7 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-# fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/w-complete.csv")
+fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/nopens-reduced.csv")
+model[[1]] %>%
+    summary() %>%
+    print()
