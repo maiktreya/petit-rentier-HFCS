@@ -26,6 +26,7 @@ for (i in 1:5) {
             bonds + mutual + shares + managed + otherfin +
             haspvpens +
             class_nomanager +
+            soc_exp +
             (1 | sa0100) +
             (1 | sa0100:wave),
         family = binomial,
