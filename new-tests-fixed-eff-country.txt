@@ -66,6 +66,72 @@ class_nomanager4      0.417745   0.024359  17.150  < 2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+---------------------------------------------------------
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ factor(wave) + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+149721.5 149785.6 -74854.8 149709.5   321439
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-1.9666 -0.3076 -0.1951 -0.1143 21.4380
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.09021  0.3004
+ sa0100      (Intercept) 0.45095  0.6715
+Number of obs: 321445, groups:  sa0100:wave, 79; sa0100, 23
+
+Fixed effects:
+              Estimate Std. Error z value Pr(>|z|)
+(Intercept)    -2.7253     0.1644 -16.578   <2e-16 ***
+factor(wave)2  -0.2317     0.1093  -2.120   0.0340 *
+factor(wave)3  -0.2060     0.1083  -1.903   0.0571 .
+factor(wave)4  -0.2208     0.1086  -2.033   0.0421 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) fct()2 fct()3
+factor(wv)2 -0.390
+factor(wv)3 -0.405  0.590
+factor(wv)4 -0.407  0.581  0.602
+
+
+---------------------------------------------------------
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi ~ (1 | wave) + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
+
+     AIC      BIC   logLik deviance df.resid
+149722.7 149765.4 -74857.3 149714.7   321441
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-1.9668 -0.3076 -0.1951 -0.1144 21.5121
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.096417 0.31051
+ sa0100      (Intercept) 0.460783 0.67881
+ wave        (Intercept) 0.003548 0.05956
+Number of obs: 321445, groups:  sa0100:wave, 79; sa0100, 23; wave, 4
+
+Fixed effects:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)   -2.901      0.150  -19.35   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 ########################## WITH PENSIONS, COUNTRY + WAVE FIXED EFFECTS ###########################
 
@@ -117,3 +183,70 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Correlation matrix not shown by default, as p = 41 > 12.
 Use print(x, correlation=TRUE)  or
     vcov(x)        if you need it
+
+---------------------------------------------------------
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi_pens ~ factor(wave) + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
+
+      AIC       BIC    logLik  deviance  df.resid
+ 207421.9  207486.0 -103705.0  207409.9    321439
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.5191 -0.4001 -0.2162 -0.1052 18.3713
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.06419  0.2534
+ sa0100      (Intercept) 0.82319  0.9073
+Number of obs: 321445, groups:  sa0100:wave, 79; sa0100, 23
+
+Fixed effects:
+              Estimate Std. Error z value Pr(>|z|)
+(Intercept)   -2.39286    0.20286 -11.796   <2e-16 ***
+factor(wave)2 -0.18146    0.09250  -1.962   0.0498 *
+factor(wave)3 -0.15084    0.09162  -1.646   0.0997 .
+factor(wave)4 -0.07909    0.09182  -0.861   0.3890
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) fct()2 fct()3
+factor(wv)2 -0.267
+factor(wv)3 -0.278  0.590
+factor(wv)4 -0.281  0.581  0.603
+
+
+---------------------------------------------------------
+
+Generalized linear mixed model fit by maximum likelihood (Adaptive Gauss-Hermite Quadrature, nAGQ = 0) ['glmerMod']
+ Family: binomial  ( logit )
+Formula: rentsbi_pens ~ (1 | wave) + (1 | sa0100) + (1 | sa0100:wave)
+   Data: dataset_s
+Weights: weights
+Control: glmerControl(optimizer = "bobyqa", boundary.tol = 1e-05, calc.derivs = FALSE,      optCtrl = list(maxfun = 2e+05))
+
+      AIC       BIC    logLik  deviance  df.resid
+ 207422.3  207465.0 -103707.1  207414.3    321441
+
+Scaled residuals:
+    Min      1Q  Median      3Q     Max
+-2.5194 -0.4001 -0.2162 -0.1053 18.3509
+
+Random effects:
+ Groups      Name        Variance Std.Dev.
+ sa0100:wave (Intercept) 0.068734 0.26217
+ sa0100      (Intercept) 0.828681 0.91032
+ wave        (Intercept) 0.001337 0.03657
+Number of obs: 321445, groups:  sa0100:wave, 79; sa0100, 23; wave, 4
+
+Fixed effects:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  -2.5025     0.1937  -12.92   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
