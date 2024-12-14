@@ -1,7 +1,7 @@
-linters: with_defaults(
-    line_length_linter = line_length_linter(220L),
-    no_tab_linter = NULL,
-    object_name_linter = NULL,
-    commented_code_linter = NULL,
-    indentation_linter = indentation_linter(4L)
-  )
+linters: 
+    linters_with_defaults(
+        line_length_linter=line_length_linter(160L),
+        indentation_linter=NULL, 
+        object_name_linter = NULL,
+        object_usage_linter = NULL
+        )
