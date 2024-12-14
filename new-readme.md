@@ -19,7 +19,13 @@ In case you are dealing with the unwhiling wave unharmonized files this somewhat
 source("src\tools\prepare-vars\import-join.R")
 ```
 
-1. Descriptive
+1. Descriptive statistics
+Once required operations homogenizing variables for improved performance and memory usage, the easieast way to obtain population statistics automatically is through:
+```r`
+source("src\svy\svydesign\HFCS.main-grouped-medians.R)
+source("src\svy\svydesign\HFCS.main-grouped-means.R)
+
+```
 
 2. ML Boosted trees
 
