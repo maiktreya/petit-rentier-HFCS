@@ -27,6 +27,6 @@ desig <- svydesign(
 
 
 # Loop through each svydesign object and calculate the mean of HB0100
-# for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE)#
+for (i in 1:5) means[i] <- svymean(~rentsbi, designs[[i]], na.rm = TRUE) #
 result <- svyglm(rentsbi ~ wave + sa0100 + class, subset(desig, wave == 4), family = quasibinomial())
 summary(result) %>% print()
