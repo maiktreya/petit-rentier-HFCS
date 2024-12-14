@@ -24,7 +24,7 @@ source("src\tools\prepare-vars\import-join.R")
 - 1. Descriptive statistics
 Once required operations homogenizing variables for improved performance and memory usage, the easieast way to obtain population statistics automatically is through:
 
-```r`
+```r
 source("src\svy\svydesign\HFCS.main-grouped-medians.R)
 source("src\svy\svydesign\HFCS.main-grouped-means.R)
 source("src\svy\svydesign\HFCS.main-grouped-cdf.R")
@@ -35,12 +35,18 @@ source("src\svy\svydesign\HFCS.main-grouped-glm.R")
 - 2. ML Boosted trees
 To run the ML boosted trees algorithm and obtain basic benchmarking values along associated matrix of influence run:
 
-´´´r
+```r
 source("")
-´´´
+```
 
 - 3. Mixed Models Estimation
 
-´´´r
+```r
 source("")
-´´´
+```
+
+### C. PRODUCTION VERSION OF THE CODE
+
+The final implementation included in the WP (xxx) is all included in the folder main which includes
+
+7
