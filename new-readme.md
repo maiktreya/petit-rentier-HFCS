@@ -1,5 +1,7 @@
 # HFCS BIG DATA EXPLOTATION
-## MIXED MODELS + MACHINE LEARNING
+ MIXED MODELS + MACHINE LEARNING
+
+Disclaimer: For replication of data published on academic works just consider the scripts in the folder "prod".
 
 ### A. Workflow for reproudctivility (theoretical steps)
 
