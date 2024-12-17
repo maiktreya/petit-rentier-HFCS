@@ -28,14 +28,15 @@ for (i in 1:5) {
     ) %>% convey::convey_prep()
 }
 # Start PNG device
-png("test.png", width = 2480, height = 3508, res = 300)
+png("output/jpg/test.png", width = 2480, height = 3508, res = 300)
 
 
 # Set up the plotting area for a 5x3 grid
 par(oma = c(0, 0, 4, 0), mfrow = c(1, 1), mar = c(5, 4, 2, 2) + 0.1)
 # oma -> vector of the form c(bottom, left, top, right) giving the size of the outer margins in lines of text.
 # mfrom -> nrow * ncol for multi chart in one page
-# mar -> A numerical vector of the form c(bottom, left, top, right) which gives the number of lines of margin to be specified on the four sides of the plot. The default is c(5, 4, 4, 2) + 0.1.
+# mar -> A numerical vector of the form c(bottom, left, top, right) which gives the number of 
+# lines of margin to be specified on the four sides of the plot. The default is c(5, 4, 4, 2) + 0.1.
 
 # Loop through each country and plot
 for (n in country_code[15]) {
