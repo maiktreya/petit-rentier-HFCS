@@ -13,6 +13,16 @@ source("src/tools/prepare-vars/import-join.R")
 # hardcoded variables
 model <- dataset_s <- list()
 n_imputations <- 5
+remove_covid_wave <- FALSE
+output_string <- "output/MODELS/MICRO/pensions-reduced.csv"
+
+if (remove_covid_wave) {
+    dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
+    output_string <- "output/MODELS/MICRO/pensions-reduced_3waves.csv"
+
+}
+
+# enable testing removing covid wave
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
@@ -82,4 +92,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-fwrite(cbind(row.names(combined_results), combined_results), "output/MODELS/MICRO/pensions-reduced.csv")
+fwrite(cbind(row.names(combined_results), combined_results), output_string)
