@@ -13,12 +13,12 @@ source("src/tools/prepare-vars/import-join.R")
 # hardcoded variables
 model <- dataset_s <- list()
 n_imputations <- 5
-remove_covid_wave <- TRUE
-output_string <- "output/MODELS/MICRO/pensions-reduced.csv"
+remove_covid_wave <- FALSE
+output_string <- "output/MODELS/MICRO/nopensions-reduced.csv"
 
 if (remove_covid_wave == TRUE) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
-    output_string <- "output/MODELS/MICRO/pensions-reduced_3waves.csv"
+    output_string <- "output/MODELS/MICRO/nopensions-reduced_3waves.csv"
 
 }
 
@@ -30,7 +30,7 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi_pens ~ factor(wave) +
+        rentsbi ~ factor(wave) +
             (1 | sa0100) +
             (1 | sa0100:wave),
         family = binomial,
