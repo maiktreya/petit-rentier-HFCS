@@ -17,7 +17,7 @@ remove_covid_wave <- TRUE
 output_string <- "output/MODELS/MICRO/nopensions.csv"
 
 if (remove_covid_wave) {
-    dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
+    dataset <- dataset[wave != 3, ] # remove wave 4 covid-19
     output_string <- "output/MODELS/MICRO/nopensions_3waves.csv"
 
 }
