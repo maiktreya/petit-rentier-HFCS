@@ -13,14 +13,14 @@ rm(list = ls())
 source("src/tools/prepare-vars/import-join.R")
 
 ### prepare as numeric dummies for XGboost
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi", "class", "edu_ref", "age")]
+dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
-dataset2$rentsbi <- dataset2$rentsbi
+dataset2$rentsbi_pens <- dataset2$rentsbi_pens
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$hsize <- as.numeric(dataset2$hsize)
-dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age"), remove_selected_columns = TRUE, ignore_na = TRUE)
+dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age", "wave"), remove_selected_columns = TRUE, ignore_na = TRUE)
 
 ################################# MODEL FITTING ###################################################
 
@@ -30,8 +30,8 @@ train_data <- dataset2[sample_indices, ]
 test_data <- dataset2[-sample_indices, ]
 
 # Prepare data for XGBoost including 'wave' and 'sa0100'
-data_matrix <- xgb.DMatrix(data = as.matrix(train_data[, !c("rentsbi")]), label = train_data$rentsbi)
-test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, !c("rentsbi")]), label = test_data$rentsbi)
+data_matrix <- xgb.DMatrix(data = as.matrix(train_data[, !c("rentsbi_pens")]), label = train_data$rentsbi_pens)
+test_matrix <- xgb.DMatrix(data = as.matrix(test_data[, !c("rentsbi_pens")]), label = test_data$rentsbi_pens)
 
 # XGBoost parameters
 params <- list(
@@ -58,8 +58,8 @@ test_predictions <- predict(xgb_model, test_matrix)
 test_predictions_binary <- ifelse(test_predictions > 0.3, 1, 0)
 
 # Calculating accuracy
-accuracy_xgb <- sum(test_predictions_binary == test_data$rentsbi) / length(test_predictions_binary)
-confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor(test_data$rentsbi), positive = "1")
+accuracy_xgb <- sum(test_predictions_binary == test_data$rentsbi_pens) / length(test_predictions_binary)
+confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor(test_data$rentsbi_pens), positive = "1")
 
 # print results
 print(importance_matrix)
