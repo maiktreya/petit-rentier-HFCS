@@ -13,16 +13,17 @@ source("src/tools/prepare-vars/import-join.R")
 # hardcoded variables
 model <- dataset_s <- list()
 n_imputations <- 5
-remove_covid_wave <- TRUE
-output_string <- "output/MODELS/MICRO/nopensions.csv"
+remove_covid_wave <- FALSE
+export_output <- FALSE
+proxy <- "rentsbi_pens" # or "rentsbi" if pv_pens are included
+variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
+input_string <- paste0("output/MODELS/MICRO/", variable)
 
-if (remove_covid_wave) {
+if (remove_covid_wave == TRUE) {
     dataset <- dataset[wave != 3, ] # remove wave 4 covid-19
-    output_string <- "output/MODELS/MICRO/nopensions_3waves.csv"
-
+    input_string <- paste0(input_string, "_3waves")
 }
-
-# enable testing removing covid wave
+output_string <- paste0(input_string, ".csv")
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
@@ -30,19 +31,24 @@ for (i in 1:5) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
-        rentsbi ~ factor(wave) +
-            hsize + head_gendr + age + edu_ref +
-            homeown + otherp +
-            bonds + mutual + shares + managed + otherfin +
-            haspvpens +
-            class_nomanager +
-            (1 | sa0100) +
-            (1 | sa0100:wave),
+        reformulate(
+            termlabels = c(
+                "factor(wave)",
+                "hsize", "head_gendr", "age", "edu_ref",
+                "homeown", "otherp",
+                "bonds", "mutual", "shares", "managed", "otherfin",
+                "haspvpens",
+                "class_nomanager",
+                "(1 | sa0100)",
+                "(1 | sa0100:wave)"
+            ),
+            response = proxy
+        ),
         family = binomial,
         data = dataset_s,
         weights = weights,
         control = glmerControl(
-            optimizer = "bobyqa", # bobyqa, Nelder_Mead, nloptwrap,optim  method='nlminb',
+            optimizer = "bobyqa",
             boundary.tol = 1e-5,
             calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
@@ -92,4 +98,4 @@ eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
-fwrite(cbind(row.names(combined_results), combined_results), output_string)
+if (export_output) fwrite(cbind(row.names(combined_results), combined_results), output_string)
