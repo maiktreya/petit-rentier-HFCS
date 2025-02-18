@@ -1,33 +1,51 @@
-# HFCS  correlated efects mixed hybrid model (Bell & Jones, 2015) pooled waves
-### PPREPARATION
+# HFCS correlated effects mixed hybrid model (Bell & Jones, 2015) pooled waves
+
+# This script performs the following tasks:
+# 1. Loads necessary libraries and cleans the environment.
+# 2. Sources a prepared joint dataset.
+# 3. Sets hardcoded variables for the analysis.
+# 4. Optionally removes the COVID-19 wave from the dataset.
+# 5. Estimates individual models for each implicate and merges the results.
+# 6. Extracts coefficients and standard errors from the models.
+# 7. Calculates mean estimates, within-imputation variance, between-imputation variance, and total variance.
+# 8. Computes combined standard errors, t-statistics, and p-values.
+# 9. Combines results with t-statistics and p-values.
+# 10. Extracts random effects and evaluation metrics from the models.
+# 11. Optionally exports the combined results to a CSV file.
+
+### PREPARATION
 library(magrittr) # piping no dependencies
 library(data.table) # king of data wrangling
-library(lme4) # mixed models enviroment
+library(lme4) # mixed models environment
 
-# clean enviroment
+# clean environment
 rm(list = ls())
+gc(full = TRUE, verbose = TRUE)
 
 # source prepared joint dataset
 source("src/tools/prepare-vars/import-join.R")
 
 # hardcoded variables
-model <- dataset_s <- list()
 n_imputations <- 5
-remove_covid_wave <- FALSE
+remove_covid_wave <- TRUE
 export_output <- FALSE
 proxy <- "rentsbi_pens" # or "rentsbi" if pv_pens are included
+
+# conditionals
 variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
 input_string <- paste0("output/MODELS/MICRO/", variable)
-
 if (remove_covid_wave == TRUE) {
-    dataset <- dataset[wave != 3, ] # remove wave 4 covid-19
+    dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     input_string <- paste0(input_string, "_3waves")
 }
 output_string <- paste0(input_string, ".csv")
 
+# initiate global objects for results
+model <- dataset_s <- list()
+
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
-for (i in 1:5) {
+for (i in 1:n_imputations) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
     model[[i]] <- glmer(
