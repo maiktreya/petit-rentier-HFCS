@@ -29,7 +29,7 @@ source("src/tools/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- TRUE
 export_output <- FALSE
-proxy <- "rentsbi_pens" # or "rentsbi" if pv_pens are included
+proxy <- "rentsb" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 
 # conditionals
 variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
@@ -67,7 +67,7 @@ for (i in 1:n_imputations) {
         weights = weights,
         control = glmerControl(
             optimizer = "bobyqa",
-            boundary.tol = 1e-5,
+            boundary.tol = 1e-5, # 1e-5 default
             calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
         ),
@@ -107,11 +107,11 @@ p_values <- (1 - pnorm(abs(t_stats), 0, 1)) * 2
 combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
 
 random_part <- sapply(model, function(m) unlist(data.frame(summary(m)$varcor)[4:5])) %>%
-    rowSums() / 5
+    rowSums() / n_imputations
 
 eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
     data.table() %>%
-    rowSums() / 5
+    rowSums() / n_imputations
 
 combined_results <- rbind(combined_results, random_part, eval)
 
