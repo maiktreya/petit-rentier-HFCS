@@ -34,7 +34,7 @@ proxy <- "rentsbi_pens" # or "rentsbi" if pv_pens are included
 # conditionals
 variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
 input_string <- paste0("output/MODELS/MICRO/", variable)
-if (remove_covid_wave == TRUE) {
+if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     input_string <- paste0(input_string, "_3waves")
 }
