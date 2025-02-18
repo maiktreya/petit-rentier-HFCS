@@ -74,7 +74,7 @@ for (i in 1:n_imputations) {
         verbose = 2,
         nAGQ = 0
     )
-    (start_time - Sys.time()) %>% print()
+    (Sys.time() - start_time) %>% print()
 }
 # Get coefficients and standard errors
 coef_estimates <- lapply(model, function(m) fixef(m))
