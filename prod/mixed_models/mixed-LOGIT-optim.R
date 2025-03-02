@@ -54,7 +54,7 @@ for (i in 1:n_imputations) {
                 "factor(wave)",
                 "hsize", "head_gendr", "age", "edu_ref",
                 "homeown", "otherp",
-                "bonds", "mutual", "shares", "managed", "otherfin",
+                "bonds", "mutual", "shares", "managed", "otherfin", # "Kgains",
                 "haspvpens",
                 "class_nomanager",
                 "(1 | sa0100)",

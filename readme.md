@@ -51,4 +51,26 @@ source("")
 
 The final implementation included in the WP (xxx) is all included in the folder main which includes
 
-7
+
+# Variables por Capital income
+
+## "rental" ("hg0310") 
+- gross rental income from real estate property  
+What was the total gross amount over (the last 12 months / the last calendar 
+year)?
+
+## "financ" ("di1400") 
+- Income from financial assets 
+gross of interest payments &  income from bussiness not self-employment
+
+## "pvpens" ("di1520") 
+- Income from occupational and private pensions
+
+## "income" ("di2000")
+- Total household gross income 2, including interest payments
+  
+## Kgains ("HG0610") 
+- received income from other income sources  
+Any other income that is not included in the sources already recorded. Residual item. Sources of income to be included:    - Capital gains or losses from the sale of assets 
+
+  
