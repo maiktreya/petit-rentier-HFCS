@@ -73,4 +73,21 @@ gross of interest payments &  income from bussiness not self-employment
 - received income from other income sources  
 Any other income that is not included in the sources already recorded. Residual item. Sources of income to be included:    - Capital gains or losses from the sale of assets 
 
-  
+## RA0010
+Personal identification number
+
+## IM0100
+Imputation ID
+
+## SA0010
+Household ID  
+
+## SA0100
+Country ID
+
+##  DHIDH1 Documentation, Core and derived variables - 2021 Wave / July 2023 
+ 
+ 
+Personal identification number (RA0010) of reference person, 
+Canberra definition
+Personal ID of Reference Head person, Camberra definition
