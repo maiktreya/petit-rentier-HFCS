@@ -14,7 +14,7 @@ country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "N
 data_implicate <- list()
 dataset[, rents_mean_share := (rents_mean) / income]
 varname <- "rents_mean"
-cpi_prices <- fread("output/CPI.csv", header = TRUE, na.strings = "NA")
+cpi_prices <- fread("output/CPI.csv", header = TRUE)
 
 # convert to survey design to account for weights
 for (i in 1:5) {

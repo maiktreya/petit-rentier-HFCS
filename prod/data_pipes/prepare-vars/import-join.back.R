@@ -19,10 +19,10 @@ library(data.table) # for fast and concise data wrangling
 
 # clean enviroment
 # import and merge  complete multicountry HFCS waves
-datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE, na.strings = "NA")[, wave := 1][sa0100 != "E1"] # Spain wrong 2008, must be dropped
-datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE, na.strings = "NA")[, wave := 2]
-datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE, na.strings = "NA")[, wave := 3]
-datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE, na.strings = "NA")[, wave := 4]
+datasetA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1][sa0100 != "E1"] # Spain wrong 2008, must be dropped
+datasetB <- fread(".datasets/HFCSgz/2_5.gz", header = TRUE)[, wave := 2]
+datasetC <- fread(".datasets/HFCSgz/3_3.gz", header = TRUE)[, wave := 3]
+datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 
 dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 

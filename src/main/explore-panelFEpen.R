@@ -11,22 +11,22 @@ rm(list = ls())
 path_string <- "output/MEANS/"
 
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi.csv"), header = TRUE, na.strings = "NA") %>%
+outcome <- fread(paste0(path_string, "ren-fin-pro-pens/rentsbi.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-outcome5 <- fread(paste0(path_string, "ren-fin-pro/rentsbi20.csv"), header = TRUE, na.strings = "NA") %>%
+outcome5 <- fread(paste0(path_string, "ren-fin-pro/rentsbi20.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-w_outcome <- fread(paste0(path_string, "wealthy/rentsbi-pens.csv"), header = TRUE, na.strings = "NA") %>%
+w_outcome <- fread(paste0(path_string, "wealthy/rentsbi-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-w_outcome5 <- fread(paste0(path_string, "wealthy/rentsbi20-pens.csv"), header = TRUE, na.strings = "NA") %>%
+w_outcome5 <- fread(paste0(path_string, "wealthy/rentsbi20-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-i_outcome <- fread(paste0(path_string, "highincome/rentsbi-pens.csv"), header = TRUE, na.strings = "NA") %>%
+i_outcome <- fread(paste0(path_string, "highincome/rentsbi-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
-i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi20-pens.csv"), header = TRUE, na.strings = "NA") %>%
+i_outcome5 <- fread(paste0(path_string, "highincome/rentsbi20-pens.csv"), header = TRUE) %>%
     unlist() %>%
     as.vector()
 

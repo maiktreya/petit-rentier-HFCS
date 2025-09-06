@@ -65,8 +65,8 @@ for (wave in path_stringB) {
         ]
 
         country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-        medians_real <- fread("output/MEDIANS/real.csv", header = TRUE, na.strings = "NA")
-        medians_fin <- fread("output/MEDIANS/net_fi.csv", header = TRUE, na.strings = "NA")
+        medians_real <- fread("output/MEDIANS/real.csv", header = TRUE)
+        medians_fin <- fread("output/MEDIANS/net_fi.csv", header = TRUE)
         for (n in seq_along(country_code)) {
             ind_median_real <- medians_real[[n, match(wave, path_stringB)]]
             ind_median_fin <- medians_fin[[n, match(wave, path_stringB)]]
