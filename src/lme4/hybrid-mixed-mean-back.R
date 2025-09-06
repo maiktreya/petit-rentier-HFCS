@@ -6,22 +6,22 @@ library(lme4)
 
 rm(list = ls())
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-outcome <- fread("output/MEANS/rentsbi.csv", header = TRUE) %>%
+outcome <- fread("output/MEANS/rentsbi.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
-outcome2 <- fread("output/MEANS/rentsbi2.csv", header = TRUE) %>%
+outcome2 <- fread("output/MEANS/rentsbi2.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
-outcome5 <- fread("output/MEANS/rentsbi5.csv", header = TRUE) %>%
+outcome5 <- fread("output/MEANS/rentsbi5.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
-tenan <- fread("output/MEANS/tenan.csv", header = TRUE) %>%
+tenan <- fread("output/MEANS/tenan.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
-rental_share <- fread("output/MEANS/rental-share.csv", header = TRUE) %>%
+rental_share <- fread("output/MEANS/rental-share.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
-finan_share <- fread("output/MEANS/financ-share.csv", header = TRUE) %>%
+finan_share <- fread("output/MEANS/financ-share.csv", header = TRUE, na.strings = "NA") %>%
     unlist() %>%
     as.vector()
 group <- rep(countries, 4)

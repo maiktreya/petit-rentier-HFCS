@@ -9,7 +9,7 @@ path_stringA <- ".datasets/HFCSgz/merged/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 
 for (wave in path_stringB) {
-    outcomeA <- fread(paste0(".datasets/HFCSgz/", wave, ".gz"), header = TRUE)[, wave := 1]
+    outcomeA <- fread(paste0(".datasets/HFCSgz/", wave, ".gz"), header = TRUE, na.strings = "NA")[, wave := 1]
 
     # Assuming outcomeA is already a data.table
     # Identify the columns for averaging (excluding 'sa0010' and 'implicate')
@@ -27,7 +27,7 @@ for (wave in path_stringB) {
 # rm(list = ls())
 #
 # # Load the data.table package
-# outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE)[, wave := 1]
+# outcomeA <- fread(".datasets/HFCSgz/1_6.gz", header = TRUE, na.strings = "NA")[, wave := 1]
 #
 # # Convert outcomeA to long format
 # long_outcomeA <- melt(outcomeA, id.vars = c("sa0010", "implicate"), variable.name = "variable")

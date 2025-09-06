@@ -14,7 +14,7 @@ country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "N
 data_implicate <- list()
 dataset[, rents_mean_share := (rents_mean) / income]
 varname <- "rents_mean"
-cpi_prices <- fread("output/CPI.csv", header = TRUE)
+cpi_prices <- fread("output/CPI.csv", header = TRUE, na.strings = "NA")
 
 # convert to survey design to account for weights
 for (i in 1:5) {
@@ -35,7 +35,7 @@ png("output/jpg/test.png", width = 2480, height = 3508, res = 300)
 par(oma = c(0, 0, 4, 0), mfrow = c(1, 1), mar = c(5, 4, 2, 2) + 0.1)
 # oma -> vector of the form c(bottom, left, top, right) giving the size of the outer margins in lines of text.
 # mfrom -> nrow * ncol for multi chart in one page
-# mar -> A numerical vector of the form c(bottom, left, top, right) which gives the number of 
+# mar -> A numerical vector of the form c(bottom, left, top, right) which gives the number of
 # lines of margin to be specified on the four sides of the plot. The default is c(5, 4, 4, 2) + 0.1.
 
 # Loop through each country and plot

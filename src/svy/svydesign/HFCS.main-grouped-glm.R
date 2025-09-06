@@ -8,10 +8,10 @@ library(mitools)
 rm(list = ls())
 path_string <- ".datasets/HFCS/csv/HFCS_UDB_1_6_ASCII/"
 final_dt_h <- final_dt_p <- designs <- imp <- list()
-outcomeA <- fread(".datasets/HFCSgz/merged/1_6.gz", header = TRUE)[, wave := 1]
-outcomeB <- fread(".datasets/HFCSgz/merged/2_5.gz", header = TRUE)[, wave := 2]
-outcomeC <- fread(".datasets/HFCSgz/merged/3_3.gz", header = TRUE)[, wave := 3]
-outcomeD <- fread(".datasets/HFCSgz/merged/4_0.gz", header = TRUE)[, wave := 4]
+outcomeA <- fread(".datasets/HFCSgz/merged/1_6.gz", header = TRUE, na.strings = "NA")[, wave := 1]
+outcomeB <- fread(".datasets/HFCSgz/merged/2_5.gz", header = TRUE, na.strings = "NA")[, wave := 2]
+outcomeC <- fread(".datasets/HFCSgz/merged/3_3.gz", header = TRUE, na.strings = "NA")[, wave := 3]
+outcomeD <- fread(".datasets/HFCSgz/merged/4_0.gz", header = TRUE, na.strings = "NA")[, wave := 4]
 outcomeT <- rbind(outcomeA, outcomeB, outcomeC, outcomeD) %>% as.data.frame()
 outcomeT$class <- outcomeT$employm %>%
     as.numeric() %>%

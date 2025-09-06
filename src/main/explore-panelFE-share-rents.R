@@ -12,12 +12,12 @@ path_string <- "output/MEANS/"
 
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
 
-outcomeA <- fread(paste0(path_string, "ren-fin-pro/rents_mean_pens.csv"), header = TRUE)
-outcomeB <- fread(paste0(path_string, "ren-fin-pro/income.csv"), header = TRUE)
-w_outcomeA <- fread(paste0(path_string, "wealthy/rents_mean.csv"), header = TRUE)
-w_outcomeB <- fread(paste0(path_string, "wealthy/income.csv"), header = TRUE)
-i_outcomeA <- fread(paste0(path_string, "highincome/rents_mean.csv"), header = TRUE)
-i_outcomeB <- fread(paste0(path_string, "highincome/income.csv"), header = TRUE)
+outcomeA <- fread(paste0(path_string, "ren-fin-pro/rents_mean_pens.csv"), header = TRUE, na.strings = "NA")
+outcomeB <- fread(paste0(path_string, "ren-fin-pro/income.csv"), header = TRUE, na.strings = "NA")
+w_outcomeA <- fread(paste0(path_string, "wealthy/rents_mean.csv"), header = TRUE, na.strings = "NA")
+w_outcomeB <- fread(paste0(path_string, "wealthy/income.csv"), header = TRUE, na.strings = "NA")
+i_outcomeA <- fread(paste0(path_string, "highincome/rents_mean.csv"), header = TRUE, na.strings = "NA")
+i_outcomeB <- fread(paste0(path_string, "highincome/income.csv"), header = TRUE, na.strings = "NA")
 
 outcome <- (outcomeA / outcomeB) %>%
     unlist() %>%
