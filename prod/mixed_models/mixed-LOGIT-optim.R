@@ -29,7 +29,7 @@ source("src/tools/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-proxy <- "rentsbi_K" # either "rentsbi" or "rentsi_pens" if pv_pens are included
+proxy <- "rentsbi" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 
 # conditionals
 variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
