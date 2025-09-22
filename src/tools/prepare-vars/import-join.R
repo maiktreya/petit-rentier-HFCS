@@ -90,6 +90,7 @@ dataset$quintile.gincome <- dataset$quintile.gincome %>%
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
 dataset[, otherp_mul := 0][otherpB == 1, otherp_mul := 2][otherpN == 1, otherp_mul := 1][, otherp_mul := factor(otherp_mul, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
 dataset[, otherp := 0][otherpB == 1, otherp := 1][otherpN == 1, otherp := 1][, otherp := factor(otherp, levels = c(0, 1), labels = c("non-owner", "multiowner"))]
+dataset[, hasKgains := 0][Kgains > 0, hasKgains := 1]
 
 # Financial-Assets covariates
 dataset[bonds != 1, bonds := 0][, bonds := factor(bonds, levels = c(0, 1), labels = c("non-owner", "has-bonds"))]
@@ -98,6 +99,7 @@ dataset[shares != 1, shares := 0][, shares := factor(shares, levels = c(0, 1), l
 dataset[managed != 1, managed := 0][, managed := factor(managed, levels = c(0, 1), labels = c("non-owner", "has-managed"))]
 dataset[otherfin != 1, otherfin := 0][, otherfin := factor(otherfin, levels = c(0, 1), labels = c("non-owner", "has-otherfin"))]
 dataset[haspvpens != 1, haspvpens := 0][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
+dataset[hasKgains != 1, hasKgains := 0][, hasKgains := factor(hasKgains, levels = c(0, 1), labels = c("non-owner", "has-Kgains"))]
 
 housing_pr <- fread("output/housing_pr.csv", header = TRUE)
 soc_exp <- fread("output/soc_exp.csv", header = TRUE)

@@ -27,7 +27,7 @@ source("src/tools/prepare-vars/import-join.R")
 
 # hardcoded variables
 n_imputations <- 5
-remove_covid_wave <- TRUE
+remove_covid_wave <- FALSE
 export_output <- TRUE
 proxy <- "rentsbiK" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 
@@ -48,14 +48,20 @@ model <- dataset_s <- list()
 for (i in 1:n_imputations) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    dataset_s[, rentsbiK := 0][income > 0 & ((Kgains + financ + rental + pvpens) / income) > 0.1, rentsbiK := 1]
+    # remove no kgains countries per wave related
+    dataset_s <- dataset_s[!(wave == 1 & sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"))]
+    dataset_s <- dataset_s[!(wave == 2 & sa0100 %in% c("CZ", "FR", "LT", "HR"))]
+    dataset_s <- dataset_s[!(wave == 3 & sa0100 %in% c("CZ", "FR"))]
+    dataset_s <- dataset_s[!(wave == 4 & sa0100 %in% c("CZ", "FR"))]
+
+    dataset_s[, rentsbiK := 0][income > 0 & ((  financ + rental + pvpens) / income) > 0.1, rentsbiK := 1]
     model[[i]] <- glmer(
         reformulate(
             termlabels = c(
                 "factor(wave)",
                 "hsize", "head_gendr", "age", "edu_ref",
                 "homeown", "otherp",
-                "bonds", "mutual", "shares", "managed", "otherfin", "Kgains",
+                "bonds", "mutual", "shares", "managed", "otherfin", "hasKgains",
                 "haspvpens",
                 "class_nomanager",
                 "(1 | sa0100)",
@@ -73,7 +79,7 @@ for (i in 1:n_imputations) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 0
+        nAGQ = 2
     )
     (Sys.time() - start_time) %>% print()
 }
