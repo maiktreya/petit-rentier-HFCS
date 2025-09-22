@@ -27,7 +27,7 @@ source("src/tools/prepare-vars/import-join.R")
 
 # hardcoded variables
 n_imputations <- 5
-remove_covid_wave <- FALSE
+remove_covid_wave <- TRUE
 export_output <- TRUE
 proxy <- "rentsbiK" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 
@@ -63,13 +63,13 @@ for (i in 1:n_imputations) {
             ),
             response = proxy
         ),
-        family = binomial,
+        family = binomial(link = "logit"),
         data = dataset_s,
         weights = weights,
         control = glmerControl(
             optimizer = "bobyqa",
             boundary.tol = 1e-5, # 1e-5 default
-            calc.derivs = FALSE,
+            calc.derivs = TRUE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
