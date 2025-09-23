@@ -104,12 +104,18 @@ p_values <- (1 - pnorm(abs(t_stats), 0, 1)) * 2
 # Combined results with t-stats and p-values
 combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
 
-random_part <- sapply(model, function(m) unlist(data.frame(summary(m)$varcor)[4:5])) %>%
-    rowSums() / n_imputations
+random_part <- sapply(
+    model,
+    function(m) unlist(data.frame(summary(m)$varcor)[4:5])
+)
+random_part <- rowSums(random_part) / n_imputations
 
-eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
-    data.table() %>%
-    rowSums() / n_imputations
+eval <- sapply(
+    model,
+    function(m) summary(m)$AICtab[1:4]
+)
+eval <- data.table(eval)
+eval <- rowSums(eval) / n_imputations
 
 combined_results <- rbind(combined_results, random_part, eval)
 
