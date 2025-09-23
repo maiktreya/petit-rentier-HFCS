@@ -29,7 +29,7 @@ source("src/tools/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-variable <- "rentsbiK" # either "rentsbi" or "rentsi_pens" if pv_pens are included
+variable <- "rentsbiK_full" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 input_string <- paste0("output/MODELS/MICRO/", variable)
 if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
@@ -51,7 +51,7 @@ for (i in 1:n_imputations) {
     dataset_s <- dataset_s[!(wave == 3 & sa0100 %in% c("CZ", "FR"))]
     dataset_s <- dataset_s[!(wave == 4 & sa0100 %in% c("CZ", "FR"))]
 
-    dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbiK := 1]
+    dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbiK := 1]
     model[[i]] <- glmer(
         reformulate(
             termlabels = c(
