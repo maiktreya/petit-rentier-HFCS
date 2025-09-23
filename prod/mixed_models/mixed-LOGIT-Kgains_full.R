@@ -45,12 +45,6 @@ model <- dataset_s <- list()
 for (i in 1:n_imputations) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    # remove no kgains countries per wave related
-    dataset_s <- dataset_s[!(wave == 1 & sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"))]
-    dataset_s <- dataset_s[!(wave == 2 & sa0100 %in% c("CZ", "FR", "LT", "HR"))]
-    dataset_s <- dataset_s[!(wave == 3 & sa0100 %in% c("CZ", "FR"))]
-    dataset_s <- dataset_s[!(wave == 4 & sa0100 %in% c("CZ", "FR"))]
-
     dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbiK := 1]
     model[[i]] <- glmer(
         reformulate(

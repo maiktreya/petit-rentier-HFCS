@@ -45,12 +45,6 @@ model <- dataset_s <- list()
 for (i in 1:n_imputations) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    # remove no kgains countries per wave related
-    dataset_s <- dataset_s[!(wave == 1 & sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"))]
-    dataset_s <- dataset_s[!(wave == 2 & sa0100 %in% c("CZ", "FR", "LT", "HR"))]
-    dataset_s <- dataset_s[!(wave == 3 & sa0100 %in% c("CZ", "FR"))]
-    dataset_s <- dataset_s[!(wave == 4 & sa0100 %in% c("CZ", "FR"))]
-
     dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbiK := 1]
     model[[i]] <- glmer(
         reformulate(
@@ -121,3 +115,14 @@ combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
 if (export_output) fwrite(cbind(row.names(combined_results), combined_results), output_string)
+
+# Remove no kgains countries per wave using data.table::fcase
+# dataset_s <- dataset_s[
+#    !fcase(
+#        wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
+#        wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
+#        wave == 3, sa0100 %in% c("CZ", "FR"),
+#        wave == 4, sa0100 %in% c("CZ", "FR"),
+#        default = FALSE
+#    )
+# ]
