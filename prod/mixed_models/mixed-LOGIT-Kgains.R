@@ -73,13 +73,13 @@ for (i in 1:n_imputations) {
         data = dataset_s,
         weights = weights,
         control = glmerControl(
-            optimizer = "bobyqa",
+            optimizer = "Nelder_Mead",
             boundary.tol = 1e-5, # 1e-5 default
             calc.derivs = TRUE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 2
+        nAGQ = 1
     )
     (Sys.time() - start_time) %>% print()
 }
