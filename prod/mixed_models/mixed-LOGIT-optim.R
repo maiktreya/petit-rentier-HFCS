@@ -23,7 +23,7 @@ rm(list = ls())
 gc(full = TRUE, verbose = TRUE)
 
 # source prepared joint dataset
-source("src/tools/prepare-vars/import-join.R")
+source("prod/data_pipes/prepare-vars/import-join.R")
 
 # hardcoded variables
 n_imputations <- 5

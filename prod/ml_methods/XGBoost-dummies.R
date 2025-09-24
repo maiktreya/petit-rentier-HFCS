@@ -10,7 +10,7 @@ library(Matrix) # dataset tidy for ml models
 rm(list = ls())
 
 # source prepared joint dataset
-source("src/tools/prepare-vars/import-join.R")
+source("prod/data_pipes/prepare-vars/import-join.R")
 
 ### prepare as numeric dummies for XGboost
 dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]

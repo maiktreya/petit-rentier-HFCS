@@ -8,7 +8,7 @@ library(lme4) # mixed models enviroment
 rm(list = ls())
 
 # source prepared joint dataset
-source("src/tools/prepare-vars/import-join.R")
+source("prod/data_pipes/prepare-vars/import-join.R")
 
 # hardcoded variables
 model <- dataset_s <- list()
@@ -19,7 +19,6 @@ output_string <- "output/MODELS/MICRO/nopensions-reduced.csv"
 if (remove_covid_wave == TRUE) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     output_string <- "output/MODELS/MICRO/nopensions-reduced_3waves.csv"
-
 }
 
 # enable testing removing covid wave
