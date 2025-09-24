@@ -101,6 +101,13 @@ dataset[otherfin != 1, otherfin := 0][, otherfin := factor(otherfin, levels = c(
 dataset[haspvpens != 1, haspvpens := 0][, haspvpens := factor(haspvpens, levels = c(0, 1), labels = c("non-owner", "has-pvpens"))]
 dataset[hasKgains != 1, hasKgains := 0][, hasKgains := factor(hasKgains, levels = c(0, 1), labels = c("non-owner", "has-Kgains"))]
 
+
+
+dataset[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
+dataset[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
+dataset[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
+dataset[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
+
 housing_pr <- fread("output/housing_pr.csv", header = TRUE)
 soc_exp <- fread("output/soc_exp.csv", header = TRUE)
 country_code <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "AT", "HU", "SK", "FI", "GR", "NL", "LU", "LV", "MT", "EE", "FR", "BE", "CZ") # "HR",
