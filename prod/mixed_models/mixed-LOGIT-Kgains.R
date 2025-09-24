@@ -66,7 +66,7 @@ for (i in 1:n_imputations) {
         control = glmerControl(
             optimizer = "bobyqa",
             boundary.tol = 1e-5, # 1e-5 default
-            calc.derivs = TRUE,
+            calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
