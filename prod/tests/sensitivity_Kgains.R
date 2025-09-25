@@ -192,8 +192,37 @@ country_RE_rho <- function(m1, m2) {
 # Build within<U+2013>between (Mundlak) K-gains decomposition variables
 add_mundlak_K <- function(dt, var = "hasKgains") {
     dt <- copy(dt)
-    dt[, cw_mean := mean(get(var), na.rm = TRUE), by = .(sa0100, wave)]
-    dt[, within_dev := get(var) - cw_mean]
+    make_numeric <- function(x) {
+        if (is.null(x)) {
+            stop(sprintf("Variable '%s' not found in data for Mundlak decomposition.", var))
+        }
+        if (is.logical(x) || is.numeric(x)) {
+            return(as.numeric(x))
+        }
+        if (is.factor(x)) {
+            lvl_num <- suppressWarnings(as.numeric(levels(x)))
+            if (!anyNA(lvl_num)) {
+                return(lvl_num[as.integer(x)])
+            }
+            if (length(levels(x)) == 2) {
+                return(as.numeric(x == levels(x)[2]))
+            }
+            stop(sprintf(
+                "Factor '%s' must have numeric levels or be binary to compute Mundlak decomposition.",
+                var
+            ))
+        }
+        stop(sprintf("Variable '%s' must be logical, numeric, or a binary factor for Mundlak decomposition.", var))
+    }
+
+    tmp_col <- paste0("__", var, "_num")
+    while (tmp_col %in% names(dt)) {
+        tmp_col <- paste0(tmp_col, "_")
+    }
+    dt[, (tmp_col) := make_numeric(get(var))]
+    dt[, cw_mean := mean(get(tmp_col), na.rm = TRUE), by = .(sa0100, wave)]
+    dt[, within_dev := get(tmp_col) - cw_mean]
+    dt[, (tmp_col) := NULL]
     dt[]
 }
 
