@@ -3,7 +3,7 @@
 
 Disclaimer: For replication of data published on academic works just consider the scripts in the folder "prod".
 
-### A. Workflow for reproudctivility (theoretical steps)
+### A. Workflow for reproductivility (theoretical steps)
 
 1. Descriptive
 2. ML Boosted trees
