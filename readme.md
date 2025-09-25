@@ -57,15 +57,15 @@ source("prod/mixed_models/mixed-LOGIT-optim.R")
 
 ---
 
-### rental ("hg0310")
+### Rental Income ("hg0310")
 
 - gross rental income from real estate property. What was the total gross amount over (the last 12 months / the last calendar year)?
 
-### financ ("di1400")
+### Financial Income ("di1400")
 
 - Income from financial assets gross of interest payments & income from bussiness not self-employment.
 
-### "pvpens ("di1520")
+### Private Pensions Plans ("di1520")
 
 - Income from occupational and private pensions.
 
@@ -77,23 +77,23 @@ source("prod/mixed_models/mixed-LOGIT-optim.R")
 
 - received income from other income sources. Any other income that is not included in the sources already recorded. Residual item. Sources of income to be included: - Capital gains or losses from the sale of assets.
 
-### RA0010
+### Persona id number ("RA0010")
 
-- Personal identification number of reference person (Camberra defintion).
+- Personal identification number
 
-### IM0100
+### Imputation ("IM0100")
 
 - Imputation ID
 
-### SA0010
+### Household ("SA0010)
 
 - Household ID
 
-### SA0100
+### Country ("SA0100")
 
 - Country ID
 
-## DHIDH1
+### Head of Household id number ("DHIDH1")
 
 - Personal identification number (RA0010) of reference person, Canberra definition. Personal ID of Reference Head person.
 
