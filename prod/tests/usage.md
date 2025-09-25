@@ -1,5 +1,3 @@
----
-
 📖 HFCS Mixed Logit with K-gains — Pipeline Help
 
 This pipeline implements two workflows:
