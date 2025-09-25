@@ -70,7 +70,7 @@ for (i in 1:n_imputations) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        nAGQ = 0
     )
     (Sys.time() - start_time) %>% print()
 }

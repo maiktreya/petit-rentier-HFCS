@@ -96,7 +96,7 @@ make_rent_dummy <- function(dt, t = 0.10, include_K = TRUE,
 }
 
 # Fit mixed logit with or without hasKgains regressor
-fit_glmer <- function(dt, add_hasKgains = FALSE, verbose = 0) {
+fit_glmer <- function(dt, add_hasKgains = FALSE, verbose = 2) {
     # Safety: ensure grouping variables are factors and non-missing
     dt <- copy(dt)
     if (!is.factor(dt$sa0100)) dt[, sa0100 := factor(sa0100)]
@@ -132,7 +132,7 @@ fit_glmer <- function(dt, add_hasKgains = FALSE, verbose = 0) {
             optimizer = "bobyqa", boundary.tol = 1e-5,
             calc.derivs = FALSE, optCtrl = list(maxfun = 2e5)
         ),
-        verbose = verbose, nAGQ = 1
+        verbose = verbose, nAGQ = 0
     )
 }
 
@@ -225,7 +225,7 @@ fit_glmer_mundlak <- function(dt) {
             optimizer = "bobyqa", boundary.tol = 1e-5,
             calc.derivs = FALSE, optCtrl = list(maxfun = 2e5)
         ),
-        nAGQ = 1
+        nAGQ = 0
     )
 }
 
