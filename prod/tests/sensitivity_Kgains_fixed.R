@@ -1,20 +1,27 @@
 ############################################################
-# HFCS mixed model — K-gains pervasive effect & bias checks
-# Extends your original script; uses same model logic.
+# HFCS mixed model — K-gains pervasive effect & bias checks (fixed)
+# Fix: ensure valid grouping factors for random effects
+# - Coerce sa0100 and wave to factors (for (1|sa0100) and (1|sa0100:wave))
+# - Keep original logic and outputs; write to same output directory
 ############################################################
 
 ### PREPARATION
-library(magrittr)
-library(data.table)
-library(lme4)
-library(marginaleffects)  # AMEs for merMod
-library(Matrix)
-
-# clean environment (OPTIONAL if sourcing from your pipeline)
-# rm(list = ls()); gc(full = TRUE, verbose = TRUE)
+suppressPackageStartupMessages({
+  library(magrittr)
+  library(data.table)
+  library(lme4)
+  library(marginaleffects)  # AMEs for merMod
+  library(Matrix)
+})
 
 # source prepared joint dataset (unchanged)
 source("prod/data_pipes/prepare-vars/import-join.R")
+
+# Ensure grouping variables are factors (key fix)
+if (!is.factor(dataset$sa0100)) dataset[, sa0100 := factor(sa0100)]
+if (!is.factor(dataset$wave))   dataset[, wave   := factor(wave)]
+dataset[, sa0100 := droplevels(sa0100)]
+dataset[, wave   := droplevels(wave)]
 
 # ----------------------------- #
 # USER SETTINGS
@@ -22,7 +29,7 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 n_imputations       <- 5
 remove_covid_wave   <- FALSE
 export_output       <- TRUE
-variable            <- "rentsbiK_full"  # your tag
+variable            <- "rentsbiK_full"
 input_string        <- paste0("output/MODELS/MICRO/", variable)
 if (remove_covid_wave) {
   dataset <- dataset[wave != 4, ]
@@ -31,9 +38,9 @@ if (remove_covid_wave) {
 output_dir <- "output/MODELS/MICRO/Kgains_bias/"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-# Core model pieces (keep identical to yours)
+# Core model pieces (same as original)
 fixed_terms <- c(
-  "factor(wave)",
+  "wave",
   "hsize", "head_gendr", "age", "edu_ref",
   "homeown", "otherp",
   "bonds", "mutual", "shares", "managed", "otherfin",
@@ -41,7 +48,8 @@ fixed_terms <- c(
   "haspvpens",
   "class_nomanager"
 )
-rand_terms  <- c("(1 | sa0100)", "(1 | sa0100:wave)")
+# Random effects: use an explicit interaction factor to avoid parsing issues
+rand_terms  <- c("(1 | sa0100)", "(1 | sa0100_wave)")
 
 # ----------------------------- #
 # HELPER FUNCTIONS
@@ -87,13 +95,36 @@ make_rent_dummy <- function(dt, t = 0.10, include_K = TRUE,
   dt[]
 }
 
-# Fit your mixed logit with or without hasKgains regressor
+# Fit mixed logit with or without hasKgains regressor
 fit_glmer <- function(dt, add_hasKgains = FALSE, verbose = 0) {
-  # Ensure country is a factor for glmer grouping
-  dt[, sa0100 := as.factor(sa0100)]
+  # Safety: ensure grouping variables are factors and non-missing
+  dt <- copy(dt)
+  if (!is.factor(dt$sa0100)) dt[, sa0100 := factor(sa0100)]
+  if (!is.factor(dt$wave))   dt[, wave   := factor(wave)]
+  dt[, sa0100 := droplevels(sa0100)]
+  dt[, wave   := droplevels(wave)]
+  # explicit interaction factor for RE
+  dt[, sa0100_wave := interaction(sa0100, wave, drop = TRUE)]
+  dt <- dt[!is.na(sa0100) & !is.na(wave)]
+
   terms <- fixed_terms
-  if (add_hasKgains) terms <- append(terms, "hasKgains", after = which(terms=="otherfin"))
-  form <- reformulate(c(terms, rand_terms), response = "rents_dummy")
+  if (add_hasKgains) {
+    at <- which(terms == "otherfin")
+    if (length(at) == 0) {
+      terms <- c(terms, "hasKgains")
+    } else {
+      terms <- append(terms, "hasKgains", after = at)
+    }
+  }
+  # Build formula explicitly; include only RE terms with >= 2 levels
+  fixed_str  <- paste(terms, collapse = " + ")
+  re_terms <- character(0)
+  if (nlevels(dt$sa0100)      >= 2) re_terms <- c(re_terms, "(1 | sa0100)")
+  if (nlevels(dt$sa0100_wave) >= 2) re_terms <- c(re_terms, "(1 | sa0100_wave)")
+  if (length(re_terms) == 0L) {
+    stop("Random-effects grouping has <2 levels for both sa0100 and sa0100:wave. Check filtering.")
+  }
+  form <- as.formula(paste("rents_dummy ~", fixed_str, "+", paste(re_terms, collapse = " + ")))
   glmer(
     form, family = binomial("logit"), data = dt, weights = weights,
     control = glmerControl(optimizer = "bobyqa", boundary.tol = 1e-5,
@@ -114,8 +145,6 @@ rubin_pool <- function(est_vec, se_vec) {
 
 # AME (avg marginal effect) for a variable with Rubin pooling across MI fits
 pooled_ame <- function(models, var, type = "link") {
-  # For logit probabilities use type="response"; for average slopes use default.
-  # We'll compute average marginal effect via marginaleffects::avg_slopes
   out <- lapply(models, function(m) {
     ame <- tryCatch(
       suppressWarnings(marginaleffects::avg_slopes(m, variables = var)),
@@ -131,8 +160,10 @@ pooled_ame <- function(models, var, type = "link") {
 # Extract ICC & RE SDs
 re_summary <- function(mod) {
   vc <- VarCorr(mod)
-  s_country       <- attr(vc$sa0100, "stddev")
-  s_country_wave  <- attr(vc$`sa0100:wave`, "stddev")
+  nm_vc <- names(vc)
+  s_country      <- if ("sa0100" %in% nm_vc) attr(vc[["sa0100"]], "stddev") else 0
+  nm_cw <- if ("sa0100_wave" %in% nm_vc) "sa0100_wave" else if ("sa0100:wave" %in% nm_vc) "sa0100:wave" else NA_character_
+  s_country_wave <- if (!is.na(nm_cw)) attr(vc[[nm_cw]], "stddev") else 0
   # logistic residual variance is fixed (pi^2/3)
   icc <- (s_country^2 + s_country_wave^2) / (s_country^2 + s_country_wave^2 + (pi^2/3))
   list(sd_country = s_country, sd_cwave = s_country_wave, ICC = icc)
@@ -140,10 +171,13 @@ re_summary <- function(mod) {
 
 # Rank correlation of country RE across two models
 country_RE_rho <- function(m1, m2) {
-  r1 <- ranef(m1)$sa0100[,1]
-  r2 <- ranef(m2)$sa0100[,1]
-  # keep intersection of names
+  re1 <- ranef(m1)
+  re2 <- ranef(m2)
+  if (!("sa0100" %in% names(re1) && "sa0100" %in% names(re2))) return(NA_real_)
+  r1 <- re1$sa0100[,1]
+  r2 <- re2$sa0100[,1]
   common <- intersect(names(r1), names(r2))
+  if (length(common) < 2) return(NA_real_)
   suppressWarnings(cor(rank(r1[common]), rank(r2[common]), method = "spearman"))
 }
 
@@ -157,13 +191,24 @@ add_mundlak_K <- function(dt, var = "hasKgains") {
 
 # Convenience to fit Mundlak model (+hasKgains split into within+between)
 fit_glmer_mundlak <- function(dt) {
-  # Ensure country is a factor for glmer grouping
-  dt[, sa0100 := as.factor(sa0100)]
   dtM <- add_mundlak_K(dt, "hasKgains")
+  # ensure grouping factors
+  if (!is.factor(dtM$sa0100)) dtM[, sa0100 := factor(sa0100)]
+  if (!is.factor(dtM$wave))   dtM[, wave   := factor(wave)]
+  dtM[, sa0100 := droplevels(sa0100)]
+  dtM[, wave   := droplevels(wave)]
+  dtM[, sa0100_wave := interaction(sa0100, wave, drop = TRUE)]
   # Replace hasKgains in the fixed part by within_dev + cw_mean
   terms <- setdiff(fixed_terms, "class_nomanager")
   terms <- unique(c(terms, "within_dev", "cw_mean", "class_nomanager"))
-  form  <- reformulate(c(terms, rand_terms), response = "rents_dummy")
+  fixed_str  <- paste(terms, collapse = " + ")
+  re_terms <- character(0)
+  if (nlevels(dtM$sa0100)      >= 2) re_terms <- c(re_terms, "(1 | sa0100)")
+  if (nlevels(dtM$sa0100_wave) >= 2) re_terms <- c(re_terms, "(1 | sa0100_wave)")
+  if (length(re_terms) == 0L) {
+    stop("Random-effects grouping has <2 levels for both sa0100 and sa0100:wave in Mundlak spec.")
+  }
+  form  <- as.formula(paste("rents_dummy ~", fixed_str, "+", paste(re_terms, collapse = " + ")))
   glmer(
     form, family = binomial("logit"), data = dtM, weights = weights,
     control = glmerControl(optimizer = "bobyqa", boundary.tol = 1e-5,
@@ -173,43 +218,73 @@ fit_glmer_mundlak <- function(dt) {
 }
 
 # ----------------------------- #
-# BALANCED SAMPLE (important!)
-# Keep only obs present across all imputations to avoid composition changes
+# BALANCED SAMPLE
 # ----------------------------- #
-# We assume dataset has unique household id "hid" (modify if needed)
 if (!"hid" %in% names(dataset)) dataset[, hid := .I]
-keep_ids <- dataset[, .N, by = .(hid, implicate)][, .N, by = hid][N == n_imputations, hid]
-dataset  <- dataset[hid %in% keep_ids]
+counts_by_imp <- dataset[, .N, by = .(hid, implicate)]
+keep_ids <- counts_by_imp[, .N, by = hid][N >= n_imputations, hid]
+if (length(keep_ids) == 0L) {
+  message("[diag] balanced sample empty for requested imputations; using full dataset (no balancing).")
+  n_balanced_hids <- data.table::uniqueN(dataset$hid)
+} else {
+  dataset <- dataset[hid %in% keep_ids]
+  n_balanced_hids <- length(keep_ids)
+}
+implicate_ids_all <- sort(unique(dataset$implicate))
+n_implicates_available <- length(implicate_ids_all)
+if (n_implicates_available == 0) {
+  stop("Balanced sample is empty; check n_imputations or keep_ids logic.")
+}
+
+if (n_imputations > n_implicates_available) {
+  message(sprintf("[diag] requested %d imputations but only %d available; adjusting to available set.",
+                  n_imputations, n_implicates_available))
+  n_imputations <- n_implicates_available
+}
+
+implicate_ids <- implicate_ids_all[seq_len(n_imputations)]
+n_implicates_used <- length(implicate_ids)
+if (n_imputations < n_implicates_available) {
+  message(sprintf("[diag] note: %d implicates available; using first %d (%s).",
+                  n_implicates_available, n_imputations, paste(implicate_ids, collapse = ", ")))
+}
+
+message(sprintf("[diag] balanced sample size = %s households", format(n_balanced_hids, big.mark=",")))
+message(sprintf("[diag] total rows after balancing = %s", format(nrow(dataset), big.mark=",")))
+message(sprintf("[diag] implicate values present (using first %d): %s",
+                n_implicates_used, paste(implicate_ids, collapse = ", ")))
+message(sprintf("[diag] sample sa0100 levels: %s",
+                if (nrow(dataset) > 0) paste(head(sort(unique(as.character(dataset$sa0100))), 10), collapse = ", ") else "<none>"))
 
 if (remove_covid_wave) dataset <- dataset[wave != 4]
 
-# Stop if the balanced sample is empty
-if (nrow(dataset) == 0) {
-  stop("The dataset is empty after filtering for a balanced sample. \nThis means no households are present across all imputations. \nPlease check the input data or the 'n_imputations' setting.")
-}
-
 # ----------------------------- #
-# 1) BASELINE vs +K-GAINS SPECS @ 10% THRESHOLD
-#    - Baseline: CI excludes K-gains; no hasKgains regressor
-#    - +K CI:    CI includes K-gains; hasKgains regressor added
+# 1) BASELINE vs +K-GAINS SPECS @ 10%
 # ----------------------------- #
+models_base <- vector("list", n_implicates_used)
+models_kall <- vector("list", n_implicates_used)
+names(models_base) <- names(models_kall) <- implicate_ids
 
-models_base <- vector("list", n_imputations)
-models_kall <- vector("list", n_imputations)
-
-for (i in 1:n_imputations) {
-  dt_i <- dataset[implicate == i]
+for (idx in seq_along(implicate_ids)) {
+  imp <- implicate_ids[idx]
+  dt_i <- dataset[implicate == imp]
 
   # (a) Baseline: CI without K
   dt_b <- make_rent_dummy(dt_i, t = 0.10, include_K = FALSE)
-  models_base[[i]] <- fit_glmer(dt_b, add_hasKgains = FALSE)
+  if (idx == 1) {
+    msg <- sprintf("[diag] imp %s: nlevels(sa0100)=%d, nlevels(sa0100:wave)=%d",
+                   as.character(imp), nlevels(droplevels(factor(dt_b$sa0100))),
+                   nlevels(droplevels(interaction(dt_b$sa0100, dt_b$wave, drop=TRUE))))
+    message(msg)
+  }
+  models_base[[idx]] <- fit_glmer(dt_b, add_hasKgains = FALSE)
 
   # (b) K-inclusive CI + hasKgains regressor in X
   dt_k <- make_rent_dummy(dt_i, t = 0.10, include_K = TRUE)
-  models_kall[[i]] <- fit_glmer(dt_k, add_hasKgains = TRUE)
+  models_kall[[idx]] <- fit_glmer(dt_k, add_hasKgains = TRUE)
 }
 
-# Pool coefficients using your Rubin logic (optional; AMEs are preferable)
+# Pool coefficients (optional; AMEs preferred)
 pool_fixef <- function(mods) {
   coefs <- lapply(mods, fixef)
   ses   <- lapply(mods, function(m) sqrt(diag(vcov(m))))
@@ -262,35 +337,34 @@ fwrite(delta_ame, file.path(output_dir, "ame_delta_pct.csv"))
 # ----------------------------- #
 # 3) RANDOM EFFECTS / ICC COMPARISON
 # ----------------------------- #
-res_re <- rbindlist(lapply(seq_len(n_imputations), function(i) {
-  a <- re_summary(models_base[[i]])
-  b <- re_summary(models_kall[[i]])
+res_re <- rbindlist(lapply(seq_along(models_base), function(idx) {
+  a <- re_summary(models_base[[idx]])
+  b <- re_summary(models_kall[[idx]])
   data.table(
-    implicate = i,
+    implicate = implicate_ids[idx],
     sd_country_base = a$sd_country, sd_cwave_base = a$sd_cwave, ICC_base = a$ICC,
     sd_country_k    = b$sd_country, sd_cwave_k    = b$sd_cwave, ICC_k    = b$ICC
   )
 }))
-# Rubin-like pooling for ICC (approx): average means & SDs
 re_summ <- res_re[, lapply(.SD, mean), .SDcols = -1]
 fwrite(re_summ, file.path(output_dir, "re_icc_compare.csv"))
 
-# RE rank stability (Spearman ρ) across models, pooled as mean ρ
-rhos <- sapply(seq_len(n_imputations),
-               function(i) country_RE_rho(models_base[[i]], models_kall[[i]]))
+rhos <- sapply(seq_along(models_base),
+               function(idx) country_RE_rho(models_base[[idx]], models_kall[[idx]]))
 rho_mean <- mean(rhos, na.rm = TRUE)
 writeLines(paste0("Country RE Spearman rho (baseline vs K): ", round(rho_mean, 3)),
            file.path(output_dir, "re_rho.txt"))
 
 # ----------------------------- #
 # 4) MUNDLAK DECOMPOSITION for hasKgains
-#     (contextual vs within effect; signalling cluster confounding)
 # ----------------------------- #
-models_mund <- vector("list", n_imputations)
-for (i in 1:n_imputations) {
-  dt_i <- dataset[implicate == i]               # base comp
+models_mund <- vector("list", n_implicates_used)
+names(models_mund) <- implicate_ids
+for (idx in seq_along(implicate_ids)) {
+  imp <- implicate_ids[idx]
+  dt_i <- dataset[implicate == imp]
   dt_k <- make_rent_dummy(dt_i, t = 0.10, include_K = TRUE)
-  models_mund[[i]] <- fit_glmer_mundlak(dt_k)   # replaces hasKgains by within_dev + cw_mean
+  models_mund[[idx]] <- fit_glmer_mundlak(dt_k)
 }
 coef_mund <- pool_fixef(models_mund)
 fwrite(coef_mund, file.path(output_dir, "coef_mundlak_hasKgains.csv"))
@@ -298,36 +372,39 @@ fwrite(coef_mund, file.path(output_dir, "coef_mundlak_hasKgains.csv"))
 # ----------------------------- #
 # 5) TRIMMED K-GAINS (P99) SPEC
 # ----------------------------- #
-models_k_trim <- vector("list", n_imputations)
-for (i in 1:n_imputations) {
-  dt_i <- dataset[implicate == i]
+models_k_trim <- vector("list", n_implicates_used)
+names(models_k_trim) <- implicate_ids
+for (idx in seq_along(implicate_ids)) {
+  imp <- implicate_ids[idx]
+  dt_i <- dataset[implicate == imp]
   dt_t <- make_rent_dummy(dt_i, t = 0.10, include_K = TRUE, trim_top = 0.99)
-  models_k_trim[[i]] <- fit_glmer(dt_t, add_hasKgains = TRUE)
+  models_k_trim[[idx]] <- fit_glmer(dt_t, add_hasKgains = TRUE)
 }
 ame_k_trim <- get_pooled_ames(models_k_trim, vars_of_interest)
 fwrite(ame_k_trim, file.path(output_dir, "ame_k_trim.csv"))
 
 # ----------------------------- #
 # 6) THRESHOLD SWEEP {5,10,15,20,30,40}%
-#     for Baseline, K-inclusive, and K-trimmed
 # ----------------------------- #
 thresholds <- c(.05, .10, .15, .20, .30, .40)
 sweep_results <- rbindlist(lapply(thresholds, function(tau) {
-  # For speed we compute AME only for "otherp" and "hasKgains"
   vars_sw <- c("otherp", "hasKgains")
 
-  mods_b <- lapply(1:n_imputations, function(i) {
-    dt_i <- dataset[implicate == i]
+  mods_b <- lapply(seq_along(implicate_ids), function(idx) {
+    imp <- implicate_ids[idx]
+    dt_i <- dataset[implicate == imp]
     dt_b <- make_rent_dummy(dt_i, t = tau, include_K = FALSE)
     fit_glmer(dt_b, add_hasKgains = FALSE)
   })
-  mods_k <- lapply(1:n_imputations, function(i) {
-    dt_i <- dataset[implicate == i]
+  mods_k <- lapply(seq_along(implicate_ids), function(idx) {
+    imp <- implicate_ids[idx]
+    dt_i <- dataset[implicate == imp]
     dt_k <- make_rent_dummy(dt_i, t = tau, include_K = TRUE)
     fit_glmer(dt_k, add_hasKgains = TRUE)
   })
-  mods_t <- lapply(1:n_imputations, function(i) {
-    dt_i <- dataset[implicate == i]
+  mods_t <- lapply(seq_along(implicate_ids), function(idx) {
+    imp <- implicate_ids[idx]
+    dt_i <- dataset[implicate == imp]
     dt_t <- make_rent_dummy(dt_i, t = tau, include_K = TRUE, trim_top = 0.99)
     fit_glmer(dt_t, add_hasKgains = TRUE)
   })
@@ -350,8 +427,9 @@ loo_influence <- function(level = c("sa0100", "wave"), spec = c("Baseline","K_in
 
   keys <- sort(unique(dataset[[level]]))
   res  <- rbindlist(lapply(keys, function(ky) {
-    mods <- lapply(1:n_imputations, function(i) {
-      dt_i <- dataset[implicate == i & get(level) != ky]
+    mods <- lapply(seq_along(implicate_ids), function(idx) {
+      imp <- implicate_ids[idx]
+      dt_i <- dataset[implicate == imp & get(level) != ky]
       if (spec == "Baseline") {
         dt_i <- make_rent_dummy(dt_i, t = 0.10, include_K = FALSE)
         fit_glmer(dt_i, add_hasKgains = FALSE)
@@ -368,7 +446,6 @@ loo_influence <- function(level = c("sa0100", "wave"), spec = c("Baseline","K_in
   res[]
 }
 
-# (Run both if time allows; these can be time-consuming)
 loo_country_base <- loo_influence("sa0100", "Baseline")
 loo_country_k    <- loo_influence("sa0100", "K_inclusive")
 fwrite(loo_country_base, file.path(output_dir, "loo_country_baseline.csv"))
@@ -397,7 +474,7 @@ fwrite(delta_loo_wave_base,    file.path(output_dir, "delta_loo_wave_baseline.cs
 fwrite(delta_loo_wave_k,       file.path(output_dir, "delta_loo_wave_k_inclusive.csv"))
 
 # ----------------------------- #
-# 8) QUICK TEXT SUMMARY (decision rules you pre-committed)
+# 8) QUICK TEXT SUMMARY
 # ----------------------------- #
 summ_lines <- c(
   "Δ-AME table saved: ame_delta_pct.csv (positive = K increases AME).",
@@ -420,5 +497,4 @@ dashboard <- list(
   ame_delta_pct       = delta_ame,
   re_icc_compare      = re_summ
 )
-# Write separate files already; you can also save an RDS bundle:
 saveRDS(dashboard, file.path(output_dir, "dashboard_bundle.rds"))
