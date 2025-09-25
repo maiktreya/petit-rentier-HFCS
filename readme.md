@@ -51,49 +51,45 @@ source("prod/ml_methods/XGBoost-dummies.R")
 source("prod/mixed_models/mixed-LOGIT-optim.R")
 ```
 
-## C. PRODUCTION VERSION OF THE CODE
-
-The final implementation included in the WP (xxx) is all included in the folder main which includes
-
-### Variables por Capital income
+## C. Key variables used as covariates of being "petit-rentier" (Kincome>10%)
 
 ---
 
 ---
 
-#### rental ("hg0310")
+### rental ("hg0310")
 
 - gross rental income from real estate property. What was the total gross amount over (the last 12 months / the last calendar year)?
 
-#### financ ("di1400")
+### financ ("di1400")
 
 - Income from financial assets gross of interest payments & income from bussiness not self-employment.
 
-#### "pvpens ("di1520")
+### "pvpens ("di1520")
 
 - Income from occupational and private pensions.
 
-#### income" ("di2000")
+### income" ("di2000")
 
 - Total household gross income 2, including interest payments.
 
-#### Kgains ("HG0610")
+### Kgains ("HG0610")
 
 - received income from other income sources. Any other income that is not included in the sources already recorded. Residual item. Sources of income to be included: - Capital gains or losses from the sale of assets.
 
-#### RA0010
+### RA0010
 
 - Personal identification number of reference person (Camberra defintion).
 
-#### IM0100
+### IM0100
 
 - Imputation ID
 
-#### SA0010
+### SA0010
 
 - Household ID
 
-#### SA0100
+### SA0100
 
 - Country ID
 
