@@ -5,6 +5,10 @@
 # - Keep original logic and outputs; write to same output directory
 ############################################################
 
+# clean environment
+rm(list = ls())
+gc(full = TRUE, verbose = TRUE)
+
 ### PREPARATION
 suppressPackageStartupMessages({
     library(magrittr)

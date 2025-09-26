@@ -3,6 +3,11 @@
 # Extends your original script; uses same model logic.
 ############################################################
 
+
+# clean environment
+rm(list = ls())
+gc(full = TRUE, verbose = TRUE)
+
 ### PREPARATION
 suppressPackageStartupMessages({
     library(magrittr)
@@ -11,9 +16,6 @@ suppressPackageStartupMessages({
     library(marginaleffects) # AMEs for merMod
     library(Matrix)
 })
-
-# clean environment (OPTIONAL if sourcing from your pipeline)
-# rm(list = ls()); gc(full = TRUE, verbose = TRUE)
 
 # source prepared joint dataset (unchanged)
 source("prod/data_pipes/prepare-vars/import-join.R")
