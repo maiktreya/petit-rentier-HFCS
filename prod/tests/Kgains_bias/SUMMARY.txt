@@ -1,0 +1,6 @@
+<U+0394>-AME table saved: ame_delta_pct.csv (positive = K increases AME).
+Country RE Spearman rho (baseline vs K): NaN
+ICC & RE variances saved: re_icc_compare.csv.
+Threshold sweep AMEs saved: threshold_sweep_AME.csv.
+Mundlak hasKgains (within vs between) coefficients saved: coef_mundlak_hasKgains.csv.
+LOO influence results saved (country, wave).

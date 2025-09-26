@@ -38,7 +38,7 @@ if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ]
     input_string <- paste0(input_string, "_3waves")
 }
-output_dir <- "output/MODELS/MICRO/Kgains_bias/"
+output_dir <- "prod/tests/Kgains_bias"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 # Core model pieces (keep identical to yours)
