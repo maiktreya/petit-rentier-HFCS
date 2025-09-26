@@ -30,7 +30,7 @@ dataset[, wave := droplevels(wave)]
 # ----------------------------- #
 # USER SETTINGS
 # ----------------------------- #
-n_imputations <- 5
+n_imputations <- 1
 remove_covid_wave <- FALSE
 export_output <- TRUE
 variable <- "rentsbiK_full"
@@ -39,7 +39,7 @@ if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ]
     input_string <- paste0(input_string, "_3waves")
 }
-output_dir <- "output/MODELS/MICRO/Kgains_bias/"
+output_dir <- "output/MODELS/MICRO/Kgains_bias_fixed/"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
 # Core model pieces (same as original)

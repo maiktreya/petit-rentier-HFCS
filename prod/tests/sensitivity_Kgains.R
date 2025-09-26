@@ -29,7 +29,7 @@ dataset[, wave := droplevels(wave)]
 # ----------------------------- #
 # USER SETTINGS
 # ----------------------------- #
-n_imputations <- 5
+n_imputations <- 1
 remove_covid_wave <- FALSE
 export_output <- TRUE
 variable <- "rentsbiK_full" # your tag
