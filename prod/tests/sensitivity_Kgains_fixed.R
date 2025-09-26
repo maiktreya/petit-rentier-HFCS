@@ -145,7 +145,8 @@ rubin_pool <- function(est_vec, se_vec) {
     m <- length(est_vec)
     qbar <- mean(est_vec)
     ubar <- mean(se_vec^2)
-    b <- var(est_vec)
+    # Guard: with a single implicate, between-imputation variance is zero
+    b <- if (m <= 1) 0 else var(est_vec)
     tvar <- ubar + (1 + 1 / m) * b
     list(est = qbar, se = sqrt(tvar))
 }
@@ -266,6 +267,8 @@ fit_glmer_mundlak <- function(dt) {
 # BALANCED SAMPLE
 # ----------------------------- #
 if (!"hid" %in% names(dataset)) dataset[, hid := .I]
+# Ensure an implicate identifier exists for pooling; fallback to single implicate
+if (!"implicate" %in% names(dataset)) dataset[, implicate := 1L]
 counts_by_imp <- dataset[, .N, by = .(hid, implicate)]
 keep_ids <- counts_by_imp[, .N, by = hid][N >= n_imputations, hid]
 if (length(keep_ids) == 0L) {
@@ -391,7 +394,11 @@ delta_ame <- merge(ame_base[, .(variable, est_base = est)],
     ame_kall[, .(variable, est_k = est)],
     by = "variable", all = TRUE
 )[
-    , `:=`(delta_pct = 100 * (est_k - est_base) / abs(est_base))
+    , `:=`(delta_pct = fifelse(
+        !is.na(est_base) & est_base != 0,
+        100 * (est_k - est_base) / abs(est_base),
+        NA_real_
+    ))
 ]
 fwrite(delta_ame, file.path(output_dir, "ame_delta_pct.csv"))
 
@@ -415,10 +422,11 @@ rhos <- sapply(
     function(idx) country_RE_rho(models_base[[idx]], models_kall[[idx]])
 )
 rho_mean <- mean(rhos, na.rm = TRUE)
-writeLines(
-    paste0("Country RE Spearman rho (baseline vs K): ", round(rho_mean, 3)),
-    file.path(output_dir, "re_rho.txt")
+rho_line <- paste0(
+    "Country RE Spearman rho (baseline vs K): ",
+    if (is.finite(rho_mean)) round(rho_mean, 3) else "NA"
 )
+writeLines(rho_line, file.path(output_dir, "re_rho.txt"))
 
 # ----------------------------- #
 # 4) MUNDLAK DECOMPOSITION for hasKgains
@@ -446,7 +454,10 @@ for (idx in seq_along(implicate_ids)) {
     models_k_trim[[idx]] <- fit_glmer(dt_t, add_hasKgains = TRUE)
 }
 ame_k_trim <- get_pooled_ames(models_k_trim, vars_of_interest)
-fwrite(ame_k_trim, file.path(output_dir, "ame_k_trim.csv"))
+fwrite(ame_k_trim, file.path(output_dir, "ame_k_trim99.csv"))
+## Optional: export trimmed coefficients to align with usage docs
+coef_k_trim <- pool_fixef(models_k_trim)
+fwrite(coef_k_trim, file.path(output_dir, "coef_k_trim99.csv"))
 
 # ----------------------------- #
 # 6) THRESHOLD SWEEP {5,10,15,20,30,40}%
@@ -525,10 +536,17 @@ fwrite(loo_wave_k, file.path(output_dir, "loo_wave_k_inclusive.csv"))
 # Compare each LOO AME to full-sample AME to report max % change
 compare_loo <- function(loo_dt, full_ame_dt, level) {
     base <- full_ame_dt[variable %in% unique(loo_dt$variable), .(variable, est_full = est)]
-    loo_dt[base, on = "variable"][,
-        .(max_delta_pct = max(abs(100 * (est - est_full) / abs(est_full)), na.rm = TRUE)),
-        by = level
-    ]
+    merged <- loo_dt[base, on = "variable"]
+    merged[, delta := fifelse(
+        !is.na(est_full) & est_full != 0,
+        100 * (est - est_full) / abs(est_full),
+        NA_real_
+    )]
+    merged[, .(max_delta_pct = {
+        v <- abs(delta)
+        v <- v[!is.na(v)]
+        if (length(v)) max(v) else NA_real_
+    }), by = level]
 }
 delta_loo_country_base <- compare_loo(loo_country_base, ame_base, "sa0100")
 delta_loo_country_k <- compare_loo(loo_country_k, ame_kall, "sa0100")

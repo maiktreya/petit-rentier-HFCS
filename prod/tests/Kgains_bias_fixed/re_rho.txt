@@ -1,1 +1,1 @@
-Country RE Spearman rho (baseline vs K): NaN
+Country RE Spearman rho (baseline vs K): NA
