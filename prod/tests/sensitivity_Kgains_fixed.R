@@ -19,9 +19,9 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 # ----------------------------- #
 # SETTINGS
 # ----------------------------- #
-thresholds <- c(0.10)          # prevalence threshold(s)
-trim_top <- 0.99               # optional: p99 trim for sensitivity
-remove_covid_wave <- FALSE     # drop wave 4 if TRUE
+thresholds <- c(0.10) # prevalence threshold(s)
+trim_top <- 0.99 # optional: p99 trim for sensitivity
+remove_covid_wave <- FALSE # drop wave 4 if TRUE
 output_dir <- "prod/tests/Kgains_basic"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
@@ -31,9 +31,12 @@ if (remove_covid_wave) dataset <- dataset[wave != 4]
 # HELPERS
 # ----------------------------- #
 wmean <- function(x, w) {
-    x <- as.numeric(x); w <- as.numeric(w)
+    x <- as.numeric(x)
+    w <- as.numeric(w)
     ok <- is.finite(x) & is.finite(w)
-    if (!any(ok)) return(NA_real_)
+    if (!any(ok)) {
+        return(NA_real_)
+    }
     sum(x[ok] * w[ok]) / sum(w[ok])
 }
 
@@ -88,24 +91,27 @@ results <- rbindlist(lapply(thresholds, function(tau) {
             by = hasKgains_lbl
         ]
         prev_hasK <- by_k[hasKgains_lbl == "has-Kgains", prev]
-        prev_noK  <- by_k[hasKgains_lbl == "non-owner", prev]
+        prev_noK <- by_k[hasKgains_lbl == "non-owner", prev]
         data.table(
             threshold = tau,
             spec = sp,
             prev_all = prev_all,
             prev_non_Kowners = ifelse(length(prev_noK), prev_noK, NA_real_),
-            prev_has_Kowners  = ifelse(length(prev_hasK), prev_hasK, NA_real_)
+            prev_has_Kowners = ifelse(length(prev_hasK), prev_hasK, NA_real_)
         )
     }))
     # add deltas vs Baseline for this tau
     base_val <- res_tau[spec == "Baseline", .(prev_all, prev_non_Kowners, prev_has_Kowners)]
     if (nrow(base_val) == 1L) {
         res_tau[spec != "Baseline", `:=`(
-            delta_prev_all          = prev_all - base_val$prev_all,
-            delta_prev_all_pct      = if (!is.na(base_val$prev_all) && base_val$prev_all != 0)
-                                        100 * (prev_all - base_val$prev_all) / base_val$prev_all else NA_real_,
-            delta_prev_non_Kowners  = prev_non_Kowners - base_val$prev_non_Kowners,
-            delta_prev_has_Kowners  = prev_has_Kowners  - base_val$prev_has_Kowners
+            delta_prev_all = prev_all - base_val$prev_all,
+            delta_prev_all_pct = if (!is.na(base_val$prev_all) && base_val$prev_all != 0) {
+                100 * (prev_all - base_val$prev_all) / base_val$prev_all
+            } else {
+                NA_real_
+            },
+            delta_prev_non_Kowners = prev_non_Kowners - base_val$prev_non_Kowners,
+            delta_prev_has_Kowners = prev_has_Kowners - base_val$prev_has_Kowners
         )]
     }
     res_tau[]
@@ -120,4 +126,3 @@ out_csv <- file.path(output_dir, "kgains_sensitivity_summary.csv")
 fwrite(results, out_csv)
 
 message(sprintf("Saved K-gains sensitivity summary to: %s", out_csv))
-
