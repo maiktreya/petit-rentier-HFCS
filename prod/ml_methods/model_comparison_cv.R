@@ -45,6 +45,12 @@ N_FOLDS <- 5 # Number of folds for cross-validation
 RENTS_THRESHOLD <- 0.10 # Petit-rentier definition (10% of income from capital)
 TARGET_VARIABLE <- "rents_dummy"
 
+# Quick mode to finish under ~5 minutes by sampling and lighter training
+QUICK <- TRUE
+PER_GROUP_N <- 200   # sample cap per country x wave when QUICK
+XGB_NROUNDS_QUICK <- 30
+XGB_NROUNDS_FULL  <- 100
+
 # Use only the first implicate for this predictive exercise for speed.
 # A full comparison would loop over all implicates and average results.
 if ("implicate" %in% names(dataset)) {
@@ -90,7 +96,16 @@ all_predictors <- c(fixed_terms)
 # --- Prepare a clean data.table for modeling ---
 # Ensure factors are properly encoded and handle NAs
 model_data <- dataset[, c(all_predictors, random_terms_vars, TARGET_VARIABLE, "weights"), with = FALSE]
-model_data <- na.omit(model_data) # Keep only complete cases for fair comparison
+# Ensure binary numeric target (0/1) and drop incomplete cases
+model_data[, (TARGET_VARIABLE) := as.integer(get(TARGET_VARIABLE) > 0)]
+model_data <- na.omit(model_data)
+
+# Optional sampling for speed
+if (isTRUE(QUICK)) {
+    set.seed(123)
+    model_data <- model_data[, .SD[sample.int(.N, min(.N, PER_GROUP_N))], by = .(sa0100, wave)]
+    N_FOLDS <- min(N_FOLDS, 3)
+}
 
 # Ensure grouping variables are factors for lme4
 model_data[, sa0100 := factor(sa0100)]
@@ -98,7 +113,7 @@ model_data[, wave := factor(wave)]
 
 # Create folds for cross-validation
 set.seed(123) # for reproducibility
-folds <- createFolds(model_data[[TARGET_VARIABLE]], k = N_FOLDS, list = TRUE, returnTrain = FALSE)
+folds <- createFolds(factor(model_data[[TARGET_VARIABLE]]), k = N_FOLDS, list = TRUE, returnTrain = FALSE)
 
 # ----------------------------- #
 # 4. CROSS-VALIDATION LOOP
@@ -114,19 +129,35 @@ results_list <- lapply(1:N_FOLDS, function(i) {
 
     # --- 4.1. Train and Evaluate lme4 (Mixed-Effects) Model ---
     message("  Training glmer model...")
-    glmer_model <- glmer(
-        rents_dummy ~ (1 | sa0100) + (1 | sa0100:wave) +
-            wave + hsize + head_gendr + age + edu_ref + homeown + otherp +
-            bonds + mutual + shares + managed + otherfin + haspvpens + hasKgains + class_nomanager,
-        data = train_dt,
-        family = binomial("logit"),
-        weights = weights,
-        control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
-    )
+    ctrl <- if (isTRUE(QUICK)) glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e4)) else glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+    if (isTRUE(QUICK)) {
+        # Quick: replace glmer with glm for speed (adds country fixed effects)
+        glmer_model <- glm(
+            rents_dummy ~ sa0100 + wave + hsize + head_gendr + age + edu_ref + homeown + otherp +
+                bonds + mutual + shares + managed + otherfin + haspvpens + hasKgains + class_nomanager,
+            data = train_dt,
+            family = binomial("logit"),
+            weights = weights
+        )
+    } else {
+        glmer_model <- glmer(
+            rents_dummy ~ (1 | sa0100) + (1 | sa0100:wave) +
+                wave + hsize + head_gendr + age + edu_ref + homeown + otherp +
+                bonds + mutual + shares + managed + otherfin + haspvpens + hasKgains + class_nomanager,
+            data = train_dt,
+            family = binomial("logit"),
+            weights = weights,
+            control = ctrl
+        )
+    }
 
     # Predict probabilities on the test set
-    # Note: re.form=NA ignores random effects for prediction on new data/clusters
-    glmer_preds <- predict(glmer_model, newdata = test_dt, type = "response", re.form = NA)
+    # Note: re.form=NA only for glmer; glm ignores it
+    if (isTRUE(QUICK)) {
+        glmer_preds <- predict(glmer_model, newdata = test_dt, type = "response")
+    } else {
+        glmer_preds <- predict(glmer_model, newdata = test_dt, type = "response", re.form = NA)
+    }
 
     # --- 4.2. Train and Evaluate XGBoost Model ---
     message("  Training XGBoost model...")
@@ -138,17 +169,27 @@ results_list <- lapply(1:N_FOLDS, function(i) {
     test_xgb_dt <- dummy_cols(test_dt[, c(all_predictors, TARGET_VARIABLE), with = FALSE],
         remove_first_dummy = TRUE, remove_selected_columns = TRUE
     )
+    data.table::setDT(train_xgb_dt)
+    data.table::setDT(test_xgb_dt)
+    # Ensure target exists and is numeric 0/1
+    if (!(TARGET_VARIABLE %in% names(train_xgb_dt))) stop("TARGET_VARIABLE missing from train_xgb_dt")
+    if (!(TARGET_VARIABLE %in% names(test_xgb_dt)))  stop("TARGET_VARIABLE missing from test_xgb_dt")
+    train_xgb_dt[, (TARGET_VARIABLE) := as.numeric(get(TARGET_VARIABLE))]
+    test_xgb_dt[,  (TARGET_VARIABLE) := as.numeric(get(TARGET_VARIABLE))]
 
-    # Align columns after dummy creation
-    train_cols <- colnames(train_xgb_dt)
-    test_cols <- colnames(test_xgb_dt)
-    missing_in_test <- setdiff(train_cols, test_cols)
-    if (length(missing_in_test) > 0) {
-        for (col in missing_in_test) if (col != TARGET_VARIABLE) test_xgb_dt[[col]] <- 0
-    }
+    # Align feature columns: test must match train feature set and order
+    feature_cols <- setdiff(names(train_xgb_dt), TARGET_VARIABLE)
+    missing_in_test <- setdiff(feature_cols, names(test_xgb_dt))
+    if (length(missing_in_test)) test_xgb_dt[, (missing_in_test) := 0]
+    extra_in_test <- setdiff(names(test_xgb_dt), c(feature_cols, TARGET_VARIABLE))
+    if (length(extra_in_test)) test_xgb_dt[, (extra_in_test) := NULL]
+    data.table::setcolorder(test_xgb_dt, c(feature_cols, TARGET_VARIABLE))
+    # Also ensure training has no unexpected extras
+    extra_in_train <- setdiff(names(train_xgb_dt), c(feature_cols, TARGET_VARIABLE))
+    if (length(extra_in_train)) train_xgb_dt[, (extra_in_train) := NULL]
 
-    train_matrix <- xgb.DMatrix(data = as.matrix(train_xgb_dt[, !..TARGET_VARIABLE]), label = train_xgb_dt[[TARGET_VARIABLE]])
-    test_matrix <- xgb.DMatrix(data = as.matrix(test_xgb_dt[, !..TARGET_VARIABLE]), label = test_dt[[TARGET_VARIABLE]])
+    train_matrix <- xgb.DMatrix(data = as.matrix(train_xgb_dt[, ..feature_cols]), label = train_xgb_dt[[TARGET_VARIABLE]])
+    test_matrix  <- xgb.DMatrix(data = as.matrix(test_xgb_dt[,  ..feature_cols]), label = test_dt[[TARGET_VARIABLE]])
 
     # XGBoost parameters (simple tuning)
     params <- list(
@@ -160,7 +201,8 @@ results_list <- lapply(1:N_FOLDS, function(i) {
         colsample_bytree = 0.8
     )
 
-    xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = 100, verbose = 0)
+    nrounds <- if (isTRUE(QUICK)) XGB_NROUNDS_QUICK else XGB_NROUNDS_FULL
+    xgb_model <- xgb.train(params = params, data = train_matrix, nrounds = nrounds, verbose = 0)
     xgb_preds <- predict(xgb_model, test_matrix)
 
     # --- 4.3. Calculate Performance Metrics for this fold ---
@@ -169,19 +211,42 @@ results_list <- lapply(1:N_FOLDS, function(i) {
     xgb_class <- factor(ifelse(xgb_preds > 0.5, 1, 0), levels = c(0, 1))
     actuals <- factor(test_dt[[TARGET_VARIABLE]], levels = c(0, 1))
 
-    # Confusion Matrix based metrics
-    cm_glmer <- confusionMatrix(glmer_class, actuals, positive = "1")
-    cm_xgb <- confusionMatrix(xgb_class, actuals, positive = "1")
+    # Manual metrics (robust to single-class folds)
+    actual_vec <- as.integer(as.character(actuals))
+    pred_glm_vec <- as.integer(glmer_class) # factor levels 0,1 -> 1,2; adjust to 0/1
+    pred_glm_vec <- pred_glm_vec - 1
+    pred_xgb_vec <- as.integer(xgb_class) - 1
+
+    acc_glm <- mean(pred_glm_vec == actual_vec)
+    tp <- sum(pred_glm_vec == 1 & actual_vec == 1)
+    fp <- sum(pred_glm_vec == 1 & actual_vec == 0)
+    fn <- sum(pred_glm_vec == 0 & actual_vec == 1)
+    prec_glm <- if ((tp + fp) > 0) tp / (tp + fp) else NA_real_
+    rec_glm  <- if ((tp + fn) > 0) tp / (tp + fn) else NA_real_
+    f1_glm   <- if (!is.na(prec_glm) && !is.na(rec_glm) && (prec_glm + rec_glm) > 0) 2 * prec_glm * rec_glm / (prec_glm + rec_glm) else NA_real_
+
+    acc_xgb <- mean(pred_xgb_vec == actual_vec)
+    tp <- sum(pred_xgb_vec == 1 & actual_vec == 1)
+    fp <- sum(pred_xgb_vec == 1 & actual_vec == 0)
+    fn <- sum(pred_xgb_vec == 0 & actual_vec == 1)
+    prec_xgb <- if ((tp + fp) > 0) tp / (tp + fp) else NA_real_
+    rec_xgb  <- if ((tp + fn) > 0) tp / (tp + fn) else NA_real_
+    f1_xgb   <- if (!is.na(prec_xgb) && !is.na(rec_xgb) && (prec_xgb + rec_xgb) > 0) 2 * prec_xgb * rec_xgb / (prec_xgb + rec_xgb) else NA_real_
+
+    # Safe AUC (handle single-class folds)
+    safe_auc <- function(act, pred) {
+        tryCatch(as.numeric(roc(act, pred, quiet = TRUE)$auc), error = function(e) NA_real_)
+    }
 
     # Store results
     data.table(
         fold = i,
         model = c("glmer", "xgboost"),
-        auc = c(roc(actuals, glmer_preds, quiet = TRUE)$auc, roc(actuals, xgb_preds, quiet = TRUE)$auc),
-        accuracy = c(cm_glmer$overall["Accuracy"], cm_xgb$overall["Accuracy"]),
-        precision = c(cm_glmer$byClass["Precision"], cm_xgb$byClass["Precision"]),
-        recall = c(cm_glmer$byClass["Recall"], cm_xgb$byClass["Recall"]),
-        f1_score = c(cm_glmer$byClass["F1"], cm_xgb$byClass["F1"])
+        auc = c(safe_auc(actuals, glmer_preds), safe_auc(actuals, xgb_preds)),
+        accuracy = c(acc_glm, acc_xgb),
+        precision = c(prec_glm, prec_xgb),
+        recall = c(rec_glm, rec_xgb),
+        f1_score = c(f1_glm, f1_xgb)
     )
 })
 
@@ -191,17 +256,14 @@ results_list <- lapply(1:N_FOLDS, function(i) {
 
 all_results <- rbindlist(results_list)
 
-# Calculate mean and standard deviation across folds
-summary_results <- all_results[, lapply(.SD, function(x) list(mean = mean(x, na.rm = TRUE), sd = sd(x, na.rm = TRUE))), .SDcols = c("auc", "accuracy", "precision", "recall", "f1_score"), by = model]
-
-# Unnest the list columns for a clean final table
-final_summary <- summary_results[, .(
-    model,
-    auc = sapply(auc, `[[`, "mean"),
-    auc_sd = sapply(auc, `[[`, "sd"),
-    accuracy = sapply(accuracy, `[[`, "mean"),
-    f1_score = sapply(f1_score, `[[`, "mean")
-)]
+# Simple aggregation across folds (robust)
+final_summary <- all_results[, .(
+    auc = mean(auc, na.rm = TRUE),
+    accuracy = mean(accuracy, na.rm = TRUE),
+    precision = mean(precision, na.rm = TRUE),
+    recall = mean(recall, na.rm = TRUE),
+    f1_score = mean(f1_score, na.rm = TRUE)
+), by = model]
 
 print("--- Predictive Performance Comparison (Averaged over 5 Folds) ---")
 print(final_summary)
