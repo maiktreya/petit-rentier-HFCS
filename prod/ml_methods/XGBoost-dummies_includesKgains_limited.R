@@ -24,10 +24,12 @@ dataset <- dataset[
 ]
 
 ### prepare as numeric dummies for XGboost
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_K", "class", "edu_ref", "age")]
+dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_K", "class", "edu_ref", "age", "homeown", "otherp")]
 # dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_K", "class", "edu_ref", "age", "hasKgains")]
 
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
+dataset2$homeown <- as.numeric(as.factor(dataset2$homeown)) - 1
+dataset2$otherp <- as.numeric(as.factor(dataset2$otherp)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
 dataset2$hasKgains <- as.integer(dataset2$hasKgains == "has-Kgains")
