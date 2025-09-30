@@ -24,7 +24,7 @@ dataset <- dataset[
 ]
 
 ### prepare as numeric dummies for XGboost
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_K", "class", "edu_ref", "age", "hasKgains")]
+dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_K", "class", "edu_ref", "age")]
 # dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_K", "class", "edu_ref", "age", "hasKgains")]
 
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1

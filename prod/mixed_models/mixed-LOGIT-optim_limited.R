@@ -40,7 +40,7 @@ dataset <- dataset[
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-proxy <- "rentsbi" # either "rentsbi" or "rentsi_pens" if pv_pens are included
+proxy <- "rentsbi_pens" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 
 # conditionals
 variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
@@ -49,7 +49,7 @@ if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     input_string <- paste0(input_string, "_3waves")
 }
-output_string <- paste0(input_string, "_K.csv")
+output_string <- paste0(input_string, "_LIM.csv")
 
 # initiate global objects for results
 model <- dataset_s <- list()
@@ -65,7 +65,7 @@ for (i in 1:n_imputations) {
                 "factor(wave)",
                 "hsize", "head_gendr", "age", "edu_ref",
                 "homeown", "otherp",
-                "bonds", "mutual", "shares", "managed", "otherfin", "Kgains",
+                "bonds", "mutual", "shares", "managed", "otherfin", # "hasKgains",
                 "haspvpens",
                 "class_nomanager",
                 "(1 | sa0100)",
