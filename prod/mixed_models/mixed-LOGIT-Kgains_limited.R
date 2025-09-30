@@ -25,11 +25,21 @@ gc(full = TRUE, verbose = TRUE)
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
 
+dataset_s <- dataset[
+    !fcase(
+        wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
+        wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
+        wave == 3, sa0100 %in% c("CZ", "FR"),
+        wave == 4, sa0100 %in% c("CZ", "FR"),
+        default = FALSE
+    )
+]
+
 # hardcoded variables
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-variable <- "rentsbiK" # either "rentsbi" or "rentsi_pens" if pv_pens are included
+variable <- "rentsbiK_full" # either "rentsbi" or "rentsi_pens" if pv_pens are included
 input_string <- paste0("output/MODELS/MICRO/", variable)
 if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
@@ -45,7 +55,7 @@ model <- dataset_s <- list()
 for (i in 1:n_imputations) {
     start_time <- Sys.time()
     dataset_s <- dataset[implicate == i]
-    dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbiK := 1]
+    dataset_s[, rentsbiK := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbiK := 1]
     model[[i]] <- glmer(
         reformulate(
             termlabels = c(
@@ -70,7 +80,7 @@ for (i in 1:n_imputations) {
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        nAGQ = 0
     )
     (Sys.time() - start_time) %>% print()
 }
@@ -104,31 +114,14 @@ p_values <- (1 - pnorm(abs(t_stats), 0, 1)) * 2
 # Combined results with t-stats and p-values
 combined_results <- cbind(mean_estimates, combined_se, t_stats, p_values) %>% print()
 
-random_part <- sapply(
-    model,
-    function(m) unlist(data.frame(summary(m)$varcor)[4:5])
-)
-random_part <- rowSums(random_part) / n_imputations
+random_part <- sapply(model, function(m) unlist(data.frame(summary(m)$varcor)[4:5])) %>%
+    rowSums() / n_imputations
 
-eval <- sapply(
-    model,
-    function(m) summary(m)$AICtab[1:4]
-)
-eval <- data.table(eval)
-eval <- rowSums(eval) / n_imputations
+eval <- sapply(model, function(m) summary(m)$AICtab[1:4]) %>%
+    data.table() %>%
+    rowSums() / n_imputations
 
 combined_results <- rbind(combined_results, random_part, eval)
 
 # Export joint results to csv
 if (export_output) fwrite(cbind(row.names(combined_results), combined_results), output_string)
-
-# Remove no kgains countries per wave using data.table::fcase
-# dataset_s <- dataset_s[
-#    !fcase(
-#        wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
-#        wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
-#        wave == 3, sa0100 %in% c("CZ", "FR"),
-#        wave == 4, sa0100 %in% c("CZ", "FR"),
-#        default = FALSE
-#    )
-# ]
