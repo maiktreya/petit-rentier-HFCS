@@ -75,6 +75,7 @@ for (varname in var_code) {
                 transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
                 transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
                 transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
+                transf[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
                 transf[, rents_mean := (financ + rental)]
                 transf[, rents_mean_pens := (financ + rental + pvpens)]
                 transf[employm %in% c(1, 3), employm := 1] # worker
