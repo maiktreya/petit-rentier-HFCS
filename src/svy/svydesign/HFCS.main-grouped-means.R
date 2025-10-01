@@ -11,8 +11,8 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("income")
-prefix <- "20CIT/"
+var_code <- c("rentsbi", "rentsbi_K")
+prefix <- "ren-fin-pro-pens-Kalt/"
 count <- 0
 
 for (varname in var_code) {
@@ -67,6 +67,7 @@ for (varname in var_code) {
                 transf[, income := suppressWarnings(as.numeric(income))][, income := ifelse(is.na(income), 0, income)]
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
+                transf[, Kgains := suppressWarnings(as.numeric(Kgains))][, Kgains := ifelse(is.na(Kgains), 0, Kgains)]
                 transf[, isrental := as.logical(rental)]
                 transf[, isfinanc := as.logical(financ)]
                 transf[, ispvpens := as.logical(pvpens)]
@@ -109,8 +110,8 @@ for (varname in var_code) {
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], rentsbi20 == 1), na.rm = TRUE)[1] %>% unname()
-            # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
+            # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], rentsbi20 == 1), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
