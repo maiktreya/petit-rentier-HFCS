@@ -29,16 +29,30 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-proxy <- "rentsbi" # either "rentsbi" or "rentsi_pens" if pv_pens are included
-
+trim_Kabsent <- FALSE
+proxy <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+input_string <- paste0("prod/mixed_models/out/", proxy)
+else if (condition) {
+   selected
+}
 # conditionals
-variable <- ifelse(proxy == "rentsbi_pens", "pensions", "nopensions")
-input_string <- paste0("output/MODELS/MICRO/", variable)
+if (trim_Kabsent == TRUE) {
+    # Remove no kgains countries per wave using data.table::fcase
+    dataset <- dataset[
+        !fcase(
+            wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
+            wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
+            wave == 3, sa0100 %in% c("CZ", "FR"),
+            wave == 4, sa0100 %in% c("CZ", "FR"),
+            default = FALSE
+        )
+    ]
+}
 if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     input_string <- paste0(input_string, "_3waves")
 }
-output_string <- paste0(input_string, "_K.csv")
+output_string <- paste0(input_string, ".csv")
 
 # initiate global objects for results
 model <- dataset_s <- list()
@@ -54,7 +68,7 @@ for (i in 1:n_imputations) {
                 "factor(wave)",
                 "hsize", "head_gendr", "age", "edu_ref",
                 "homeown", "otherp",
-                "bonds", "mutual", "shares", "managed", "otherfin", "Kgains",
+                "bonds", "mutual", "shares", "managed", "otherfin",
                 "haspvpens",
                 "class_nomanager",
                 "(1 | sa0100)",

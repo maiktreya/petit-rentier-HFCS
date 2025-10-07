@@ -8,18 +8,38 @@ library(Matrix) # dataset tidy for ml models
 
 # clean enviroment
 rm(list = ls())
+gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
+sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
+trim_Kabsent <- FALSE
+
+if (trim_Kabsent == TRUE) {
+    # Remove no kgains countries per wave using data.table::fcase
+    dataset <- dataset[
+        !fcase(
+            wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
+            wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
+            wave == 3, sa0100 %in% c("CZ", "FR"),
+            wave == 4, sa0100 %in% c("CZ", "FR"),
+            default = FALSE
+        )
+    ]
+}
+
+print(paste("model type", sel_var))
+print("########################--------------------------------------------------------------########################")
 
 ### prepare as numeric dummies for XGboost
-# dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age")]
-
+setnames(dataset, old = as.character(sel_var), new = "rentsbi_pens")
+dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age", "homeown", "otherp")]
+## dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
+dataset2$homeown <- as.numeric(as.factor(dataset2$homeown)) - 1
+dataset2$otherp <- as.numeric(as.factor(dataset2$otherp)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
-dataset2$rentsbi_pens <- dataset2$rentsbi_pens
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$hsize <- as.numeric(dataset2$hsize)
 dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age", "wave"), remove_selected_columns = TRUE, ignore_na = TRUE)
