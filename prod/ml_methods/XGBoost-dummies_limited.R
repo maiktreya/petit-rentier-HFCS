@@ -12,7 +12,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi"
+sel_var <- "rentsbi_K"
 
 # Remove no kgains countries per wave using data.table::fcase
 dataset <- dataset[
@@ -24,6 +24,8 @@ dataset <- dataset[
         default = FALSE
     )
 ]
+print(paste("model type", sel_var))
+print("########################--------------------------------------------------------------########################")
 
 ### prepare as numeric dummies for XGboost
 dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", ..sel_var, "class", "edu_ref", "age", "homeown", "otherp")]
@@ -81,5 +83,3 @@ confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor
 print(importance_matrix)
 print(paste("XGBoost Accuracy:", accuracy_xgb))
 print(confusion)
-print(paste("model type", sel_var))
-print("########################--------------------------------------------------------------########################")
