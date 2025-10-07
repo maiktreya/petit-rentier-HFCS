@@ -19,7 +19,7 @@ for (wave in path_stringB) {
         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000", "da2109i",
         "da1110i", "da1121i", "da1122i", "di1800"
     )
-    selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510",  "hg0310", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900")
+    selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0310", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900")
     common <- c("sa0010", "sa0100", "im0100")
 
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
@@ -82,6 +82,7 @@ for (wave in path_stringB) {
         transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
         transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
         transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
+        transf[, Kgains := suppressWarnings(as.numeric(rental))][, Kgains := ifelse(is.na(Kgains), 0, Kgains)]
         transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
         transf[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
         transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]

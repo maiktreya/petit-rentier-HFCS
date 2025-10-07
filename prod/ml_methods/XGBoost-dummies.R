@@ -13,7 +13,9 @@ rm(list = ls())
 source("prod/data_pipes/prepare-vars/import-join.R")
 
 ### prepare as numeric dummies for XGboost
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
+# dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
+dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age")]
+
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
 dataset2$quintile.gwealth <- as.numeric(as.factor(dataset2$quintile.gwealth)) - 1
 dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 1
