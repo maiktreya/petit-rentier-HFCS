@@ -29,7 +29,7 @@ datasetD <- fread(".datasets/HFCSgz/4_0.gz", header = TRUE)[, wave := 4]
 dataset <- rbind(datasetA, datasetB, datasetC, datasetD)
 
 # remove unneeded so we avoid out of memory problems with large datasets
-rm(list = setdiff(ls(), c("dataset", "sel_var", "sel_var_list")))
+rm(list = setdiff(ls(), c("dataset", "sel_var", "sel_var_list", "s")))
 
 # create and modify custom multilevel categorical variables (needed for usage with lme4 models to set weights)
 dataset[, sumw := sum(hw0010.x) / length(hw0010.x), by = sa0100] # worker
@@ -123,7 +123,7 @@ for (i in country_code) {
 }
 
 # remove any intermediate object and retur exclusively dataset when sourced
-rm(list = setdiff(ls(), c("dataset", "sel_var", "sel_var_list")))
+rm(list = setdiff(ls(), c("dataset", "sel_var", "sel_var_list", "s")))
 
 # "AT" "BE" "CY" "CZ" "DE" "EE" "ES" "FI" "FR" "GR" "HR" "HU" "IE" "IT" "LT" "LU" "LV" "MT" "NL" "PL" "PT" "SI" "SK"  / 23 Countries, CZ only in last, PL only in 3
 

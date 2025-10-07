@@ -9,12 +9,12 @@ library(Matrix) # dataset tidy for ml models
 # clean enviroment
 rm(list = ls())
 gc(reset = TRUE, verbose = 2)
-sel_var_list <- c("rentsbi", "renstbi_pens", "rentsbi_k")
+sel_var_list <- c("rentsbi", "renstbi_pens", "rentsbi_K")
 
-for (i in seq_along(sel_var_list)) {
+for (s in seq_along(sel_var_list)) {
     # source prepared joint dataset
     source("prod/data_pipes/prepare-vars/import-join.R")
-    sel_var <- sel_var_list[i]
+    sel_var <- as.character(sel_var_list[s])
 
     # Remove no kgains countries per wave using data.table::fcase
     dataset <- dataset[
