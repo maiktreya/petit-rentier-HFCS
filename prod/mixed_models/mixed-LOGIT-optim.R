@@ -29,12 +29,10 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-trim_Kabsent <- FALSE
-proxy <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+trim_Kabsent <- TRUE
+proxy <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 input_string <- paste0("prod/mixed_models/out/", proxy)
-else if (condition) {
-   selected
-}
+
 # conditionals
 if (trim_Kabsent == TRUE) {
     # Remove no kgains countries per wave using data.table::fcase
@@ -52,7 +50,7 @@ if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     input_string <- paste0(input_string, "_3waves")
 }
-output_string <- paste0(input_string, ".csv")
+output_string <- paste0(input_string, "_trimmed.csv")
 
 # initiate global objects for results
 model <- dataset_s <- list()
