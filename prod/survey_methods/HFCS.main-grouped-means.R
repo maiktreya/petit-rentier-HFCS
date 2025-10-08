@@ -11,11 +11,11 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rentsbi", "rentsbi_pens", "rentsbi_K")
-prefix <- "ren-fin-pro-pens-K/"
+var_code <- c("rentsbi", "Kgains", "rentsbi_K")
 count <- 0
+n_imps <- 5
 
-for (varname in var_code) {
+for (varname in var_code) { # nolint
     mean_of_years <- data.table()
 
     for (wave in path_stringB) {
@@ -27,12 +27,12 @@ for (varname in var_code) {
             imp <- impH <- impD <- designs <- list()
 
             # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
-            for (j in 1:5) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == country_code[n]]
-            for (k in 1:5) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[sa0100 == country_code[n]]
-            for (h in 1:5) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == country_code[n]]
-            for (i in 1:5) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
-            for (j in 1:5) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
-            for (m in 1:5) {
+            for (j in 1:n_imps) imp[[j]] <- fread(paste0(path_string, "p", j, ".csv"))[sa0100 == country_code[n]]
+            for (k in 1:n_imps) impD[[k]] <- fread(paste0(path_string, "d", k, ".csv"))[sa0100 == country_code[n]]
+            for (h in 1:n_imps) impH[[h]] <- fread(paste0(path_string, "h", h, ".csv"))[sa0100 == country_code[n]]
+            for (i in 1:n_imps) imp[[i]] <- merge(imp[[i]], impH[[i]], by = c("sa0010", "sa0100", "im0100"))
+            for (j in 1:n_imps) imp[[j]] <- merge(imp[[j]], impD[[j]], by = c("sa0010", "sa0100", "im0100"))
+            for (m in 1:n_imps) {
                 transf <- imp[[m]]
                 setnames(transf,
                     old = c(
@@ -122,7 +122,7 @@ for (varname in var_code) {
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("output/MEANS/", prefix, varname, ".csv"))
+    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
