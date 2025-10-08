@@ -12,7 +12,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("Kincome_mean", "hasKgains", "iscapital")
+var_code <- c("Kgains", "rental", "financ", "pvpens")
 count <- 0
 n_imps <- 5
 
@@ -110,8 +110,8 @@ for (varname in var_code) { # nolint
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
-            # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
+            # for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
+            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], rentsbi == 1), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -122,7 +122,7 @@ for (varname in var_code) { # nolint
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, ".csv"))
+    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, "_gt1.csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
