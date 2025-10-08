@@ -6,12 +6,13 @@ library(mitools)
 
 # Clean and define hardcoded global variables
 rm(list = ls())
+gc(verbose = 2, reset = TRUE, full = TRUE)
 start_time <- Sys.time()
 path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("rentsbi", "Kgains", "rentsbi_K")
+var_code <- c("Kincome_mean", "hasKgains", "iscapital")
 count <- 0
 n_imps <- 5
 
@@ -71,14 +72,13 @@ for (varname in var_code) { # nolint
                 transf[, isrental := as.logical(rental)]
                 transf[, isfinanc := as.logical(financ)]
                 transf[, ispvpens := as.logical(pvpens)]
-                transf[, iscapitalpens := rental + financ + pvpens][, iscapitalpens := as.logical(iscapitalpens)]
+                transf[, iscapital := rental + financ + pvpens + Kgains][, iscapital := as.logical(iscapital)]
                 transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
                 transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
                 transf[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
                 transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
-                transf[, rents_mean := (financ + rental)]
-                transf[, rents_mean_pens := (financ + rental + pvpens)]
+                transf[, Kincome_mean := (financ + rental + pvpens + Kgains)]
                 transf[employm %in% c(1, 3), employm := 1] # worker
                 transf[!(employm %in% c(1, 2, 3)), employm := NA] # retired/other
                 transf[status == 2 & employm == 2, employm := 2] # capitalist
@@ -110,7 +110,7 @@ for (varname in var_code) { # nolint
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
+            for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
             # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
