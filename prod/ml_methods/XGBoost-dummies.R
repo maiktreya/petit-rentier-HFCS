@@ -12,8 +12,8 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
-trim_Kabsent <- FALSE
+sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+trim_Kabsent <- TRUE
 
 if (trim_Kabsent == TRUE) {
     # Remove no kgains countries per wave using data.table::fcase
