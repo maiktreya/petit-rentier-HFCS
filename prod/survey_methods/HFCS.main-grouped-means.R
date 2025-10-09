@@ -12,7 +12,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("Kgains", "rental", "financ", "pvpens", "hasKgains")
+var_code <- c("hasKgains", "capital", "iscapital") # c("Kgains", "rental", "financ", "pvpens", "hasKgains")
 count <- 0
 n_imps <- 5
 
@@ -73,7 +73,7 @@ for (varname in var_code) { # nolint
                 transf[, isfinanc := as.logical(financ)]
                 transf[, ispvpens := as.logical(pvpens)]
                 transf[, hasKgains := as.logical(Kgains)]
-                transf[, iscapital := rental + financ + pvpens + Kgains][, iscapital := as.logical(iscapital)]
+                transf[, capital := rental + financ + pvpens + Kgains][, iscapital := as.logical(capital)]
                 transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
                 transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
                 transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
@@ -111,8 +111,8 @@ for (varname in var_code) { # nolint
             means <- c()
 
             # Loop through each svydesign object and calculate the mean of HB0100
-            # for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], rentsbi == 1), na.rm = TRUE)[1] %>% unname()
+            for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
+            # for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), subset(designs[[i]], varname > 0), na.rm = TRUE)[1] %>% unname()
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
