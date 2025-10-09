@@ -123,7 +123,7 @@ for (varname in var_code) { # nolint
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, "_gt1.csv"))
+    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, ".csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }
