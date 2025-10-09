@@ -12,8 +12,8 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
-trim_Kabsent <- TRUE
+sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
+trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
     # Remove no kgains countries per wave using data.table::fcase
@@ -29,7 +29,7 @@ if (trim_Kabsent == TRUE) {
 }
 
 print(paste("model type", sel_var))
-print("########################--------------------------------------------------------------########################")
+print("################################################")
 
 ### prepare as numeric dummies for XGboost
 setnames(dataset, old = as.character(sel_var), new = "rentsbi_pens")

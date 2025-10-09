@@ -12,7 +12,7 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("hasKgains", "capital", "iscapital") # c("Kgains", "rental", "financ", "pvpens", "hasKgains")
+var_code <- c("iscapital") # c("Kgains", "rental", "financ", "pvpens", "hasKgains")
 count <- 0
 n_imps <- 5
 
@@ -78,6 +78,7 @@ for (varname in var_code) { # nolint
                 transf[, rentsbi20 := 0][income > 0 & ((financ + rental) / income) > 0.2, rentsbi20 := 1]
                 transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
                 transf[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
+                transf[, rentsbi_K20 := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.2, rentsbi_K20 := 1]
                 transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
                 transf[, Kincome_mean := (financ + rental + pvpens + Kgains)]
                 transf[employm %in% c(1, 3), employm := 1] # worker
