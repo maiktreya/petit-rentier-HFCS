@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsb_pens" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi_pens" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
