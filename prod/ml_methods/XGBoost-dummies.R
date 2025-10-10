@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -44,8 +44,17 @@ print("################################################")
 
 ### prepare as numeric dummies for XGboost
 setnames(dataset, old = as.character(sel_var), new = "rentsbi_pens")
-dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age", "homeown", "otherp")]
+dataset2 <- dataset[, c(
+    "wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age", "homeown", "otherp",
+    "bonds", "mutual", "shares", "managed", "otherfin", "haspvpens"
+)]
 ## dataset2 <- dataset[, c("wave", "sa0100", "hsize", "head_gendr", "quintile.gwealth", "quintile.gincome", "rentsbi_pens", "class", "edu_ref", "age")]
+dataset2$fin_bonds <- as.numeric(as.factor(dataset2$bonds)) - 1
+dataset2$fin_mutual <- as.numeric(as.factor(dataset2$mutual)) - 1
+dataset2$fin_shares <- as.numeric(as.factor(dataset2$shares)) - 1
+dataset2$fin_managed <- as.numeric(as.factor(dataset2$managed)) - 1
+dataset2$fin_otherfin <- as.numeric(as.factor(dataset2$otherfin)) - 1
+dataset2$haspvpens <- as.numeric(as.factor(dataset2$haspvpens)) - 1
 dataset2$head_gendr <- as.numeric(as.factor(dataset2$head_gendr)) - 1
 dataset2$homeown <- as.numeric(as.factor(dataset2$homeown)) - 1
 dataset2$otherp <- as.numeric(as.factor(dataset2$otherp)) - 1
@@ -54,7 +63,7 @@ dataset2$quintile.gincome <- as.numeric(as.factor(dataset2$quintile.gincome)) - 
 dataset2$wave <- as.numeric(as.factor(dataset2$wave))
 dataset2$hsize <- as.numeric(dataset2$hsize)
 dataset2 <- fastDummies::dummy_cols(dataset2, c("sa0100", "class", "edu_ref", "age", "wave"), remove_selected_columns = TRUE, ignore_na = TRUE)
-
+dataset2 <- dataset2[, c("bonds", "mutual", "shares", "managed", "otherfin", "haspvpens") := NULL]
 ################################# MODEL FITTING ###################################################
 
 # split into training and test
@@ -107,7 +116,8 @@ feature_groups <- list(
     "age_" = "Age",
     "edu_ref_" = "Education",
     "class_" = "Class",
-    "wave_" = "Wave"
+    "wave_" = "Wave",
+    "fin_" = "FinAssets"
 )
 
 remaining_features <- importance_matrix
@@ -133,8 +143,8 @@ for (prefix in names(feature_groups)) {
 
 # Combine the remaining individual features with the new aggregated groups
 importance_matrix_for_plot <- rbind(remaining_features, rbindlist(aggregated_list), fill = TRUE)[order(-Gain)]
-features_plot <- c("Housing Multiowner", "Country", "Social Class", "Age Cohort", "Education", "Wave", "Household size", "Homeowner", "Gender")
-importance_matrix_for_plot[, Feature := features_plot]
+# features_plot <- c("Housing Multiowner", "Country", "Social Class", "Age Cohort", "Education", "Wave", "Household size", "Homeowner", "Gender")
+# importance_matrix_for_plot[, Feature := features_plot]
 metrics_text <- paste(
     "Key Performance Metrics:",
     sprintf("Accuracy:    %.3f", confusion$overall["Accuracy"]),
