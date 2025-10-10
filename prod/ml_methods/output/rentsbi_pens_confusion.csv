@@ -1,25 +1,25 @@
 "",V1
 positive,1
-table1,473235
-table2,49999
-table3,38703
-table4,80953
-overall.Accuracy,0.862026163107219
-overall.Kappa,0.560580757055136
-overall.AccuracyLower,0.861180733264085
-overall.AccuracyUpper,0.862868329267647
-overall.AccuracyNull,0.813877957348847
+table1,471223
+table2,52089
+table3,36604
+table4,82974
+overall.Accuracy,0.8620401623917
+overall.Kappa,0.566075631561715
+overall.AccuracyLower,0.861194768409192
+overall.AccuracyUpper,0.862882292565127
+overall.AccuracyNull,0.813999284481015
 overall.AccuracyPValue,0
-overall.McnemarPValue,1.01703851086803e-314
-byClass.Sensitivity,0.676547770274788
-byClass.Specificity,0.904442371864214
-byClass.Pos Pred Value,0.618188343820637
-byClass.Neg Pred Value,0.924399048322258
-byClass.Precision,0.618188343820637
-byClass.Recall,0.676547770274788
-byClass.F1,0.646052799591394
-byClass.Prevalence,0.186122042651153
-byClass.Detection Rate,0.125920452954627
-byClass.Detection Prevalence,0.203692700150881
-byClass.Balanced Accuracy,0.790495071069501
+overall.McnemarPValue,0
+byClass.Sensitivity,0.693890180467979
+byClass.Specificity,0.900462821414376
+byClass.Pos Pred Value,0.614335532307146
+byClass.Neg Pred Value,0.92792033507474
+byClass.Precision,0.614335532307146
+byClass.Recall,0.693890180467979
+byClass.F1,0.651693953448188
+byClass.Prevalence,0.186000715518985
+byClass.Detection Rate,0.129064070058641
+byClass.Detection Prevalence,0.210087262206598
+byClass.Balanced Accuracy,0.797176500941178
 mode,sens_spec
