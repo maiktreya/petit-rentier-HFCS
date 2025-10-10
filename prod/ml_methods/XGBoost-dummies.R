@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_pens" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -28,6 +28,16 @@ if (trim_Kabsent == TRUE) {
         )
     ]
 }
+if (sel_var == "rentsbi") {
+    text_var <- "Kincome (no Kgains)"
+} else if (sel_var == "rentsbi_pens") {
+    text_var <- "Kincome (no PrPP & Kgains)"
+} else if (sel_var == "rentsbi_K") {
+    text_var <- "Kincome"
+} else {
+    text_var <- ""
+}
+
 
 print(paste("model type", sel_var))
 print("################################################")
@@ -91,15 +101,13 @@ print(confusion)
 
 ################################# PLOT RESULTS ###################################################
 
-# --- 1. Prepare data for plotting ---
-
-# --- Group features for plotting ---
+# 1. --- Group features for plotting ---
 feature_groups <- list(
-    "sa0100_" = "Country Effects",
-    "age_" = "Age Effects",
-    "edu_ref_" = "Education Effects",
-    "class_" = "Class Effects",
-    "wave_" = "Wave Effects"
+    "sa0100_" = "Country",
+    "age_" = "Age",
+    "edu_ref_" = "Education",
+    "class_" = "Class",
+    "wave_" = "Wave"
 )
 
 remaining_features <- importance_matrix
@@ -113,25 +121,20 @@ for (prefix in names(feature_groups)) {
     if (nrow(features_to_agg) > 0) {
         # Sum the gains for the current group
         gain_sum <- features_to_agg[, .(Gain = sum(Gain))]
-
+        cover_sum <- features_to_agg[, .(Cover = sum(Cover))]
+        frequency_sum <- features_to_agg[, .(Frequency = sum(Frequency))]
         # Create a new row for the aggregated feature
-        aggregated_feature <- data.table(Feature = new_name, Gain = gain_sum$Gain)
+        aggregated_feature <- data.table(Feature = new_name, Gain = gain_sum$Gain, Cover = cover_sum$Cover, Frequency = frequency_sum$Frequency)
         aggregated_list <- c(aggregated_list, list(aggregated_feature))
-
         # Remove the individual features that have been aggregated
         remaining_features <- remaining_features[!startsWith(Feature, prefix)]
     }
 }
 
 # Combine the remaining individual features with the new aggregated groups
-importance_matrix_for_plot <- rbind(remaining_features, rbindlist(aggregated_list), fill = TRUE)
-importance_matrix_for_plot <- importance_matrix_for_plot[order(-Gain)]
-
-# Create a text string with key performance metrics
-# Get top 20 features for the plot
-plot_data <- importance_matrix_for_plot[1:20, ]
-
-# Create a text string with key performance metrics
+importance_matrix_for_plot <- rbind(remaining_features, rbindlist(aggregated_list), fill = TRUE)[order(-Gain)]
+features_plot <- c("Housing Multiowner", "Country", "Social Class", "Age Cohort", "Education", "Wave", "Household size", "Homeowner", "Gender")
+importance_matrix_for_plot[, Feature := features_plot]
 metrics_text <- paste(
     "Key Performance Metrics:",
     sprintf("Accuracy:    %.3f", confusion$overall["Accuracy"]),
@@ -143,38 +146,38 @@ metrics_text <- paste(
 
 # --- 2. Create the plot ---
 
-p <- ggplot(plot_data, aes(x = Gain, y = reorder(Feature, Gain))) +
+p <- ggplot(importance_matrix_for_plot, aes(x = Gain, y = reorder(Feature, Gain))) +
     geom_bar(stat = "identity", fill = "#0072B2", width = 0.7) +
     labs(
-        title = paste("Feature Importance for:", sel_var),
-        subtitle = "Top 20 predictors from XGBoost model",
+        title = paste("Feature Importance for:", text_var),
+        subtitle = "XGBoost model",
         x = "Gain (Contribution to Prediction)",
         y = "Feature"
     ) +
     theme_minimal(base_size = 12) +
     theme(
-        plot.title = element_text(face = "bold", size = 16),
+        plot.title = element_text(face = "bold", size = 16, hjust = 1), # move title to right
+        plot.subtitle = element_text(hjust = 1), # also move subtitle
         axis.text.y = element_text(size = 14)
     ) +
-    # Ensure the annotation box is never clipped
     coord_cartesian(clip = "off") +
-    # Add a styled metrics box to the bottom-right corner
     annotate("label",
-        x = Inf, y = 0, # Position at the bottom-right corner of the plot panel
+        x = Inf, y = 0,
         label = metrics_text,
-        hjust = 1.05, # Nudge left from the right edge
-        vjust = -0.05, # Nudge up from the bottom edge
+        hjust = 1.05,
+        vjust = -0.05,
         family = "mono",
         size = 4,
         fill = "white",
-        label.r = unit(0.2, "lines"), # Rounded corners
-        label.padding = unit(0.5, "lines") # More padding
+        label.r = unit(0.2, "lines"),
+        label.padding = unit(0.5, "lines")
     )
 
 # --- 3. Save the plot ---
+
 output_dir <- "prod/ml_methods/output/plots"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 8, dpi = 300)
+ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 4, dpi = 300)
 
 print(paste("Plot saved to:", file.path(output_dir, paste0("feature_importance_", sel_var, ".png"))))
 fwrite(importance_matrix, paste0("prod/ml_methods/output/", sel_var, ".csv"))
