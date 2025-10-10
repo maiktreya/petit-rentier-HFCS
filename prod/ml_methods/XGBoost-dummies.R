@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi_pens" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -143,11 +143,17 @@ p <- ggplot(plot_data, aes(x = Gain, y = reorder(Feature, Gain))) +
         plot.title = element_text(face = "bold", size = 16),
         axis.text.y = element_text(size = 10)
     ) +
-    # Add the metrics box to the bottom-right corner
-    annotate("text",
-        x = max(plot_data$Gain) * 0.98, y = 1, label = metrics_text,
-        hjust = 1, vjust = 0, size = 3.5, family = "mono",
-        lineheight = 1.1, col = "gray20", bg = "white"
+    # Add a styled metrics box to the bottom-right corner
+    annotate("label",
+        x = max(plot_data$Gain), y = 1, # Position at bottom-right
+        label = metrics_text,
+        hjust = 1, # Right-align the box
+        vjust = 0, # Align box bottom to y-coordinate
+        family = "mono",
+        size = 5,
+        fill = "white",
+        label.r = unit(0.25, "lines"), # Rounded corners
+        label.padding = unit(0.5, "lines") # More padding
     )
 
 # --- 3. Save the plot ---
@@ -157,3 +163,4 @@ ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), pl
 
 print(paste("Plot saved to:", file.path(output_dir, paste0("feature_importance_", sel_var, ".png"))))
 fwrite(importance_matrix, paste0("prod/ml_methods/output/", sel_var, ".csv"))
+fwrite(cbind(unlist(confusion)), paste0("prod/ml_methods/output/", sel_var, "_confusion.csv"), row.names = TRUE)

@@ -1,0 +1,25 @@
+"",V1
+positive,1
+table1,446004
+table2,66651
+table3,37921
+table4,92314
+overall.Accuracy,0.837340758139028
+overall.Kappa,0.534810806074363
+overall.AccuracyLower,0.836436328570123
+overall.AccuracyUpper,0.838242146808762
+overall.AccuracyNull,0.79742257617944
+overall.AccuracyPValue,0
+overall.McnemarPValue,0
+byClass.Sensitivity,0.708826352363036
+byClass.Specificity,0.869988588817041
+byClass.Pos Pred Value,0.580719026200736
+byClass.Neg Pred Value,0.921638683680322
+byClass.Precision,0.580719026200736
+byClass.Recall,0.708826352363036
+byClass.F1,0.638409405255878
+byClass.Prevalence,0.20257742382056
+byClass.Detection Rate,0.143592216397829
+byClass.Detection Prevalence,0.247266250836068
+byClass.Balanced Accuracy,0.789407470590038
+mode,sens_spec
