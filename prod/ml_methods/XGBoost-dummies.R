@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_pens" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsb_pens" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -93,26 +93,39 @@ print(confusion)
 
 # --- 1. Prepare data for plotting ---
 
-# --- Group country effects for plotting ---
-country_features <- importance_matrix[startsWith(Feature, "sa0100_")]
-other_features <- importance_matrix[!startsWith(Feature, "sa0100_")]
+# --- Group features for plotting ---
+feature_groups <- list(
+    "sa0100_" = "Country Effects",
+    "age_" = "Age Effects",
+    "edu_ref_" = "Education Effects",
+    "class_" = "Class Effects",
+    "wave_" = "Wave Effects"
+)
 
-if (nrow(country_features) > 0) {
-    # Sum the gains for all country dummies
-    country_gain_sum <- country_features[, .(Gain = sum(Gain))]
+remaining_features <- importance_matrix
+aggregated_list <- list()
 
-    # Create a new row for the aggregated country effect
-    aggregated_country_feature <- data.table(
-        Feature = "Country Effects (aggregated)",
-        Gain = country_gain_sum$Gain
-    )
+# Loop through each group to aggregate their 'Gain'
+for (prefix in names(feature_groups)) {
+    new_name <- feature_groups[[prefix]]
+    features_to_agg <- remaining_features[startsWith(Feature, prefix)]
 
-    # Combine with other features and re-sort
-    importance_matrix_for_plot <- rbind(other_features, aggregated_country_feature, fill = TRUE)
-    importance_matrix_for_plot <- importance_matrix_for_plot[order(-Gain)]
-} else {
-    importance_matrix_for_plot <- importance_matrix
+    if (nrow(features_to_agg) > 0) {
+        # Sum the gains for the current group
+        gain_sum <- features_to_agg[, .(Gain = sum(Gain))]
+
+        # Create a new row for the aggregated feature
+        aggregated_feature <- data.table(Feature = new_name, Gain = gain_sum$Gain)
+        aggregated_list <- c(aggregated_list, list(aggregated_feature))
+
+        # Remove the individual features that have been aggregated
+        remaining_features <- remaining_features[!startsWith(Feature, prefix)]
+    }
 }
+
+# Combine the remaining individual features with the new aggregated groups
+importance_matrix_for_plot <- rbind(remaining_features, rbindlist(aggregated_list), fill = TRUE)
+importance_matrix_for_plot <- importance_matrix_for_plot[order(-Gain)]
 
 # Create a text string with key performance metrics
 # Get top 20 features for the plot
@@ -141,18 +154,20 @@ p <- ggplot(plot_data, aes(x = Gain, y = reorder(Feature, Gain))) +
     theme_minimal(base_size = 12) +
     theme(
         plot.title = element_text(face = "bold", size = 16),
-        axis.text.y = element_text(size = 10)
+        axis.text.y = element_text(size = 14)
     ) +
+    # Ensure the annotation box is never clipped
+    coord_cartesian(clip = "off") +
     # Add a styled metrics box to the bottom-right corner
     annotate("label",
-        x = max(plot_data$Gain), y = 1, # Position at bottom-right
+        x = Inf, y = 0, # Position at the bottom-right corner of the plot panel
         label = metrics_text,
-        hjust = 1, # Right-align the box
-        vjust = 0, # Align box bottom to y-coordinate
+        hjust = 1.05, # Nudge left from the right edge
+        vjust = -0.05, # Nudge up from the bottom edge
         family = "mono",
-        size = 5,
+        size = 4,
         fill = "white",
-        label.r = unit(0.25, "lines"), # Rounded corners
+        label.r = unit(0.2, "lines"), # Rounded corners
         label.padding = unit(0.5, "lines") # More padding
     )
 
