@@ -5,6 +5,7 @@ library(data.table) # for fast and concise data wrangling
 library(xgboost) # gradient boost algorithm
 library(caret) # for confusion matrix
 library(Matrix) # dataset tidy for ml models
+library(ggplot2) # for plotting
 
 # clean enviroment
 rm(list = ls())
@@ -87,3 +88,72 @@ confusion <- confusionMatrix(factor(test_predictions_binary), reference = factor
 print(importance_matrix)
 print(paste("XGBoost Accuracy:", accuracy_xgb))
 print(confusion)
+
+################################# PLOT RESULTS ###################################################
+
+# --- 1. Prepare data for plotting ---
+
+# --- Group country effects for plotting ---
+country_features <- importance_matrix[startsWith(Feature, "sa0100_")]
+other_features <- importance_matrix[!startsWith(Feature, "sa0100_")]
+
+if (nrow(country_features) > 0) {
+    # Sum the gains for all country dummies
+    country_gain_sum <- country_features[, .(Gain = sum(Gain))]
+
+    # Create a new row for the aggregated country effect
+    aggregated_country_feature <- data.table(
+        Feature = "Country Effects (aggregated)",
+        Gain = country_gain_sum$Gain
+    )
+
+    # Combine with other features and re-sort
+    importance_matrix_for_plot <- rbind(other_features, aggregated_country_feature, fill = TRUE)
+    importance_matrix_for_plot <- importance_matrix_for_plot[order(-Gain)]
+} else {
+    importance_matrix_for_plot <- importance_matrix
+}
+
+# Create a text string with key performance metrics
+# Get top 20 features for the plot
+plot_data <- importance_matrix_for_plot[1:20, ]
+
+# Create a text string with key performance metrics
+metrics_text <- paste(
+    "Key Performance Metrics:",
+    sprintf("Accuracy:    %.3f", confusion$overall["Accuracy"]),
+    sprintf("Kappa:       %.3f", confusion$overall["Kappa"]),
+    sprintf("Sensitivity: %.3f", confusion$byClass["Sensitivity"]),
+    sprintf("Specificity: %.3f", confusion$byClass["Specificity"]),
+    sep = "\n"
+)
+
+# --- 2. Create the plot ---
+
+p <- ggplot(plot_data, aes(x = Gain, y = reorder(Feature, Gain))) +
+    geom_bar(stat = "identity", fill = "#0072B2", width = 0.7) +
+    labs(
+        title = paste("Feature Importance for:", sel_var),
+        subtitle = "Top 20 predictors from XGBoost model",
+        x = "Gain (Contribution to Prediction)",
+        y = "Feature"
+    ) +
+    theme_minimal(base_size = 12) +
+    theme(
+        plot.title = element_text(face = "bold", size = 16),
+        axis.text.y = element_text(size = 10)
+    ) +
+    # Add the metrics box to the bottom-right corner
+    annotate("text",
+        x = max(plot_data$Gain) * 0.98, y = 1, label = metrics_text,
+        hjust = 1, vjust = 0, size = 3.5, family = "mono",
+        lineheight = 1.1, col = "gray20", bg = "white"
+    )
+
+# --- 3. Save the plot ---
+output_dir <- "prod/ml_methods/output/plots"
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 8, dpi = 300)
+
+print(paste("Plot saved to:", file.path(output_dir, paste0("feature_importance_", sel_var, ".png"))))
+fwrite(importance_matrix, paste0("prod/ml_methods/output/", sel_var, ".csv"))
