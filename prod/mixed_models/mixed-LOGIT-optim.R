@@ -30,7 +30,7 @@ n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
 trim_Kabsent <- FALSE
-proxy <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+proxy <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 input_string <- paste0("prod/mixed_models/out/", proxy)
 
 # conditionals
@@ -48,7 +48,7 @@ if (trim_Kabsent == TRUE) {
 }
 if (remove_covid_wave) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
-    input_string <- paste0(input_string, "_3waves")
+    input_string <- paste0(input_string, "manager")
 }
 output_string <- paste0(input_string, ".csv")
 

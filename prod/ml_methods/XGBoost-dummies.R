@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -43,7 +43,7 @@ print(paste("model type", sel_var))
 print("################################################")
 
 ### prepare as numeric dummies for XGboost
-setnames(dataset, old = as.character(sel_var), new = "rentsbi_pens")
+setnames(dataset, old = c(as.character(sel_var), "class_nomanager"), new = c("rentsbi_pens", "class"))
 dataset2 <- dataset[, c(
     "wave", "sa0100", "hsize", "head_gendr", "rentsbi_pens", "class", "edu_ref", "age", "homeown", "otherp",
     "bonds", "mutual", "shares", "managed", "otherfin", "haspvpens"
@@ -112,12 +112,12 @@ print(confusion)
 
 # 1. --- Group features for plotting ---
 feature_groups <- list(
-    "sa0100_" = "Country",
+    "sa0100_" = "country",
     "age_" = "Age",
-    "edu_ref_" = "Education",
+    "edu_ref_" = "education",
     "class_" = "Class",
-    "wave_" = "Wave",
-    "fin_" = "FinAssets"
+    "wave_" = "wave",
+    "fin_" = "hasFinAssets"
 )
 
 remaining_features <- importance_matrix
