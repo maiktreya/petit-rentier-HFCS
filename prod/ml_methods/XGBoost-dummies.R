@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -29,9 +29,9 @@ if (trim_Kabsent == TRUE) {
     ]
 }
 if (sel_var == "rentsbi") {
-    text_var <- "Kincome (no Kgains)"
+    text_var <- "Kincome (no Kgains, no PrP)"
 } else if (sel_var == "rentsbi_pens") {
-    text_var <- "Kincome (no PrPP & Kgains)"
+    text_var <- "Kincome (no Kgains)"
 } else if (sel_var == "rentsbi_K") {
     text_var <- "Kincome"
 } else {
@@ -143,8 +143,8 @@ for (prefix in names(feature_groups)) {
 
 # Combine the remaining individual features with the new aggregated groups
 importance_matrix_for_plot <- rbind(remaining_features, rbindlist(aggregated_list), fill = TRUE)[order(-Gain)]
-features_plot <- c("Housing Multiowner", "Country", "Financial Assets", "Social Class", "Private Pensions", "Age Cohort", "Education", "Wave", "Household size", "Homeowner", "Gender")
-importance_matrix_for_plot[, Feature := features_plot]
+# features_plot <- c("Housing Multiowner", "Country", "Financial Assets", "Social Class", "Private Pensions", "Age Cohort", "Education", "Wave", "Household size", "Homeowner", "Gender")
+# importance_matrix_for_plot[, Feature := features_plot]
 metrics_text <- paste(
     "Key Performance Metrics:",
     sprintf("Accuracy:    %.3f", confusion$overall["Accuracy"]),
@@ -187,7 +187,7 @@ p <- ggplot(importance_matrix_for_plot, aes(x = Gain, y = reorder(Feature, Gain)
 
 output_dir <- "prod/ml_methods/output/plots"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 4, dpi = 600)
+ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 5, dpi = 600)
 
 print(paste("Plot saved to:", file.path(output_dir, paste0("feature_importance_", sel_var, ".png"))))
 fwrite(importance_matrix, paste0("prod/ml_methods/output/", sel_var, ".csv"))
