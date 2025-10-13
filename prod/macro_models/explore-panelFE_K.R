@@ -6,8 +6,10 @@ library(plm)
 
 # clean enviroment and hardcoded variables
 rm(list = ls())
-path_string <- "prod/survey_methods/out/"
+path_string <- "prod/survey_methods/out/" # modify for your local env
+output_string <- "prod/macro_models/out/" # modify for your local env
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
+waves <- 4
 file_suffixes <- c(
     "rentsbi_K.csv", "rentsbi_K20.csv",
     "rentsbi_K_wealthy.csv", "rentsbi_K20_wealthy.csv",
@@ -27,8 +29,8 @@ dataset <- as.data.table(data_list)
 setnames(dataset, model_names)
 
 # prepare datasets for estimation with plm as time series with groupings
-group <- rep(countries, 4)
-time <- as.factor(as.vector(cbind(rep(1, 15), rep(2, 15), rep(3, 15), rep(4, 15))))
+group <- rep(countries, waves)
+time <- factor(rep(1:waves, each = length(countries)))
 dataset <- data.table(group, time, dataset)
 pdataset <- pdata.frame(dataset, index = c("group", "time"))
 dep_vars <- colnames(pdataset)[3:length(colnames(pdataset))]
@@ -51,4 +53,4 @@ r_squared <- sapply(models, function(m) summary(m)$r.squared["rsq"])
 
 # join results in a single table and export
 results <- cbind(t(coefficients), r_squared)
-fwrite(results, "prod/macro_models/out/macro-new.csv", row.names = TRUE)
+fwrite(results, paste0(output_string,"macro-new.csv"), row.names = TRUE)
