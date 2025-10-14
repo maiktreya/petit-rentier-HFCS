@@ -6,7 +6,6 @@
 #          Tests time trends across 15 Euro area countries over 4 waves
 #
 # Method:  Within estimator (individual fixed effects)
-#          Based on Bell & Jones (2015) correlated random effects framework
 #
 # Data:    Household Finance and Consumption Survey (HFCS)
 #          - 15 countries: AT, BE, CY, FI, FR, DE, GR, IT, LU, MT, NL, PT, SI, SK, ES
@@ -31,14 +30,15 @@ waves <- 4
 
 # File mappings
 file_suffixes <- c(
-    "rentsbi_K.csv", "rentsbi_K20.csv",
-    "rentsbi_K_wealthy.csv", "rentsbi_K20_wealthy.csv",
-    "rentsbi_K_highincome.csv", "rentsbi_K20_highincome.csv"
+    "rentsbi_K.csv", "rentsbi_K20.csv", "Kincome_perc.csv",
+    "rentsbi_K_wealthy.csv", "rentsbi_K20_wealthy.csv", "Kincome_perc_wealthy.csv",
+    "rentsbi_K_highincome.csv", "rentsbi_K20_highincome.csv","Kincome_perc_highincome.csv"
 )
 model_names <- c(
-    "model", "model20",
-    "w_model", "w_model20",
-    "i_model", "i_model20"
+    "model", "model20","modelE",
+    "w_model", "w_model20", "w_modelE",
+    "i_model", "i_model20","i_modelE"
+
 )
 
 # Read and combine data
