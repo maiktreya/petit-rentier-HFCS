@@ -21,8 +21,8 @@ library(plm)
 
 # Clean environment and set paths
 rm(list = ls())
-path_string <- "prod/survey_methods/out/"   # modify for your local env
-output_string <- "prod/macro_models/out/"   # modify for your local env
+path_string <- "prod/survey_methods/out/" # modify for your local env
+output_string <- "prod/macro_models/out/" # modify for your local env
 
 # Define panel structure
 countries <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
@@ -30,20 +30,21 @@ waves <- 4
 
 # File mappings
 file_suffixes <- c(
-    "rentsbi_K.csv", "rentsbi_K20.csv", "Kincome_perc.csv",
-    "rentsbi_K_wealthy.csv", "rentsbi_K20_wealthy.csv", "Kincome_perc_wealthy.csv",
-    "rentsbi_K_highincome.csv", "rentsbi_K20_highincome.csv","Kincome_perc_highincome.csv"
+    "rentsbi_K.csv", "rentsbi_K20.csv", "rentsbi_K5.csv", "Kincome_perc.csv",
+    "rentsbi_K_wealthy.csv", "rentsbi_K20_wealthy.csv", "rentsbi_K5_wealthy.csv", "Kincome_perc_wealthy.csv",
+    "rentsbi_K_highincome.csv", "rentsbi_K20_highincome.csv", "rentsbi_K5_highincome.csv", "Kincome_perc_highincome.csv"
 )
 model_names <- c(
-    "model", "model20","modelE",
-    "w_model", "w_model20", "w_modelE",
-    "i_model", "i_model20","i_modelE"
-
+    "model", "model20", "modell5", "modelE",
+    "w_model", "w_model20", "w_model5", "w_modelE",
+    "i_model", "i_model20", "i_model5", "i_modelE"
 )
 
 # Read and combine data
 data_list <- lapply(file_suffixes, function(suffix) {
-    fread(paste0(path_string, suffix), header = TRUE) %>% unlist() %>% as.vector()
+    fread(paste0(path_string, suffix), header = TRUE) %>%
+        unlist() %>%
+        as.vector()
 })
 dataset <- as.data.table(data_list)
 setnames(dataset, model_names)

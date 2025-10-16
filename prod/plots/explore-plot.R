@@ -6,6 +6,7 @@ library(data.table)
 library(magrittr)
 library(survey)
 library(ggplot2)
+library(convey)
 
 # source main dataset and define global variables
 source("src/tools/prepare-vars/import-join.R")
@@ -43,22 +44,31 @@ for (n in country_code) {
     upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
     upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
 
-    # Check and print the number of valid data points
-
     # Proceed only if there are enough valid points
     df_cdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1 & get(varname) > 0))
     df_ecdf <- ecdf(subset(national_data2, get(varname) < upper2 & get(varname) > 0)$variables[, get(varname)])
+
     df_cdf[[1]] %>% plot(main = paste("Country:", n), lty = 1, lwd = 1)
     axis(1, at = seq(0, 1, by = 0.2))
     lines(df_ecdf, col = "#9dc0c0", lty = 1342, lwd = 2)
+
+    gini_2011 <- convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1]
+    gini_2021 <- convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1]
+
+    # add text on plot
+    text(
+        x = 0.2, y = 0.8,
+        labels = paste0(
+            "Gini 2011: ", round(gini_2011, 3),
+            "\nGini 2021: ", round(gini_2021, 3)
+        ),
+        adj = 0, cex = 1.1
+    )
 }
 
 # Add a general title and subtitle in the outer margin
 mtext("Comparative Analysis of Rent Distributions by Country", side = 3, line = 2, outer = TRUE, cex = 0.8)
-mtext("Distribution at Wave 1 (black) and Wave 4 (red)", side = 3, line = 1, outer = TRUE, cex = 0.6)
+mtext("Distribution at Wave 1 (black) and Wave 4 (grey)", side = 3, line = 1, outer = TRUE, cex = 0.6)
 
 # Close the device
 dev.off()
-
-convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)
-convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)

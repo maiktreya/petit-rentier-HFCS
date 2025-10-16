@@ -89,6 +89,7 @@ for (wave in path_stringB) {
         transf[, rentsbi20_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.2, rentsbi20_pens := 1]
         transf[, rents_mean := (financ + rental)]
         transf[, rents_mean_pens := (financ + rental + pvpens)]
+        transf[, rents_mean_K := (financ + rental + pvpens + Kgains)]
         imp[[m]] <- transf[, implicate := m]
     }
     imp <- rbindlist(imp)

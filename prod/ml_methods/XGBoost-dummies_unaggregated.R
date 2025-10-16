@@ -112,12 +112,12 @@ print(confusion)
 
 # 1. --- Group features for plotting ---
 feature_groups <- list(
-    "sa0100_" = "country",
-    "age_" = "Age",
-    "edu_ref_" = "education",
-    "class_" = "Class",
-    "wave_" = "wave",
-    "fin_" = "hasFinAssets"
+    #    "sa0100_" = "country",
+    #    "age_" = "Age",
+    #    "edu_ref_" = "education",
+    #    "class_" = "Class",
+    #    "wave_" = "wave",
+    #    "fin_" = "hasFinAssets"
 )
 
 remaining_features <- importance_matrix
@@ -151,6 +151,7 @@ metrics_text <- paste(
     sprintf("Kappa:       %.3f", confusion$overall["Kappa"]),
     sprintf("Sensitivity: %.3f", confusion$byClass["Sensitivity"]),
     sprintf("Specificity: %.3f", confusion$byClass["Specificity"]),
+    sprintf("Balanced Accuracy: %.3f", confusion$byClass["Balanced Accuracy"]),
     sep = "\n"
 )
 
@@ -168,7 +169,7 @@ p <- ggplot(importance_matrix_for_plot, aes(x = Gain, y = reorder(Feature, Gain)
     theme(
         plot.title = element_text(face = "bold", size = 16, hjust = 1), # move title to right
         plot.subtitle = element_text(hjust = 1), # also move subtitle
-        axis.text.y = element_text(size = 14)
+        axis.text.y = element_text(size = 8)
     ) +
     coord_cartesian(clip = "off") +
     annotate("label",
@@ -187,7 +188,7 @@ p <- ggplot(importance_matrix_for_plot, aes(x = Gain, y = reorder(Feature, Gain)
 
 output_dir <- "prod/ml_methods/output/plots"
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 10, height = 5, dpi = 600)
+ggsave(file.path(output_dir, paste0("feature_importance_", sel_var, ".png")), plot = p, width = 6, height = 10, dpi = 600)
 
 print(paste("Plot saved to:", file.path(output_dir, paste0("feature_importance_", sel_var, ".png"))))
 fwrite(importance_matrix, paste0("prod/ml_methods/output/", sel_var, ".csv"))
