@@ -52,8 +52,8 @@ for (n in country_code) {
     axis(1, at = seq(0, 1, by = 0.2))
     lines(df_ecdf, col = "#9dc0c0", lty = 1342, lwd = 2)
 
-    gini_2011 <- convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1]
-    gini_2021 <- convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1]
+    gini_2011 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1]
+    gini_2021 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1]
 
     # add text on plot
     text(
