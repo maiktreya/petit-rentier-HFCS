@@ -29,7 +29,7 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-trim_Kabsent <- TRUE
+trim_Kabsent <- FALSE
 proxy <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 input_string <- paste0("prod/mixed_models/out/", proxy)
 
