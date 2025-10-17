@@ -29,7 +29,7 @@ source("prod/data_pipes/prepare-vars/import-join.R")
 n_imputations <- 5
 remove_covid_wave <- FALSE
 export_output <- TRUE
-trim_Kabsent <- FALSE
+trim_Kabsent <- TRUE
 proxy <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 input_string <- paste0("prod/mixed_models/out/", proxy)
 
@@ -64,11 +64,11 @@ for (i in 1:n_imputations) {
         reformulate(
             termlabels = c(
                 "factor(wave)",
-                "hsize", "head_gendr", "age", "edu_ref",
-                "homeown", "otherp",
-                "bonds", "mutual", "shares", "managed", "otherfin",
-                "haspvpens",
-                "class_nomanager",
+                # "hsize", "head_gendr", "age", "edu_ref",
+                # "homeown", "otherp",
+                # "bonds", "mutual", "shares", "managed", "otherfin",
+                # "haspvpens",
+                # "class_nomanager",
                 "(1 | sa0100)",
                 "(1 | sa0100:wave)"
             ),
