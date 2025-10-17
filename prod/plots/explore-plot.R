@@ -29,7 +29,7 @@ for (i in 1:5) {
 }
 
 # Start PNG device
-png("test9990.png", width = 2480, height = 3508, res = 300)
+png("test9.png", width = 2480, height = 3508, res = 300)
 
 cpi_prices <- fread("output/CPI.csv")
 # Set up the plotting area for a 5x3 grid
@@ -44,13 +44,16 @@ for (n in country_code) {
     upper1 <- svyquantile(as.formula(paste0("~", varname)), national_data1, quantiles = .99, na.rm = TRUE)[1][[1]][1]
     upper2 <- svyquantile(as.formula(paste0("~", varname)), national_data2, quantiles = .99, na.rm = TRUE)[1][[1]][1]
 
-    # Proceed only if there are enough valid points
-    df_cdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1 & get(varname) > 0))
-    df_ecdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data2, get(varname) < upper1 & get(varname) > 0))
 
-    df_cdf[[1]] %>% plot(main = paste("Country:", n), lty = 1, lwd = 1)
+    # Proceed only if there are enough valid points
+    # df_cdf <- svycdf(as.formula(paste0("~", varname)), design = subset(national_data1, get(varname) < upper1 & get(varname) > 0))
+    df_cdf <- ecdf(subset(national_data1, get(varname) < upper2 & get(varname) > 0)$variables[, get(varname)])
+
+    df_ecdf <- ecdf(subset(national_data2, get(varname) < upper2 & get(varname) > 0)$variables[, get(varname)])
+
+    df_cdf %>% plot(main = paste("Country:", n), lty = 1, lwd = 1)
     axis(1, at = seq(0, 1, by = 0.2))
-    lines(df_ecdf[[1]], col = "#9dc0c0", lty = 1342, lwd = 2)
+    lines(df_ecdf, col = "#9dc0c0", lty = 1342, lwd = 2)
 
     gini_2011 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1]
     gini_2021 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1]
