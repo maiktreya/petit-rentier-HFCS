@@ -13,7 +13,7 @@ gc(reset = TRUE, verbose = 2)
 
 # source prepared joint dataset
 source("prod/data_pipes/prepare-vars/import-join.R")
-sel_var <- "rentsbi" # rentsbi, rentsbi_pens, rentsbi_K
+sel_var <- "rentsbi_K" # rentsbi, rentsbi_pens, rentsbi_K
 trim_Kabsent <- FALSE
 
 if (trim_Kabsent == TRUE) {
@@ -112,12 +112,12 @@ print(confusion)
 
 # 1. --- Group features for plotting ---
 feature_groups <- list(
-    "sa0100_" = "country",
-    "age_" = "Age",
-    "edu_ref_" = "education",
-    "class_" = "Class",
-    "wave_" = "wave",
-    "fin_" = "hasFinAssets"
+    # "age_" = "Age",
+    # "edu_ref_" = "education",
+    # "class_" = "Class",
+    # "wave_" = "wave",
+    # "fin_" = "hasFinAssets",
+    "sa0100_" = "country"
 )
 
 remaining_features <- importance_matrix
