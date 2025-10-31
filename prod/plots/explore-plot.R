@@ -36,6 +36,8 @@ cpi_prices <- fread("output/CPI.csv")
 par(oma = c(0, 0, 4, 0), mfrow = c(5, 3), mar = c(5, 4, 2, 2) + 0.1)
 
 # Loop through each country and plot
+gini_table <- list()
+
 for (n in country_code) {
     national_data1 <- subset(data_implicate[[1]], sa0100 == n & wave == 1)
     national_data2 <- subset(data_implicate[[1]], sa0100 == n & wave == 4)
@@ -55,23 +57,26 @@ for (n in country_code) {
     axis(1, at = seq(0, 1, by = 0.2))
     lines(df_ecdf, col = "#9dc0c0", lty = 1342, lwd = 2)
 
-    gini_2011 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1]
-    gini_2021 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1]
-
+    gini_2011 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data1, na.rm = TRUE)[1] %>% round(3)
+    gini_2021 <- 1 - convey::svygini(as.formula(paste0("~", varname)), national_data2, na.rm = TRUE)[1] %>% round(3)
+    gini_dif <- gini_2021 - gini_2011 %>% round(3)
     # add text on plot
     text(
         x = 0.2, y = 0.8,
         labels = paste0(
-            "Gini 2011: ", round(gini_2011, 3),
-            "\nGini 2021: ", round(gini_2021, 3)
+            "Gini 2011: ", gini_2011,
+            "\nGini 2021: ", gini_2021
         ),
         adj = 0, cex = 1.1
     )
+    gini_table[[n]] <- c(n, gini_2011, gini_2021, gini_dif)
 }
 
 # Add a general title and subtitle in the outer margin
 mtext("Comparative Analysis of Rent Distributions by Country", side = 3, line = 2, outer = TRUE, cex = 0.8)
 mtext("Distribution at Wave 1 (black) and Wave 4 (grey)", side = 3, line = 1, outer = TRUE, cex = 0.6)
-
+gini_table <- lapply(gini_table, as.list) %>% rbindlist()
+colnames(gini_table) <- c("country", "start", "end", "dif")
 # Close the device
 dev.off()
+print(gini_table)

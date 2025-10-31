@@ -64,11 +64,11 @@ for (i in 1:n_imputations) {
         reformulate(
             termlabels = c(
                 "factor(wave)",
-                # "hsize", "head_gendr", "age", "edu_ref",
-                # "homeown", "otherp",
-                # "bonds", "mutual", "shares", "managed", "otherfin",
-                # "haspvpens",
-                # "class_nomanager",
+                "hsize", "head_gendr", "age", "edu_ref",
+                "homeown", "otherp",
+                "bonds", "mutual", "shares", "managed", "otherfin",
+                "haspvpens",
+                "class_nomanager",
                 "(1 | sa0100)",
                 "(1 | sa0100:wave)"
             ),
