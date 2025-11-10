@@ -19,7 +19,7 @@ for (wave in path_stringB) {
         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000", "da2109i",
         "da1110i", "da1121i", "da1122i", "di1800"
     )
-    selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0310", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900")
+    selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0310", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900", "hb0300", "hg0300")
     common <- c("sa0010", "sa0100", "im0100")
 
     # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
@@ -40,7 +40,8 @@ for (wave in path_stringB) {
                 "hg0310", "di1400", "di1520", "di1700", "di2000",
                 "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000", "da2109i",
                 "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300",
-                "da1110i", "da1121i", "da1122i", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900"
+                "da1110i", "da1121i", "da1122i", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900",
+                "hb0300", "hg0300"
             ),
             new = c(
                 "profit", "Kgains", "quintile.gwealth", "quintile.gincome",
@@ -48,7 +49,8 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real", "haspvpens",
                 "num_bs", "val_op", "num_pr", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin"
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
+                "tenure", "rentalinc"
             )
         )
         transf <- transf[
@@ -59,7 +61,8 @@ for (wave in path_stringB) {
                 "rental", "financ", "pvpens", "pvtran", "income",
                 "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real", "haspvpens",
                 "num_bs", "val_op", "num_pr", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin",
+                "homeown", "otherpB", "otherpN", "mutual", "bonds", "shares", "managed", "otherfin", "tenure",
+                "rentalinc",
                 "sa0010", "sa0100", "hw0010.x"
             )
         ]

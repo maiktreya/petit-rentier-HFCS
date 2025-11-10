@@ -12,7 +12,8 @@ path_stringA <- ".datasets/HFCS/csv/HFCS_UDB_"
 path_stringB <- c("1_6", "2_5", "3_3", "4_0")
 path_year <- c(2011, 2013, 2017, 2020)
 country_code <- c("AT", "BE", "CY", "FI", "FR", "DE", "GR", "IT", "LU", "MT", "NL", "PT", "SI", "SK", "ES")
-var_code <- c("isrental2", "isrental") # c("Kgains", "rental", "financ", "pvpens", "hasKgains")
+var_code <- c("rentsbi_K5") # c("Kgains", "rental", "financ", "pvpens", "hasKgains")
+covar <- ""
 count <- 0
 n_imps <- 5
 
@@ -41,16 +42,14 @@ for (varname in var_code) { # nolint
                         "dhageh1", "dh0001", "dheduh1", "dhgenderh1", "dhemph1", "dhhst",
                         "hg0310", "di1400", "di1520", "di1700", "di2000",
                         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000",
-                        "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300",
-                        "hb0300", "hg0300"
+                        "hd0210", "hb2900", "hb2410", "pe0200", "pe0300", "pe0400", "fpe0200", "fpe0300"
                     ),
                     new = c(
                         "profit", "interests", "Kgains", "quintile.gwealth", "quintile.gincome",
                         "age_ref", "hsize", "edu_ref", "head_gendr", "employm", "tenan",
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
-                        "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                        "tenure", "hg0300"
+                        "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08"
                     )
                 )
                 transf <- transf[
@@ -61,7 +60,6 @@ for (varname in var_code) { # nolint
                         "rental", "financ", "pvpens", "pvtran", "income",
                         "net_we", "net_fi", "other", "main", "real", "bussiness", "total_real",
                         "num_bs", "val_op", "num_op", "status", "d_isco", "d_nace", "retired_status", "retired_isco08",
-                        "tenure", "hg0300",
                         "sa0010", "sa0100", "hw0010.x"
                     )
                 ]
@@ -72,8 +70,7 @@ for (varname in var_code) { # nolint
                 transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
                 transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
                 transf[, Kgains := suppressWarnings(as.numeric(Kgains))][, Kgains := ifelse(is.na(Kgains), 0, Kgains)]
-                transf[, isrental := 0][hg0300 == 1, isrental := 1][, isrental := as.logical(isrental)]
-                transf[, isrental2 := as.logical(rental)]
+                transf[, isrental := as.logical(rental)]
                 transf[, isfinanc := as.logical(financ)]
                 transf[, ispvpens := as.logical(pvpens)]
                 transf[, hasKgains := as.logical(Kgains)]
@@ -118,7 +115,7 @@ for (varname in var_code) { # nolint
 
             # Loop through each svydesign object and calculate the mean of HB0100
             # for (i in 1:n_imps) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]], na.rm = TRUE)[1] %>% unname()
-            for (i in 1:5) means[i] <- svymean(as.formula(paste0("~", varname)), designs[[i]])[1] %>% unname()
+            for (i in 1:5) means[i] <- svyby(as.formula(paste0("~", varname, "~", var_code)), designs[[i]], svymean, na.rm = TRUE)[1][1]
 
             # Calculate the average mean across all imputations
             mean_of_means[n] <- mean(means) %>% print()
@@ -129,7 +126,7 @@ for (varname in var_code) { # nolint
         mean_of_years <- cbind(mean_of_years, mean_of_means) %>% print()
     }
     colnames(mean_of_years) <- path_year %>% as.character()
-    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, ".csv"))
+    fwrite(mean_of_years, paste0("prod/survey_methods/out/", varname, "sby.csv"))
     paste("variable", varname, "sucessfully exported.", (start_time - Sys.time()), "have passed in execution.") %>%
         print()
 }

@@ -87,7 +87,10 @@ dataset$quintile.fwealth <- dataset$quintile.fwealth %>%
     factor(levels = c(1, 2), labels = c("non-top-fwealth", "top-fwealth"))
 dataset$quintile.gincome <- dataset$quintile.gincome %>%
     factor(levels = c(1, 2), labels = c("non-top-income", "top-income"))
-
+dataset$tenure <- dataset$tenure %>%
+    factor(levels = c(1, 2, 3, 4), labels = c("owner", "mortaged", "rented", "free-use"))
+dataset$rentalinc <- dataset$rentalinc %>%
+    factor(levels = c(1, 2), labels = c("yes-rentalinc", "no-rentalinc"))
 # Real-State covariates
 dataset[, homeown := factor(homeown, levels = c(0, 1), labels = c("non-owner", "homeowner"))]
 dataset[, otherp_mul := 0][otherpB == 1, otherp_mul := 2][otherpN == 1, otherp_mul := 1][, otherp_mul := factor(otherp_mul, levels = c(0, 1, 2), labels = c("non-owner", "multiowner-nonpro", "multiowner"))]
