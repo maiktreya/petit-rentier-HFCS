@@ -51,7 +51,7 @@ if (trim_Kabsent == TRUE) {
     dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
     output_string <- paste0("prod/mixed_models/out/multiowner_noW4.csv")
 } else {
-    output_string <- paste0("prod/mixed_models/out/multiowner.csv")
+    output_string <- paste0("prod/mixed_models/out/multiownerfull.csv")
 }
 
 
@@ -64,6 +64,7 @@ for (i in 1:n_imputations) {
         reformulate(
             termlabels = c(
                 "factor(wave)",
+                "hsize", "head_gendr",
                 "tenure",
                 "class_nomanager",
                 "quintile.gincome",
