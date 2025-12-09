@@ -50,7 +50,7 @@ if (remove_covid_wave) {
   dataset <- dataset[wave != 4,] # remove wave 4 covid-19
   input_string <- paste0(input_string, "manager")
 }
-output_string <- paste0(input_string, "long_compute_deriv_yes.csv")
+output_string <- paste0(input_string, ".csv")
 
 # initiate global objects for results
 model <- dataset_s <- list()
@@ -80,11 +80,11 @@ for (i in 1:n_imputations) {
         control = glmerControl(
             optimizer = "bobyqa",
             boundary.tol = 1e-5, # 1e-5 default
-            calc.derivs = TRUE,
+            calc.derivs = FALSE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 1
+        nAGQ = 0
     )
   (Sys.time() - start_time) %>% print()
 }
