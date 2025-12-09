@@ -35,8 +35,8 @@ input_string <- paste0("prod/mixed_models/out/", proxy)
 
 # conditionals
 if (trim_Kabsent == TRUE) {
-    # Remove no kgains countries per wave using data.table::fcase
-    dataset <- dataset[
+  # Remove no kgains countries per wave using data.table::fcase
+  dataset <- dataset[
         !fcase(
             wave == 1, sa0100 %in% c("CZ", "FR", "LT", "HR", "HU", "LV", "EE", "PL", "IE"),
             wave == 2, sa0100 %in% c("CZ", "FR", "LT", "HR"),
@@ -47,10 +47,10 @@ if (trim_Kabsent == TRUE) {
     ]
 }
 if (remove_covid_wave) {
-    dataset <- dataset[wave != 4, ] # remove wave 4 covid-19
-    input_string <- paste0(input_string, "manager")
+  dataset <- dataset[wave != 4,] # remove wave 4 covid-19
+  input_string <- paste0(input_string, "manager")
 }
-output_string <- paste0(input_string, ".csv")
+output_string <- paste0(input_string, "long_compute_deriv_yes.csv")
 
 # initiate global objects for results
 model <- dataset_s <- list()
@@ -58,9 +58,9 @@ model <- dataset_s <- list()
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
 for (i in 1:n_imputations) {
-    start_time <- Sys.time()
-    dataset_s <- dataset[implicate == i]
-    model[[i]] <- glmer(
+  start_time <- Sys.time()
+  dataset_s <- dataset[implicate == i]
+  model[[i]] <- glmer(
         reformulate(
             termlabels = c(
                 "factor(wave)",
@@ -80,13 +80,13 @@ for (i in 1:n_imputations) {
         control = glmerControl(
             optimizer = "bobyqa",
             boundary.tol = 1e-5, # 1e-5 default
-            calc.derivs = FALSE,
+            calc.derivs = TRUE,
             optCtrl = list(maxfun = 2e5)
         ),
         verbose = 2,
-        nAGQ = 0
+        nAGQ = 1
     )
-    (Sys.time() - start_time) %>% print()
+  (Sys.time() - start_time) %>% print()
 }
 # Get coefficients and standard errors
 coef_estimates <- lapply(model, function(m) fixef(m))
@@ -96,11 +96,11 @@ se_estimates <- lapply(model, function(m) sqrt(diag(vcov(m))))
 mean_estimates <- Reduce("+", coef_estimates) / n_imputations
 
 # Calculate within-imputation variance (average of the variances)
-within_var <- Reduce("+", lapply(se_estimates, function(se) se^2)) / n_imputations
+within_var <- Reduce("+", lapply(se_estimates, function(se) se ^ 2)) / n_imputations
 
 # Calculate between-imputation variance
 between_var <- sapply(seq_along(coef_estimates[[1]]), function(j) {
-    var(sapply(coef_estimates, function(ce) ce[j]))
+  var(sapply(coef_estimates, function(ce) ce[j]))
 })
 
 # Total variance for each coefficient
