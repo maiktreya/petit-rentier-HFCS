@@ -29,7 +29,8 @@ for (wave in path_stringB) {
         "dn3001", "da2100", "da1120", "da1110", "da1400", "da1200", "da1000", "da2109i",
         "da1110i", "da1121i", "da1122i", "di1800"
     )
-  selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0310", "hd1300", "hd1400", "hd1500", "hd1600", "hd1900", "hb0300", "hg0300")
+  selnamesH <- c("hd0210", "hb2900", "hb2410", "hg0510", "hg0310", "hd1300", "hd1400", 
+  "hd1500", "hd1600", "hd1900", "hb0300", "hg0300", "hb2300")
   common <- c("sa0010", "sa0100", "im0100")
 
   # JOINT MATRIX PRE SUMMING IMPUTATIONS (YEAR-WAVE)
