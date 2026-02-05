@@ -16,6 +16,7 @@
 ### PREPARATION
 library(magrittr) # piping no dependencies
 library(data.table) # king of data wrangling
+library(survey)
 library(lme4) # mixed models environment
 
 # clean environment
@@ -60,6 +61,9 @@ if (trim_Kabsent == TRUE) {
 for (i in 1:n_imputations) {
   start_time <- Sys.time()
   dataset_s <- dataset[implicate == i]
+
+
+
   model[[i]] <- glmer(
         reformulate(
             termlabels = c(
