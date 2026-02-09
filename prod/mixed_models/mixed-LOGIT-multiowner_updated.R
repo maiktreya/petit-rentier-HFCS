@@ -55,18 +55,25 @@ if (trim_Kabsent == TRUE) {
   output_string <- paste0("prod/mixed_models/out/multiownerfull.csv")
 }
 
+new_quintiles<- fread("top_income_quintiles_all_implicates.csv")
+
+for (j in unique(dataset$wave)) {
+    for (n in unique(dataset$sa0100)) {
+        for(i in unique(dataset$implicate)) {
+            threshold <- new_quintiles[country == n & implicate == i & wave == j, p80]
+            if(length(threshold) > 0) {
+                dataset[sa0100 == n & implicate == i & wave == j,
+                        non_h_quintile := ifelse(non_housing_net_we > threshold, 1, 0)]
+            }
+        }
+    }
+}
 
 #### MODEL ESTIMATION
 # estimate an individual model for each implicate, merge afterwards
 for (i in 1:n_imputations) {
   start_time <- Sys.time()
   dataset_s <- dataset[implicate == i]
-  dataset_s[,non_real_wealth := 
-  as.numeric(net_we) - (
-  as.numeric(main) + 
-  as.numeric(other)-
-  as.numeric(housing_debt))]
-
 
   model[[i]] <- glmer(
         reformulate(
@@ -76,7 +83,7 @@ for (i in 1:n_imputations) {
                 "tenure",
                 "class_nomanager",
                 "quintile.gincome",
-                "quintile.gwealth * age",
+                "non_h_quintile * age",
                 "(1 | sa0100)",
                 "(1 | sa0100:wave)"
             ),
