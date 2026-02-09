@@ -15,6 +15,7 @@ countries_wave_4 <- c("ES", "LT", "IE", "PT", "DE", "SI", "IT", "CY", "HR", "AT"
 countries_wave <- list(countries_wave_1, countries_wave_2, countries_wave_3, countries_wave_4)
 
 all_results <- data.table()
+all_implicates <- data.table()
 
 for (j in unique(dataset$wave)) {
     dataset_wave <- dataset[wave == j]
@@ -32,6 +33,8 @@ for (j in unique(dataset$wave)) {
                     data = dataset_wave[sa0100 == n & implicate == i]
                 )
                 imp_values[i] <- svyquantile(~non_housing_net_we, designs, quantiles = .8, na.rm = TRUE)[[1]][1]
+                
+                all_implicates <- rbind(all_implicates, data.table(wave = j, country = n, implicate = i, p80 = imp_values[i]))
             }
             
             avg_quantile <- mean(imp_values, na.rm = TRUE)
@@ -40,4 +43,5 @@ for (j in unique(dataset$wave)) {
     }
 }
 
-fwrite(all_results, "top__nonhous_income_quintiles.csv")
+fwrite(all_results, "top_income_quintiles_averaged.csv")
+fwrite(all_implicates, "top_income_quintiles_all_implicates.csv")
