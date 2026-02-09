@@ -61,7 +61,11 @@ if (trim_Kabsent == TRUE) {
 for (i in 1:n_imputations) {
   start_time <- Sys.time()
   dataset_s <- dataset[implicate == i]
-
+  dataset_s[,non_real_wealth := 
+  as.numeric(net_we) - (
+  as.numeric(main) + 
+  as.numeric(other)-
+  as.numeric(housing_debt))]
 
 
   model[[i]] <- glmer(
