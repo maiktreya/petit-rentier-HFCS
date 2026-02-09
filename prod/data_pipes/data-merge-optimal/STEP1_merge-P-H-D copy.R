@@ -85,7 +85,11 @@ for (wave in path_stringB) {
         transf[, financ := suppressWarnings(as.numeric(financ))][, financ := ifelse(is.na(financ), 0, financ)]
         transf[, profit := suppressWarnings(as.numeric(profit))][, profit := ifelse(is.na(profit), 0, profit)]
         transf[, rental := suppressWarnings(as.numeric(rental))][, rental := ifelse(is.na(rental), 0, rental)]
-        transf[, Kgains := suppressWarnings(as.numeric(rental))][, Kgains := ifelse(is.na(Kgains), 0, Kgains)]
+        transf[, Kgains := suppressWarnings(as.numeric(Kgains))][, Kgains := ifelse(is.na(Kgains), 0, Kgains)]
+        transf[, other := suppressWarnings(as.numeric(other))][, other := ifelse(is.na(other), 0, other)]
+        transf[, main := suppressWarnings(as.numeric(main))][, main := ifelse(is.na(main), 0, main)]
+        transf[, housing_debt := suppressWarnings(as.numeric(housing_debt))][, housing_debt := ifelse(is.na(housing_debt), 0, housing_debt)]
+        transf[, net_we := suppressWarnings(as.numeric(net_we))][, net_we := ifelse(is.na(net_we), 0, net_we)]                
         transf[, rentsbi := 0][income > 0 & ((financ + rental) / income) > 0.1, rentsbi := 1]
         transf[, rentsbi_K := 0][income > 0 & ((financ + rental + pvpens + Kgains) / income) > 0.1, rentsbi_K := 1]
         transf[, rentsbi_pens := 0][income > 0 & ((financ + rental + pvpens) / income) > 0.1, rentsbi_pens := 1]
@@ -93,6 +97,7 @@ for (wave in path_stringB) {
         transf[, rents_mean := (financ + rental)]
         transf[, rents_mean_pens := (financ + rental + pvpens)]
         transf[, rents_mean_K := (financ + rental + pvpens + Kgains)]
+        transf[, non_housing_net_we := (net_we - (other + main - housing_debt))]
         imp[[m]] <- transf[, implicate := m]
     }
     imp <- rbindlist(imp)
